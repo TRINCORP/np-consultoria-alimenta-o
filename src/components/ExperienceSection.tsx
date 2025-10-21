@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import labelReview from "@/assets/label-review.jpg";
 import labelDesign from "@/assets/label-design.jpg";
 import vegetablesLabels from "@/assets/vegetables-labels.jpg";
+import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 
 const services = [
   {
@@ -49,9 +50,12 @@ const ExperienceSection = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="card-premium bg-card overflow-hidden group animate-scale-in magnetic-float"
+              className="card-premium bg-card overflow-hidden group animate-scale-in magnetic-float relative"
               style={{ animationDelay: `${index * 150}ms` }}
             >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <BrilliantReflection />
+              </div>
               <div className="aspect-[4/3] overflow-hidden relative">
                 <img 
                   src={service.image} 
@@ -60,7 +64,7 @@ const ExperienceSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-              <CardContent className="p-6 lg:p-8">
+              <CardContent className="p-6 lg:p-8 relative z-10">
                 <h3 className="text-xl lg:text-2xl font-bold mb-3 text-foreground group-hover:text-gradient transition-colors duration-300">{service.title}</h3>
                 <p className="text-sm lg:text-base text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
                 <Button variant="outline" size="default" className="btn-ghost rounded-full">

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import nutritionConsultation from "@/assets/nutrition-consultation.jpg";
 import kitchenAudit from "@/assets/kitchen-audit.jpg";
 import allergenIcons from "@/assets/allergen-icons.jpg";
+import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 
 const services = [
   {
@@ -47,9 +48,12 @@ const ServicesGrid = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="card-premium bg-background group animate-scale-in overflow-hidden magnetic-float"
+              className="card-premium bg-background group animate-scale-in overflow-hidden magnetic-float relative"
               style={{ animationDelay: `${index * 150}ms` }}
             >
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <BrilliantReflection />
+              </div>
               <div className="aspect-[4/3] rounded-t-lg overflow-hidden relative">
                 <img 
                   src={service.image} 
@@ -58,7 +62,7 @@ const ServicesGrid = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
-              <CardContent className="p-6 sm:p-8">
+              <CardContent className="p-6 sm:p-8 relative z-10">
                 <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4 text-foreground transition-colors duration-300 group-hover:text-gradient">{service.title}</h3>
                 <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed line-clamp-3">{service.description}</p>
                 <Button 

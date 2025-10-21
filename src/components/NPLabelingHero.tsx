@@ -1,4 +1,6 @@
 import nutritionHeroBg from "@/assets/nutrition-hero-bg.jpg";
+import { SmokeEffect } from "@/components/effects/SmokeEffect";
+import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 
 const NPLabelingHero = () => {
   return (
@@ -20,12 +22,16 @@ const NPLabelingHero = () => {
           className="w-full h-full object-cover opacity-60 zoom-in-image" 
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+        <SmokeEffect />
       </div>
       
       <div className="container mx-auto px-6 lg:px-16 py-20 lg:py-32 relative z-10">
         <div className="max-w-3xl">
-          <h1 className="font-playfair text-headline mb-8 animate-slide-in-left magnetic-float">
-            <span className="inline-block border-b-4 border-white pb-2 silver-shine-text drop-shadow-glow">Rotulagem Precisa</span>: A <span className="text-gradient italic">Base</span> do Seu Negócio
+          <h1 className="font-playfair text-headline mb-8 animate-slide-in-left magnetic-float relative">
+            <span className="inline-block border-b-4 border-white pb-2 silver-shine-text drop-shadow-glow relative">
+              Rotulagem Precisa
+              <BrilliantReflection />
+            </span>: A <span className="text-gradient italic">Base</span> do Seu Negócio
           </h1>
           
           <p className="text-body-large mb-12 max-w-2xl animate-slide-in-left animation-delay-200">

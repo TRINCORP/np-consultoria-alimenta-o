@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Building2, Users, CheckCircle, ThumbsUp } from "lucide-react";
 import logoNP from "@/assets/logoNP.png";
+import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 
 const Hero = () => {
   const metrics = [
@@ -27,6 +28,7 @@ const Hero = () => {
               <span className="inline-block border-b-2 sm:border-b-4 border-white pb-1 sm:pb-2 relative silver-shine-text">
                 <span className="relative z-10 drop-shadow-glow">NP</span>
                 <span className="absolute inset-0 bg-white/20 blur-xl energy-pulse" />
+                <BrilliantReflection />
               </span>
             </h1>
             
@@ -54,8 +56,9 @@ const Hero = () => {
 
           {/* Right content - Logo card */}
           <div className="animate-slide-in-right lg:flex justify-center lg:justify-end">
-            <Card className="card-premium bg-white/95 backdrop-blur-sm p-6 sm:p-8 max-w-md w-full magnetic-float">
-              <div className="flex flex-col items-center text-center">
+            <Card className="card-premium bg-white/95 backdrop-blur-sm p-6 sm:p-8 max-w-md w-full magnetic-float relative overflow-hidden">
+              <BrilliantReflection className="opacity-50" />
+              <div className="flex flex-col items-center text-center relative z-10">
                 <img 
                   src={logoNP} 
                   alt="NP Consultoria Alimentos" 
@@ -79,10 +82,13 @@ const Hero = () => {
           {metrics.map((metric, index) => (
             <Card 
               key={index}
-              className="card-premium bg-white/95 backdrop-blur-sm p-4 sm:p-6 group animate-scale-in"
+              className="card-premium bg-white/95 backdrop-blur-sm p-4 sm:p-6 group animate-scale-in relative overflow-hidden"
               style={{ animationDelay: `${500 + index * 100}ms` }}
             >
-              <div className="flex flex-col items-center text-center">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <BrilliantReflection />
+              </div>
+              <div className="flex flex-col items-center text-center relative z-10">
                 <div className="bg-gradient-to-br from-[#d6b9b2] to-[#b7a6a1] p-2 sm:p-3 md:p-4 rounded-full mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md glow-border energy-pulse">
                   <metric.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>

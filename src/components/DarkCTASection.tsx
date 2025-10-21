@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import nutritionFactsDark from "@/assets/nutrition-facts-dark.jpg";
+import { SmokeEffect } from "@/components/effects/SmokeEffect";
 
 const DarkCTASection = () => {
   return (
@@ -12,6 +13,7 @@ const DarkCTASection = () => {
         />
         <div className="absolute inset-0 bg-foreground/80" />
         <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+        <SmokeEffect />
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
