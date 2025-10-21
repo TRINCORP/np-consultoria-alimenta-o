@@ -68,13 +68,16 @@ const ClientsSection: React.FC = () => {
 
   return (
     <section id="clients" className="section-padding bg-gradient-subtle relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-      <div className="container-custom relative">
+      <div className="absolute inset-0 bg-gradient-mesh opacity-5" />
+      <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float animation-delay-1000" />
+      
+      <div className="container-custom relative z-10">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 animate-fade-in">
-            Nossos Clientes
+          <h2 className="text-headline text-foreground mb-4 animate-fade-in magnetic-float">
+            Nossos <span className="text-gradient silver-shine-text drop-shadow-glow">Clientes</span>
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground mx-auto max-w-3xl animate-fade-in px-4" style={{ animationDelay: "0.2s" }}>
+          <p className="text-body text-muted-foreground mx-auto max-w-3xl animate-fade-in px-4 animation-delay-200">
             Empresas e instituições que confiam em nosso trabalho para melhorar a saúde e o bem-estar de seus colaboradores e clientes.
           </p>
         </div>
@@ -103,11 +106,11 @@ const ClientsSection: React.FC = () => {
                   key={client.id}
                   className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
                 >
-                  <Card className={`card-elegant h-full border-none overflow-hidden bg-white/80 backdrop-blur-sm transition
-                    ${isActive ? "ring-2 ring-primary/40 shadow-lg" : "hover:shadow-md"}`}>
+                  <Card className={`card-premium h-full border-none overflow-hidden bg-white/80 backdrop-blur-sm transition-all duration-500
+                    ${isActive ? "ring-2 ring-primary/40 shadow-lg glow-border scale-105" : "hover:shadow-md"}`}>
                     <CardContent className="p-6 h-full flex flex-col items-center text-center gap-4">
                       <div className={`w-32 h-32 md:w-36 md:h-36 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-sm
-                        transition-transform duration-500 ${isActive ? "scale-105" : ""}`}>
+                        transition-transform duration-500 ${isActive ? "scale-105 energy-pulse" : ""}`}>
                         <img
                           src={client.image}
                           alt={client.name}

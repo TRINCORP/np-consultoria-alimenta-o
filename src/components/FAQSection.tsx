@@ -49,23 +49,24 @@ const FAQSection = () => {
 
   return (
     <section ref={ref} className="py-20 bg-gradient-to-br from-muted via-background to-muted relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+      {/* Decorative elements with premium animations */}
+      <div className="absolute inset-0 bg-gradient-mesh opacity-10" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-float" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-float animation-delay-1000" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 
-              className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 transition-all duration-700 ${
+              className={`text-headline text-foreground mb-4 transition-all duration-700 magnetic-float ${
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
               <span className="inline-block">Perguntas</span>{" "}
-              <span className="text-shimmer inline-block">Frequentes</span>
+              <span className="text-gradient silver-shine-text drop-shadow-glow inline-block">Frequentes</span>
             </h2>
             <p 
-              className={`text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-200 ${
+              className={`text-body text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-200 ${
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
@@ -81,9 +82,9 @@ const FAQSection = () => {
                 <AccordionItem 
                   key={index} 
                   value={`item-${index}`}
-                  className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl px-4 sm:px-6 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:border-primary/30"
+                  className="card-premium bg-card/80 backdrop-blur-sm border border-border/50 interactive-element"
                 >
-                  <AccordionTrigger className="text-left text-sm sm:text-base lg:text-lg font-semibold text-foreground hover:text-primary transition-colors py-4 sm:py-5 hover:no-underline">
+                  <AccordionTrigger className="text-left text-sm sm:text-base lg:text-lg font-semibold text-foreground hover:text-primary transition-colors py-4 sm:py-5 hover:no-underline text-glow">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed pb-4 sm:pb-5 pt-2">
@@ -100,7 +101,7 @@ const FAQSection = () => {
             <p className="text-muted-foreground mb-4 text-sm sm:text-base">
               Não encontrou a resposta que procurava?
             </p>
-            <button className="bg-primary text-primary-foreground px-6 sm:px-8 py-3 rounded-full font-semibold hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
+            <button className="btn-hero energy-pulse">
               Entre em Contacto
             </button>
           </div>

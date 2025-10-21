@@ -23,13 +23,18 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="bg-background py-12 sm:py-16 md:py-20 overflow-hidden">
-      <div className="container-custom">
+    <section className="bg-background py-12 sm:py-16 md:py-20 overflow-hidden relative">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 bg-gradient-mesh opacity-5" />
+      <div className="absolute top-20 right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-20 left-20 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float animation-delay-1000" />
+      
+      <div className="container-custom relative z-10">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Casos de <span className="gradient-animated bg-clip-text text-transparent">Sucesso</span>
+          <h2 className="text-headline text-foreground mb-4 magnetic-float">
+            Casos de <span className="text-gradient silver-shine-text drop-shadow-glow">Sucesso</span>
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-4xl mx-auto px-4">
+          <p className="text-body text-muted-foreground max-w-4xl mx-auto px-4">
             Descubra como os nossos clientes beneficiaram dos nossos serviços especializados de consultoria nutricional e rotulagem de alimentos.
           </p>
         </div>
@@ -38,7 +43,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <Card 
               key={index} 
-              className="card-3d border-2 border-border shadow-lg bg-background group animate-fade-in"
+              className="card-premium border-2 border-border/50 bg-background group animate-fade-in"
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <CardContent className="p-6 sm:p-8">
@@ -46,7 +51,7 @@ const TestimonialsSection = () => {
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <svg 
                       key={i} 
-                      className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-primary transition-transform duration-300 hover:scale-125" 
+                      className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-primary energy-pulse hover:scale-125 transition-transform duration-300" 
                       viewBox="0 0 20 20"
                       style={{ animationDelay: `${i * 50}ms` }}
                     >
@@ -60,9 +65,9 @@ const TestimonialsSection = () => {
                 </p>
                 
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 glow-border energy-pulse" />
                   <div>
-                    <h4 className="font-bold text-foreground text-sm sm:text-base">{testimonial.name}</h4>
+                    <h4 className="font-bold text-foreground text-sm sm:text-base text-glow">{testimonial.name}</h4>
                     <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{testimonial.role}</p>
                   </div>
                 </div>
