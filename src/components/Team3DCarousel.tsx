@@ -9,7 +9,28 @@ interface Team3DCarouselProps {
 const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mq.matches);
+    try {
+      mq.addEventListener('change', onChange);
+    } catch {
+      // Safari fallback
+      // @ts-ignore
+      mq.addListener(onChange);
+    }
+    return () => {
+      try {
+        mq.removeEventListener('change', onChange);
+      } catch {
+        // @ts-ignore
+        mq.removeListener(onChange);
+      }
+    };
+  }, []);
   const updateCarousel = (newIndex: number) => {
     if (isAnimating) return;
     setIsAnimating(true);
