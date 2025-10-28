@@ -78,9 +78,15 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
   }, [currentIndex]);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f5] relative overflow-hidden">
+    <section className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f5] relative overflow-hidden py-20">
       {/* Background Title */}
-      <h1 className="absolute top-[45px] left-1/2 transform -translate-x-1/2 text-[4.5rem] md:text-[7.5rem] font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none font-[Arial_Black,Arial_Bold,Arial,sans-serif] bg-gradient-to-b from-[rgba(8,42,123,0.35)] via-[rgba(8,42,123,0.25)] to-transparent bg-clip-text text-transparent">
+      <h1 className="absolute top-[45px] left-1/2 transform -translate-x-1/2 text-[4.5rem] md:text-[7.5rem] font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none font-[Arial_Black,Arial_Bold,Arial,sans-serif]"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(195, 156, 144, 0.35) 30%, rgba(255, 255, 255, 0) 76%)',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          color: 'transparent'
+        }}>
         NOSSA EQUIPE
       </h1>
 
@@ -89,8 +95,12 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
         {/* Navigation Arrows */}
         <button
           onClick={() => updateCarousel(currentIndex - 1)}
-          className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-[rgba(8,42,123,0.6)] hover:bg-[rgba(0,0,0,0.8)] text-white rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1"
-          style={{ paddingRight: "3px" }}
+          className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1 border-none outline-none"
+          style={{ 
+            background: 'rgba(195, 156, 144, 0.6)',
+            color: 'white',
+            paddingRight: '3px'
+          }}
           aria-label="Membro anterior"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -98,8 +108,12 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
         
         <button
           onClick={() => updateCarousel(currentIndex + 1)}
-          className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-[rgba(8,42,123,0.6)] hover:bg-[rgba(0,0,0,0.8)] text-white rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1"
-          style={{ paddingLeft: "3px" }}
+          className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1 border-none outline-none"
+          style={{ 
+            background: 'rgba(195, 156, 144, 0.6)',
+            color: 'white',
+            paddingLeft: '3px'
+          }}
           aria-label="Próximo membro"
         >
           <ChevronRight className="w-6 h-6" />
@@ -157,8 +171,11 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
               <div
                 key={member.id}
                 onClick={() => updateCarousel(index)}
-                className={`absolute w-[280px] h-[380px] bg-white rounded-[20px] shadow-[0_20px_40px_rgba(0,0,0,0.15)] cursor-pointer transition-all duration-[800ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${transformClasses} ${opacityClasses} ${zIndexClasses} ${position === "hidden" ? "pointer-events-none" : ""}`}
-                style={{ overflow: "hidden" }}
+                className={`absolute w-[280px] h-[380px] bg-white rounded-[20px] cursor-pointer transition-all duration-[800ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${transformClasses} ${opacityClasses} ${zIndexClasses} ${position === "hidden" ? "pointer-events-none" : ""}`}
+                style={{ 
+                  overflow: "hidden",
+                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)'
+                }}
               >
                 <img
                   src={member.image}
@@ -174,10 +191,13 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
 
       {/* Member Info */}
       <div className="text-center mt-10 transition-all duration-500 ease-out px-4">
-        <h2 className="text-[rgb(8,42,123)] text-[2.5rem] font-bold mb-[10px] relative inline-block">
+        <h2 className="text-[2.5rem] font-bold mb-[10px] relative inline-block"
+          style={{ color: 'rgb(195, 156, 144)' }}>
           {members[currentIndex].name}
-          <span className="absolute left-[-120px] top-full w-[100px] h-[2px] bg-[rgb(8,42,123)]"></span>
-          <span className="absolute right-[-120px] top-full w-[100px] h-[2px] bg-[rgb(8,42,123)]"></span>
+          <span className="absolute left-[-120px] top-full w-[100px] h-[2px]" 
+            style={{ background: 'rgb(195, 156, 144)' }}></span>
+          <span className="absolute right-[-120px] top-full w-[100px] h-[2px]"
+            style={{ background: 'rgb(195, 156, 144)' }}></span>
         </h2>
         <p className="text-[#848696] text-[1.5rem] font-medium uppercase tracking-[0.1em] opacity-80 py-[10px] -mt-[15px]">
           {members[currentIndex].role}
@@ -192,9 +212,14 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
             onClick={() => updateCarousel(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
               index === currentIndex
-                ? "bg-[rgb(8,42,123)] scale-[1.2]"
-                : "bg-[rgba(8,42,123,0.2)] hover:bg-[rgba(8,42,123,0.3)]"
+                ? "scale-[1.2]"
+                : "hover:bg-opacity-30"
             }`}
+            style={{
+              background: index === currentIndex 
+                ? 'rgb(195, 156, 144)' 
+                : 'rgba(195, 156, 144, 0.2)'
+            }}
             aria-label={`Ir para membro ${index + 1}`}
           />
         ))}
