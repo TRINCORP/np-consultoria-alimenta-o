@@ -7,8 +7,8 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50 shadow-sm backdrop-blur-xl">
       <div className="container-custom py-2 sm:py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-          <img src={logoNP} alt="NP Consultoria" className="h-10 sm:h-12 w-auto transition-transform duration-300 group-hover:scale-110 energy-pulse" />
-          <span className="font-playfair text-lg sm:text-xl lg:text-2xl font-bold text-gradient silver-shine-text hidden sm:inline-block">
+          <img src={logoNP} alt="NP Consultoria" className="h-10 sm:h-12 w-auto transition-transform duration-300 group-hover:scale-110" />
+          <span className="font-playfair text-lg sm:text-xl lg:text-2xl font-bold text-foreground hidden sm:inline-block">
             NP Consultoria
           </span>
         </Link>

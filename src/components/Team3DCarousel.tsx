@@ -78,23 +78,18 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
   }, [currentIndex]);
 
   return (
-    <section className="py-16 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
-      <div className="absolute top-10 right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float animation-delay-1000" />
-      
+    <section className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f5] relative overflow-hidden">
       {/* Background Title */}
-      <h1 className="absolute top-12 left-1/2 transform -translate-x-1/2 text-[4.5rem] md:text-[7.5rem] font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none bg-gradient-to-b from-primary/35 to-transparent bg-clip-text text-transparent magnetic-float">
+      <h1 className="absolute top-[45px] left-1/2 transform -translate-x-1/2 text-[4.5rem] md:text-[7.5rem] font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none font-[Arial_Black,Arial_Bold,Arial,sans-serif] bg-gradient-to-b from-[rgba(8,42,123,0.35)] via-[rgba(8,42,123,0.25)] to-transparent bg-clip-text text-transparent">
         NOSSA EQUIPE
       </h1>
 
       {/* Carousel Container */}
-      <div className="w-full max-w-6xl mx-auto h-[380px] relative mt-16" style={{ perspective: "1000px" }}>
+      <div className="w-full max-w-[1200px] h-[450px] relative mt-20" style={{ perspective: "1000px" }}>
         {/* Navigation Arrows */}
         <button
           onClick={() => updateCarousel(currentIndex - 1)}
-          className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary/60 hover:bg-primary/80 text-primary-foreground rounded-full flex items-center justify-center z-20 energy-pulse hover:scale-110 shadow-md glow-border"
+          className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-[rgba(8,42,123,0.6)] hover:bg-[rgba(0,0,0,0.8)] text-white rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1"
           style={{ paddingRight: "3px" }}
           aria-label="Membro anterior"
         >
@@ -103,15 +98,15 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
         
         <button
           onClick={() => updateCarousel(currentIndex + 1)}
-          className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary/60 hover:bg-primary/80 text-primary-foreground rounded-full flex items-center justify-center z-20 energy-pulse hover:scale-110 shadow-md glow-border"
+          className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-[rgba(8,42,123,0.6)] hover:bg-[rgba(0,0,0,0.8)] text-white rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1"
           style={{ paddingLeft: "3px" }}
           aria-label="Próximo membro"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
 
-        {/* Cards Container */}
-        <div className="w-full h-full flex justify-center items-center relative">
+        {/* Cards Track */}
+        <div className="w-full h-full flex justify-center items-center relative" style={{ transformStyle: "preserve-3d" }}>
           {members.map((member, index) => {
             const position = getCardPosition(index);
             
@@ -122,37 +117,37 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
 
             switch (position) {
               case "center":
-                transformClasses = "scale-110";
+                transformClasses = "translate-x-0 scale-110 translate-z-0";
                 opacityClasses = "opacity-100";
                 zIndexClasses = "z-[10]";
                 filterClasses = "";
                 break;
               case "left-1":
-                transformClasses = "-translate-x-48 md:-translate-x-52 scale-90";
+                transformClasses = "-translate-x-[200px] scale-90";
                 opacityClasses = "opacity-90";
                 zIndexClasses = "z-[5]";
                 filterClasses = "grayscale";
                 break;
               case "left-2":
-                transformClasses = "-translate-x-80 md:-translate-x-96 scale-80";
+                transformClasses = "-translate-x-[400px] scale-[0.8]";
                 opacityClasses = "opacity-70";
                 zIndexClasses = "z-[1]";
                 filterClasses = "grayscale";
                 break;
               case "right-1":
-                transformClasses = "translate-x-48 md:translate-x-52 scale-90";
+                transformClasses = "translate-x-[200px] scale-90";
                 opacityClasses = "opacity-90";
                 zIndexClasses = "z-[5]";
                 filterClasses = "grayscale";
                 break;
               case "right-2":
-                transformClasses = "translate-x-80 md:translate-x-96 scale-80";
+                transformClasses = "translate-x-[400px] scale-[0.8]";
                 opacityClasses = "opacity-70";
                 zIndexClasses = "z-[1]";
                 filterClasses = "grayscale";
                 break;
               default:
-                transformClasses = "scale-0";
+                transformClasses = "";
                 opacityClasses = "opacity-0";
                 zIndexClasses = "z-0";
                 filterClasses = "";
@@ -162,13 +157,13 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
               <div
                 key={member.id}
                 onClick={() => updateCarousel(index)}
-                className={`absolute w-52 md:w-60 h-64 md:h-80 bg-card rounded-3xl shadow-2xl cursor-pointer transition-all duration-700 ease-out will-change-transform card-premium ${transformClasses} ${opacityClasses} ${zIndexClasses} ${position === "hidden" ? "pointer-events-none" : ""}`}
+                className={`absolute w-[280px] h-[380px] bg-white rounded-[20px] shadow-[0_20px_40px_rgba(0,0,0,0.15)] cursor-pointer transition-all duration-[800ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${transformClasses} ${opacityClasses} ${zIndexClasses} ${position === "hidden" ? "pointer-events-none" : ""}`}
                 style={{ overflow: "hidden" }}
               >
                 <img
                   src={member.image}
                   alt={member.name}
-                  className={`w-full h-full object-cover object-top transition-all duration-700 ease-out ${filterClasses}`}
+                  className={`w-full h-full object-cover transition-all duration-[800ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${filterClasses}`}
                   loading="lazy"
                 />
               </div>
@@ -178,27 +173,27 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
       </div>
 
       {/* Member Info */}
-      <div className="text-center mt-8 transition-all duration-500 ease-out px-4">
-        <h2 className="text-primary text-3xl md:text-4xl font-bold mb-3 relative inline-block text-glow">
+      <div className="text-center mt-10 transition-all duration-500 ease-out px-4">
+        <h2 className="text-[rgb(8,42,123)] text-[2.5rem] font-bold mb-[10px] relative inline-block">
           {members[currentIndex].name}
-          <span className="absolute -left-24 md:-left-28 top-1/2 w-16 md:w-24 h-0.5 bg-primary glow-border"></span>
-          <span className="absolute -right-24 md:-right-28 top-1/2 w-16 md:w-24 h-0.5 bg-primary glow-border"></span>
+          <span className="absolute left-[-120px] top-full w-[100px] h-[2px] bg-[rgb(8,42,123)]"></span>
+          <span className="absolute right-[-120px] top-full w-[100px] h-[2px] bg-[rgb(8,42,123)]"></span>
         </h2>
-        <p className="text-muted-foreground text-lg md:text-xl font-medium uppercase tracking-wider opacity-80 -mt-4 text-gradient-subtle">
+        <p className="text-[#848696] text-[1.5rem] font-medium uppercase tracking-[0.1em] opacity-80 py-[10px] -mt-[15px]">
           {members[currentIndex].role}
         </p>
       </div>
 
       {/* Dots Navigation */}
-      <div className="flex justify-center gap-3 mt-12">
+      <div className="flex justify-center gap-[10px] mt-[60px]">
         {members.map((_, index) => (
           <button
             key={index}
             onClick={() => updateCarousel(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
               index === currentIndex
-                ? "bg-primary scale-125 glow-border"
-                : "bg-primary/20 hover:bg-primary/40"
+                ? "bg-[rgb(8,42,123)] scale-[1.2]"
+                : "bg-[rgba(8,42,123,0.2)] hover:bg-[rgba(8,42,123,0.3)]"
             }`}
             aria-label={`Ir para membro ${index + 1}`}
           />
