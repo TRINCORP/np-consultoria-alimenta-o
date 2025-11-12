@@ -1,44 +1,12 @@
-import React, { useEffect, useState } from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselApi
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
-import Autoplay from "embla-carousel-autoplay";
-
-const clientStyles: Record<string, string> = {
-  "Driblix pizzaria": "object-contain bg-white p-4",
-  "Padaria gianini": "object-contain bg-white p-4",
-  "Benedito": "object-contain bg-white p-3",
-  "A boutique das flores": "object-contain bg-white p-3",
-  "Caviúnas": "object-contain bg-white p-4",
-  "Della Torre restaurante": "object-contain bg-black p-4",
-  "Pereira pastelaria": "object-contain bg-white p-3",
-  "Santa Ana cafeteria": "object-contain bg-white p-3",
-  "Summer": "object-contain bg-white p-3",
-  "Azeite": "object-contain bg-white p-4",
-  "Bandeira": "object-contain bg-white p-4",
-  "Fabi": "object-contain bg-white p-4",
-  "Florência Gourmet": "object-contain bg-white p-4",
-  "Gerbelli": "object-contain bg-white p-4",
-  "Jesuita": "object-contain bg-white p-4",
-  "Maria Ana": "object-contain bg-white p-4",
-  "Na Rua": "object-contain bg-white p-4",
-};
+import React from "react";
 
 type Client = {
   id: number;
   name: string;
   image: string;
-  description?: string;
 };
 
 const ClientsSection: React.FC = () => {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-
   const clients: Client[] = [
     { id: 1,  name: "Driblix pizzaria",        image: "/fotos_clientes/driblix.png",      },
     { id: 2,  name: "Padaria gianini",         image: "/fotos_clientes/gianini.png",      },
@@ -57,84 +25,68 @@ const ClientsSection: React.FC = () => {
     { id: 15, name: "Jesuita",                 image: "/fotos_clientes/jesuita.png",       },
     { id: 16, name: "Maria Ana",               image: "/fotos_clientes/mariaana.png",      },
     { id: 17, name: "Na Rua",                  image: "/fotos_clientes/narua.png",         },
-  ].map(c => ({ ...c, name: c.name.trim() }));
-
-  useEffect(() => {
-    if (!api) return;
-    const onSelect = () => setCurrent(api.selectedScrollSnap());
-    onSelect();
-    api.on("select", onSelect);
-  }, [api]);
+  ];
 
   return (
-    <section id="clients" className="section-padding bg-gradient-subtle relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-mesh opacity-5" />
+    <section id="clients" className="py-16 md:py-24 bg-gradient-to-b from-background via-secondary/20 to-background relative overflow-hidden">
+      {/* Background Effects */}
       <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float animation-delay-1000" />
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
       
-      <div className="container-custom relative z-10">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-headline text-foreground mb-4 animate-fade-in magnetic-float">
-            Nossos <span className="text-gradient silver-shine-text drop-shadow-glow">Clientes</span>
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Title Section */}
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 animate-fade-in">
+            Nossos <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">Clientes</span>
           </h2>
-          <p className="text-body text-muted-foreground mx-auto max-w-3xl animate-fade-in px-4 animation-delay-200">
-            Empresas e instituições que confiam em nosso trabalho para melhorar a saúde e o bem-estar de seus colaboradores e clientes.
+          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            Empresas e instituições que confiam em nosso trabalho
           </p>
         </div>
 
-        <Carousel
-          className="w-full max-w-7xl mx-auto"
-          setApi={setApi}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-              stopOnInteraction: false,
-              stopOnMouseEnter: false,
-            }) as any,
-          ]}
-          opts={{
-            align: "start",
-            loop: true,
-            dragFree: true,
-          }}
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {clients.map((client, index) => {
-              const isActive = index === current;
-              return (
-                <CarouselItem
-                  key={client.id}
-                  className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
+        {/* Infinite Scroll Container */}
+        <div className="relative">
+          <div className="overflow-hidden py-8 md:py-12">
+            <div className="flex animate-infinite-scroll hover:pause-animation">
+              {/* First Set of Logos */}
+              {clients.map((client) => (
+                <div
+                  key={`first-${client.id}`}
+                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12"
                 >
-                  <Card className={`card-premium h-full border-none overflow-hidden bg-white/80 backdrop-blur-sm transition-all duration-500
-                    ${isActive ? "ring-2 ring-primary/40 shadow-lg glow-border scale-105" : "hover:shadow-md"}`}>
-                    <CardContent className="p-6 h-full flex flex-col items-center text-center gap-4">
-                      <div className={`w-32 h-32 md:w-36 md:h-36 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-sm
-                        transition-transform duration-500 ${isActive ? "scale-105 energy-pulse" : ""}`}>
-                        <img
-                          src={client.image}
-                          alt={client.name}
-                          loading="lazy"
-                          className={`${clientStyles[client.name] || "object-contain w-full h-full p-4"} transition-all duration-500
-                            ${isActive ? "" : "filter grayscale hover:grayscale-0 opacity-80"}`}
-                        />
-                      </div>
-
-                      <div>
-                        <h3 className="text-sm md:text-base font-semibold text-foreground leading-tight">{client.name}</h3>
-                        {client.description && (
-                          <p className="text-xs md:text-sm text-muted-foreground mt-1 line-clamp-2">
-                            {client.description}
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-        </Carousel>
+                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 hover:scale-110">
+                    <img
+                      src={client.image}
+                      alt={client.name}
+                      loading="lazy"
+                      className="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 filter grayscale hover:grayscale-0"
+                    />
+                  </div>
+                </div>
+              ))}
+              {/* Duplicate Set for Seamless Loop */}
+              {clients.map((client) => (
+                <div
+                  key={`second-${client.id}`}
+                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12"
+                >
+                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 hover:scale-110">
+                    <img
+                      src={client.image}
+                      alt={client.name}
+                      loading="lazy"
+                      className="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 filter grayscale hover:grayscale-0"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Gradient Overlays */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
+        </div>
       </div>
     </section>
   );
