@@ -52,14 +52,14 @@ const ClientsSection: React.FC = () => {
               {clients.map((client) => (
                 <div
                   key={`first-${client.id}`}
-                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12"
+                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12 group"
                 >
-                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 hover:scale-110">
+                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
                     <img
                       src={client.image}
                       alt={client.name}
                       loading="lazy"
-                      className="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 filter grayscale hover:grayscale-0"
+                      className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
                     />
                   </div>
                 </div>
@@ -68,14 +68,14 @@ const ClientsSection: React.FC = () => {
               {clients.map((client) => (
                 <div
                   key={`second-${client.id}`}
-                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12"
+                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12 group"
                 >
-                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 hover:scale-110">
+                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
                     <img
                       src={client.image}
                       alt={client.name}
                       loading="lazy"
-                      className="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 filter grayscale hover:grayscale-0"
+                      className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
                     />
                   </div>
                 </div>
