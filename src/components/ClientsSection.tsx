@@ -1,4 +1,11 @@
 import React from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { Card, CardContent } from "@/components/ui/card";
 
 type Client = {
   id: number;
@@ -27,6 +34,10 @@ const ClientsSection: React.FC = () => {
     { id: 17, name: "Na Rua",                  image: "/fotos_clientes/narua.png",         },
   ];
 
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
+
   return (
     <section id="clients" className="py-16 md:py-24 bg-gradient-to-b from-background via-secondary/20 to-background relative overflow-hidden">
       {/* Background Effects */}
@@ -44,49 +55,42 @@ const ClientsSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Infinite Scroll Container */}
-        <div className="relative">
-          <div className="overflow-hidden py-8 md:py-12">
-            <div className="flex animate-infinite-scroll hover:pause-animation">
-              {/* First Set of Logos */}
-              {clients.map((client) => (
-                <div
-                  key={`first-${client.id}`}
-                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12 group"
-                >
-                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+        {/* Premium Carousel */}
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+            dragFree: true,
+          }}
+          plugins={[autoplayPlugin.current]}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-4 md:-ml-6">
+            {clients.map((client) => (
+              <CarouselItem 
+                key={client.id} 
+                className="pl-4 md:pl-6 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+              >
+                <Card className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/50 via-card/30 to-transparent backdrop-blur-sm hover:from-card/70 hover:via-card/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                  <CardContent className="flex aspect-square items-center justify-center p-6 relative">
+                    {/* Glow effect on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-accent/0 to-primary/0 group-hover:from-primary/10 group-hover:via-accent/10 group-hover:to-primary/10 transition-all duration-500 rounded-lg" />
+                    
+                    {/* Border gradient */}
+                    <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 blur-xl" />
+                    
                     <img
                       src={client.image}
                       alt={client.name}
                       loading="lazy"
-                      className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
+                      className="relative z-10 w-full h-full object-contain filter grayscale-[70%] group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all duration-500 drop-shadow-lg group-hover:drop-shadow-2xl"
                     />
-                  </div>
-                </div>
-              ))}
-              {/* Duplicate Set for Seamless Loop */}
-              {clients.map((client) => (
-                <div
-                  key={`second-${client.id}`}
-                  className="flex-shrink-0 mx-6 md:mx-8 lg:mx-12 group"
-                >
-                  <div className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
-                    <img
-                      src={client.image}
-                      alt={client.name}
-                      loading="lazy"
-                      className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-all duration-300 filter grayscale group-hover:grayscale-0"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
-        </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );
