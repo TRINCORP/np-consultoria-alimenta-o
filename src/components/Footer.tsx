@@ -22,13 +22,13 @@ const Footer = () => {
           </nav>
           
           <div className="flex items-center gap-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110 energy-pulse">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110">
               <Facebook className="w-5 h-5" />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110 energy-pulse">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110">
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110 energy-pulse">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110">
               <Linkedin className="w-5 h-5" />
             </a>
           </div>

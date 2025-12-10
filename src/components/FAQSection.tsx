@@ -101,7 +101,7 @@ const FAQSection = () => {
             <p className="text-muted-foreground mb-4 text-sm sm:text-base">
               Não encontrou a resposta que procurava?
             </p>
-            <button className="btn-hero energy-pulse">
+            <button className="btn-hero">
               Entre em Contacto
             </button>
           </div>

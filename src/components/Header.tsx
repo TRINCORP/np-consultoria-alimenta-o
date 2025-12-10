@@ -32,7 +32,7 @@ const Header = () => {
           <Button variant="outline" size="sm" className="btn-ghost text-xs sm:text-sm px-4 py-2 hidden sm:flex interactive-element">
             Contacte-nos
           </Button>
-          <Button variant="default" size="sm" className="btn-hero text-xs sm:text-sm px-4 py-2 energy-pulse">
+          <Button variant="default" size="sm" className="btn-hero text-xs sm:text-sm px-4 py-2">
             Serviços
           </Button>
         </div>

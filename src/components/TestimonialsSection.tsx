@@ -51,9 +51,8 @@ const TestimonialsSection = () => {
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <svg 
                       key={i} 
-                      className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-primary energy-pulse hover:scale-125 transition-transform duration-300" 
+                      className="w-4 h-4 sm:w-5 sm:h-5 fill-current text-primary hover:scale-125 transition-transform duration-300" 
                       viewBox="0 0 20 20"
-                      style={{ animationDelay: `${i * 50}ms` }}
                     >
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                     </svg>
@@ -65,7 +64,7 @@ const TestimonialsSection = () => {
                 </p>
                 
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 glow-border energy-pulse" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
                   <div>
                     <h4 className="font-bold text-foreground text-sm sm:text-base text-glow">{testimonial.name}</h4>
                     <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{testimonial.role}</p>

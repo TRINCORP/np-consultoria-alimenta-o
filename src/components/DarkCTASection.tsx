@@ -30,7 +30,7 @@ const DarkCTASection = () => {
             <Button 
               variant="default" 
               size="lg" 
-              className="btn-hero energy-pulse"
+              className="btn-hero"
             >
               Saiba Mais
             </Button>
