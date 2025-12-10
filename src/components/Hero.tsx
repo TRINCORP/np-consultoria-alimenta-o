@@ -25,9 +25,9 @@ const Hero = () => {
           <div className="animate-slide-in-left">
             <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               Transforme a qualidade alimentar em resultados com a{" "}
-              <span className="inline-block border-b-2 sm:border-b-4 border-white pb-1 sm:pb-2 relative silver-shine-text">
-                <span className="relative z-10 drop-shadow-glow">NP</span>
-                <span className="absolute inset-0 bg-white/20 blur-xl energy-pulse" />
+              <span className="inline-flex items-baseline border-b-2 sm:border-b-4 border-white pb-1 sm:pb-2 relative silver-shine-text">
+                <span className="relative z-10 drop-shadow-glow whitespace-nowrap">NP</span>
+                <span className="absolute inset-0 bg-white/20 blur-xl opacity-60" />
                 <BrilliantReflection />
               </span>
             </h1>
@@ -89,7 +89,7 @@ const Hero = () => {
                 <BrilliantReflection />
               </div>
               <div className="flex flex-col items-center text-center relative z-10">
-                <div className="bg-gradient-to-br from-[#d6b9b2] to-[#b7a6a1] p-2 sm:p-3 md:p-4 rounded-full mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md glow-border energy-pulse">
+                <div className="bg-gradient-to-br from-[#d6b9b2] to-[#b7a6a1] p-2 sm:p-3 md:p-4 rounded-full mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md glow-border">
                   <metric.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <p className="font-playfair text-2xl sm:text-3xl md:text-4xl font-bold text-gradient mb-1 sm:mb-2">

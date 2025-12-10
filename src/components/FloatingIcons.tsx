@@ -26,8 +26,7 @@ const FloatingIcons = () => {
           }}
         >
           <Icon 
-            className="w-8 h-8 md:w-12 md:h-12 text-primary energy-pulse drop-shadow-glow" 
-            style={{ animationDelay: `${delay + 0.5}s` }}
+            className="w-8 h-8 md:w-12 md:h-12 text-primary/60 drop-shadow-sm" 
           />
         </div>
       ))}
