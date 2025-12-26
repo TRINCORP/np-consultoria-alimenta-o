@@ -70,12 +70,17 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
     return cards;
   };
 
-  const getCardStyles = (position: number) => {
+  const getCardStyles = (position: number, isMobile: boolean) => {
     const baseTransition = {
       type: "spring",
       stiffness: 300,
       damping: 30,
     };
+
+    // Responsive offsets
+    const offsets = isMobile 
+      ? { side1: 140, side2: 240 }
+      : { side1: 180, side2: 320 };
 
     switch (position) {
       case 0: // Center
@@ -90,76 +95,94 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
         };
       case -1: // Left 1
         return {
-          x: -220,
-          scale: 0.85,
+          x: -offsets.side1,
+          scale: 0.8,
           zIndex: 40,
-          opacity: 0.9,
-          rotateY: 15,
-          filter: "grayscale(60%) brightness(0.9)",
+          opacity: 0.85,
+          rotateY: 12,
+          filter: "grayscale(50%) brightness(0.9)",
           transition: baseTransition,
         };
       case 1: // Right 1
         return {
-          x: 220,
-          scale: 0.85,
+          x: offsets.side1,
+          scale: 0.8,
           zIndex: 40,
-          opacity: 0.9,
-          rotateY: -15,
-          filter: "grayscale(60%) brightness(0.9)",
+          opacity: 0.85,
+          rotateY: -12,
+          filter: "grayscale(50%) brightness(0.9)",
           transition: baseTransition,
         };
       case -2: // Left 2
         return {
-          x: -380,
-          scale: 0.7,
+          x: -offsets.side2,
+          scale: 0.65,
           zIndex: 30,
-          opacity: 0.6,
-          rotateY: 25,
-          filter: "grayscale(80%) brightness(0.8)",
+          opacity: isMobile ? 0 : 0.5,
+          rotateY: 20,
+          filter: "grayscale(70%) brightness(0.8)",
           transition: baseTransition,
         };
       case 2: // Right 2
         return {
-          x: 380,
-          scale: 0.7,
+          x: offsets.side2,
+          scale: 0.65,
           zIndex: 30,
-          opacity: 0.6,
-          rotateY: -25,
-          filter: "grayscale(80%) brightness(0.8)",
+          opacity: isMobile ? 0 : 0.5,
+          rotateY: -20,
+          filter: "grayscale(70%) brightness(0.8)",
           transition: baseTransition,
         };
       default:
         return {
-          x: position < 0 ? -500 : 500,
+          x: position < 0 ? -400 : 400,
           scale: 0.5,
           zIndex: 0,
           opacity: 0,
-          rotateY: position < 0 ? 35 : -35,
+          rotateY: position < 0 ? 30 : -30,
           filter: "grayscale(100%) brightness(0.7)",
           transition: baseTransition,
         };
     }
   };
 
+  // Responsive check
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const currentMember = members[currentIndex];
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#faf9f8] via-[#f5f3f1] to-[#f0edeb] relative overflow-hidden py-16 sm:py-20">
+    <section className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-[#f8f6f4] to-[#f2efec] relative overflow-hidden py-12 sm:py-16 lg:py-20">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
+        <motion.div 
+          animate={{ scale: [1, 1.1, 1], opacity: [0.03, 0.06, 0.03] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-10 left-5 sm:left-10 w-48 sm:w-72 h-48 sm:h-72 bg-primary rounded-full blur-3xl" 
+        />
+        <motion.div 
+          animate={{ scale: [1, 1.15, 1], opacity: [0.04, 0.07, 0.04] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-10 right-5 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-accent rounded-full blur-3xl" 
+        />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
       </div>
 
       {/* Background Title */}
       <motion.h1 
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute top-12 sm:top-16 left-1/2 transform -translate-x-1/2 text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none"
+        initial={{ opacity: 0, y: -30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-8 sm:top-12 lg:top-16 left-1/2 transform -translate-x-1/2 text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none"
         style={{
-          background: 'linear-gradient(to bottom, rgba(183, 166, 161, 0.25) 0%, rgba(255, 255, 255, 0) 80%)',
+          background: 'linear-gradient(to bottom, rgba(183, 166, 161, 0.2) 0%, rgba(255, 255, 255, 0) 85%)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
           color: 'transparent',
@@ -171,34 +194,34 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
 
       {/* Carousel Container */}
       <div 
-        className="w-full max-w-[1400px] h-[400px] sm:h-[450px] relative mt-24 sm:mt-28 px-4"
-        style={{ perspective: "1200px" }}
+        className="w-full max-w-5xl h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] relative mt-20 sm:mt-24 lg:mt-28 px-4"
+        style={{ perspective: "1000px" }}
       >
         {/* Navigation Arrows */}
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.1, boxShadow: '0 8px 30px rgba(183, 166, 161, 0.4)' }}
+          whileTap={{ scale: 0.9 }}
           onClick={goPrev}
-          className="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center z-[60] backdrop-blur-sm border border-white/30 shadow-lg"
+          className="absolute left-0 sm:left-4 lg:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center z-[60] backdrop-blur-md border border-white/40 shadow-xl transition-all duration-300"
           style={{ 
-            background: 'linear-gradient(135deg, rgba(183, 166, 161, 0.8), rgba(214, 185, 178, 0.8))',
+            background: 'linear-gradient(135deg, rgba(183, 166, 161, 0.9), rgba(214, 185, 178, 0.9))',
           }}
           aria-label="Membro anterior"
         >
-          <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
         </motion.button>
         
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.1, boxShadow: '0 8px 30px rgba(183, 166, 161, 0.4)' }}
+          whileTap={{ scale: 0.9 }}
           onClick={goNext}
-          className="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center z-[60] backdrop-blur-sm border border-white/30 shadow-lg"
+          className="absolute right-0 sm:right-4 lg:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center z-[60] backdrop-blur-md border border-white/40 shadow-xl transition-all duration-300"
           style={{ 
-            background: 'linear-gradient(135deg, rgba(183, 166, 161, 0.8), rgba(214, 185, 178, 0.8))',
+            background: 'linear-gradient(135deg, rgba(183, 166, 161, 0.9), rgba(214, 185, 178, 0.9))',
           }}
           aria-label="Próximo membro"
         >
-          <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
         </motion.button>
 
         {/* Cards Track */}
@@ -207,7 +230,7 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
           style={{ transformStyle: "preserve-3d" }}
         >
           {getVisibleCards().map(({ member, position, originalIndex }) => {
-            const styles = getCardStyles(position);
+            const styles = getCardStyles(position, isMobile);
             
             return (
               <motion.div
@@ -221,31 +244,32 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
                   zIndex: styles.zIndex,
                 }}
                 transition={styles.transition}
-                className={`absolute w-[240px] sm:w-[280px] h-[320px] sm:h-[380px] rounded-2xl overflow-hidden ${
+                className={`absolute w-[180px] sm:w-[200px] md:w-[220px] lg:w-[240px] h-[240px] sm:h-[270px] md:h-[300px] lg:h-[320px] rounded-xl sm:rounded-2xl overflow-hidden ${
                   position !== 0 ? 'cursor-pointer' : ''
                 }`}
                 style={{
                   transformStyle: "preserve-3d",
                   boxShadow: position === 0 
-                    ? '0 25px 60px rgba(183, 166, 161, 0.4), 0 10px 20px rgba(0, 0, 0, 0.1)'
-                    : '0 15px 35px rgba(0, 0, 0, 0.15)',
+                    ? '0 20px 50px rgba(183, 166, 161, 0.35), 0 8px 16px rgba(0, 0, 0, 0.08)'
+                    : '0 10px 25px rgba(0, 0, 0, 0.12)',
                   filter: styles.filter,
                 }}
-                whileHover={position === 0 ? { y: -5 } : {}}
+                whileHover={position === 0 ? { y: -8, boxShadow: '0 30px 60px rgba(183, 166, 161, 0.45), 0 12px 24px rgba(0, 0, 0, 0.1)' } : {}}
               >
                 {/* Card Glow Effect for Center */}
                 {position === 0 && (
                   <motion.div 
-                    className="absolute -inset-1 rounded-2xl opacity-50"
+                    className="absolute -inset-0.5 sm:-inset-1 rounded-xl sm:rounded-2xl"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(214, 185, 178, 0.5), rgba(183, 166, 161, 0.3))',
-                      filter: 'blur(15px)',
+                      background: 'linear-gradient(135deg, rgba(214, 185, 178, 0.6), rgba(183, 166, 161, 0.4), rgba(214, 185, 178, 0.6))',
+                      filter: 'blur(12px)',
                     }}
                     animate={{
-                      opacity: [0.3, 0.5, 0.3],
+                      opacity: [0.4, 0.6, 0.4],
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                     }}
                     transition={{
-                      duration: 3,
+                      duration: 4,
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
@@ -253,17 +277,31 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
                 )}
                 
                 {/* Card Content */}
-                <div className="relative w-full h-full bg-white rounded-2xl overflow-hidden">
+                <div className="relative w-full h-full bg-background rounded-xl sm:rounded-2xl overflow-hidden group">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                   />
                   
-                  {/* Subtle gradient overlay for center card */}
+                  {/* Elegant gradient overlay for center card */}
                   {position === 0 && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                    <motion.div 
+                      className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/5"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  )}
+                  
+                  {/* Shimmer effect on center card */}
+                  {position === 0 && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
+                      animate={{ x: ['-200%', '200%'] }}
+                      transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+                    />
                   )}
                 </div>
               </motion.div>
@@ -273,113 +311,119 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
       </div>
 
       {/* Member Info with AnimatePresence */}
-      <div className="text-center mt-8 sm:mt-12 px-4 min-h-[180px] sm:min-h-[200px]">
+      <div className="text-center mt-6 sm:mt-8 lg:mt-10 px-4 min-h-[160px] sm:min-h-[180px] lg:min-h-[200px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 25, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.98 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center"
           >
             {/* Name with decorative lines */}
-            <div className="relative mb-3">
+            <div className="relative mb-2 sm:mb-3">
               <motion.h2 
-                className="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair"
-                style={{ color: 'rgb(183, 166, 161)' }}
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-playfair text-primary"
               >
                 {currentMember.name}
               </motion.h2>
               
               {/* Decorative lines */}
               <motion.span 
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.4 }}
-                className="absolute -left-16 sm:-left-24 top-1/2 -translate-y-1/2 w-12 sm:w-20 h-0.5 origin-right hidden sm:block"
-                style={{ background: 'linear-gradient(to left, rgb(183, 166, 161), transparent)' }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+                className="absolute -left-12 sm:-left-20 lg:-left-24 top-1/2 -translate-y-1/2 w-8 sm:w-16 lg:w-20 h-px origin-right hidden sm:block bg-gradient-to-l from-primary/60 to-transparent"
               />
               <motion.span 
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.2, duration: 0.4 }}
-                className="absolute -right-16 sm:-right-24 top-1/2 -translate-y-1/2 w-12 sm:w-20 h-0.5 origin-left hidden sm:block"
-                style={{ background: 'linear-gradient(to right, rgb(183, 166, 161), transparent)' }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+                className="absolute -right-12 sm:-right-20 lg:-right-24 top-1/2 -translate-y-1/2 w-8 sm:w-16 lg:w-20 h-px origin-left hidden sm:block bg-gradient-to-r from-primary/60 to-transparent"
               />
             </div>
             
             {/* Role */}
             <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.15 }}
-              className="text-muted-foreground text-sm sm:text-base md:text-lg font-medium uppercase tracking-[0.15em] mb-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
+              className="text-muted-foreground text-xs sm:text-sm md:text-base font-medium uppercase tracking-[0.12em] sm:tracking-[0.15em] mb-3 sm:mb-4"
             >
               {currentMember.role}
             </motion.p>
 
             {/* Bio */}
             <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.25 }}
-              className="text-muted-foreground/80 text-xs sm:text-sm max-w-xl leading-relaxed mb-4 line-clamp-3"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+              className="text-muted-foreground/70 text-xs sm:text-sm max-w-md lg:max-w-lg leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3"
             >
               {currentMember.bio}
             </motion.p>
 
             {/* Specializations */}
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.35 }}
-              className="flex flex-wrap justify-center gap-2 mb-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.4 }}
+              className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-3 sm:mb-4"
             >
               {currentMember.specializations.slice(0, 3).map((spec, idx) => (
-                <span 
+                <motion.span 
                   key={idx}
-                  className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary/80 border border-primary/20"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.45 + idx * 0.1 }}
+                  className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-primary/10 text-primary/80 border border-primary/20 hover:bg-primary/15 transition-colors duration-300"
                 >
                   {spec}
-                </span>
+                </motion.span>
               ))}
             </motion.div>
 
             {/* Social Links */}
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.45 }}
-              className="flex items-center gap-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55, duration: 0.4 }}
+              className="flex items-center gap-3 sm:gap-4"
             >
               {currentMember.social.email && (
-                <a 
+                <motion.a 
                   href={`mailto:${currentMember.social.email}`}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Mail className="w-5 h-5" />
-                </a>
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.a>
               )}
               {currentMember.social.linkedin && (
-                <a 
+                <motion.a 
                   href={currentMember.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Linkedin className="w-5 h-5" />
-                </a>
+                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.a>
               )}
               {currentMember.social.instagram && (
-                <a 
+                <motion.a 
                   href={currentMember.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Instagram className="w-5 h-5" />
-                </a>
+                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.a>
               )}
             </motion.div>
           </motion.div>
@@ -387,18 +431,18 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
       </div>
 
       {/* Dots Navigation */}
-      <div className="flex justify-center gap-3 mt-6">
+      <div className="flex justify-center gap-2 sm:gap-2.5 mt-4 sm:mt-6">
         {members.map((_, index) => (
           <motion.button
             key={index}
             onClick={() => updateCarousel(index, index > currentIndex ? 1 : -1)}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            className="relative w-3 h-3 rounded-full transition-all duration-300"
+            whileHover={{ scale: 1.3 }}
+            whileTap={{ scale: 0.85 }}
+            className="relative w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300"
             style={{
               background: index === currentIndex 
-                ? 'linear-gradient(135deg, rgb(214, 185, 178), rgb(183, 166, 161))' 
-                : 'rgba(183, 166, 161, 0.25)'
+                ? 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))' 
+                : 'hsl(var(--primary) / 0.2)'
             }}
             aria-label={`Ir para membro ${index + 1}`}
           >
@@ -407,10 +451,10 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
                 layoutId="activeDot"
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: 'linear-gradient(135deg, rgb(214, 185, 178), rgb(183, 166, 161))',
-                  boxShadow: '0 0 10px rgba(183, 166, 161, 0.5)',
+                  background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
+                  boxShadow: '0 0 12px hsl(var(--primary) / 0.5)',
                 }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               />
             )}
           </motion.button>
