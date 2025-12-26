@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Mail, Linkedin, Instagram } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TeamMember } from "@/data/teamMembers";
 
 interface Team3DCarouselProps {
@@ -11,6 +11,13 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  // Initial load animation trigger
+  useEffect(() => {
+    const timer = setTimeout(() => setHasLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const updateCarousel = useCallback((newIndex: number, dir: number) => {
     if (isAnimating) return;
@@ -77,13 +84,12 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
       damping: 30,
     };
 
-    // Responsive offsets
     const offsets = isMobile 
       ? { side1: 140, side2: 240 }
       : { side1: 180, side2: 320 };
 
     switch (position) {
-      case 0: // Center
+      case 0:
         return {
           x: 0,
           scale: 1,
@@ -93,7 +99,7 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
           filter: "grayscale(0%) brightness(1)",
           transition: baseTransition,
         };
-      case -1: // Left 1
+      case -1:
         return {
           x: -offsets.side1,
           scale: 0.8,
@@ -103,7 +109,7 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
           filter: "grayscale(50%) brightness(0.9)",
           transition: baseTransition,
         };
-      case 1: // Right 1
+      case 1:
         return {
           x: offsets.side1,
           scale: 0.8,
@@ -113,7 +119,7 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
           filter: "grayscale(50%) brightness(0.9)",
           transition: baseTransition,
         };
-      case -2: // Left 2
+      case -2:
         return {
           x: -offsets.side2,
           scale: 0.65,
@@ -123,7 +129,7 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
           filter: "grayscale(70%) brightness(0.8)",
           transition: baseTransition,
         };
-      case 2: // Right 2
+      case 2:
         return {
           x: offsets.side2,
           scale: 0.65,
@@ -146,7 +152,6 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
     }
   };
 
-  // Responsive check
   const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
@@ -157,6 +162,10 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
   }, []);
 
   const currentMember = members[currentIndex];
+
+  // Title animation - letter by letter from left
+  const titleText = "NOSSA EQUIPE";
+  const subtitleText = "Conheça os profissionais que fazem a diferença na NP Consultoria";
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-[#f8f6f4] to-[#f2efec] relative overflow-hidden py-12 sm:py-16 lg:py-20">
@@ -175,30 +184,70 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
       </div>
 
-      {/* Background Title */}
-      <motion.h1 
-        initial={{ opacity: 0, y: -30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute top-8 sm:top-12 lg:top-16 left-1/2 transform -translate-x-1/2 text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(183, 166, 161, 0.2) 0%, rgba(255, 255, 255, 0) 85%)',
-          WebkitBackgroundClip: 'text',
-          backgroundClip: 'text',
-          color: 'transparent',
-          fontFamily: 'Arial Black, Arial Bold, Arial, sans-serif',
-        }}
-      >
-        NOSSA EQUIPE
-      </motion.h1>
+      {/* Header Section - Centered */}
+      <div className="w-full flex flex-col items-center justify-center text-center px-4 mb-8 sm:mb-12">
+        {/* Main Title - Letter by letter animation */}
+        <motion.h1 
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tight select-none overflow-hidden"
+          style={{
+            fontFamily: 'Arial Black, Arial Bold, Arial, sans-serif',
+          }}
+        >
+          {titleText.split('').map((char, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, x: -50, rotateY: -90 }}
+              animate={hasLoaded ? { opacity: 1, x: 0, rotateY: 0 } : {}}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.05,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="inline-block"
+              style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.6) 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </motion.span>
+          ))}
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={hasLoaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-muted-foreground max-w-md sm:max-w-lg lg:max-w-xl"
+        >
+          {subtitleText}
+        </motion.p>
+
+        {/* Decorative line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={hasLoaded ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-4 sm:mt-6 w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+        />
+      </div>
 
       {/* Carousel Container */}
-      <div 
-        className="w-full max-w-5xl h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] relative mt-20 sm:mt-24 lg:mt-28 px-4"
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={hasLoaded ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full max-w-5xl h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] relative px-4"
         style={{ perspective: "1000px" }}
       >
         {/* Navigation Arrows */}
         <motion.button
+          initial={{ opacity: 0, x: -30 }}
+          animate={hasLoaded ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 1.4 }}
           whileHover={{ scale: 1.1, boxShadow: '0 8px 30px rgba(183, 166, 161, 0.4)' }}
           whileTap={{ scale: 0.9 }}
           onClick={goPrev}
@@ -212,6 +261,9 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
         </motion.button>
         
         <motion.button
+          initial={{ opacity: 0, x: 30 }}
+          animate={hasLoaded ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6, delay: 1.4 }}
           whileHover={{ scale: 1.1, boxShadow: '0 8px 30px rgba(183, 166, 161, 0.4)' }}
           whileTap={{ scale: 0.9 }}
           onClick={goNext}
@@ -232,18 +284,27 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
           {getVisibleCards().map(({ member, position, originalIndex }) => {
             const styles = getCardStyles(position, isMobile);
             
+            // Initial animation: all cards start at center then spread
+            const initialX = hasLoaded ? styles.x : 0;
+            const initialScale = hasLoaded ? styles.scale : 0.6;
+            const initialOpacity = hasLoaded ? styles.opacity : 0;
+            
             return (
               <motion.div
                 key={member.id}
                 onClick={() => position !== 0 && updateCarousel(originalIndex, position > 0 ? 1 : -1)}
+                initial={{ x: 0, scale: 0.3, opacity: 0, rotateY: 0 }}
                 animate={{
-                  x: styles.x,
-                  scale: styles.scale,
-                  rotateY: styles.rotateY,
-                  opacity: styles.opacity,
+                  x: hasLoaded ? styles.x : 0,
+                  scale: hasLoaded ? styles.scale : 0.3,
+                  rotateY: hasLoaded ? styles.rotateY : 0,
+                  opacity: hasLoaded ? styles.opacity : 0,
                   zIndex: styles.zIndex,
                 }}
-                transition={styles.transition}
+                transition={{
+                  ...styles.transition,
+                  delay: hasLoaded ? 0.8 + Math.abs(position) * 0.15 : 0,
+                }}
                 className={`absolute w-[180px] sm:w-[200px] md:w-[220px] lg:w-[240px] h-[240px] sm:h-[270px] md:h-[300px] lg:h-[320px] rounded-xl sm:rounded-2xl overflow-hidden ${
                   position !== 0 ? 'cursor-pointer' : ''
                 }`}
@@ -266,7 +327,6 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
                     }}
                     animate={{
                       opacity: [0.4, 0.6, 0.4],
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                     }}
                     transition={{
                       duration: 4,
@@ -285,7 +345,6 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
                     loading="lazy"
                   />
                   
-                  {/* Elegant gradient overlay for center card */}
                   {position === 0 && (
                     <motion.div 
                       className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/5"
@@ -295,7 +354,6 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
                     />
                   )}
                   
-                  {/* Shimmer effect on center card */}
                   {position === 0 && (
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
@@ -308,10 +366,10 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
             );
           })}
         </div>
-      </div>
+      </motion.div>
 
-      {/* Member Info with AnimatePresence */}
-      <div className="text-center mt-6 sm:mt-8 lg:mt-10 px-4 min-h-[160px] sm:min-h-[180px] lg:min-h-[200px]">
+      {/* Member Info - Only Name and Role */}
+      <div className="text-center mt-6 sm:mt-8 lg:mt-10 px-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -329,7 +387,6 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
                 {currentMember.name}
               </motion.h2>
               
-              {/* Decorative lines */}
               <motion.span 
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
@@ -349,89 +406,21 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.4 }}
-              className="text-muted-foreground text-xs sm:text-sm md:text-base font-medium uppercase tracking-[0.12em] sm:tracking-[0.15em] mb-3 sm:mb-4"
+              className="text-muted-foreground text-xs sm:text-sm md:text-base font-medium uppercase tracking-[0.12em] sm:tracking-[0.15em]"
             >
               {currentMember.role}
             </motion.p>
-
-            {/* Bio */}
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-              className="text-muted-foreground/70 text-xs sm:text-sm max-w-md lg:max-w-lg leading-relaxed mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3"
-            >
-              {currentMember.bio}
-            </motion.p>
-
-            {/* Specializations */}
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.4 }}
-              className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-3 sm:mb-4"
-            >
-              {currentMember.specializations.slice(0, 3).map((spec, idx) => (
-                <motion.span 
-                  key={idx}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.45 + idx * 0.1 }}
-                  className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-primary/10 text-primary/80 border border-primary/20 hover:bg-primary/15 transition-colors duration-300"
-                >
-                  {spec}
-                </motion.span>
-              ))}
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.4 }}
-              className="flex items-center gap-3 sm:gap-4"
-            >
-              {currentMember.social.email && (
-                <motion.a 
-                  href={`mailto:${currentMember.social.email}`}
-                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.a>
-              )}
-              {currentMember.social.linkedin && (
-                <motion.a 
-                  href={currentMember.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.a>
-              )}
-              {currentMember.social.instagram && (
-                <motion.a 
-                  href={currentMember.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.a>
-              )}
-            </motion.div>
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* Dots Navigation */}
-      <div className="flex justify-center gap-2 sm:gap-2.5 mt-4 sm:mt-6">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={hasLoaded ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 1.6 }}
+        className="flex justify-center gap-2 sm:gap-2.5 mt-6 sm:mt-8"
+      >
         {members.map((_, index) => (
           <motion.button
             key={index}
@@ -459,7 +448,7 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
             )}
           </motion.button>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
