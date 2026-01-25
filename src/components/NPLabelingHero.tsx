@@ -1,27 +1,22 @@
-import nutritionHeroBg from "@/assets/nutrition-hero-bg.jpg";
+import npRotulagemBg from "@/assets/np-rotulagem-bg.png";
 import { SmokeEffect } from "@/components/effects/SmokeEffect";
 import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 
 const NPLabelingHero = () => {
   return (
-    <section className="bg-black text-white min-h-screen flex items-center relative overflow-hidden">
-      {/* Animated background particles with floating effect */}
-      <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary rounded-full floating" />
-      <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-accent rounded-full floating animation-delay-500" />
-      <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-primary rounded-full floating animation-delay-1000" />
-      <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-primary/50 rounded-full floating animation-delay-1500" />
-      <div className="absolute bottom-1/3 right-1/2 w-3 h-3 bg-accent/60 rounded-full floating animation-delay-2000" />
-      
-      {/* Background mesh gradient */}
-      <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+    <section className="bg-[#1a1a1a] text-white min-h-screen flex items-center relative overflow-hidden">
+      {/* Subtle floating particles */}
+      <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-primary/40 rounded-full floating" />
+      <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-accent/30 rounded-full floating animation-delay-500" />
+      <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-primary/30 rounded-full floating animation-delay-1000" />
       
       <div className="absolute inset-0">
         <img 
-          src={nutritionHeroBg} 
-          alt="Nutrition facts background" 
-          className="w-full h-full object-cover opacity-60 zoom-in-image" 
+          src={npRotulagemBg} 
+          alt="NP Rotulagem - Lata com design da empresa" 
+          className="w-full h-full object-cover object-center" 
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/90 via-[#1a1a1a]/60 to-transparent" />
         <SmokeEffect />
       </div>
       
