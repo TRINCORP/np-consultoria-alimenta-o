@@ -4,52 +4,57 @@ import logoNP from "@/assets/logoNP.png";
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 border-b border-border/30 backdrop-blur-xl">
-      <div className="container-custom py-3 sm:py-4">
-        {/* Desktop Layout - Centered Nav */}
-        <div className="hidden md:grid md:grid-cols-3 items-center">
-          {/* Logo - Left */}
-          <Link to="/" className="flex items-center gap-3 group justify-self-start">
-            <img src={logoNP} alt="NP Consultoria" className="h-10 lg:h-12 w-auto transition-transform duration-300 group-hover:scale-105" />
-            <span className="font-playfair text-lg lg:text-xl font-bold text-foreground">
-              NP Consultoria
-            </span>
-          </Link>
-          
-          {/* Navigation - Centered */}
-          <nav className="flex items-center justify-center gap-6 lg:gap-10">
-            <Link to="/servicos-alimentares" className="text-foreground/80 hover:text-foreground transition-all duration-300 text-sm font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full">
-              Serviços
-            </Link>
-            <Link to="/np-rotulagem" className="text-foreground/80 hover:text-foreground transition-all duration-300 text-sm font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full">
-              Rotulagem
-            </Link>
-            <Link to="/equipe" className="text-foreground/80 hover:text-foreground transition-all duration-300 text-sm font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full">
-              Equipe
-            </Link>
-            <a href="#contacto" className="text-foreground/80 hover:text-foreground transition-all duration-300 text-sm font-medium relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full">
-              Contacto
-            </a>
-          </nav>
-
-          {/* CTA Button - Right */}
-          <div className="justify-self-end">
-            <Button variant="default" size="sm" className="bg-primary hover:bg-primary-dark text-primary-foreground rounded-full px-6 py-2 text-sm font-medium transition-all duration-300 hover:scale-105">
-              Fale Conosco
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Layout */}
-        <div className="flex md:hidden items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group">
-            <img src={logoNP} alt="NP Consultoria" className="h-9 w-auto" />
-            <span className="font-playfair text-base font-bold text-foreground">
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Dark floating header bar - goat style */}
+      <div className="flex justify-center px-4 py-4">
+        <div className="bg-[#1a1a1a]/95 backdrop-blur-md rounded-full px-3 py-2 flex items-center gap-1 shadow-xl border border-white/5">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 px-3 group">
+            <img src={logoNP} alt="NP Consultoria" className="h-8 w-auto transition-transform duration-300 group-hover:scale-105" />
+            <span className="font-playfair text-sm font-bold text-white hidden lg:inline">
               NP
             </span>
           </Link>
           
-          <Button variant="default" size="sm" className="bg-primary hover:bg-primary-dark text-primary-foreground rounded-full px-4 py-2 text-xs font-medium">
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center">
+            <Link to="/servicos-alimentares" className="text-white/80 hover:text-white transition-all duration-200 text-sm font-medium px-4 py-2">
+              Serviços
+            </Link>
+            <Link to="/np-rotulagem" className="text-white/80 hover:text-white transition-all duration-200 text-sm font-medium px-4 py-2">
+              Rotulagem
+            </Link>
+            <Link to="/equipe" className="text-white/80 hover:text-white transition-all duration-200 text-sm font-medium px-4 py-2">
+              Equipe
+            </Link>
+            <a href="#contacto" className="text-white/80 hover:text-white transition-all duration-200 text-sm font-medium px-4 py-2">
+              Sobre
+            </a>
+          </nav>
+
+          {/* CTA Button */}
+          <Button 
+            variant="default" 
+            size="sm" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-5 py-2 text-sm font-medium ml-1 transition-all duration-300 hover:scale-105"
+          >
+            Contacto
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Layout - Same style */}
+      <div className="flex md:hidden justify-center px-4 py-3 absolute top-0 left-0 right-0">
+        <div className="bg-[#1a1a1a]/95 backdrop-blur-md rounded-full px-2 py-1.5 flex items-center gap-1 shadow-xl border border-white/5">
+          <Link to="/" className="flex items-center gap-2 px-2 group">
+            <img src={logoNP} alt="NP Consultoria" className="h-7 w-auto" />
+          </Link>
+          
+          <Button 
+            variant="default" 
+            size="sm" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium"
+          >
             Contacto
           </Button>
         </div>
