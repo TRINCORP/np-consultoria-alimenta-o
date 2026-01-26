@@ -1,46 +1,169 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import logoNP from "@/assets/logoNP.png";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const footerLinks = {
+    services: [
+      { label: "Consultoria Alimentar", href: "/servicos-alimentares" },
+      { label: "Rotulagem Nutricional", href: "/np-rotulagem" },
+      { label: "Segurança Alimentar", href: "#" },
+      { label: "Formação de Equipas", href: "#" },
+    ],
+    company: [
+      { label: "Sobre Nós", href: "#" },
+      { label: "Nossa Equipa", href: "/equipe" },
+      { label: "Casos de Sucesso", href: "#" },
+      { label: "Carreiras", href: "#" },
+    ],
+    legal: [
+      { label: "Política de Privacidade", href: "#" },
+      { label: "Termos de Uso", href: "#" },
+      { label: "Cookies", href: "#" },
+    ],
+  };
+
   return (
-    <footer className="bg-muted py-12 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-mesh opacity-5" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-float" />
+    <footer className="bg-[#1a1a1a] text-white relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white to-transparent" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white to-transparent" />
+      </div>
       
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col items-center gap-8 pb-8 border-b border-border">
-          <nav className="flex items-center gap-8">
-            <Link to="/servicos-alimentares" className="text-foreground hover:text-primary transition-all duration-300 text-sm relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:scale-105">
-              Serviços de Alimentação
+      {/* Main footer content */}
+      <div className="container mx-auto px-6 py-16 md:py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
+          {/* Brand column */}
+          <div className="lg:col-span-4">
+            <Link to="/" className="inline-block mb-6 group">
+              <img 
+                src={logoNP} 
+                alt="NP Consultoria" 
+                className="h-12 w-auto brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
+              />
             </Link>
-            <Link to="/np-rotulagem" className="text-foreground hover:text-primary transition-all duration-300 text-sm relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:scale-105">
-              NP Rotulagem
-            </Link>
-            <a href="#contacto" className="text-foreground hover:text-primary transition-all duration-300 text-sm relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:scale-105">
+            <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">
+              Liderando a transformação no setor alimentar com soluções inovadoras em 
+              consultoria, rotulagem e segurança alimentar.
+            </p>
+            
+            {/* Social links */}
+            <div className="flex items-center gap-3">
+              {[
+                { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+                { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+                { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+              ].map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary/20 hover:text-primary transition-all duration-300 group"
+                  aria-label={social.label}
+                >
+                  <social.icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Services links */}
+          <div className="lg:col-span-2">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
+              Serviços
+            </h4>
+            <ul className="space-y-3">
+              {footerLinks.services.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="text-white/70 hover:text-primary text-sm transition-colors duration-300 inline-flex items-center gap-1 group"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company links */}
+          <div className="lg:col-span-2">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
+              Empresa
+            </h4>
+            <ul className="space-y-3">
+              {footerLinks.company.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="text-white/70 hover:text-primary text-sm transition-colors duration-300 inline-flex items-center gap-1 group"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact info */}
+          <div className="lg:col-span-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white/40 mb-4">
               Contacto
-            </a>
-          </nav>
-          
-          <div className="flex items-center gap-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110">
-              <Facebook className="w-5 h-5" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110">
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-all duration-300 hover:scale-110">
-              <Linkedin className="w-5 h-5" />
-            </a>
+            </h4>
+            <ul className="space-y-4">
+              <li>
+                <a
+                  href="tel:+551199999999"
+                  className="flex items-start gap-3 text-white/70 hover:text-primary transition-colors duration-300 group"
+                >
+                  <Phone className="w-5 h-5 mt-0.5 shrink-0" />
+                  <span className="text-sm">+55 11 9999-9999</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:contato@npconsultoria.com"
+                  className="flex items-start gap-3 text-white/70 hover:text-primary transition-colors duration-300 group"
+                >
+                  <Mail className="w-5 h-5 mt-0.5 shrink-0" />
+                  <span className="text-sm">contato@npconsultoria.com</span>
+                </a>
+              </li>
+              <li className="flex items-start gap-3 text-white/70">
+                <MapPin className="w-5 h-5 mt-0.5 shrink-0" />
+                <span className="text-sm">
+                  São Paulo, Brasil<br />
+                  Atendimento em todo o território nacional
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
-        
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8">
-          <p className="text-sm text-foreground">
-            Copyright © 2025 <span className="text-gradient font-semibold">NP Consultoria Alimentos</span>. Todos os direitos reservados.
-          </p>
-          <a href="#" className="text-sm text-foreground hover:text-primary transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">
-            Política de Privacidade
-          </a>
+
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-white/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-white/40">
+              © {currentYear} <span className="text-primary">NP Consultoria Alimentos</span>. Todos os direitos reservados.
+            </p>
+            <div className="flex items-center gap-6">
+              {footerLinks.legal.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs text-white/40 hover:text-white/70 transition-colors duration-300"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </footer>

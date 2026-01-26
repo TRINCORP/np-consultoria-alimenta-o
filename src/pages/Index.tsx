@@ -12,6 +12,9 @@ import FAQSection from "@/components/FAQSection";
 import FloatingIcons from "@/components/FloatingIcons";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import StatsSection from "@/components/StatsSection";
+import PremiumCTA from "@/components/PremiumCTA";
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -37,19 +40,24 @@ const Index = () => {
       <SEO 
         title="Consultoria em Alimentação e Nutrição"
         description="Transforme a qualidade alimentar em resultados com a NP Consultoria. Desenvolvemos soluções em serviços de alimentação, garantindo segurança alimentar e conformidade regulamentar."
-        keywords="consultoria alimentar, nutrição empresarial, segurança alimentar, rotulagem nutricional, qualidade alimentar, serviços de alimentação, consultoria nutricional Portugal"
+        keywords="consultoria alimentar, nutrição empresarial, segurança alimentar, rotulagem nutricional, qualidade alimentar, serviços de alimentação, consultoria nutricional Brasil"
       />
       <FloatingIcons />
       <div className="min-h-screen bg-background">
         <Header />
         <Hero />
-        <HeroServices />
+        <div id="services">
+          <HeroServices />
+        </div>
+        <StatsSection />
         <PhilosophySection />
+        <WhyChooseUs />
         <FoodServicesSection />
         <ServicesGrid />
         <ClientsSection />
         <TestimonialsSection />
         <FAQSection />
+        <PremiumCTA />
         <Footer />
       </div>
     </>

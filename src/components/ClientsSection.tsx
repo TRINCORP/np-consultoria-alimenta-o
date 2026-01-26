@@ -39,23 +39,27 @@ const ClientsSection: React.FC = () => {
   );
 
   return (
-    <section id="clients" className="py-16 md:py-24 bg-gradient-to-b from-background via-secondary/20 to-background relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+    <section id="clients" className="py-20 md:py-28 bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
+      {/* Refined Background Effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.03),transparent_50%)]" />
+      <div className="absolute top-20 right-20 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] animate-float" />
+      <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] animate-float" style={{ animationDelay: '1s' }} />
       
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Title Section */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 animate-fade-in">
-            Nossos <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">Clientes</span>
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Title Section - More professional */}
+        <div className="text-center mb-16 md:mb-20">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-fade-in">
+            Parceiros de Confiança
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 animate-fade-in">
+            Empresas que <span className="text-gradient">Confiam</span> em Nós
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Empresas e instituições que confiam em nosso trabalho
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            Mais de 300 empresas já transformaram a sua segurança alimentar connosco
           </p>
         </div>
 
-        {/* Premium Carousel */}
+        {/* Premium Carousel with better styling */}
         <Carousel
           opts={{
             align: "start",
@@ -69,24 +73,24 @@ const ClientsSection: React.FC = () => {
             {clients.map((client) => (
               <CarouselItem 
                 key={client.id} 
-                className="pl-4 md:pl-6 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+                className="pl-4 md:pl-6 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
               >
-                <Card className="group relative overflow-hidden border-0 bg-gradient-to-br from-card/50 via-card/30 to-transparent backdrop-blur-sm hover:from-card/70 hover:via-card/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
-                  <CardContent className="flex aspect-square items-center justify-center p-6 relative">
-                    {/* Glow effect on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-accent/0 to-primary/0 group-hover:from-primary/10 group-hover:via-accent/10 group-hover:to-primary/10 transition-all duration-500 rounded-lg" />
-                    
-                    {/* Border gradient */}
-                    <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 blur-xl" />
-                    
+                <div className="group relative p-6 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/30 
+                  hover:border-primary/20 hover:bg-card/60 transition-all duration-500 hover:scale-105">
+                  {/* Subtle glow on hover */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 to-accent/0 
+                    group-hover:from-primary/5 group-hover:to-accent/5 transition-all duration-500" />
+                  
+                  <div className="relative aspect-square flex items-center justify-center">
                     <img
                       src={client.image}
                       alt={client.name}
                       loading="lazy"
-                      className="relative z-10 w-full h-full object-contain filter grayscale-[70%] group-hover:grayscale-0 opacity-70 group-hover:opacity-100 transition-all duration-500 drop-shadow-lg group-hover:drop-shadow-2xl"
+                      className="w-full h-full object-contain filter grayscale-[60%] group-hover:grayscale-0 
+                        opacity-60 group-hover:opacity-100 transition-all duration-500"
                     />
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>
