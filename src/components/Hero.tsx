@@ -1,108 +1,132 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { ArrowRight, Building2, Users, CheckCircle, ThumbsUp } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import logoNP from "@/assets/logoNP.png";
 import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
+import { useInView } from "react-intersection-observer";
 
 const Hero = () => {
-  const metrics = [
-    { icon: Building2, value: "300+", label: "Empresas atendidas" },
-    { icon: Users, value: "50.000+", label: "Consumidores impactados" },
-    { icon: CheckCircle, value: "92%", label: "Aprovação em inspeções" },
-    { icon: ThumbsUp, value: "95%", label: "Satisfação do cliente" }
-  ];
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  const scrollToServices = () => {
+    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-[#d6b9b2] via-[#b7a6a1] to-[#f8f5f4] overflow-hidden">
-      {/* Animated decorative elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_50%)]" />
-      <div className="absolute top-10 sm:top-20 right-10 sm:right-20 w-48 sm:w-72 h-48 sm:h-72 bg-white/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-10 sm:bottom-20 left-10 sm:left-20 w-64 sm:w-96 h-64 sm:h-96 bg-white/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
+    <section ref={ref} className="relative min-h-screen bg-gradient-to-br from-[#d6b9b2] via-[#c4a9a2] to-[#b7a6a1] overflow-hidden flex items-center">
+      {/* Premium animated background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.1),transparent_50%)]" />
+        <div className="absolute top-10 sm:top-20 right-10 sm:right-20 w-48 sm:w-72 h-48 sm:h-72 bg-white/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-10 sm:bottom-20 left-10 sm:left-20 w-64 sm:w-96 h-64 sm:h-96 bg-white/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
+        
+        {/* Geometric accents */}
+        <div className="absolute top-1/4 left-[10%] w-32 h-32 border border-white/10 rounded-full animate-float hidden lg:block" style={{ animationDelay: '2s' }} />
+        <div className="absolute bottom-1/3 right-[15%] w-24 h-24 border border-white/15 rounded-full animate-float hidden lg:block" style={{ animationDelay: '2.5s' }} />
+      </div>
       
-      <div className="container-custom pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-12 sm:mb-16 md:mb-20">
+      <div className="container mx-auto px-6 lg:px-12 pt-28 sm:pt-32 pb-16 sm:pb-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left content */}
-          <div className="animate-slide-in-left">
-            <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-              Transforme a qualidade alimentar em resultados com a{" "}
-              <span className="inline-flex items-baseline border-b-2 sm:border-b-4 border-white pb-1 sm:pb-2 relative silver-shine-text">
-                <span className="relative z-10 drop-shadow-glow whitespace-nowrap">NP</span>
-                <span className="absolute inset-0 bg-white/20 blur-xl opacity-60" />
-                <BrilliantReflection />
+          <div className={`transition-all duration-1000 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+            {/* Badge */}
+            <span className="inline-block px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6 border border-white/10">
+              Consultoria em Alimentação e Nutrição
+            </span>
+            
+            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+              Transforme a{" "}
+              <span className="relative inline-block">
+                <span className="text-gradient-light italic">qualidade alimentar</span>
+              </span>
+              {" "}em resultados com a{" "}
+              <span className="inline-flex items-baseline relative">
+                <span className="relative z-10 border-b-4 border-white/50 pb-1">NP</span>
+                <BrilliantReflection className="opacity-30" />
               </span>
             </h1>
             
-            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-2xl">
-              Desenvolvemos soluções em serviços de alimentação para empresas e indústrias, garantindo segurança alimentar, conformidade com legislações e satisfação do consumidor.
+            <p className="text-base sm:text-lg lg:text-xl text-white/85 mb-8 leading-relaxed max-w-xl">
+              Desenvolvemos soluções em serviços de alimentação para empresas e indústrias, 
+              garantindo segurança alimentar, conformidade com legislações e satisfação do consumidor.
             </p>
             
-            <div className="flex flex-wrap gap-3 sm:gap-4">
+            <div className="flex flex-wrap gap-4">
               <Button 
-                size="default"
-                className="btn-hero text-sm sm:text-base px-6 sm:px-10 py-3 sm:py-5"
+                size="lg"
+                className="bg-white text-[#b7a6a1] hover:bg-white/90 rounded-full px-8 py-6 text-base font-semibold group transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >
-                Envie seu currículo
-                <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1 w-4 h-4 sm:w-5 sm:h-5" />
+                Fale com um Especialista
+                <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1 w-5 h-5" />
               </Button>
               <Button 
-                size="default"
+                size="lg"
                 variant="outline"
-                className="btn-secondary text-sm sm:text-base px-6 sm:px-10 py-3 sm:py-5"
+                className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-base font-medium transition-all duration-300 hover:scale-105"
+                onClick={scrollToServices}
               >
-                Nossas soluções
+                Nossas Soluções
               </Button>
+            </div>
+
+            {/* Trust badges */}
+            <div className={`mt-12 flex items-center gap-6 transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map((i) => (
+                  <div 
+                    key={i} 
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-white/30 to-white/10 border-2 border-white/50 backdrop-blur-sm"
+                  />
+                ))}
+              </div>
+              <div className="text-white/80">
+                <span className="font-bold text-white">+300</span> empresas confiam em nós
+              </div>
             </div>
           </div>
 
-          {/* Right content - Logo card */}
-          <div className="animate-slide-in-right lg:flex justify-center lg:justify-end">
-            <Card className="card-premium bg-white/95 backdrop-blur-sm p-6 sm:p-8 max-w-md w-full magnetic-float relative overflow-hidden">
-              <BrilliantReflection className="opacity-50" />
-              <div className="flex flex-col items-center text-center relative z-10">
-                <img 
-                  src={logoNP} 
-                  alt="NP Consultoria Alimentos" 
-                  className="w-36 sm:w-48 h-auto mb-4 sm:mb-6 floating"
-                />
-                <div className="border-t-2 border-[#b7a6a1] pt-4 sm:pt-6 w-full">
+          {/* Right content - Premium Logo Card */}
+          <div className={`flex justify-center lg:justify-end transition-all duration-1000 delay-200 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+            <div className="relative">
+              {/* Glow effect behind card */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-3xl blur-2xl scale-110" />
+              
+              <div className="relative bg-white/95 backdrop-blur-md rounded-3xl p-8 sm:p-10 max-w-sm shadow-2xl border border-white/50 group hover:shadow-3xl transition-all duration-500">
+                <BrilliantReflection className="opacity-40" />
+                
+                <div className="flex flex-col items-center text-center relative z-10">
+                  <img 
+                    src={logoNP} 
+                    alt="NP Consultoria Alimentos" 
+                    className="w-40 sm:w-48 h-auto mb-6 transition-transform duration-500 group-hover:scale-105"
+                  />
+                  
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-[#b7a6a1] to-transparent mb-6" />
+                  
                   <p className="font-playfair text-2xl sm:text-3xl font-bold text-gradient mb-2">
                     Serviço com Excelência
                   </p>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    Compromisso com qualidade e inovação
+                  <p className="text-sm text-muted-foreground">
+                    +15 anos de experiência em consultoria alimentar
                   </p>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
-
-        {/* Metrics section */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 animate-fade-in" style={{ animationDelay: '400ms' }}>
-          {metrics.map((metric, index) => (
-            <Card 
-              key={index}
-              className="card-premium bg-white/95 backdrop-blur-sm p-4 sm:p-6 group animate-scale-in relative overflow-hidden"
-              style={{ animationDelay: `${500 + index * 100}ms` }}
-            >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <BrilliantReflection />
-              </div>
-              <div className="flex flex-col items-center text-center relative z-10">
-                <div className="bg-gradient-to-br from-[#d6b9b2] to-[#b7a6a1] p-2 sm:p-3 md:p-4 rounded-full mb-2 sm:mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md glow-border">
-                  <metric.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
-                </div>
-                <p className="font-playfair text-2xl sm:text-3xl md:text-4xl font-bold text-gradient mb-1 sm:mb-2">
-                  {metric.value}
-                </p>
-                <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground font-medium">
-                  {metric.label}
-                </p>
-              </div>
-            </Card>
-          ))}
-        </div>
       </div>
+
+      {/* Scroll indicator */}
+      <button 
+        onClick={scrollToServices}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer hidden md:block"
+        aria-label="Scroll para ver mais"
+      >
+        <ChevronDown className="w-8 h-8" />
+      </button>
     </section>
   );
 };
