@@ -11,7 +11,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 px-3 group">
             <img src={logoNP} alt="NP Consultoria" className="h-8 w-auto transition-transform duration-300 group-hover:scale-105" />
-            <span className="font-playfair text-sm font-bold text-white hidden lg:inline">
+            <span className="font-playfair text-sm font-bold text-white">
               NP
             </span>
           </Link>
