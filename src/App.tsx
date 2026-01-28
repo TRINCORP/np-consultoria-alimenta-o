@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import FoodServices from "./pages/FoodServices";
 import NPLabeling from "./pages/NPLabeling";
 import Team from "./pages/Team";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/servicos-alimentares" element={<FoodServices />} />
           <Route path="/np-rotulagem" element={<NPLabeling />} />
           <Route path="/equipe" element={<Team />} />
+          <Route path="/faq" element={<FAQ />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
