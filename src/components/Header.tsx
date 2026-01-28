@@ -72,15 +72,15 @@ const Header = () => {
             >
               Equipe
             </Link>
-            <a 
-              href="#sobre" 
+            <Link 
+              to="/sobre" 
               className={`text-white/80 hover:text-white transition-all duration-200 font-medium ${
                 isScrolled ? 'text-sm px-4 py-2' : 'text-base px-6 py-3'
               }`}
             >
               Sobre
-            </a>
-            <Link 
+            </Link>
+            <Link
               to="/faq" 
               className={`text-white/80 hover:text-white transition-all duration-200 font-medium ${
                 isScrolled ? 'text-sm px-4 py-2' : 'text-base px-6 py-3'
@@ -164,13 +164,13 @@ const Header = () => {
           >
             Equipe
           </Link>
-          <a 
-            href="#sobre" 
+          <Link 
+            to="/sobre" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-2xl font-medium text-white/80 hover:text-white transition-colors"
           >
             Sobre
-          </a>
+          </Link>
           <Link 
             to="/faq" 
             onClick={() => setIsMobileMenuOpen(false)}

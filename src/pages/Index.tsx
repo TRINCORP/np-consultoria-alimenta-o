@@ -8,7 +8,6 @@ import FoodServicesSection from "@/components/FoodServicesSection";
 import ServicesGrid from "@/components/ServicesGrid";
 import ClientsSection from "@/components/ClientsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import AboutVideoSection from "@/components/AboutVideoSection";
 import FloatingIcons from "@/components/FloatingIcons";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -52,7 +51,6 @@ const Index = () => {
         <StatsSection />
         <PhilosophySection />
         <WhyChooseUs />
-        <AboutVideoSection />
         <FoodServicesSection />
         <ServicesGrid />
         <ClientsSection />
