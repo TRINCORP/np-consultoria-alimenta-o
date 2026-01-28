@@ -8,6 +8,7 @@ import FoodServices from "./pages/FoodServices";
 import NPLabeling from "./pages/NPLabeling";
 import Team from "./pages/Team";
 import FAQ from "./pages/FAQ";
+import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/np-rotulagem" element={<NPLabeling />} />
           <Route path="/equipe" element={<Team />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/sobre" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
