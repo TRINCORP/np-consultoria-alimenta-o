@@ -1,14 +1,11 @@
 import { useState, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX, Tag, CheckCircle, Award } from 'lucide-react';
-import { useInView } from 'react-intersection-observer';
 
 const NPLabelingVideoCard = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  
-  const { ref: titleRef, inView: titleInView } = useInView({ threshold: 0.2, triggerOnce: true });
 
   const handlePlayClick = () => {
     setShowVideo(true);
@@ -75,44 +72,10 @@ const NPLabelingVideoCard = () => {
               <span className="text-primary text-sm font-medium tracking-wide">Descubra Nossa Expertise</span>
             </div>
 
-            {/* Animated Title */}
-            <div ref={titleRef} className="overflow-hidden">
-              <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
-                <span className={`inline-block transition-all duration-700 ${titleInView ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
-                  Conheça o{' '}
-                </span>
-                <span 
-                  className={`inline-block transition-all duration-700 delay-200 ${titleInView ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
-                >
-                  <span className="relative">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent-light to-primary animate-gradient-x bg-[length:200%_auto]">
-                      Processo
-                    </span>
-                    {/* Shimmer effect */}
-                    <span 
-                      className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000 ${
-                        titleInView ? 'translate-x-full opacity-0' : '-translate-x-full opacity-100'
-                      }`}
-                      style={{ transitionDelay: '500ms' }}
-                    />
-                  </span>
-                </span>
-                <br />
-                <span className={`inline-block transition-all duration-700 delay-300 ${titleInView ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
-                  de{' '}
-                  <span className="relative inline-block">
-                    <span className="italic text-primary">Rotulagem</span>
-                    {/* Underline animation */}
-                    <span 
-                      className={`absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-700 ${
-                        titleInView ? 'w-full' : 'w-0'
-                      }`}
-                      style={{ transitionDelay: '800ms' }}
-                    />
-                  </span>
-                </span>
-              </h2>
-            </div>
+            <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
+              Conheça o <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent-light to-primary animate-gradient-shift bg-[length:200%_auto]">Processo</span>
+              <br />de Rotulagem
+            </h2>
 
             <p className="text-lg text-white/70 leading-relaxed max-w-lg">
               Veja como transformamos informações complexas em rótulos claros, precisos e que geram confiança para seus consumidores.
@@ -134,22 +97,19 @@ const NPLabelingVideoCard = () => {
             </div>
           </div>
 
-          {/* Video Card Side - ENLARGED */}
+          {/* Video Card Side */}
           <div className="order-1 lg:order-2 flex justify-center">
             <div className="relative">
-              {/* Outer glow effect - Enhanced */}
-              <div className="absolute -inset-10 bg-gradient-to-r from-primary/30 via-accent/20 to-primary/30 rounded-[4rem] blur-3xl animate-pulse opacity-70" />
+              {/* Outer glow effect */}
+              <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 via-accent/10 to-primary/20 rounded-[3rem] blur-2xl animate-pulse opacity-60" />
               
-              {/* Animated border ring */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-primary rounded-[3rem] animate-gradient-x bg-[length:200%_auto] opacity-60" />
-              
-              {/* Phone-style frame - LARGER */}
-              <div className="relative w-[320px] sm:w-[360px] md:w-[400px] aspect-[9/16] rounded-[3rem] p-4 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] shadow-2xl">
+              {/* Phone-style frame */}
+              <div className="relative w-[280px] sm:w-[320px] aspect-[9/16] rounded-[2.5rem] p-3 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] shadow-2xl">
                 {/* Inner bezel */}
-                <div className="absolute inset-4 rounded-[2.5rem] bg-gradient-to-b from-[#333] to-[#222] p-1">
-                  <div className="w-full h-full rounded-[2.2rem] overflow-hidden bg-black relative">
+                <div className="absolute inset-3 rounded-[2rem] bg-gradient-to-b from-[#333] to-[#222] p-1">
+                  <div className="w-full h-full rounded-[1.8rem] overflow-hidden bg-black relative">
                     {/* Notch */}
-                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-7 bg-black rounded-full z-20" />
+                    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full z-20" />
                     
                     {!showVideo ? (
                       /* Cover Card */
@@ -164,28 +124,28 @@ const NPLabelingVideoCard = () => {
                         </div>
                         
                         {/* Content */}
-                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-8 text-center">
+                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-6 text-center">
                           {/* Logo/Badge */}
-                          <div className="w-20 h-20 mb-8 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
-                            <Tag className="w-10 h-10 text-white" />
+                          <div className="w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
+                            <Tag className="w-8 h-8 text-white" />
                           </div>
                           
-                          <h3 className="font-playfair text-2xl text-white mb-3">NP Rotulagem</h3>
-                          <p className="text-base text-white/60 mb-10">Excelência em Rotulagem Nutricional</p>
+                          <h3 className="font-playfair text-xl text-white mb-2">NP Rotulagem</h3>
+                          <p className="text-sm text-white/60 mb-8">Excelência em Rotulagem Nutricional</p>
                           
-                          {/* Play button - Enhanced */}
+                          {/* Play button */}
                           <div className="relative">
                             {/* Pulse rings */}
                             <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
-                            <div className="absolute -inset-4 rounded-full border-2 border-primary/20 animate-pulse" />
-                            <div className="absolute -inset-8 rounded-full border border-primary/10 animate-pulse animation-delay-500" />
+                            <div className="absolute -inset-3 rounded-full border-2 border-primary/20 animate-pulse" />
+                            <div className="absolute -inset-6 rounded-full border border-primary/10 animate-pulse animation-delay-500" />
                             
-                            <button className="relative w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 group-hover:shadow-primary/50">
-                              <Play className="w-9 h-9 text-white ml-1" fill="white" />
+                            <button className="relative w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 group-hover:shadow-primary/50">
+                              <Play className="w-7 h-7 text-white ml-1" fill="white" />
                             </button>
                           </div>
                           
-                          <p className="mt-10 text-sm text-white/40">Toque para assistir</p>
+                          <p className="mt-8 text-xs text-white/40">Toque para assistir</p>
                         </div>
                         
                         {/* Shine effect on hover */}
@@ -205,27 +165,27 @@ const NPLabelingVideoCard = () => {
                         />
                         
                         {/* Controls overlay */}
-                        <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-black/80 to-transparent">
+                        <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                           <div className="flex items-center justify-between">
                             <button
                               onClick={togglePlay}
-                              className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+                              className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
                             >
                               {isPlaying ? (
-                                <Pause className="w-6 h-6 text-white" />
+                                <Pause className="w-5 h-5 text-white" />
                               ) : (
-                                <Play className="w-6 h-6 text-white ml-0.5" />
+                                <Play className="w-5 h-5 text-white ml-0.5" />
                               )}
                             </button>
                             
                             <button
                               onClick={toggleMute}
-                              className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
+                              className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
                             >
                               {isMuted ? (
-                                <VolumeX className="w-6 h-6 text-white" />
+                                <VolumeX className="w-5 h-5 text-white" />
                               ) : (
-                                <Volume2 className="w-6 h-6 text-white" />
+                                <Volume2 className="w-5 h-5 text-white" />
                               )}
                             </button>
                           </div>
@@ -234,8 +194,8 @@ const NPLabelingVideoCard = () => {
                         {/* Pause indicator */}
                         {!isPlaying && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer" onClick={togglePlay}>
-                            <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                              <Play className="w-10 h-10 text-white ml-1" />
+                            <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                              <Play className="w-8 h-8 text-white ml-1" />
                             </div>
                           </div>
                         )}
@@ -245,16 +205,16 @@ const NPLabelingVideoCard = () => {
                 </div>
                 
                 {/* Home indicator */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-36 h-1.5 bg-white/30 rounded-full" />
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full" />
               </div>
               
-              {/* Floating badges - Adjusted position */}
-              <div className="absolute -right-6 top-1/4 px-5 py-3 bg-gradient-to-r from-primary to-accent rounded-full shadow-lg animate-bounce-subtle">
-                <span className="text-white text-base font-medium">+500 Rótulos</span>
+              {/* Floating badges */}
+              <div className="absolute -right-4 top-1/4 px-4 py-2 bg-gradient-to-r from-primary to-accent rounded-full shadow-lg animate-bounce-subtle">
+                <span className="text-white text-sm font-medium">+500 Rótulos</span>
               </div>
               
-              <div className="absolute -left-6 bottom-1/3 px-5 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg animate-bounce-subtle animation-delay-500">
-                <span className="text-white text-base font-medium">ANVISA ✓</span>
+              <div className="absolute -left-4 bottom-1/3 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg animate-bounce-subtle animation-delay-500">
+                <span className="text-white text-sm font-medium">ANVISA ✓</span>
               </div>
             </div>
           </div>
