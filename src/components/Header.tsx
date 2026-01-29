@@ -22,68 +22,68 @@ const Header = () => {
       {/* Desktop Header */}
       <div 
         className={`hidden md:flex justify-center transition-all duration-500 ease-out ${
-          isScrolled ? 'px-4 py-4' : 'px-0 py-0'
+          isScrolled ? 'px-6 py-4' : 'px-8 py-6'
         }`}
       >
         <div 
-          className={`backdrop-blur-md flex items-center justify-between shadow-xl border transition-all duration-500 ease-out ${
+          className={`flex items-center justify-between transition-all duration-500 ease-out ${
             isScrolled 
-              ? 'bg-[#1a1a1a]/95 rounded-full px-3 py-2 gap-1 border-white/5 max-w-fit' 
-              : 'bg-[#1a1a1a] rounded-none px-8 py-4 w-full border-transparent'
+              ? 'bg-black/40 backdrop-blur-xl rounded-full px-4 py-2.5 gap-2 border border-white/10 shadow-2xl max-w-fit' 
+              : 'bg-transparent px-4 py-2 w-full max-w-7xl'
           }`}
         >
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 px-3 group">
+          <Link to="/" className="flex items-center gap-2 px-2 group">
             <img 
               src={logoNP} 
               alt="NP Consultoria" 
-              className={`w-auto transition-all duration-500 ${isScrolled ? 'h-8' : 'h-10'}`} 
+              className={`w-auto transition-all duration-500 ${isScrolled ? 'h-7' : 'h-9'}`} 
             />
             <span className={`font-playfair font-bold text-white transition-all duration-500 ${
-              isScrolled ? 'text-sm' : 'text-lg'
+              isScrolled ? 'text-sm' : 'text-base'
             }`}>
               NP
             </span>
           </Link>
           
           {/* Navigation Links */}
-          <nav className="flex items-center">
+          <nav className="flex items-center gap-1">
             <Link 
               to="/servicos-alimentares" 
-              className={`text-white/80 hover:text-white transition-all duration-200 font-medium ${
-                isScrolled ? 'text-sm px-4 py-2' : 'text-base px-6 py-3'
+              className={`text-white/90 hover:text-white transition-all duration-200 font-medium hover:bg-white/10 rounded-full ${
+                isScrolled ? 'text-sm px-4 py-2' : 'text-sm px-5 py-2.5'
               }`}
             >
               Serviços
             </Link>
             <Link 
               to="/np-rotulagem" 
-              className={`text-white/80 hover:text-white transition-all duration-200 font-medium ${
-                isScrolled ? 'text-sm px-4 py-2' : 'text-base px-6 py-3'
+              className={`text-white/90 hover:text-white transition-all duration-200 font-medium hover:bg-white/10 rounded-full ${
+                isScrolled ? 'text-sm px-4 py-2' : 'text-sm px-5 py-2.5'
               }`}
             >
               Rotulagem
             </Link>
             <Link 
               to="/equipe" 
-              className={`text-white/80 hover:text-white transition-all duration-200 font-medium ${
-                isScrolled ? 'text-sm px-4 py-2' : 'text-base px-6 py-3'
+              className={`text-white/90 hover:text-white transition-all duration-200 font-medium hover:bg-white/10 rounded-full ${
+                isScrolled ? 'text-sm px-4 py-2' : 'text-sm px-5 py-2.5'
               }`}
             >
               Equipe
             </Link>
             <Link 
               to="/sobre" 
-              className={`text-white/80 hover:text-white transition-all duration-200 font-medium ${
-                isScrolled ? 'text-sm px-4 py-2' : 'text-base px-6 py-3'
+              className={`text-white/90 hover:text-white transition-all duration-200 font-medium hover:bg-white/10 rounded-full ${
+                isScrolled ? 'text-sm px-4 py-2' : 'text-sm px-5 py-2.5'
               }`}
             >
               Sobre
             </Link>
             <Link
               to="/faq" 
-              className={`text-white/80 hover:text-white transition-all duration-200 font-medium ${
-                isScrolled ? 'text-sm px-4 py-2' : 'text-base px-6 py-3'
+              className={`text-white/90 hover:text-white transition-all duration-200 font-medium hover:bg-white/10 rounded-full ${
+                isScrolled ? 'text-sm px-4 py-2' : 'text-sm px-5 py-2.5'
               }`}
             >
               FAQ
@@ -93,8 +93,8 @@ const Header = () => {
           {/* CTA Button */}
           <Button 
             variant="default" 
-            className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium ml-1 transition-all duration-500 hover:scale-105 ${
-              isScrolled ? 'px-5 py-2 text-sm' : 'px-8 py-3 text-base'
+            className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium transition-all duration-500 hover:scale-105 shadow-lg shadow-primary/25 ${
+              isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
             }`}
           >
             Contacto
@@ -103,12 +103,12 @@ const Header = () => {
       </div>
 
       {/* Mobile Header */}
-      <div className="flex md:hidden justify-center px-4 py-3">
+      <div className="flex md:hidden justify-center px-4 py-4">
         <div 
-          className={`backdrop-blur-md flex items-center justify-between shadow-xl border transition-all duration-500 ease-out ${
+          className={`flex items-center justify-between transition-all duration-500 ease-out ${
             isScrolled 
-              ? 'bg-[#1a1a1a]/95 rounded-full px-2 py-1.5 gap-1 border-white/5' 
-              : 'bg-[#1a1a1a] rounded-2xl px-4 py-3 w-full border-transparent'
+              ? 'bg-black/40 backdrop-blur-xl rounded-full px-3 py-2 gap-1 border border-white/10 shadow-2xl' 
+              : 'bg-transparent px-2 py-2 w-full'
           }`}
         >
           <Link to="/" className="flex items-center gap-2 px-2 group">
@@ -120,14 +120,14 @@ const Header = () => {
             <Button 
               variant="default" 
               size="sm" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium shadow-lg shadow-primary/25"
             >
               Contacto
             </Button>
             
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-white/80 hover:text-white transition-colors"
+              className="p-2 text-white/90 hover:text-white hover:bg-white/10 rounded-full transition-all"
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
