@@ -1,4 +1,4 @@
-import consultationMeeting from "@/assets/consultation-meeting.jpg";
+import equipeNP from "@/assets/equipe_np.jpg";
 import { useInView } from "react-intersection-observer";
 
 const PhilosophySection = () => {
@@ -47,9 +47,9 @@ const PhilosophySection = () => {
             imageInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}>
             <img 
-              src={consultationMeeting} 
-              alt="Consulta nutricional" 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1" 
+              src={equipeNP} 
+              alt="Equipe NP Consultoria" 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1"
             />
           </div>
         </div>
