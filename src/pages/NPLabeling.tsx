@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import NPLabelingHero from "@/components/NPLabelingHero";
+import NPLabelingVideoCard from "@/components/NPLabelingVideoCard";
 import ExperienceSection from "@/components/ExperienceSection";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -15,6 +16,7 @@ const NPLabeling = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <NPLabelingHero />
+        <NPLabelingVideoCard />
         <ExperienceSection />
         <Footer />
       </div>
