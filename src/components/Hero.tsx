@@ -37,13 +37,13 @@ const Hero = () => {
               Consultoria em Alimentação e Nutrição
             </span>
             
-            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]">
+            <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6" style={{ lineHeight: 1.2 }}>
               Transforme a{" "}
-              <span className="relative inline-block">
-                <span className="text-gradient-light italic">qualidade alimentar</span>
+              <span className="relative inline-block py-1">
+                <span className="text-gradient-light italic py-1">qualidade alimentar</span>
               </span>
               {" "}em resultados com a{" "}
-              <span className="inline-flex items-baseline relative">
+              <span className="inline-flex items-baseline relative py-1">
                 <span className="relative z-10 border-b-4 border-white/50 pb-1">NP</span>
                 <BrilliantReflection className="opacity-30" />
               </span>

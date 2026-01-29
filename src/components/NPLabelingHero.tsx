@@ -35,13 +35,13 @@ const NPLabelingHero = () => {
       
       <div ref={ref} className="container mx-auto px-6 lg:px-16 py-20 lg:py-32 relative z-10">
         <div className="max-w-3xl">
-          {/* Revolutionary Title Effect */}
-          <div className="mb-8 overflow-hidden">
+          {/* Revolutionary Title Effect - Safe container for animations */}
+          <div className="mb-8">
             <h1 className="font-playfair text-headline relative">
               {/* Line 1: Rotulagem Precisa with staggered reveal */}
-              <span className="block overflow-hidden">
+              <span className="block py-1">
                 <span 
-                  className={`inline-block transition-all duration-1000 ease-out ${
+                  className={`inline-block py-2 transition-all duration-1000 ease-out ${
                     isRevealed ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`}
                 >
@@ -51,12 +51,13 @@ const NPLabelingHero = () => {
                       {'Rotulagem'.split('').map((letter, i) => (
                         <span 
                           key={i}
-                          className={`inline-block transition-all duration-500 hover:text-primary hover:-translate-y-1 ${
+                          className={`inline-block py-1 transition-all duration-500 hover:text-primary hover:-translate-y-1 ${
                             isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                           }`}
                           style={{ 
                             transitionDelay: `${i * 50 + 200}ms`,
-                            textShadow: isRevealed ? '0 0 40px rgba(180, 120, 90, 0.3)' : 'none'
+                            textShadow: isRevealed ? '0 0 40px rgba(180, 120, 90, 0.3)' : 'none',
+                            lineHeight: 1.3
                           }}
                         >
                           {letter}
@@ -92,12 +93,12 @@ const NPLabelingHero = () => {
               </span>
               
               {/* Line 2: A Base do Seu Negócio */}
-              <span className="block overflow-hidden">
+              <span className="block py-1">
                 <span 
-                  className={`inline-block transition-all duration-1000 ease-out ${
+                  className={`inline-block py-2 transition-all duration-1000 ease-out ${
                     isRevealed ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`}
-                  style={{ transitionDelay: '400ms' }}
+                  style={{ transitionDelay: '400ms', lineHeight: 1.3 }}
                 >
                   A{' '}
                   <span className="relative inline-block">
