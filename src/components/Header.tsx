@@ -21,15 +21,15 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Desktop Header */}
       <div 
-        className={`hidden md:flex justify-center transition-all duration-500 ease-out ${
-          isScrolled ? 'px-6 py-4' : 'px-8 py-6'
+        className={`hidden md:block transition-all duration-700 ease-out ${
+          isScrolled ? 'px-6 py-4' : 'px-0 py-0'
         }`}
       >
         <div 
-          className={`flex items-center justify-between transition-all duration-500 ease-out ${
+          className={`flex items-center justify-between transition-all duration-700 ease-out ${
             isScrolled 
-              ? 'bg-black/40 backdrop-blur-xl rounded-full px-4 py-2.5 gap-2 border border-white/10 shadow-2xl max-w-fit' 
-              : 'bg-transparent px-4 py-2 w-full max-w-7xl'
+              ? 'bg-black/40 backdrop-blur-xl rounded-full px-4 py-2.5 gap-2 border border-white/10 shadow-2xl max-w-fit mx-auto' 
+              : 'bg-[#2a2a2a] px-8 py-4 w-full'
           }`}
         >
           {/* Logo */}
@@ -103,12 +103,14 @@ const Header = () => {
       </div>
 
       {/* Mobile Header */}
-      <div className="flex md:hidden justify-center px-4 py-4">
+      <div className={`flex md:hidden transition-all duration-700 ease-out ${
+        isScrolled ? 'justify-center px-4 py-3' : 'justify-between px-0 py-0'
+      }`}>
         <div 
-          className={`flex items-center justify-between transition-all duration-500 ease-out ${
+          className={`flex items-center justify-between transition-all duration-700 ease-out ${
             isScrolled 
               ? 'bg-black/40 backdrop-blur-xl rounded-full px-3 py-2 gap-1 border border-white/10 shadow-2xl' 
-              : 'bg-transparent px-2 py-2 w-full'
+              : 'bg-[#2a2a2a] px-4 py-3 w-full'
           }`}
         >
           <Link to="/" className="flex items-center gap-2 px-2 group">
