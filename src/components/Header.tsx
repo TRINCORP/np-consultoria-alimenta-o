@@ -139,48 +139,62 @@ const Header = () => {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`md:hidden fixed inset-0 bg-[#1a1a1a]/98 backdrop-blur-lg transition-all duration-500 ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`md:hidden fixed inset-x-0 transition-all duration-500 ease-out ${
+          isMobileMenuOpen 
+            ? 'opacity-100 pointer-events-auto translate-y-0' 
+            : 'opacity-0 pointer-events-none -translate-y-4'
         }`}
         style={{ top: '70px' }}
       >
-        <nav className="flex flex-col items-center justify-center h-full gap-8 -mt-20">
-          <Link 
-            to="/servicos-alimentares" 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl font-medium text-white/80 hover:text-white transition-colors"
-          >
-            Serviços
-          </Link>
-          <Link 
-            to="/np-rotulagem" 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl font-medium text-white/80 hover:text-white transition-colors"
-          >
-            Rotulagem
-          </Link>
-          <Link 
-            to="/equipe" 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl font-medium text-white/80 hover:text-white transition-colors"
-          >
-            Equipe
-          </Link>
-          <Link 
-            to="/sobre" 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl font-medium text-white/80 hover:text-white transition-colors"
-          >
-            Sobre
-          </Link>
-          <Link 
-            to="/faq" 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl font-medium text-white/80 hover:text-white transition-colors"
-          >
-            FAQ
-          </Link>
-        </nav>
+        <div className="px-4 pt-4">
+          <div className="bg-[#1a1a2e]/95 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-2xl">
+            <nav className="flex flex-col gap-1">
+              <Link 
+                to="/sobre" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-all py-3 px-4 rounded-xl"
+              >
+                Sobre
+              </Link>
+              <Link 
+                to="/servicos-alimentares" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-all py-3 px-4 rounded-xl"
+              >
+                Serviços
+              </Link>
+              <Link 
+                to="/np-rotulagem" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-all py-3 px-4 rounded-xl"
+              >
+                Rotulagem
+              </Link>
+              <Link 
+                to="/equipe" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-all py-3 px-4 rounded-xl"
+              >
+                Equipe
+              </Link>
+              <Link 
+                to="/faq" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-all py-3 px-4 rounded-xl"
+              >
+                FAQ
+              </Link>
+            </nav>
+            
+            <div className="mt-6 pt-6 border-t border-white/10">
+              <Button 
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full py-6 text-base font-semibold shadow-lg shadow-primary/25"
+              >
+                Fale Conosco
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );
