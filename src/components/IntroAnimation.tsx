@@ -238,12 +238,12 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
           phase === "exit" ? "opacity-0 translate-y-10 blur-sm" : ""
         }`}>
           
-          {/* Main title with letter-by-letter reveal */}
-          <h1 className="flex overflow-hidden">
+          {/* Main title with letter-by-letter reveal - Safe container */}
+          <h1 className="flex py-2" style={{ lineHeight: 1.3 }}>
             {letters.slice(0, 2).map((letter, i) => (
               <span
                 key={i}
-                className={`text-4xl md:text-6xl font-bold transition-all duration-500 ${
+                className={`text-4xl md:text-6xl font-bold py-1 transition-all duration-500 ${
                   phase === "text" || phase === "exit" 
                     ? "opacity-100 translate-y-0" 
                     : "opacity-0 translate-y-full"
@@ -254,6 +254,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
+                  lineHeight: 1.3,
                 }}
               >
                 {letter}
@@ -263,7 +264,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             {letters.slice(2).map((letter, i) => (
               <span
                 key={i + 2}
-                className={`text-4xl md:text-6xl font-bold transition-all duration-500 ${
+                className={`text-4xl md:text-6xl font-bold py-1 transition-all duration-500 ${
                   phase === "text" || phase === "exit" 
                     ? "opacity-100 translate-y-0" 
                     : "opacity-0 translate-y-full"
@@ -274,6 +275,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
+                  lineHeight: 1.3,
                 }}
               >
                 {letter}
@@ -315,17 +317,17 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             />
           </div>
 
-          {/* Tagline with stagger effect */}
-          <div className="flex overflow-hidden">
+          {/* Tagline with stagger effect - Safe container */}
+          <div className="flex py-2" style={{ lineHeight: 1.4 }}>
             {tagline.map((letter, i) => (
               <span
                 key={i}
-                className={`text-sm md:text-lg font-light tracking-[0.3em] uppercase text-muted-foreground transition-all duration-500 ${
+                className={`text-sm md:text-lg font-light tracking-[0.3em] uppercase text-muted-foreground py-1 transition-all duration-500 ${
                   phase === "text" || phase === "exit" 
                     ? "opacity-100 translate-y-0 blur-0" 
                     : "opacity-0 translate-y-4 blur-sm"
                 }`}
-                style={{ transitionDelay: `${900 + i * 40}ms` }}
+                style={{ transitionDelay: `${900 + i * 40}ms`, lineHeight: 1.4 }}
               >
                 {letter}
               </span>
