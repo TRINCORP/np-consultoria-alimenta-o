@@ -65,15 +65,21 @@ const Hero = () => {
           </h1>
           
           {/* Description */}
-          <p className={`text-base sm:text-lg lg:text-xl text-white/90 mb-4 leading-relaxed max-w-2xl transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Soluções completas para empresas do setor alimentício que buscam segurança sanitária, organização operacional, prevenção de perdas e regularização de produtos.
+          <p className={`text-base sm:text-lg lg:text-xl text-white/90 mb-5 leading-relaxed max-w-2xl transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            A NP Consultoria e NP Rotulagem oferecem soluções completas para empresas do setor alimentício que buscam segurança sanitária, organização operacional, prevenção de perdas e regularização de produtos.
           </p>
-          <p className={`text-sm sm:text-base lg:text-lg text-white/75 mb-10 leading-relaxed max-w-2xl transition-all duration-1000 delay-400 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className={`text-sm sm:text-base lg:text-lg text-white/80 mb-5 leading-relaxed max-w-2xl transition-all duration-1000 delay-400 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            Atuamos desde a implantação de Boas Práticas e gestão de equipes até o desenvolvimento técnico e estratégico de rótulos e identidade visual, garantindo conformidade com a legislação e fortalecimento da sua marca no mercado.
+          </p>
+          <p className={`text-sm sm:text-base lg:text-lg text-white/75 mb-4 leading-relaxed max-w-2xl transition-all duration-1000 delay-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            Mais do que adequação sanitária, entregamos organização, prevenção e crescimento estruturado.
+          </p>
+          <p className={`text-base sm:text-lg lg:text-xl font-semibold text-white italic mb-10 transition-all duration-1000 delay-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Protegemos sua operação. Valorizamos sua marca.
           </p>
           
-          {/* CTA Button */}
-          <div className={`flex flex-wrap justify-center gap-4 mb-16 transition-all duration-1000 delay-400 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* CTA Buttons */}
+          <div className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 delay-600 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <Button 
               size="lg"
               className="bg-white text-[#b7a6a1] hover:bg-white/90 rounded-full px-10 py-7 text-base font-semibold group transition-all duration-300 hover:scale-105 hover:shadow-2xl shadow-xl"
@@ -89,30 +95,6 @@ const Hero = () => {
             >
               Nossas Soluções
             </Button>
-          </div>
-
-          {/* Stats Row */}
-          <div className={`grid grid-cols-3 gap-8 sm:gap-16 transition-all duration-1000 delay-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-1">
-                +300
-              </div>
-              <div className="text-white/70 text-sm sm:text-base">Empresas Atendidas</div>
-            </div>
-            <div className="text-center relative">
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 h-12 w-px bg-white/20 hidden sm:block" />
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-1">
-                +15
-              </div>
-              <div className="text-white/70 text-sm sm:text-base">Anos de Experiência</div>
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 h-12 w-px bg-white/20 hidden sm:block" />
-            </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-1">
-                98%
-              </div>
-              <div className="text-white/70 text-sm sm:text-base">Satisfação</div>
-            </div>
           </div>
         </div>
       </div>
