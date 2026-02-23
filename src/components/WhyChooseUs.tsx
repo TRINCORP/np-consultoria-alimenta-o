@@ -1,90 +1,49 @@
 import { useInView } from "react-intersection-observer";
 import { Search, ClipboardCheck, TrendingDown, Users, Tag, Target } from "lucide-react";
-import { useState } from "react";
+import "./why_np_cards.css";
 
 const features = [
   {
     icon: Search,
     title: "Atuação Preventiva",
-    description: "Reduzimos riscos de autuações, perdas financeiras, desperdícios e retrabalhos antes que aconteçam.",
+    description: "Reduzimos riscos de autuações, perdas e retrabalhos antes que aconteçam.",
   },
   {
     icon: ClipboardCheck,
     title: "Conformidade com Segurança",
-    description: "Processos fundamentados na legislação sanitária vigente, garantindo tranquilidade em fiscalizações.",
+    description: "Processos na legislação sanitária vigente, garantindo tranquilidade em fiscalizações.",
   },
   {
     icon: TrendingDown,
     title: "Redução de Perdas",
-    description: "Organização operacional, controle de estoque e padronização que impactam diretamente nos resultados financeiros.",
+    description: "Organização operacional e padronização que impactam nos resultados financeiros.",
   },
   {
     icon: Users,
     title: "Desenvolvimento de Equipe",
-    description: "Estruturamos equipes organizadas, líderes preparados e ambientes mais produtivos.",
+    description: "Equipes organizadas, líderes preparados e ambientes mais produtivos.",
   },
   {
     icon: Tag,
-    title: "Técnica e Estratégia em Rotulagem",
-    description: "Conhecimento regulatório e posicionamento de marca para rótulos que fortalecem seu produto.",
+    title: "Técnica em Rotulagem",
+    description: "Conhecimento regulatório e posicionamento de marca para rótulos estratégicos.",
   },
   {
     icon: Target,
     title: "Atendimento Personalizado",
-    description: "Planos de ação direcionados à sua realidade, porte e segmento. Sem soluções genéricas.",
+    description: "Planos direcionados à sua realidade, porte e segmento. Sem soluções genéricas.",
   },
 ];
 
-const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: number }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-
-  return (
-    <div
-      ref={ref}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`group relative overflow-hidden rounded-2xl bg-card border border-border/30 
-        transition-all duration-500 cursor-pointer
-        ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
-        ${isHovered ? 'shadow-2xl shadow-primary/10 border-primary/20 -translate-y-2' : 'hover:shadow-lg'}`}
-      style={{ transitionDelay: `${index * 80}ms` }}
-    >
-      <div className={`absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 
-        transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
-      
-      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent 
-        transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
-
-      <div className="relative z-10 p-6 lg:p-8">
-        <div className={`relative w-14 h-14 rounded-xl mb-6 flex items-center justify-center 
-          transition-all duration-500 ${isHovered ? 'bg-primary/20 scale-110' : 'bg-primary/10'}`}>
-          <feature.icon className={`w-7 h-7 transition-all duration-500 ${isHovered ? 'text-primary scale-110' : 'text-primary/80'}`} />
-        </div>
-
-        <h3 className="text-xl font-bold text-foreground mb-3 relative inline-block">
-          {feature.title}
-          <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-500 
-            ${isHovered ? 'w-full' : 'w-0'}`} />
-        </h3>
-
-        <p className="text-muted-foreground leading-relaxed">
-          {feature.description}
-        </p>
-      </div>
-
-      <div className={`absolute -bottom-12 -right-12 w-32 h-32 rounded-full 
-        bg-gradient-to-tl from-primary/10 to-transparent transition-all duration-500
-        ${isHovered ? 'scale-150 opacity-100' : 'scale-100 opacity-0'}`} />
-    </div>
-  );
-};
+// Duplicate to fill 12 items for seamless loop
+const carouselItems = [...features, ...features];
 
 const WhyChooseUs = () => {
   const { ref: titleRef, inView: titleInView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
     <section className="py-20 md:py-28 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
+      {/* Background decorations */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-border to-transparent" />
         <div className="absolute top-0 left-2/4 w-px h-full bg-gradient-to-b from-transparent via-border to-transparent" />
@@ -95,7 +54,8 @@ const WhyChooseUs = () => {
       <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[100px] animate-float" style={{ animationDelay: '2s' }} />
       
       <div className="container mx-auto px-6 relative z-10">
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        {/* Header */}
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <span className={`inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 
             transition-all duration-700 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Por Que Escolher a NP
@@ -129,10 +89,30 @@ const WhyChooseUs = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} feature={feature} index={index} />
-          ))}
+        {/* 3D Infinite Carousel */}
+        <div className={`transition-all duration-1000 delay-300 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="why-np-carousel">
+            <div 
+              className="why-np-carousel-track" 
+              style={{ '--time': '50s', '--total': 12 } as React.CSSProperties}
+            >
+              {carouselItems.map((feature, index) => (
+                <div 
+                  key={index} 
+                  className="why-np-card-item" 
+                  style={{ '--i': index + 1 } as React.CSSProperties}
+                >
+                  <div className="why-np-card-inner">
+                    <div className="why-np-card-icon">
+                      <feature.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="why-np-card-title">{feature.title}</h3>
+                    <p className="why-np-card-desc">{feature.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Bottom institutional CTA */}
