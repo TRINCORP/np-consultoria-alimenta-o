@@ -45,27 +45,31 @@ const Hero = () => {
 
           {/* Badge */}
           <span className={`inline-block px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-8 border border-white/20 transition-all duration-1000 delay-100 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-            ✦ Consultoria em Alimentação e Nutrição ✦
+            ✦ NP Consultoria & NP Rotulagem ✦
           </span>
           
           {/* Main Title */}
           <h1 className={`font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 transition-all duration-1000 delay-200 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ lineHeight: 1.15 }}>
-            Transforme a{" "}
-            <span className="relative inline-block">
-              <span className="text-gradient-light italic">qualidade alimentar</span>
-            </span>
+            Segurança, Conformidade{" "}
             <br className="hidden sm:block" />
-            {" "}em{" "}
+            e{" "}
             <span className="relative inline-block">
-              <span className="text-white">resultados</span>
+              <span className="text-gradient-light italic">Estratégia</span>
+            </span>
+            {" "}para o Seu{" "}
+            <br className="hidden sm:block" />
+            <span className="relative inline-block">
+              <span className="text-white">Negócio de Alimentos</span>
               <BrilliantReflection className="opacity-20" />
             </span>
           </h1>
           
           {/* Description */}
-          <p className={`text-base sm:text-lg lg:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Desenvolvemos soluções em serviços de alimentação para empresas e indústrias, 
-            garantindo segurança alimentar, conformidade com legislações e satisfação do consumidor.
+          <p className={`text-base sm:text-lg lg:text-xl text-white/90 mb-4 leading-relaxed max-w-2xl transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            Soluções completas para empresas do setor alimentício que buscam segurança sanitária, organização operacional, prevenção de perdas e regularização de produtos.
+          </p>
+          <p className={`text-sm sm:text-base lg:text-lg text-white/75 mb-10 leading-relaxed max-w-2xl transition-all duration-1000 delay-400 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            Protegemos sua operação. Valorizamos sua marca.
           </p>
           
           {/* CTA Button */}
