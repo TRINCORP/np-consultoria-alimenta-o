@@ -96,8 +96,15 @@ const WhyChooseUs = () => {
           </div>
         </div>
 
+        {/* Gradient blob transition */}
+        <div className="why-np-gradient-blob">
+          <span className="why-np-scroll-hint">
+            Scroll down <span className="arrow">↓</span>
+          </span>
+        </div>
+
         {/* Bottom institutional CTA */}
-        <div className={`mt-16 md:mt-20 text-center max-w-2xl mx-auto transition-all duration-700 delay-700 
+        <div className={`text-center max-w-2xl mx-auto transition-all duration-700 delay-700 
           ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="w-12 h-px bg-primary/40 mx-auto mb-6" />
           <p className="text-muted-foreground mb-2 leading-relaxed">
