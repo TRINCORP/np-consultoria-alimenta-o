@@ -103,9 +103,9 @@ const WhyChooseUs = () => {
           
           <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 
             transition-all duration-700 delay-100 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Segurança, Organização e{" "}
+            Por que escolher a{" "}
             <span className="relative inline-block">
-              <span className="text-gradient">Estratégia Aplicada</span>
+              <span className="text-gradient">NP?</span>
               <svg className="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" fill="none">
                 <path 
                   d="M1 5.5C47.6667 2.16667 141 -2.5 199 5.5" 
