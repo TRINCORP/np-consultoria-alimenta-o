@@ -34,68 +34,27 @@
   cursor: pointer;
 }
 
-.why-np-card-inner {
+.why-np-card-img {
   width: 100%;
   height: 100%;
-  border-radius: 1.25rem;
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 1rem;
+  object-fit: cover;
+  border-radius: 1rem;
+  border: 2px solid hsl(var(--primary) / 0.5);
   transform: rotateY(-35deg);
   transition: 0.5s ease-in-out;
-  background: linear-gradient(
-    145deg,
-    hsl(var(--card)) 0%,
-    hsl(var(--muted)) 100%
-  );
-  border: 1.5px solid hsl(var(--primary) / 0.5);
+  mask: linear-gradient(black 75%, transparent 100%);
+  -webkit-mask: linear-gradient(black 75%, transparent 100%);
   box-shadow: 
-    0 20px 40px -15px hsl(var(--primary) / 0.15),
-    0 0 0 1px hsl(var(--border) / 0.1);
-  mask: linear-gradient(black 80%, transparent 100%);
-  -webkit-mask: linear-gradient(black 80%, transparent 100%);
+    0 20px 40px -15px hsl(var(--primary) / 0.2),
+    0 0 0 1px hsl(var(--primary) / 0.1);
 }
 
-.why-np-card-item:hover .why-np-card-inner {
+.why-np-card-item:hover .why-np-card-img {
   transform: rotateY(0deg) translateY(-1rem);
-  border-color: hsl(var(--primary) / 0.5);
+  border-color: hsl(var(--primary) / 0.8);
   box-shadow: 
-    0 25px 50px -15px hsl(var(--primary) / 0.25),
-    0 0 30px hsl(var(--primary) / 0.1);
-}
-
-.why-np-card-icon {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 0.875rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: hsl(var(--primary) / 0.15);
-  flex-shrink: 0;
-  transition: 0.4s ease;
-}
-
-.why-np-card-item:hover .why-np-card-icon {
-  background: hsl(var(--primary) / 0.25);
-  transform: scale(1.1) rotate(5deg);
-}
-
-.why-np-card-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: hsl(var(--foreground));
-  line-height: 1.3;
-}
-
-.why-np-card-desc {
-  font-size: 0.8rem;
-  color: hsl(var(--muted-foreground));
-  line-height: 1.5;
+    0 25px 50px -15px hsl(var(--primary) / 0.3),
+    0 0 30px hsl(var(--primary) / 0.15);
 }
 
 /* Fade edges */
@@ -135,17 +94,5 @@
   .why-np-card-item {
     width: 17rem;
     height: 18rem;
-  }
-  
-  .why-np-card-inner {
-    padding: 1.5rem 1.25rem;
-  }
-  
-  .why-np-card-title {
-    font-size: 0.95rem;
-  }
-  
-  .why-np-card-desc {
-    font-size: 0.75rem;
   }
 }
