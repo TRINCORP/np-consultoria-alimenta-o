@@ -10,7 +10,7 @@
   --time: 80s;
   --left: -350rem;
   min-width: calc(10rem * var(--total));
-  height: 22rem;
+  height: 30rem;
   position: relative;
 }
 
@@ -20,8 +20,8 @@
 
 .why-np-card-item {
   position: absolute;
-  width: 22rem;
-  height: 22rem;
+  width: 30rem;
+  height: 30rem;
   left: 100%;
   display: flex;
   justify-content: center;
@@ -38,15 +38,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   border: 2px solid hsl(var(--primary) / 0.5);
-  transform: rotateY(-35deg);
+  transform: rotateY(-45deg);
   transition: 0.5s ease-in-out;
-  mask: linear-gradient(black 75%, transparent 100%);
-  -webkit-mask: linear-gradient(black 75%, transparent 100%);
-  box-shadow: 
-    0 20px 40px -15px hsl(var(--primary) / 0.2),
-    0 0 0 1px hsl(var(--primary) / 0.1);
+  mask: linear-gradient(black 70%, transparent 100%);
+  -webkit-mask: linear-gradient(black 70%, transparent 100%);
 }
 
 .why-np-card-item:hover .why-np-card-img {
@@ -64,7 +61,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 8rem;
+  width: 6rem;
   z-index: 2;
   pointer-events: none;
 }
@@ -79,20 +76,70 @@
   background: linear-gradient(to left, hsl(var(--background)), transparent);
 }
 
+/* Color gradient blob transition */
+.why-np-gradient-blob {
+  position: relative;
+  width: 100%;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.why-np-gradient-blob::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 100%;
+  background: radial-gradient(ellipse at center bottom, hsl(var(--primary) / 0.35) 0%, hsl(var(--primary) / 0.15) 30%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.why-np-scroll-hint {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.why-np-scroll-hint .arrow {
+  animation: why-np-bounce 2s ease-in-out infinite;
+}
+
 @keyframes why-np-scroll-left {
   to {
     left: var(--left);
   }
 }
 
+@keyframes why-np-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .why-np-carousel-track {
-    height: 18rem;
+    height: 22rem;
   }
   
   .why-np-card-item {
-    width: 17rem;
-    height: 18rem;
+    width: 22rem;
+    height: 22rem;
+  }
+
+  .why-np-gradient-blob {
+    height: 14rem;
   }
 }
