@@ -37,9 +37,9 @@ const Index = () => {
     <>
       {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
       <SEO 
-        title="Consultoria em Alimentação e Nutrição"
-        description="Transforme a qualidade alimentar em resultados com a NP Consultoria. Desenvolvemos soluções em serviços de alimentação, garantindo segurança alimentar e conformidade regulamentar."
-        keywords="consultoria alimentar, nutrição empresarial, segurança alimentar, rotulagem nutricional, qualidade alimentar, serviços de alimentação, consultoria nutricional Brasil"
+        title="Segurança, Conformidade e Estratégia para o Seu Negócio de Alimentos"
+        description="A NP Consultoria e NP Rotulagem oferecem soluções completas para empresas do setor alimentício: segurança sanitária, organização operacional, prevenção de perdas, regularização de produtos e desenvolvimento de rótulos."
+        keywords="consultoria alimentar, segurança sanitária, rotulagem nutricional, boas práticas alimentação, regularização de produtos, identidade visual alimentos, prevenção de perdas, conformidade legislação alimentar, NP Consultoria, NP Rotulagem"
       />
       <FloatingIcons />
       <div className="min-h-screen bg-background">
