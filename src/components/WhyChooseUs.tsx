@@ -1,42 +1,24 @@
 import { useInView } from "react-intersection-observer";
-import { Search, ClipboardCheck, TrendingDown, Users, Tag, Target } from "lucide-react";
 import "./why_np_cards.css";
 
-const features = [
-  {
-    icon: Search,
-    title: "Atuação Preventiva",
-    description: "Reduzimos riscos de autuações, perdas e retrabalhos antes que aconteçam.",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Conformidade com Segurança",
-    description: "Processos na legislação sanitária vigente, garantindo tranquilidade em fiscalizações.",
-  },
-  {
-    icon: TrendingDown,
-    title: "Redução de Perdas",
-    description: "Organização operacional e padronização que impactam nos resultados financeiros.",
-  },
-  {
-    icon: Users,
-    title: "Desenvolvimento de Equipe",
-    description: "Equipes organizadas, líderes preparados e ambientes mais produtivos.",
-  },
-  {
-    icon: Tag,
-    title: "Técnica em Rotulagem",
-    description: "Conhecimento regulatório e posicionamento de marca para rótulos estratégicos.",
-  },
-  {
-    icon: Target,
-    title: "Atendimento Personalizado",
-    description: "Planos direcionados à sua realidade, porte e segmento. Sem soluções genéricas.",
-  },
+import consultoriaCozinha from "@/assets/carousel/consultoria-cozinha.jpg";
+import relatorioRotulagem from "@/assets/carousel/relatorio-rotulagem.jpg";
+import treinamentoEquipe from "@/assets/carousel/treinamento-equipe.jpg";
+import analiseRotulo from "@/assets/carousel/analise-rotulo.jpg";
+import auditoriaEstoque from "@/assets/carousel/auditoria-estoque.jpg";
+import reuniaoCliente from "@/assets/carousel/reuniao-cliente.jpg";
+
+const photos = [
+  { src: consultoriaCozinha, alt: "Consultoria em cozinha industrial" },
+  { src: relatorioRotulagem, alt: "Elaboração de relatórios de rotulagem" },
+  { src: treinamentoEquipe, alt: "Treinamento de equipe em segurança alimentar" },
+  { src: analiseRotulo, alt: "Análise técnica de rótulos nutricionais" },
+  { src: auditoriaEstoque, alt: "Auditoria de estoque e armazenamento" },
+  { src: reuniaoCliente, alt: "Reunião estratégica com cliente" },
 ];
 
 // Duplicate to fill 12 items for seamless loop
-const carouselItems = [...features, ...features];
+const carouselItems = [...photos, ...photos];
 
 const WhyChooseUs = () => {
   const { ref: titleRef, inView: titleInView } = useInView({ threshold: 0.1, triggerOnce: true });
@@ -89,26 +71,25 @@ const WhyChooseUs = () => {
           </p>
         </div>
 
-        {/* 3D Infinite Carousel */}
+        {/* 3D Infinite Photo Carousel */}
         <div className={`transition-all duration-1000 delay-300 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="why-np-carousel">
             <div 
               className="why-np-carousel-track" 
               style={{ '--time': '80s', '--total': 12 } as React.CSSProperties}
             >
-              {carouselItems.map((feature, index) => (
+              {carouselItems.map((photo, index) => (
                 <div 
                   key={index} 
                   className="why-np-card-item" 
                   style={{ '--i': index + 1 } as React.CSSProperties}
                 >
-                  <div className="why-np-card-inner">
-                    <div className="why-np-card-icon">
-                      <feature.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="why-np-card-title">{feature.title}</h3>
-                    <p className="why-np-card-desc">{feature.description}</p>
-                  </div>
+                  <img 
+                    src={photo.src} 
+                    alt={photo.alt} 
+                    className="why-np-card-img"
+                    loading="lazy"
+                  />
                 </div>
               ))}
             </div>
