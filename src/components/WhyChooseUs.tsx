@@ -94,7 +94,7 @@ const WhyChooseUs = () => {
           <div className="why-np-carousel">
             <div 
               className="why-np-carousel-track" 
-              style={{ '--time': '50s', '--total': 12 } as React.CSSProperties}
+              style={{ '--time': '80s', '--total': 12 } as React.CSSProperties}
             >
               {carouselItems.map((feature, index) => (
                 <div 
