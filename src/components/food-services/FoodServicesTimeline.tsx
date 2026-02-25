@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Search, ClipboardList, TrendingDown, Users, BarChart3, GraduationCap, Tag } from "lucide-react";
+import logoNPCircle from "@/assets/logo-np-circle.png";
 
 interface ServiceCard {
   icon: React.ElementType;
@@ -188,24 +189,29 @@ const TimelineCard = ({ service, index }: { service: ServiceCard; index: number 
         </div>
       </div>
 
-      {/* Node dot */}
+      {/* Node — NP Logo */}
       <div className="col-start-2 flex justify-center items-center z-[3] relative">
         <div
-          className="relative w-[22px] h-[22px] rounded-full border-[3px] transition-all duration-[550ms]"
+          className="relative w-[36px] h-[36px] rounded-full transition-all duration-[550ms] overflow-hidden"
           style={{
             transitionTimingFunction: "cubic-bezier(.34,1.56,.64,1)",
-            background: inView ? "hsl(var(--primary))" : "hsl(20 20% 96%)",
-            borderColor: inView ? "hsl(var(--primary))" : "hsl(210 10% 80%)",
             boxShadow: inView
-              ? "0 0 0 6px hsl(var(--primary) / 0.12), 0 0 22px hsl(var(--primary) / 0.35)"
-              : "none",
-            transform: inView ? "scale(1.2)" : "scale(1)",
+              ? "0 0 0 4px hsl(210 15% 50% / 0.15), 0 0 18px hsl(210 15% 50% / 0.25)"
+              : "0 0 0 2px hsl(210 10% 80% / 0.3)",
+            transform: inView ? "scale(1.15)" : "scale(1)",
+            border: "2px solid",
+            borderColor: inView ? "hsl(210 15% 55%)" : "hsl(210 10% 85%)",
           }}
         >
-          {/* Ring pulse */}
-          {inView && (
-            <span className="absolute -inset-[7px] rounded-full border-2 border-[hsl(var(--primary)/0.25)] animate-[ringPulse_2.2s_ease-out_infinite]" />
-          )}
+          <img
+            src={logoNPCircle}
+            alt="NP"
+            className="w-full h-full object-cover"
+            style={{
+              opacity: inView ? 1 : 0.4,
+              transition: "opacity 0.5s ease",
+            }}
+          />
         </div>
       </div>
 
@@ -219,9 +225,10 @@ const TimelineCard = ({ service, index }: { service: ServiceCard; index: number 
 const FoodServicesTimeline = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
+  const floatingLogoRef = useRef<HTMLDivElement>(null);
   const { ref: headerRef, inView: headerInView } = useInView({ threshold: 0.2, triggerOnce: true });
 
-  /* Animate the vertical line on scroll */
+  /* Animate the vertical line + floating logo on scroll */
   useEffect(() => {
     const handleScroll = () => {
       if (!timelineRef.current || !lineRef.current) return;
@@ -229,10 +236,16 @@ const FoodServicesTimeline = () => {
       const windowH = window.innerHeight;
       const totalH = rect.height;
 
-      // How far the viewport center has scrolled through the timeline
       const scrolled = windowH / 2 - rect.top;
       const progress = Math.min(Math.max(scrolled / totalH, 0), 1);
       lineRef.current.style.height = `${progress * 100}%`;
+
+      // Move floating logo to the tip of the line
+      if (floatingLogoRef.current) {
+        const yPos = progress * totalH;
+        floatingLogoRef.current.style.transform = `translate(-50%, -50%) translateY(${yPos}px)`;
+        floatingLogoRef.current.style.opacity = progress > 0.01 && progress < 0.99 ? "1" : "0";
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -280,18 +293,34 @@ const FoodServicesTimeline = () => {
         {/* Timeline */}
         <div ref={timelineRef} className="relative timeline-container">
           {/* Vertical line track (background) */}
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[2px] h-full bg-border/40 hidden md:block" />
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[2px] h-full hidden md:block" style={{ background: "hsl(210 15% 75% / 0.35)" }} />
 
           {/* Animated progress line */}
           <div
             ref={lineRef}
-            className="absolute left-1/2 top-0 -translate-x-1/2 w-[2px] hidden md:block"
+            className="absolute left-1/2 top-0 -translate-x-1/2 w-[3px] hidden md:block"
             style={{
               height: "0%",
-              background: "linear-gradient(to bottom, hsl(var(--primary)), hsl(var(--primary-glow)))",
+              background: "linear-gradient(to bottom, #6A7B83, #8ba5b0, #D1B6AD)",
               transition: "height 0.05s linear",
+              boxShadow: "0 0 8px hsl(210 15% 50% / 0.3)",
             }}
           />
+
+          {/* Floating NP logo that follows the line */}
+          <div
+            ref={floatingLogoRef}
+            className="absolute left-1/2 top-0 z-[5] pointer-events-none hidden md:block"
+            style={{
+              opacity: 0,
+              transform: "translate(-50%, -50%)",
+              transition: "opacity 0.3s ease",
+            }}
+          >
+            <div className="w-[28px] h-[28px] rounded-full overflow-hidden shadow-[0_0_12px_hsl(210_15%_50%/0.4)] border-2 border-white/80">
+              <img src={logoNPCircle} alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
 
           {/* Cards */}
           {services.map((service, index) => (
