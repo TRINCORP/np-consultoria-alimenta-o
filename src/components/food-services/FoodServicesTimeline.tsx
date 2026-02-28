@@ -200,10 +200,10 @@ const FoodServicesTimeline = () => {
   const animRef = useRef<number>(0);
   const { ref: headerRef, inView: headerInView } = useInView({ threshold: 0.2, triggerOnce: true });
 
-  // Initialize particles pool
+  // Initialize particles pool — reduced from 180 to 80
   useEffect(() => {
     const pool: Particle[] = [];
-    for (let i = 0; i < 180; i++) pool.push(new Particle());
+    for (let i = 0; i < 80; i++) pool.push(new Particle());
     particlesRef.current = pool;
   }, []);
 
@@ -212,7 +212,7 @@ const FoodServicesTimeline = () => {
     if (p) p.spawn(cx, y);
   }, []);
 
-  // Canvas animation loop
+  // Canvas animation loop with visibility detection
   useEffect(() => {
     const canvas = canvasRef.current;
     const timeline = timelineRef.current;
@@ -224,6 +224,14 @@ const FoodServicesTimeline = () => {
     const CW = 120;
     let H = 0;
     const cx = CW / 2;
+    let isVisible = false;
+
+    // Pause canvas when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0, rootMargin: "200px" }
+    );
+    observer.observe(timeline);
 
     const resize = () => {
       H = timeline.offsetHeight;
@@ -232,6 +240,7 @@ const FoodServicesTimeline = () => {
     };
 
     const calcProgress = () => {
+      if (!isVisible) return;
       const rect = timeline.getBoundingClientRect();
       const viewH = window.innerHeight;
       const scrolled = Math.max(0, viewH * 0.52 - rect.top);
@@ -240,6 +249,13 @@ const FoodServicesTimeline = () => {
 
     const draw = () => {
       if (!ctx || !canvas) return;
+
+      // Skip heavy rendering when off-screen
+      if (!isVisible) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+
       ctx.clearRect(0, 0, CW, H);
 
       progressRef.current += (targetProgressRef.current - progressRef.current) * 0.05;
@@ -315,11 +331,10 @@ const FoodServicesTimeline = () => {
       const oy = fY;
       const OR = 18;
 
-      // Spawn particles
+      // Spawn particles — throttled
       if (progress > 0.004 && progress < 0.997) {
-        spawnP(cx, oy);
-        if (Math.random() > 0.45) spawnP(cx, oy);
-        if (Math.random() > 0.75) spawnP(cx, oy);
+        if (Math.random() > 0.4) spawnP(cx, oy);
+        if (Math.random() > 0.8) spawnP(cx, oy);
       }
 
       // Outer halo glow rings
@@ -423,6 +438,7 @@ const FoodServicesTimeline = () => {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", calcProgress);
       cancelAnimationFrame(animRef.current);
+      observer.disconnect();
     };
   }, [spawnP]);
 

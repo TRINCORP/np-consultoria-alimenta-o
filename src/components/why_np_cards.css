@@ -30,7 +30,7 @@
   animation: why-np-scroll-left var(--time) linear infinite;
   animation-delay: calc(var(--time) / var(--total) * (var(--i) - 1) - var(--time));
   will-change: left;
-  transition: 0.5s ease-in-out;
+  contain: layout style;
   cursor: pointer;
 }
 
@@ -41,7 +41,8 @@
   border-radius: 0.5rem;
   border: 2px solid hsl(var(--primary) / 0.5);
   transform: rotateY(-45deg);
-  transition: 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
   mask: linear-gradient(black 70%, transparent 100%);
   -webkit-mask: linear-gradient(black 70%, transparent 100%);
 }

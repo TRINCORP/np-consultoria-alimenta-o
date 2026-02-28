@@ -12,10 +12,10 @@ const PremiumCTA = () => {
     <section ref={ref} className="py-20 md:py-28 bg-gradient-to-br from-[#1a1a1a] via-[#252220] to-[#1a1a1a] relative overflow-hidden">
       {/* Animated decorative elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-32 h-32 border border-white/10 rounded-full animate-float" />
-        <div className="absolute bottom-20 right-20 w-48 h-48 border border-white/5 rounded-full animate-float" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-primary/50 rounded-full animate-float" style={{ animationDelay: '0.5s' }} />
-        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-primary/30 rounded-full animate-float" style={{ animationDelay: '1.5s' }} />
+        <div className="absolute top-20 left-20 w-32 h-32 border border-white/10 rounded-full" />
+        <div className="absolute bottom-20 right-20 w-48 h-48 border border-white/5 rounded-full" />
+        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-primary/50 rounded-full" />
+        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-primary/30 rounded-full" />
       </div>
 
       {/* Gradient overlay */}

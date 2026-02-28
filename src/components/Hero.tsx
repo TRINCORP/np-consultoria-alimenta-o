@@ -20,12 +20,12 @@ const Hero = () => {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.2),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,rgba(255,255,255,0.1),transparent_50%)]" />
-        <div className="absolute top-10 sm:top-20 right-10 sm:right-20 w-48 sm:w-72 h-48 sm:h-72 bg-white/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-10 sm:bottom-20 left-10 sm:left-20 w-64 sm:w-96 h-64 sm:h-96 bg-white/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
+        <div className="absolute top-10 sm:top-20 right-10 sm:right-20 w-48 sm:w-72 h-48 sm:h-72 bg-white/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 sm:bottom-20 left-10 sm:left-20 w-64 sm:w-96 h-64 sm:h-96 bg-white/5 rounded-full blur-3xl" />
         
-        {/* Geometric accents */}
-        <div className="absolute top-1/4 left-[10%] w-32 h-32 border border-white/10 rounded-full animate-float hidden lg:block" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-1/3 right-[15%] w-24 h-24 border border-white/15 rounded-full animate-float hidden lg:block" style={{ animationDelay: '2.5s' }} />
+        {/* Geometric accents — static, no animation */}
+        <div className="absolute top-1/4 left-[10%] w-32 h-32 border border-white/10 rounded-full hidden lg:block" />
+        <div className="absolute bottom-1/3 right-[15%] w-24 h-24 border border-white/15 rounded-full hidden lg:block" />
       </div>
       
       <div className="container mx-auto px-6 lg:px-12 pt-28 sm:pt-32 pb-16 sm:pb-20 relative z-10">
