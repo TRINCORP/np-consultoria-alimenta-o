@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
-import { Search, ClipboardList, TrendingDown, Users, BarChart3, GraduationCap, Tag } from "lucide-react";
-import logoNPCircle from "@/assets/logo-np-circle.png";
+import { Search, ClipboardList, TrendingDown, Users, GraduationCap, Tag, BarChart3 } from "lucide-react";
+import "./food-services-timeline.css";
 
 interface ServiceCard {
   icon: React.ElementType;
@@ -81,193 +81,361 @@ const services: ServiceCard[] = [
 /* ── Single timeline card row ── */
 const TimelineCard = ({ service, index }: { service: ServiceCard; index: number }) => {
   const isLeft = index % 2 === 0;
-  const { ref, inView } = useInView({ threshold: 0.25, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
   const Icon = service.icon;
 
   return (
     <div
       ref={ref}
-      className={`timeline-card-wrap grid items-center mb-16 md:mb-24 relative z-[1]
-        ${inView ? "timeline-visible" : ""}
-        ${isLeft ? "timeline-left" : "timeline-right"}`}
-      style={{
-        gridTemplateColumns: "1fr 60px 1fr",
-        opacity: inView ? 1 : 0,
-        transform: inView
-          ? "translateX(0)"
-          : isLeft
-          ? "translateX(-40px)"
-          : "translateX(40px)",
-        transition: "opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1)",
-      }}
+      className={`fs-card-wrap ${isLeft ? "left" : "right"} ${inView ? "visible" : ""}`}
     >
-      {/* Card */}
-      <div
-        className={`group relative bg-white rounded-[20px] p-8 md:p-10 max-w-[430px] w-full
-          border border-border/30 transition-all duration-500 cursor-default
-          hover:-translate-y-1.5 hover:shadow-[0_20px_50px_hsl(210_15%_35%/0.18)]
-          ${isLeft ? "col-start-1 justify-self-end" : "col-start-3 justify-self-start"}`}
-        style={{
-          boxShadow: "0 2px 20px hsl(210 15% 35% / 0.05)",
-        }}
-      >
-        {/* Accent bar on hover */}
-        <div className="absolute top-0 left-6 right-6 h-[3px] rounded-b bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary-glow))] opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-
-        {/* Shine sweep on hover */}
-        <div className="absolute inset-0 rounded-[20px] overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-[hsl(var(--primary)/0.08)] to-transparent transition-[left] duration-700 ease-out group-hover:left-[100%]" />
-        </div>
-
-        {/* Card outline animation */}
-        <div
-          className="absolute inset-0 rounded-[20px] pointer-events-none"
-          style={{
-            boxShadow: inView
-              ? "0 0 0 2px hsl(var(--primary) / 0.12)"
-              : "0 0 0 0px transparent",
-            transition: "box-shadow 0.8s cubic-bezier(.16,1,.3,1) 0.2s",
-          }}
-        />
-
-        {/* Arrow connector */}
-        {isLeft && (
-          <div
-            className="hidden md:block absolute top-1/2 -right-[11px] -translate-y-1/2"
-            style={{
-              width: 0,
-              height: 0,
-              borderTop: "11px solid transparent",
-              borderBottom: "11px solid transparent",
-              borderLeft: "11px solid white",
-            }}
-          />
-        )}
-        {!isLeft && (
-          <div
-            className="hidden md:block absolute top-1/2 -left-[11px] -translate-y-1/2"
-            style={{
-              width: 0,
-              height: 0,
-              borderTop: "11px solid transparent",
-              borderBottom: "11px solid transparent",
-              borderRight: "11px solid white",
-            }}
-          />
-        )}
-
-        {/* Icon */}
-        <div className="mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[5deg]">
-          <Icon className="w-8 h-8 text-[hsl(var(--primary))]" strokeWidth={1.5} />
-        </div>
-
-        {/* Number & Category */}
-        <p className="text-[0.62rem] tracking-[0.28em] uppercase text-[hsl(var(--primary))] mb-1 font-medium">
-          {service.number} — {service.category}
-        </p>
-
-        {/* Title */}
-        <h3 className="font-playfair text-lg md:text-xl font-bold text-[hsl(210_15%_20%)] mb-3 leading-[1.3]">
-          {service.title}
-        </h3>
-
-        {/* Description */}
-        <p className="text-sm text-muted-foreground leading-[1.7]">
-          {service.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-4">
-          {service.tags.map((tag) => (
-            <span
-              key={tag}
-              className="bg-[hsl(var(--primary-subtle))] text-[hsl(var(--primary-dark))] text-[0.7rem] px-3 py-1 rounded-full tracking-wide"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Node — NP Logo */}
-      <div className="col-start-2 flex justify-center items-center z-[3] relative">
-        <div
-          className="relative w-[36px] h-[36px] rounded-full transition-all duration-[550ms] overflow-hidden"
-          style={{
-            transitionTimingFunction: "cubic-bezier(.34,1.56,.64,1)",
-            boxShadow: inView
-              ? "0 0 0 4px hsl(210 15% 50% / 0.15), 0 0 18px hsl(210 15% 50% / 0.25)"
-              : "0 0 0 2px hsl(210 10% 80% / 0.3)",
-            transform: inView ? "scale(1.15)" : "scale(1)",
-            border: "2px solid",
-            borderColor: inView ? "hsl(210 15% 55%)" : "hsl(210 10% 85%)",
-          }}
-        >
-          <img
-            src={logoNPCircle}
-            alt="NP"
-            className="w-full h-full object-cover"
-            style={{
-              opacity: inView ? 1 : 0.4,
-              transition: "opacity 0.5s ease",
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Empty space on opposite side */}
-      <div className={isLeft ? "col-start-3" : "col-start-1"} />
+      {isLeft ? (
+        <>
+          <div className="fs-card-cell fs-card-side">
+            <div className="fs-card">
+              <div className="fs-accent-bar" />
+              <div className="fs-card-arrow-right" />
+              <div className="fs-card-icon-wrap">
+                <Icon className="fs-card-icon" strokeWidth={1.5} />
+              </div>
+              <p className="fs-card-number">
+                {service.number} — {service.category}
+              </p>
+              <h3 className="fs-card-title">{service.title}</h3>
+              <p className="fs-card-desc">{service.description}</p>
+              <div className="fs-card-tags">
+                {service.tags.map((tag) => (
+                  <span key={tag} className="fs-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="fs-node-cell">
+            <div className="fs-node">
+              <div className="fs-node-dot" />
+            </div>
+          </div>
+          <div className="fs-empty-cell" />
+        </>
+      ) : (
+        <>
+          <div className="fs-empty-cell" />
+          <div className="fs-node-cell">
+            <div className="fs-node">
+              <div className="fs-node-dot" />
+            </div>
+          </div>
+          <div className="fs-card-cell fs-card-side">
+            <div className="fs-card">
+              <div className="fs-accent-bar" />
+              <div className="fs-card-arrow-left" />
+              <div className="fs-card-icon-wrap">
+                <Icon className="fs-card-icon" strokeWidth={1.5} />
+              </div>
+              <p className="fs-card-number">
+                {service.number} — {service.category}
+              </p>
+              <h3 className="fs-card-title">{service.title}</h3>
+              <p className="fs-card-desc">{service.description}</p>
+              <div className="fs-card-tags">
+                {service.tags.map((tag) => (
+                  <span key={tag} className="fs-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
+/* ── Particle class ── */
+class Particle {
+  x = 0; y = 0; vx = 0; vy = 0;
+  life = 0; decay = 0; r = 0;
+  isRose = false; alive = false;
+
+  spawn(cx: number, y: number) {
+    this.x = cx + (Math.random() - 0.5) * 10;
+    this.y = y;
+    this.vy = -(Math.random() * 2.2 + 0.3);
+    this.vx = (Math.random() - 0.5) * 2;
+    this.life = 1;
+    this.decay = 0.016 + Math.random() * 0.02;
+    this.r = 1.2 + Math.random() * 3.5;
+    this.isRose = Math.random() > 0.45;
+    this.alive = true;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life -= this.decay;
+    this.r *= 0.972;
+    this.vx *= 0.94;
+    if (this.life <= 0) this.alive = false;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    const a = this.life;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, Math.max(0.1, this.r), 0, Math.PI * 2);
+    ctx.fillStyle = this.isRose
+      ? `rgba(209,182,173,${a})`
+      : `rgba(138,165,176,${a})`;
+    ctx.fill();
+  }
+}
+
 /* ── Main Component ── */
 const FoodServicesTimeline = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const floatingLogoRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particlesRef = useRef<Particle[]>([]);
+  const progressRef = useRef(0);
+  const targetProgressRef = useRef(0);
+  const orbTRef = useRef(0);
+  const animRef = useRef<number>(0);
   const { ref: headerRef, inView: headerInView } = useInView({ threshold: 0.2, triggerOnce: true });
 
-  /* Animate the vertical line + floating logo on scroll */
+  // Initialize particles pool
   useEffect(() => {
-    const handleScroll = () => {
-      if (!timelineRef.current || !lineRef.current) return;
-      const rect = timelineRef.current.getBoundingClientRect();
-      const windowH = window.innerHeight;
-      const totalH = rect.height;
-
-      const scrolled = windowH / 2 - rect.top;
-      const progress = Math.min(Math.max(scrolled / totalH, 0), 1);
-      lineRef.current.style.height = `${progress * 100}%`;
-
-      // Move floating logo to the tip of the line
-      if (floatingLogoRef.current) {
-        const yPos = progress * totalH;
-        floatingLogoRef.current.style.transform = `translate(-50%, -50%) translateY(${yPos}px)`;
-        floatingLogoRef.current.style.opacity = progress > 0.01 && progress < 0.99 ? "1" : "0";
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const pool: Particle[] = [];
+    for (let i = 0; i < 180; i++) pool.push(new Particle());
+    particlesRef.current = pool;
   }, []);
 
-  return (
-    <section className="bg-[hsl(20_20%_97%)] py-28 md:py-36 relative overflow-hidden">
-      {/* Subtle noise overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-        }}
-      />
+  const spawnP = useCallback((cx: number, y: number) => {
+    const p = particlesRef.current.find(p => !p.alive);
+    if (p) p.spawn(cx, y);
+  }, []);
 
-      <div className="max-w-[1120px] mx-auto px-6 relative">
+  // Canvas animation loop
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const timeline = timelineRef.current;
+    if (!canvas || !timeline) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const CW = 120;
+    let H = 0;
+    const cx = CW / 2;
+
+    const resize = () => {
+      H = timeline.offsetHeight;
+      canvas.width = CW;
+      canvas.height = H;
+    };
+
+    const calcProgress = () => {
+      const rect = timeline.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const scrolled = Math.max(0, viewH * 0.52 - rect.top);
+      targetProgressRef.current = Math.min(1, Math.max(0, scrolled / rect.height));
+    };
+
+    const draw = () => {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, CW, H);
+
+      progressRef.current += (targetProgressRef.current - progressRef.current) * 0.05;
+      const progress = progressRef.current;
+      const fY = progress * H;
+
+      // Ghost track
+      ctx.beginPath();
+      ctx.moveTo(cx, 0);
+      ctx.lineTo(cx, H);
+      ctx.strokeStyle = "rgba(106,123,131,0.15)";
+      ctx.lineWidth = 2;
+      ctx.lineCap = "round";
+      ctx.stroke();
+
+      if (fY < 1) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+
+      // Soft aura layers
+      [{ w: 26, a: 0.07 }, { w: 14, a: 0.12 }].forEach(({ w, a }) => {
+        ctx.beginPath();
+        ctx.moveTo(cx, 0);
+        ctx.lineTo(cx, fY);
+        ctx.strokeStyle = `rgba(106,123,131,${a})`;
+        ctx.lineWidth = w;
+        ctx.stroke();
+      });
+
+      // Rose side aura
+      ctx.beginPath();
+      ctx.moveTo(cx, 0);
+      ctx.lineTo(cx, fY);
+      ctx.strokeStyle = "rgba(209,182,173,0.08)";
+      ctx.lineWidth = 30;
+      ctx.stroke();
+
+      // Main line — slate-to-rose gradient
+      const mainGrad = ctx.createLinearGradient(0, 0, 0, fY);
+      mainGrad.addColorStop(0, "#4A5960");
+      mainGrad.addColorStop(0.4, "#6A7B83");
+      mainGrad.addColorStop(0.75, "#9BB0B8");
+      mainGrad.addColorStop(1, "#D1B6AD");
+      ctx.beginPath();
+      ctx.moveTo(cx, 0);
+      ctx.lineTo(cx, fY);
+      ctx.strokeStyle = mainGrad;
+      ctx.lineWidth = 3;
+      ctx.shadowColor = "#6A7B83";
+      ctx.shadowBlur = 10;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Shimmer highlight
+      const t = Date.now() * 0.0014;
+      const shY = (Math.sin(t) * 0.5 + 0.5) * fY;
+      const shG = ctx.createLinearGradient(0, shY - 90, 0, shY + 90);
+      shG.addColorStop(0, "rgba(255,255,255,0)");
+      shG.addColorStop(0.5, "rgba(255,255,255,0.28)");
+      shG.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.beginPath();
+      ctx.moveTo(cx, Math.max(0, shY - 90));
+      ctx.lineTo(cx, Math.min(fY, shY + 90));
+      ctx.strokeStyle = shG;
+      ctx.lineWidth = 5;
+      ctx.stroke();
+
+      // ── ORB — NP Logo shape ──
+      orbTRef.current += 0.04;
+      const wobble = Math.sin(orbTRef.current * 1.5) * 4;
+      const ox = cx + wobble;
+      const oy = fY;
+      const OR = 18;
+
+      // Spawn particles
+      if (progress > 0.004 && progress < 0.997) {
+        spawnP(cx, oy);
+        if (Math.random() > 0.45) spawnP(cx, oy);
+        if (Math.random() > 0.75) spawnP(cx, oy);
+      }
+
+      // Outer halo glow rings
+      [
+        { r: 44, ca: "rgba(106,123,131,", a: 0.035 },
+        { r: 30, ca: "rgba(106,123,131,", a: 0.08 },
+        { r: 22, ca: "rgba(209,182,173,", a: 0.14 },
+      ].forEach(({ r, ca, a }) => {
+        const halo = ctx.createRadialGradient(ox, oy, 0, ox, oy, r);
+        halo.addColorStop(0, ca + (a * 3) + ")");
+        halo.addColorStop(1, ca + "0)");
+        ctx.beginPath();
+        ctx.arc(ox, oy, r, 0, Math.PI * 2);
+        ctx.fillStyle = halo;
+        ctx.fill();
+      });
+
+      // Draw NP logo inside the orb
+      ctx.save();
+      ctx.translate(ox, oy);
+
+      // Clip to circle
+      ctx.beginPath();
+      ctx.arc(0, 0, OR, 0, Math.PI * 2);
+      ctx.clip();
+
+      // White background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(-OR, -OR, OR * 2, OR * 2);
+
+      // Slate leaf (left)
+      ctx.beginPath();
+      ctx.moveTo(0, -OR);
+      ctx.bezierCurveTo(-OR * 0.8, -OR * 0.8, -OR * 1.1, -OR * 0.2, -OR * 0.9, OR * 0.1);
+      ctx.bezierCurveTo(-OR * 0.65, OR * 0.6, -OR * 0.1, OR * 0.9, 0, OR);
+      ctx.bezierCurveTo(-OR * 0.15, OR * 0.55, -OR * 0.35, OR * 0.1, -OR * 0.25, -OR * 0.4);
+      ctx.bezierCurveTo(-OR * 0.12, -OR * 0.75, 0, -OR * 0.9, 0, -OR);
+      ctx.closePath();
+      ctx.fillStyle = "#6A7B83";
+      ctx.fill();
+
+      // Rose leaf (right)
+      ctx.beginPath();
+      ctx.moveTo(0, OR);
+      ctx.bezierCurveTo(OR * 0.8, OR * 0.8, OR * 1.1, OR * 0.2, OR * 0.9, -OR * 0.1);
+      ctx.bezierCurveTo(OR * 0.65, -OR * 0.6, OR * 0.1, -OR * 0.9, 0, -OR);
+      ctx.bezierCurveTo(OR * 0.15, -OR * 0.55, OR * 0.35, -OR * 0.1, OR * 0.25, OR * 0.4);
+      ctx.bezierCurveTo(OR * 0.12, OR * 0.75, 0, OR * 0.9, 0, OR);
+      ctx.closePath();
+      ctx.fillStyle = "#D1B6AD";
+      ctx.fill();
+
+      // Thin circle border
+      ctx.beginPath();
+      ctx.arc(0, 0, OR - 0.5, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(106,123,131,0.4)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.restore();
+
+      // Glow behind the whole orb
+      ctx.shadowColor = "#ffffff";
+      ctx.shadowBlur = 22;
+      ctx.beginPath();
+      ctx.arc(ox, oy, OR, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255,255,255,0.5)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Particles
+      particlesRef.current.forEach(p => {
+        if (!p.alive) return;
+        p.update();
+        p.draw(ctx);
+      });
+
+      // Dotted remainder
+      ctx.setLineDash([3, 9]);
+      ctx.beginPath();
+      ctx.moveTo(cx, fY + 3);
+      ctx.lineTo(cx, H);
+      ctx.strokeStyle = "rgba(106,123,131,0.2)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      animRef.current = requestAnimationFrame(draw);
+    };
+
+    resize();
+    calcProgress();
+    draw();
+
+    const onResize = () => { resize(); calcProgress(); };
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("scroll", calcProgress, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", calcProgress);
+      cancelAnimationFrame(animRef.current);
+    };
+  }, [spawnP]);
+
+  return (
+    <section ref={sectionRef} className="fs-timeline-section">
+      {/* Noise overlay */}
+      <div className="fs-noise-overlay" />
+
+      <div className="fs-timeline-container">
         {/* Section header */}
-        <div ref={headerRef} className="text-center mb-20 md:mb-28">
+        <div ref={headerRef} className="fs-section-header">
           <p
-            className="text-[0.7rem] tracking-[0.35em] uppercase text-[hsl(var(--primary-dark))] mb-4 font-medium"
+            className="fs-eyebrow"
             style={{
               opacity: headerInView ? 1 : 0,
               transform: headerInView ? "translateY(0)" : "translateY(12px)",
@@ -277,7 +445,7 @@ const FoodServicesTimeline = () => {
             O que fazemos
           </p>
           <h2
-            className="font-playfair text-3xl md:text-4xl lg:text-[3.2rem] font-bold text-[hsl(210_15%_15%)] leading-[1.15]"
+            className="fs-section-title"
             style={{
               opacity: headerInView ? 1 : 0,
               transform: headerInView ? "translateY(0)" : "translateY(20px)",
@@ -286,90 +454,19 @@ const FoodServicesTimeline = () => {
           >
             Soluções para o seu
             <br />
-            <span className="text-[hsl(var(--primary))] italic">negócio de alimentação</span>
+            <span>negócio de alimentação</span>
           </h2>
         </div>
 
         {/* Timeline */}
-        <div ref={timelineRef} className="relative timeline-container">
-          {/* Vertical line track (background) */}
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[2px] h-full hidden md:block" style={{ background: "hsl(210 15% 75% / 0.35)" }} />
+        <div ref={timelineRef} className="fs-timeline">
+          <canvas ref={canvasRef} className="fs-line-canvas" />
 
-          {/* Animated progress line */}
-          <div
-            ref={lineRef}
-            className="absolute left-1/2 top-0 -translate-x-1/2 w-[3px] hidden md:block"
-            style={{
-              height: "0%",
-              background: "linear-gradient(to bottom, #6A7B83, #8ba5b0, #D1B6AD)",
-              transition: "height 0.05s linear",
-              boxShadow: "0 0 8px hsl(210 15% 50% / 0.3)",
-            }}
-          />
-
-          {/* Floating NP logo that follows the line */}
-          <div
-            ref={floatingLogoRef}
-            className="absolute left-1/2 top-0 z-[5] pointer-events-none hidden md:block"
-            style={{
-              opacity: 0,
-              transform: "translate(-50%, -50%)",
-              transition: "opacity 0.3s ease",
-            }}
-          >
-            <div className="w-[28px] h-[28px] rounded-full overflow-hidden shadow-[0_0_12px_hsl(210_15%_50%/0.4)] border-2 border-white/80">
-              <img src={logoNPCircle} alt="" className="w-full h-full object-cover" />
-            </div>
-          </div>
-
-          {/* Cards */}
           {services.map((service, index) => (
             <TimelineCard key={index} service={service} index={index} />
           ))}
         </div>
       </div>
-
-      {/* Ring pulse keyframe — injected once */}
-      <style>{`
-        @keyframes ringPulse {
-          0%   { transform: scale(1);   opacity: 1; }
-          100% { transform: scale(2.4); opacity: 0; }
-        }
-
-        /* Mobile: single column layout */
-        @media (max-width: 767px) {
-          .timeline-card-wrap {
-            grid-template-columns: 48px 1fr !important;
-          }
-          .timeline-card-wrap > div:nth-child(1) {
-            grid-column: 2 !important;
-            justify-self: start !important;
-          }
-          .timeline-card-wrap > div:nth-child(2) {
-            grid-column: 1 !important;
-            grid-row: 1 !important;
-          }
-          .timeline-card-wrap > div:nth-child(3) {
-            display: none !important;
-          }
-          .timeline-left,
-          .timeline-right {
-            transform: translateY(30px) !important;
-          }
-          .timeline-visible.timeline-left,
-          .timeline-visible.timeline-right {
-            transform: translateY(0) !important;
-          }
-          .timeline-container > div:first-of-type {
-            left: 24px !important;
-            transform: none !important;
-          }
-          .timeline-container > div:nth-of-type(2) {
-            left: 24px !important;
-            transform: none !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };
