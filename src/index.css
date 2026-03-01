@@ -190,7 +190,7 @@ All colors MUST be HSL. Maintaining brand identity with enhanced effects.
 }
 
 .animate-hero-sweep {
-  animation: hero-sweep 3s ease-in-out 0.5s infinite;
+  animation: hero-sweep 2.5s ease-in-out 0.5s 1 forwards;
 }
 
 .hero-grain {

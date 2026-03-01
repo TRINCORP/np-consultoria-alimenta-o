@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
+import equipeHeroBg from "@/assets/equipe-hero-bg.png";
 
 /* ─── Section 1: Cinematic NP Reveal ─── */
 const LogoHero = () => {
@@ -24,6 +25,11 @@ const LogoHero = () => {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
+      {/* Background photo */}
+      <div className="absolute inset-0">
+        <img src={equipeHeroBg} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/65" />
+      </div>
       {/* Atmospheric grain overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none hero-grain" />
 
