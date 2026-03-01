@@ -184,13 +184,15 @@ All colors MUST be HSL. Maintaining brand identity with enhanced effects.
 }
 
 /* Hero NP Cinematic Effects */
-@keyframes hero-sweep {
-  0% { transform: translateX(-200%); }
-  100% { transform: translateX(200%); }
+@keyframes hero-sweep-settle {
+  0%   { background-position: 100% 0; opacity: 0; }
+  15%  { opacity: 1; }
+  70%  { background-position: 50% 0; opacity: 1; }
+  100% { background-position: 50% 0; opacity: 0.6; }
 }
 
-.animate-hero-sweep {
-  animation: hero-sweep 2.5s ease-in-out 0.5s 1 forwards;
+.hero-sweep-settle {
+  animation: hero-sweep-settle 2s ease-out forwards;
 }
 
 .hero-grain {

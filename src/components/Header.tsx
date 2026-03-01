@@ -121,7 +121,7 @@ const Header = () => {
             <span className={`font-playfair font-bold text-white transition-all duration-300 ${
               isScrolled ? 'text-sm' : 'text-base'
             }`}>
-              NP
+              Home
             </span>
           </Link>
           
@@ -173,7 +173,7 @@ const Header = () => {
         >
           <Link to="/" className="flex items-center gap-2 px-2 group">
             <img src={logoNP} alt="NP Consultoria" className="h-7 w-auto" />
-            <span className="font-playfair text-sm font-bold text-white">NP</span>
+            <span className="font-playfair text-sm font-bold text-white">Home</span>
           </Link>
           
           <div className="flex items-center gap-2">
