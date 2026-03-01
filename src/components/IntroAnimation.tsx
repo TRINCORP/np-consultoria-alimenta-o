@@ -11,9 +11,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animFrameRef = useRef<number>(0);
-  const mouseRef = useRef({ x: 0, y: 0 });
 
-  // Particle system
   interface Particle {
     x: number; y: number;
     vx: number; vy: number;
@@ -53,7 +51,6 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     resize();
     window.addEventListener("resize", resize);
 
-    // Ambient particles
     const ambientInterval = setInterval(() => {
       if (phase !== "exit") {
         const x = Math.random() * canvas.width;
@@ -80,7 +77,6 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
         ctx.fillStyle = `hsla(${p.hue}, 35%, 70%, ${a})`;
         ctx.fill();
 
-        // Glow
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * p.life * 3, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${p.hue}, 35%, 70%, ${a * 0.15})`;
@@ -107,7 +103,6 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     timers.push(setTimeout(() => setPhase("logo-enter"), 400));
     timers.push(setTimeout(() => {
       setPhase("logo-settle");
-      // Burst particles from center
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
       spawnParticles(cx, cy, 40);
@@ -123,20 +118,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     return () => timers.forEach(clearTimeout);
   }, [onComplete, spawnParticles]);
 
-  // Mouse tracking for interactive glow
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", handler);
-    return () => window.removeEventListener("mousemove", handler);
-  }, []);
-
   if (!isVisible) return null;
-
-  const title = "NP";
-  const subtitle = "CONSULTORIA";
-  const tagline = "ALIMENTAÇÃO";
 
   return (
     <div
@@ -151,7 +133,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
       {/* Animated mesh blobs */}
       <div className="absolute inset-0 overflow-hidden">
         <div
-          className={`absolute rounded-full blur-[120px] transition-all duration-[3000ms] ease-out ${
+          className={`absolute rounded-full blur-[80px] sm:blur-[120px] transition-all duration-[3000ms] ease-out ${
             phase === "curtain" ? "opacity-0 scale-50" : "opacity-30 scale-100"
           }`}
           style={{
@@ -161,23 +143,13 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
           }}
         />
         <div
-          className={`absolute rounded-full blur-[100px] transition-all duration-[3000ms] ease-out delay-300 ${
+          className={`absolute rounded-full blur-[60px] sm:blur-[100px] transition-all duration-[3000ms] ease-out delay-300 ${
             phase === "curtain" ? "opacity-0 scale-50" : "opacity-25 scale-100"
           }`}
           style={{
             width: "45vw", height: "45vw",
             bottom: "-15%", left: "-10%",
             background: "radial-gradient(circle, hsl(20 35% 70% / 0.5), transparent 70%)",
-          }}
-        />
-        <div
-          className={`absolute rounded-full blur-[80px] transition-all duration-[3500ms] ease-out delay-700 ${
-            phase === "curtain" ? "opacity-0 scale-0" : "opacity-15 scale-100"
-          }`}
-          style={{
-            width: "35vw", height: "35vw",
-            top: "35%", left: "25%",
-            background: "radial-gradient(circle, hsl(200 15% 55% / 0.4), transparent 60%)",
           }}
         />
       </div>
@@ -195,7 +167,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
       <canvas ref={canvasRef} className="absolute inset-0 z-[2] pointer-events-none" />
 
       {/* Horizontal accent lines */}
-      <div className="absolute inset-0 z-[3] overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 z-[3] overflow-hidden pointer-events-none hidden sm:block">
         {[18, 35, 52, 68, 85].map((top, i) => (
           <div
             key={i}
@@ -208,16 +180,13 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
               background: "linear-gradient(90deg, transparent, hsl(20 35% 70% / 0.12), transparent)",
               transitionDuration: `${1500 + i * 200}ms`,
               transitionDelay: `${i * 150}ms`,
-              animation: phase !== "curtain"
-                ? `introLineDrift ${6 + i}s ease-in-out infinite alternate`
-                : "none",
             }}
           />
         ))}
       </div>
 
       {/* ═══ CENTER CONTENT ═══ */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6">
 
         {/* Logo */}
         <div
@@ -232,12 +201,12 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
           }`}
           style={{
             transitionDuration: phase === "logo-enter" ? "900ms" : phase === "exit" ? "1000ms" : "700ms",
-            marginBottom: "2rem",
+            marginBottom: "1.5rem",
           }}
         >
           {/* Outer glow ring */}
           <div
-            className={`absolute -inset-16 rounded-full transition-opacity duration-[1500ms] ${
+            className={`absolute -inset-10 sm:-inset-16 rounded-full transition-opacity duration-[1500ms] ${
               phase === "logo-settle" || phase === "text-reveal" || phase === "tagline"
                 ? "opacity-100"
                 : "opacity-0"
@@ -251,29 +220,18 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             }}
           />
 
-          {/* Inner glow */}
-          <div
-            className={`absolute -inset-8 rounded-full blur-2xl transition-opacity duration-1000 delay-300 ${
-              phase !== "curtain" ? "opacity-40" : "opacity-0"
-            }`}
-            style={{
-              background: "radial-gradient(circle, hsl(20 45% 80% / 0.5) 0%, transparent 60%)",
-            }}
-          />
-
           {/* Logo image */}
           <div className="relative">
-            {/* Shadow copy */}
             <img
               src={logoNP}
               alt=""
               aria-hidden="true"
-              className="absolute w-32 h-32 md:w-44 md:h-44 object-contain opacity-20 blur-2xl translate-y-4"
+              className="absolute w-24 h-24 sm:w-32 sm:h-32 md:w-44 md:h-44 object-contain opacity-20 blur-2xl translate-y-4"
             />
             <img
               src={logoNP}
               alt="NP Consultoria"
-              className="relative w-32 h-32 md:w-44 md:h-44 object-contain"
+              className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-44 md:h-44 object-contain"
               style={{
                 filter: `
                   drop-shadow(0 0 30px hsl(20 35% 70% / 0.5))
@@ -305,18 +263,18 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
           </div>
         </div>
 
-        {/* Title: NP + CONSULTORIA */}
+        {/* Title: NP CONSULTORIA — stacked on mobile, inline on desktop */}
         <div
-          className={`flex flex-col items-center transition-all duration-1000 ${
+          className={`flex flex-col items-center transition-all duration-1000 w-full ${
             phase === "exit" ? "opacity-0 translate-y-6 blur-sm" : ""
           }`}
         >
-          {/* NP Letters — large, with stagger */}
-          <div className="flex items-baseline gap-1 mb-1" style={{ lineHeight: 1.1 }}>
-            {title.split("").map((char, i) => (
+          {/* NP */}
+          <div className="flex items-baseline gap-1 mb-0.5" style={{ lineHeight: 1.1 }}>
+            {"NP".split("").map((char, i) => (
               <span
                 key={`np-${i}`}
-                className={`text-5xl md:text-7xl font-bold transition-all duration-700 ${
+                className={`text-4xl sm:text-5xl md:text-7xl font-bold transition-all duration-700 ${
                   phase === "text-reveal" || phase === "tagline" || phase === "exit"
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -331,17 +289,20 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                 {char}
               </span>
             ))}
-            <span className="w-3" />
-            {subtitle.split("").map((char, i) => (
+          </div>
+
+          {/* CONSULTORIA */}
+          <div className="flex items-baseline justify-center" style={{ lineHeight: 1.1 }}>
+            {"CONSULTORIA".split("").map((char, i) => (
               <span
                 key={`sub-${i}`}
-                className={`text-5xl md:text-7xl font-bold transition-all duration-600 ${
+                className={`text-lg sm:text-2xl md:text-4xl font-bold transition-all duration-600 tracking-[0.15em] sm:tracking-[0.2em] ${
                   phase === "text-reveal" || phase === "tagline" || phase === "exit"
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
                 }`}
                 style={{
-                  transitionDelay: `${240 + i * 55}ms`,
+                  transitionDelay: `${240 + i * 40}ms`,
                   fontFamily: "'Playfair Display', serif",
                   background: "linear-gradient(135deg, #E8D5CF, #6A7B83)",
                   WebkitBackgroundClip: "text",
@@ -355,7 +316,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
           </div>
 
           {/* Separator line */}
-          <div className="relative w-64 md:w-80 h-px my-5 overflow-hidden">
+          <div className="relative w-48 sm:w-64 md:w-80 h-px my-4 sm:my-5 overflow-hidden">
             <div
               className={`absolute inset-0 transition-transform duration-1000 origin-left ${
                 phase === "text-reveal" || phase === "tagline" || phase === "exit"
@@ -368,7 +329,6 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                 background: "linear-gradient(90deg, transparent, hsl(20 35% 70% / 0.6), transparent)",
               }}
             />
-            {/* Glow line */}
             <div
               className={`absolute inset-0 blur-sm transition-transform duration-1000 origin-left ${
                 phase === "text-reveal" || phase === "tagline" || phase === "exit"
@@ -395,10 +355,10 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
           {/* Tagline */}
           <div className="flex" style={{ lineHeight: 1.4 }}>
-            {tagline.split("").map((char, i) => (
+            {"ALIMENTAÇÃO".split("").map((char, i) => (
               <span
                 key={`tag-${i}`}
-                className={`text-xs md:text-sm font-light tracking-[0.35em] uppercase transition-all duration-500 ${
+                className={`text-[0.6rem] sm:text-xs md:text-sm font-light tracking-[0.25em] sm:tracking-[0.35em] uppercase transition-all duration-500 ${
                   phase === "tagline" || phase === "exit"
                     ? "opacity-100 translate-y-0 blur-0"
                     : "opacity-0 translate-y-3 blur-[2px]"
@@ -415,16 +375,16 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
         </div>
       </div>
 
-      {/* Corner accents */}
+      {/* Corner accents — hide on small mobile */}
       {[
-        { pos: "top-6 left-6", border: "border-t border-l" },
-        { pos: "top-6 right-6", border: "border-t border-r" },
-        { pos: "bottom-6 left-6", border: "border-b border-l" },
-        { pos: "bottom-6 right-6", border: "border-b border-r" },
+        { pos: "top-4 left-4 sm:top-6 sm:left-6", border: "border-t border-l" },
+        { pos: "top-4 right-4 sm:top-6 sm:right-6", border: "border-t border-r" },
+        { pos: "bottom-4 left-4 sm:bottom-6 sm:left-6", border: "border-b border-l" },
+        { pos: "bottom-4 right-4 sm:bottom-6 sm:right-6", border: "border-b border-r" },
       ].map(({ pos, border }, i) => (
         <div
           key={i}
-          className={`absolute ${pos} w-12 h-12 ${border} border-white/10 transition-opacity duration-1000 ${
+          className={`absolute ${pos} w-8 h-8 sm:w-12 sm:h-12 ${border} border-white/10 transition-opacity duration-1000 ${
             phase !== "curtain" ? "opacity-100" : "opacity-0"
           }`}
           style={{ transitionDelay: `${600 + i * 100}ms` }}
@@ -433,19 +393,19 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
       {/* Scroll hint */}
       <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-opacity duration-700 ${
+        className={`absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-opacity duration-700 ${
           phase === "tagline" ? "opacity-100" : "opacity-0"
         }`}
         style={{ transitionDelay: "400ms" }}
       >
         <span
-          className="text-[0.6rem] tracking-[0.25em] uppercase"
+          className="text-[0.55rem] sm:text-[0.6rem] tracking-[0.25em] uppercase"
           style={{ color: "hsl(20 35% 70% / 0.35)" }}
         >
           NP Consultoria
         </span>
         <div
-          className="w-px h-10"
+          className="w-px h-8 sm:h-10"
           style={{
             background: "linear-gradient(to bottom, hsl(20 35% 70% / 0.5), transparent)",
             animation: "introLinePulse 2s ease-in-out infinite",
@@ -472,11 +432,6 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
           100% { transform: translateX(200%) skewX(-12deg); }
         }
 
-        @keyframes introLineDrift {
-          0% { transform: translateX(-3%); opacity: 0.06; }
-          100% { transform: translateX(3%); opacity: 0.14; }
-        }
-
         @keyframes introSparkTravel {
           0% { left: -2%; opacity: 0; }
           8% { opacity: 1; }
@@ -485,8 +440,8 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
         }
 
         @keyframes introLinePulse {
-          0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
-          50% { opacity: 1; transform: scaleY(1); }
+          0%, 100% { opacity: 0.3; transform: scaleY(1); }
+          50% { opacity: 0.8; transform: scaleY(1.2); }
         }
       `}</style>
     </div>
