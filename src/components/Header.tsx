@@ -13,8 +13,8 @@ const ContactDropdown = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
     const handleClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
     };
-    if (isOpen) document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    if (isOpen) document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
