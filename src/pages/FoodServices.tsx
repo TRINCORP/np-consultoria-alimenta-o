@@ -6,6 +6,7 @@ import FoodServicesTimeline from "@/components/food-services/FoodServicesTimelin
 import FoodServicesCTA from "@/components/food-services/FoodServicesCTA";
 import FoodServicesSegments from "@/components/food-services/FoodServicesSegments";
 import FoodServicesDifferentials from "@/components/food-services/FoodServicesDifferentials";
+import FoodServicesMural from "@/components/food-services/FoodServicesMural";
 
 const FoodServices = () => {
   return (
@@ -19,6 +20,7 @@ const FoodServices = () => {
         <Header />
         <FoodServicesHero />
         <FoodServicesTimeline />
+        <FoodServicesMural />
         <FoodServicesSegments />
         <FoodServicesDifferentials />
         <FoodServicesCTA />
