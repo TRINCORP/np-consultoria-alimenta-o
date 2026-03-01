@@ -128,11 +128,11 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="mailto:contato@npconsultoria.com"
+                  href="mailto:np.consultoriaalimentacao@gmail.com"
                   className="flex items-start gap-3 text-white/70 hover:text-primary transition-colors duration-300 group"
                 >
                   <Mail className="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 shrink-0" />
-                  <span className="text-xs sm:text-sm break-all sm:break-normal">contato@npconsultoria.com</span>
+                  <span className="text-xs sm:text-sm break-all sm:break-normal">np.consultoriaalimentacao@gmail.com</span>
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/70">
