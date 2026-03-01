@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 import equipeHeroBg from "@/assets/equipe-hero-bg.png";
@@ -19,9 +19,8 @@ const LogoHero = () => {
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const scrollDown = useCallback(() => {
-    document.getElementById("intro-section")?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+
+
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
@@ -85,15 +84,19 @@ const LogoHero = () => {
               }`}
           >
             {/* Metallic gradient fill */}
-            <span className="hero-np-text bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/40">
+            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/40">
               NP
             </span>
 
-            {/* Light sweep effect */}
+            {/* Light sweep: slides from left, settles at center */}
             <span
-              className={`absolute inset-0 bg-clip-text text-transparent bg-gradient-to-r from-transparent via-white/50 to-transparent hero-light-sweep ${
-                phase >= 3 ? "animate-hero-sweep" : "opacity-0"
+              className={`absolute inset-0 bg-clip-text text-transparent transition-all ${
+                phase >= 3 ? "hero-sweep-settle" : "opacity-0"
               }`}
+              style={{
+                backgroundImage: "linear-gradient(to right, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%)",
+                backgroundSize: "200% 100%",
+              }}
               aria-hidden
             >
               NP
@@ -125,19 +128,6 @@ const LogoHero = () => {
         </p>
       </div>
 
-      {/* Scroll indicator */}
-      <button
-        onClick={scrollDown}
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 hover:text-white/70 transition-all duration-500 cursor-pointer z-10 ${
-          phase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        }`}
-        aria-label="Scroll"
-      >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-[10px] tracking-[0.3em] uppercase font-light">Scroll</span>
-          <ChevronDown className="w-5 h-5 animate-bounce" />
-        </div>
-      </button>
     </section>
   );
 };
