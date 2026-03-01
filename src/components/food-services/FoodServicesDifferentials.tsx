@@ -1,5 +1,6 @@
 import { useInView } from "react-intersection-observer";
 import { CheckCircle2, Shield, Users, Eye, Target, TrendingUp } from "lucide-react";
+import fotoEquipe from "@/assets/food-services/foto3-equipe.png";
 
 const differentials = [
   { icon: Users, text: "Atendimento personalizado" },
@@ -62,6 +63,28 @@ const FoodServicesDifferentials = () => {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Team photo divider */}
+      <div className="relative">
+        <div className="container mx-auto px-6 lg:px-16">
+          <div className="relative rounded-3xl overflow-hidden max-w-5xl mx-auto group">
+            <div className="aspect-[16/7] sm:aspect-[21/9]">
+              <img src={fotoEquipe} alt="Equipe NP Consultoria analisando documentação" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/60 via-transparent to-[#1a1a1a]/60" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10 flex items-end justify-between">
+              <div>
+                <span className="text-primary text-xs sm:text-sm font-medium tracking-wider uppercase">Equipe Técnica</span>
+                <p className="text-white text-lg sm:text-xl lg:text-2xl font-playfair font-bold mt-1">Dedicação em cada detalhe</p>
+              </div>
+              <div className="hidden sm:block w-16 h-16 rounded-full border-2 border-primary/30 bg-primary/10 flex items-center justify-center">
+                <span className="text-primary font-bold text-lg">NP</span>
+              </div>
             </div>
           </div>
         </div>
