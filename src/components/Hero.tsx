@@ -65,7 +65,8 @@ const LogoHero = () => {
         />
 
         {/* NP — massive metallic typography */}
-        <div className="relative">
+        {/* NP text container — slides from left to center */}
+        <div className={`relative ${phase >= 2 ? "np-slide-settle" : "opacity-0 -translate-x-[120vw]"}`}>
           {/* Glow behind text */}
           <div
             className={`absolute inset-0 blur-[80px] transition-opacity duration-[2s] ${
@@ -76,22 +77,17 @@ const LogoHero = () => {
           </div>
 
           <h1
-            className={`font-playfair font-bold leading-none relative transition-all duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)]
-              text-[7rem] sm:text-[10rem] md:text-[13rem] lg:text-[16rem]
-              ${phase >= 2
-                ? "opacity-100 translate-y-0 blur-0 tracking-[0.15em]"
-                : "opacity-0 translate-y-16 blur-lg tracking-[0.6em]"
-              }`}
+            className="font-playfair font-bold leading-none relative text-[7rem] sm:text-[10rem] md:text-[13rem] lg:text-[16rem] tracking-[0.15em]"
           >
             {/* Metallic gradient fill */}
             <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/40">
               NP
             </span>
 
-            {/* Light sweep: slides from left, settles at center */}
+            {/* Shimmer after settling */}
             <span
-              className={`absolute inset-0 bg-clip-text text-transparent transition-all ${
-                phase >= 3 ? "hero-sweep-settle" : "opacity-0"
+              className={`absolute inset-0 bg-clip-text text-transparent ${
+                phase >= 2 ? "hero-shimmer" : "opacity-0"
               }`}
               style={{
                 backgroundImage: "linear-gradient(to right, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%)",
