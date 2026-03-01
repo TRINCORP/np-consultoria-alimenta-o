@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import { MessageCircle, X } from "lucide-react";
 
 const WHATSAPP_NUMBER = "5519989750741";
-const CTA_MESSAGE = encodeURIComponent(
-  "Olá! Gostaria de saber mais sobre os serviços da NP Consultoria. Podem me ajudar?"
-);
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${CTA_MESSAGE}`;
+
+const CTA_MESSAGES = [
+  "Olá! Quero entender como a NP pode ajudar a otimizar os processos do meu negócio. Podemos conversar?",
+  "Oi! Estou buscando formas de reduzir desperdícios e aumentar a lucratividade da minha operação. Podem me ajudar?",
+  "Olá! Quero profissionalizar minha empresa e preciso de uma consultoria estratégica. Vamos conversar?",
+];
+
+const getRandomCTA = () => CTA_MESSAGES[Math.floor(Math.random() * CTA_MESSAGES.length)];
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(getRandomCTA())}`;
 
 const WhatsAppButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -29,7 +34,7 @@ const WhatsAppButton = () => {
             <X size={12} />
           </button>
           <p className="text-sm text-gray-800 font-medium leading-snug">
-            👋 Olá! Quer melhorar a segurança alimentar do seu negócio?
+            💡 Sua operação pode render mais. Quer descobrir como?
           </p>
           <a
             href={WHATSAPP_URL}
