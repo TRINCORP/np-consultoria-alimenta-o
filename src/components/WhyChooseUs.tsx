@@ -24,26 +24,23 @@ const WhyChooseUs = () => {
   const { ref: titleRef, inView: titleInView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 opacity-30">
+    <section className="py-16 sm:py-20 md:py-28 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
+      {/* Background decorations — hide on mobile */}
+      <div className="absolute inset-0 opacity-30 hidden md:block">
         <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-border to-transparent" />
         <div className="absolute top-0 left-2/4 w-px h-full bg-gradient-to-b from-transparent via-border to-transparent" />
         <div className="absolute top-0 left-3/4 w-px h-full bg-gradient-to-b from-transparent via-border to-transparent" />
       </div>
       
-      <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[100px]" />
-      
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className={`inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
+          <span className={`inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-4 sm:mb-6 
             transition-all duration-700 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Por Que Escolher a NP
           </span>
           
-          <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6 
             transition-all duration-700 delay-100 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Por que escolher a{" "}
             <span className="relative inline-block">
@@ -64,7 +61,7 @@ const WhyChooseUs = () => {
             </span>
           </h2>
           
-          <p className={`text-lg text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-200 
+          <p className={`text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto transition-all duration-700 delay-200 
             ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Atuamos de forma técnica, prática e personalizada, entendendo que cada empresa 
             possui desafios específicos e precisa de soluções viáveis, não apenas teóricas.
@@ -106,11 +103,11 @@ const WhyChooseUs = () => {
         {/* Bottom institutional CTA */}
         <div className={`text-center max-w-2xl mx-auto transition-all duration-700 delay-700 
           ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="w-12 h-px bg-primary/40 mx-auto mb-6" />
-          <p className="text-muted-foreground mb-2 leading-relaxed">
+          <div className="w-12 h-px bg-primary/40 mx-auto mb-4 sm:mb-6" />
+          <p className="text-muted-foreground mb-2 leading-relaxed text-sm sm:text-base">
             Garantir segurança dos alimentos, fortalecer sua marca e estruturar sua operação para crescer com responsabilidade e credibilidade.
           </p>
-          <p className="text-foreground font-semibold italic mt-4">
+          <p className="text-foreground font-semibold italic mt-3 sm:mt-4 text-sm sm:text-base">
             NP Consultoria e NP Rotulagem — organização que protege, estratégia que impulsiona.
           </p>
         </div>

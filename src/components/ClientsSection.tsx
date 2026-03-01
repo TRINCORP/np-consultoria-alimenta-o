@@ -5,7 +5,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { Card, CardContent } from "@/components/ui/card";
 
 type Client = {
   id: number;
@@ -39,27 +38,25 @@ const ClientsSection: React.FC = () => {
   );
 
   return (
-    <section id="clients" className="py-20 md:py-28 bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
+    <section id="clients" className="py-16 sm:py-20 md:py-28 bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
       {/* Refined Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.03),transparent_50%)]" />
-      <div className="absolute top-20 right-20 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
       
       <div className="container mx-auto px-6 relative z-10">
-        {/* Title Section - More professional */}
-        <div className="text-center mb-16 md:mb-20">
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-fade-in">
+        {/* Title Section */}
+        <div className="text-center mb-10 sm:mb-16 md:mb-20">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-fade-in">
             Parceiros de Confiança
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 animate-fade-in">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4 animate-fade-in">
             Empresas que <span className="text-gradient">Confiam</span> em Nós
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Mais de 300 empresas já transformaram a sua segurança alimentar connosco
           </p>
         </div>
 
-        {/* Premium Carousel with better styling */}
+        {/* Premium Carousel */}
         <Carousel
           opts={{
             align: "start",
@@ -69,16 +66,15 @@ const ClientsSection: React.FC = () => {
           plugins={[autoplayPlugin.current]}
           className="w-full"
         >
-          <CarouselContent className="-ml-4 md:-ml-6">
+          <CarouselContent className="-ml-3 sm:-ml-4 md:-ml-6">
             {clients.map((client) => (
               <CarouselItem 
                 key={client.id} 
-                className="pl-4 md:pl-6 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
+                className="pl-3 sm:pl-4 md:pl-6 basis-1/3 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
               >
-                <div className="group relative p-6 rounded-2xl bg-card/30 backdrop-blur-sm border border-border/30 
+                <div className="group relative p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl bg-card/30 backdrop-blur-sm border border-border/30 
                   hover:border-primary/20 hover:bg-card/60 transition-all duration-500 hover:scale-105">
-                  {/* Subtle glow on hover */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 to-accent/0 
+                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary/0 to-accent/0 
                     group-hover:from-primary/5 group-hover:to-accent/5 transition-all duration-500" />
                   
                   <div className="relative aspect-square flex items-center justify-center">
