@@ -1,76 +1,136 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
-import logoNP from "@/assets/logoNP.png";
-import heroBg from "@/assets/hero-bg.jpg";
 
-/* ─── Section 1: Logo Hero (Alinova style) ─── */
+/* ─── Section 1: Cinematic NP Reveal ─── */
 const LogoHero = () => {
-  const [isRevealed, setIsRevealed] = useState(false);
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const [phase, setPhase] = useState(0); // 0=hidden, 1=circle-expand, 2=text-in, 3=subtitle-in, 4=complete
 
   useEffect(() => {
-    if (inView) setTimeout(() => setIsRevealed(true), 200);
-  }, [inView]);
+    const timers = [
+      setTimeout(() => setPhase(1), 300),   // start circle reveal
+      setTimeout(() => setPhase(2), 1200),   // NP text appears
+      setTimeout(() => setPhase(3), 2200),   // subtitle + line
+      setTimeout(() => setPhase(4), 3200),   // fully complete
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
 
-  const scrollDown = () => {
+  const scrollDown = useCallback(() => {
     document.getElementById("intro-section")?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
-    <section ref={ref} className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Background photo */}
-      <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(0,0,0,0.4)_80%)]" />
+    <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
+      {/* Atmospheric grain overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none hero-grain" />
+
+      {/* Radial ambient glow */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-[3s] ${
+          phase >= 1 ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,hsl(20_35%_70%/0.08)_0%,transparent_70%)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[radial-gradient(circle,hsl(20_45%_80%/0.04)_0%,transparent_60%)]" />
       </div>
 
-      {/* Centered logo + NP text */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6">
-        {/* Logo with clip-path reveal */}
+      {/* Circle clip-path reveal container */}
+      <div
+        className="absolute inset-0 transition-all duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)]"
+        style={{
+          clipPath: phase >= 1
+            ? "circle(100% at 50% 50%)"
+            : "circle(0% at 50% 50%)",
+        }}
+      >
+        {/* Subtle vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_30%,rgba(0,0,0,0.6)_100%)]" />
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 select-none">
+        {/* Decorative top line */}
         <div
-          className={`transition-all duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isRevealed ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-12 blur-sm"
+          className={`h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mb-12 transition-all duration-[1.5s] ease-out ${
+            phase >= 2 ? "w-32 sm:w-48 opacity-100" : "w-0 opacity-0"
           }`}
-        >
-          <div className="relative inline-block">
-            <div className="absolute inset-0 bg-white/15 rounded-full blur-[60px] scale-[2.5]" />
-            <img
-              src={logoNP}
-              alt="NP Consultoria Alimentos"
-              className="w-40 sm:w-52 md:w-64 lg:w-72 h-auto relative z-10 drop-shadow-2xl"
-            />
+        />
+
+        {/* NP — massive metallic typography */}
+        <div className="relative">
+          {/* Glow behind text */}
+          <div
+            className={`absolute inset-0 blur-[80px] transition-opacity duration-[2s] ${
+              phase >= 2 ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div className="w-full h-full bg-[hsl(20_35%_70%/0.2)]" />
           </div>
+
+          <h1
+            className={`font-playfair font-bold leading-none relative transition-all duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)]
+              text-[7rem] sm:text-[10rem] md:text-[13rem] lg:text-[16rem]
+              ${phase >= 2
+                ? "opacity-100 translate-y-0 blur-0 tracking-[0.15em]"
+                : "opacity-0 translate-y-16 blur-lg tracking-[0.6em]"
+              }`}
+          >
+            {/* Metallic gradient fill */}
+            <span className="hero-np-text bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/40">
+              NP
+            </span>
+
+            {/* Light sweep effect */}
+            <span
+              className={`absolute inset-0 bg-clip-text text-transparent bg-gradient-to-r from-transparent via-white/50 to-transparent hero-light-sweep ${
+                phase >= 3 ? "animate-hero-sweep" : "opacity-0"
+              }`}
+              aria-hidden
+            >
+              NP
+            </span>
+          </h1>
         </div>
 
-        {/* NP text */}
-        <h2
-          className={`mt-4 font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-wider transition-all duration-[1.8s] ease-[cubic-bezier(0.16,1,0.3,1)] delay-300 ${
-            isRevealed ? "opacity-100 translate-y-0 blur-0 tracking-wider" : "opacity-0 translate-y-8 blur-md tracking-[0.5em]"
+        {/* Decorative diamond */}
+        <div
+          className={`my-6 sm:my-8 flex items-center gap-4 transition-all duration-1000 ease-out ${
+            phase >= 3 ? "opacity-100 scale-100" : "opacity-0 scale-50"
           }`}
         >
-          NP
-        </h2>
+          <div className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-white/25" />
+          <div className="w-2 h-2 rotate-45 border border-white/30" />
+          <div className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-white/25" />
+        </div>
 
-        <span
-          className={`mt-3 text-white/70 text-xs sm:text-sm md:text-base font-light tracking-[0.3em] uppercase transition-all duration-1000 delay-[800ms] ease-out ${
-            isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Subtitle */}
+        <p
+          className={`text-white/50 text-xs sm:text-sm md:text-base font-light transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            phase >= 3
+              ? "opacity-100 translate-y-0 tracking-[0.35em]"
+              : "opacity-0 translate-y-6 tracking-[0.1em]"
           }`}
+          style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          Consultoria & Rotulagem de Alimentos
-        </span>
+          CONSULTORIA & ROTULAGEM DE ALIMENTOS
+        </p>
       </div>
 
       {/* Scroll indicator */}
       <button
         onClick={scrollDown}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer z-10"
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 hover:text-white/70 transition-all duration-500 cursor-pointer z-10 ${
+          phase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
         aria-label="Scroll"
       >
-        <ChevronDown className="w-8 h-8" />
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-[10px] tracking-[0.3em] uppercase font-light">Scroll</span>
+          <ChevronDown className="w-5 h-5 animate-bounce" />
+        </div>
       </button>
     </section>
   );

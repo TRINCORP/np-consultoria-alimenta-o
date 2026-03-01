@@ -183,6 +183,22 @@ All colors MUST be HSL. Maintaining brand identity with enhanced effects.
   }
 }
 
+/* Hero NP Cinematic Effects */
+@keyframes hero-sweep {
+  0% { transform: translateX(-200%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-hero-sweep {
+  animation: hero-sweep 3s ease-in-out 0.5s infinite;
+}
+
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
 /* Premium Keyframes & Animations */
 @keyframes shine {
   0% {
