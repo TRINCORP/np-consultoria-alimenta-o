@@ -28,11 +28,12 @@ const LogoHero = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(0,0,0,0.4)_80%)]" />
       </div>
 
-      {/* Centered logo */}
+      {/* Centered logo + NP text */}
       <div className="relative z-10 flex flex-col items-center text-center px-6">
+        {/* Logo with clip-path reveal */}
         <div
-          className={`transition-all duration-[1.5s] ease-out ${
-            isRevealed ? "opacity-100 scale-100" : "opacity-0 scale-75"
+          className={`transition-all duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isRevealed ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-12 blur-sm"
           }`}
         >
           <div className="relative inline-block">
@@ -45,8 +46,17 @@ const LogoHero = () => {
           </div>
         </div>
 
+        {/* NP text */}
+        <h2
+          className={`mt-4 font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-wider transition-all duration-[1.8s] ease-[cubic-bezier(0.16,1,0.3,1)] delay-300 ${
+            isRevealed ? "opacity-100 translate-y-0 blur-0 tracking-wider" : "opacity-0 translate-y-8 blur-md tracking-[0.5em]"
+          }`}
+        >
+          NP
+        </h2>
+
         <span
-          className={`mt-6 text-white/80 text-sm sm:text-base md:text-lg font-light tracking-[0.25em] uppercase transition-all duration-1000 delay-700 ${
+          className={`mt-3 text-white/70 text-xs sm:text-sm md:text-base font-light tracking-[0.3em] uppercase transition-all duration-1000 delay-[800ms] ease-out ${
             isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
