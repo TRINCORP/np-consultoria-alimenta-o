@@ -9,6 +9,7 @@ import {
   CalendarDays,
   Heart,
 } from "lucide-react";
+import fotoTemperatura from "@/assets/food-services/foto4-temperatura.png";
 
 const segments = [
   { icon: UtensilsCrossed, label: "Restaurantes" },
@@ -68,6 +69,21 @@ const FoodServicesSegments = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* Cinematic photo banner */}
+        <div className={`mt-16 lg:mt-20 max-w-5xl mx-auto relative rounded-3xl overflow-hidden transition-all duration-1000 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          style={{ transitionDelay: "900ms" }}>
+          <div className="aspect-[21/9] sm:aspect-[3/1]">
+            <img src={fotoTemperatura} alt="Controle de temperatura NP Consultoria" className="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/80 via-[#1a1a1a]/30 to-[#1a1a1a]/80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10">
+            <p className="text-white/90 font-playfair text-lg sm:text-xl lg:text-2xl italic max-w-lg">
+              "Monitoramento contínuo de temperatura — controle que faz a diferença."
+            </p>
+          </div>
         </div>
       </div>
     </section>

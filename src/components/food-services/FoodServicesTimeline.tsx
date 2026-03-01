@@ -2,6 +2,8 @@ import { useEffect, useRef, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 import { Search, ClipboardList, TrendingDown, Users, GraduationCap, Tag, BarChart3 } from "lucide-react";
 import "./food-services-timeline.css";
+import fotoInspecao from "@/assets/food-services/foto1-inspecao.png";
+import fotoEstoque from "@/assets/food-services/foto2-estoque.png";
 
 interface ServiceCard {
   icon: React.ElementType;
@@ -472,6 +474,20 @@ const FoodServicesTimeline = () => {
             <br />
             <span>negócio de alimentação</span>
           </h2>
+        </div>
+
+        {/* Photo mosaic strip */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 max-w-4xl mx-auto mb-16 lg:mb-20">
+          <div className="relative rounded-2xl overflow-hidden aspect-[16/9] group">
+            <img src={fotoInspecao} alt="Inspeção de qualidade NP Consultoria" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 via-transparent to-transparent" />
+            <span className="absolute bottom-3 left-4 text-white/80 text-xs sm:text-sm font-medium tracking-wide">Inspeção de Qualidade</span>
+          </div>
+          <div className="relative rounded-2xl overflow-hidden aspect-[16/9] group">
+            <img src={fotoEstoque} alt="Controle de estoque NP Consultoria" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 via-transparent to-transparent" />
+            <span className="absolute bottom-3 left-4 text-white/80 text-xs sm:text-sm font-medium tracking-wide">Controle de Estoque</span>
+          </div>
         </div>
 
         {/* Timeline */}
