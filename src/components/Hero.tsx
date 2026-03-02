@@ -66,7 +66,7 @@ const LogoHero = () => {
 
         {/* NP — massive metallic typography */}
         {/* NP text container — slides from left to center */}
-        <div className={`relative ${phase >= 2 ? "np-slide-settle" : "opacity-0 -translate-x-[120vw]"}`}>
+        <div className={`relative ${phase >= 2 ? "np-slide-settle" : "opacity-0"}`} style={phase < 2 ? { transform: 'translateX(-150%)' } : undefined}>
           {/* Glow behind text */}
           <div
             className={`absolute inset-0 blur-[80px] transition-opacity duration-[2s] ${
