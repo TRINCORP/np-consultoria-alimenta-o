@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-
+import HeroServices from "@/components/HeroServices";
 import IntroAnimation from "@/components/IntroAnimation";
 import PhilosophySection from "@/components/PhilosophySection";
 import FoodServicesSection from "@/components/FoodServicesSection";
@@ -45,7 +45,9 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <Hero />
-        <div id="services" />
+        <div id="services">
+          <HeroServices />
+        </div>
         <StatsSection />
         <PhilosophySection />
         <WhyChooseUs />
