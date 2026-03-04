@@ -1,48 +1,48 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import nutritionConsultation from "@/assets/nutrition-consultation.jpg";
 import kitchenAudit from "@/assets/kitchen-audit.jpg";
 import allergenIcons from "@/assets/allergen-icons.jpg";
-import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const services = [
   {
     title: "Planos de Nutrição Personalizados",
-    description: "Alcance os seus objetivos de bem-estar com planos de nutrição personalizados, concebidos para satisfazer as suas necessidades e estilo de vida únicos. Beneficie de aconselhamento especializado e apoio contínuo para otimizar a sua saúde.",
+    description: "Alcance os seus objetivos de bem-estar com planos de nutrição personalizados, concebidos para satisfazer as suas necessidades e estilo de vida únicos.",
     image: nutritionConsultation
   },
   {
     title: "Normas de Segurança Alimentar Reforçadas",
-    description: "Eleve as suas operações de serviços de alimentação com as nossas serviços de consultoria abrangentes. Garanta a conformidade com os regulamentos de segurança alimentar, otimize os processos e melhore a qualidade das suas ofertas.",
+    description: "Eleve as suas operações de serviços de alimentação com as nossas serviços de consultoria abrangentes. Garanta a conformidade com os regulamentos de segurança alimentar.",
     image: kitchenAudit
   },
   {
     title: "Rotulagem de Alimentos Precisa",
-    description: "Navegue pelas complexidades da rotulagem de alimentos com os nossos serviços especializados. Garanta que os seus produtos cumprem todos os requisitos regulamentares, comuniquem com precisão com os consumidores e construam a confiança do consumidor.",
+    description: "Navegue pelas complexidades da rotulagem de alimentos com os nossos serviços especializados. Garanta que os seus produtos cumprem todos os requisitos regulamentares.",
     image: allergenIcons
   }
 ];
 
 const ServicesGrid = () => {
+  const containerRef = useScrollReveal();
+
   return (
-    <section className="bg-gradient-to-b from-muted/30 via-background to-background py-20 md:py-28 overflow-hidden relative">
-      {/* Refined background effects */}
+    <section ref={containerRef} className="bg-gradient-to-b from-muted/30 via-background to-background py-20 md:py-28 overflow-hidden relative">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.03),transparent_50%)]" />
-      <div className="absolute top-20 right-20 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] animate-float" />
-      <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] animate-float" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-20 right-20 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
+      <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-16 md:mb-20">
-          <div className="animate-slide-in-left">
-            <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+          <div>
+            <span className="scroll-reveal-left inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               Nossos Serviços
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+            <h2 className="scroll-reveal-blur stagger-1 text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
               Liberte o Seu Potencial com <span className="text-gradient italic font-playfair">Orientação Especializada</span>
             </h2>
           </div>
-          <div className="flex items-center animate-slide-in-right">
-            <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
+          <div className="flex items-center">
+            <p className="scroll-reveal-right stagger-2 text-base lg:text-lg text-muted-foreground leading-relaxed">
               A NP Consultoria Alimentos oferece orientação especializada que vai além do aconselhamento genérico. 
               Quer seja uma empresa à procura de excelência operacional ou conformidade regulamentar, 
               a nossa experiência garante soluções personalizadas que impulsionam o sucesso.
@@ -54,21 +54,19 @@ const ServicesGrid = () => {
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="group relative rounded-2xl bg-card/50 backdrop-blur-sm border border-border/30 overflow-hidden
-                hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 animate-scale-in"
-              style={{ animationDelay: `${index * 150}ms` }}
+              className={`scroll-reveal-left stagger-${index + 3} group relative rounded-2xl bg-card/50 backdrop-blur-sm border border-border/30 overflow-hidden
+                hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500`}
             >
-              {/* Image */}
               <div className="aspect-[4/3] overflow-hidden relative">
                 <img 
                   src={service.image} 
                   alt={service.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
               </div>
               
-              {/* Content */}
               <div className="p-6 md:p-8 relative">
                 <h3 className="text-xl lg:text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
                   {service.title}

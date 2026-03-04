@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const testimonials = [
   {
@@ -22,19 +22,21 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
+  const containerRef = useScrollReveal();
+
   return (
-    <section className="bg-gradient-to-b from-background via-muted/20 to-background py-16 sm:py-20 md:py-28 overflow-hidden relative">
+    <section ref={containerRef} className="bg-gradient-to-b from-background via-muted/20 to-background py-16 sm:py-20 md:py-28 overflow-hidden relative">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--primary)/0.03),transparent_60%)]" />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 sm:mb-6 animate-fade-in">
+          <span className="scroll-reveal-scale inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4 sm:mb-6">
             Depoimentos
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4 animate-fade-in">
+          <h2 className="scroll-reveal-blur stagger-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
             Histórias de <span className="text-gradient">Sucesso</span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <p className="scroll-reveal stagger-2 text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
             Descubra como os nossos clientes transformaram as suas operações com a nossa consultoria especializada
           </p>
         </div>
@@ -43,9 +45,8 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index} 
-              className="group relative p-6 sm:p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/30 
-                hover:border-primary/20 hover:bg-card/80 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 animate-fade-in"
-              style={{ animationDelay: `${index * 150}ms` }}
+              className={`scroll-reveal-${index % 2 === 0 ? 'left' : 'right'} stagger-${index + 3} group relative p-6 sm:p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/30 
+                hover:border-primary/20 hover:bg-card/80 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5`}
             >
               {/* Quote mark */}
               <div className="absolute top-4 sm:top-6 right-4 sm:right-6 text-5xl sm:text-6xl text-primary/10 font-serif leading-none select-none">
