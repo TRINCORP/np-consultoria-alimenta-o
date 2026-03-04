@@ -1,52 +1,34 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, Mail } from "lucide-react";
-import { useInView } from "react-intersection-observer";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const PremiumCTA = () => {
-  const { ref, inView } = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  });
+  const containerRef = useScrollReveal();
 
   return (
-    <section ref={ref} className="py-16 sm:py-20 md:py-28 bg-gradient-to-br from-[#1a1a1a] via-[#252220] to-[#1a1a1a] relative overflow-hidden">
-      {/* Animated decorative elements — hide on mobile */}
+    <section ref={containerRef} className="py-16 sm:py-20 md:py-28 bg-gradient-to-br from-[#1a1a1a] via-[#252220] to-[#1a1a1a] relative overflow-hidden">
       <div className="absolute inset-0 hidden sm:block">
         <div className="absolute top-20 left-20 w-32 h-32 border border-white/10 rounded-full" />
         <div className="absolute bottom-20 right-20 w-48 h-48 border border-white/5 rounded-full" />
       </div>
-
-      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_60%)]" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <span className={`inline-block px-4 sm:px-5 py-2 rounded-full bg-primary/20 text-primary text-xs sm:text-sm font-medium mb-6 sm:mb-8 transition-all duration-700 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <span className="scroll-reveal-scale inline-block px-4 sm:px-5 py-2 rounded-full bg-primary/20 text-primary text-xs sm:text-sm font-medium mb-6 sm:mb-8">
             Pronto para Transformar o Seu Negócio?
           </span>
 
-          {/* Headline */}
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight transition-all duration-700 delay-100 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <h2 className="scroll-reveal-blur stagger-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
             Elevamos a <span className="text-gradient">Qualidade Alimentar</span> ao Próximo Nível
           </h2>
 
-          {/* Description */}
-          <p className={`text-sm sm:text-base md:text-lg lg:text-xl text-white/70 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed transition-all duration-700 delay-200 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <p className="scroll-reveal stagger-2 text-sm sm:text-base md:text-lg lg:text-xl text-white/70 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
             Agende uma consulta gratuita com os nossos especialistas e descubra como 
             podemos ajudar a sua empresa a alcançar a excelência em segurança alimentar.
           </p>
 
-          {/* CTAs */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-12 transition-all duration-700 delay-300 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <div className="scroll-reveal stagger-3 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-12">
             <Button 
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-medium group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 w-full sm:w-auto"
@@ -63,10 +45,7 @@ const PremiumCTA = () => {
             </Button>
           </div>
 
-          {/* Contact Info */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 transition-all duration-700 delay-400 ${
-            inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <div className="scroll-reveal-left stagger-4 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
             <a href="tel:+551199999999" className="flex items-center gap-3 text-white/60 hover:text-primary transition-colors duration-300 group">
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
