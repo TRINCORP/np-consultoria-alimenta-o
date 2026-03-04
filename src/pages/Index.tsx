@@ -36,17 +36,17 @@ const Index = () => {
   return (
     <>
       {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
-      <SEO 
+      <SEO
         title="Segurança, Conformidade e Estratégia para o Seu Negócio de Alimentos"
         description="A NP Consultoria e NP Rotulagem oferecem soluções completas para empresas do setor alimentício: segurança sanitária, organização operacional, prevenção de perdas, regularização de produtos e desenvolvimento de rótulos."
-        keywords="consultoria alimentar, segurança sanitária, rotulagem nutricional, boas práticas alimentação, regularização de produtos, identidade visual alimentos, prevenção de perdas, conformidade legislação alimentar, NP Consultoria, NP Rotulagem"
-      />
+        keywords="consultoria alimentar, segurança sanitária, rotulagem nutricional, boas práticas alimentação, regularização de produtos, identidade visual alimentos, prevenção de perdas, conformidade legislação alimentar, NP Consultoria, NP Rotulagem" />
+      
       <FloatingIcons />
       <div className="min-h-screen bg-background">
         <Header />
         <Hero />
         <div id="services">
-          <HeroServices />
+          
         </div>
         <StatsSection />
         <PhilosophySection />
@@ -58,8 +58,8 @@ const Index = () => {
         <PremiumCTA />
         <Footer />
       </div>
-    </>
-  );
+    </>);
+
 };
 
 export default Index;
