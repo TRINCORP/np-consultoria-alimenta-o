@@ -178,16 +178,16 @@ const IntroSection = () => {
                 isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              Segurança, Conformidade
+              Consultoria em Segurança
             </span>
             <span
               className={`block transition-all duration-1000 delay-400 ${
                 isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              e{" "}
+              Alimentar e{" "}
               <span className="relative inline-block">
-                <span className="text-gradient-light italic">Estratégia</span>
+                <span className="text-gradient-light italic">Vigilância Sanitária</span>
               </span>
             </span>
             <span
@@ -196,7 +196,7 @@ const IntroSection = () => {
               }`}
             >
               <span className="relative inline-block">
-                para o Seu Negócio
+                em Indaiatuba e Região
                 <BrilliantReflection className="opacity-20" />
               </span>
             </span>
@@ -208,16 +208,18 @@ const IntroSection = () => {
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            Soluções completas para empresas do setor alimentício que buscam segurança sanitária,
-            organização operacional, prevenção de perdas e regularização de produtos.
+            A NP Consultoria Alimentar é especializada em adequação sanitária, boas práticas, 
+            rotulagem nutricional e obtenção de alvará sanitário para restaurantes, cozinhas industriais, 
+            indústrias alimentícias e produtores artesanais.
           </p>
           <p
             className={`text-sm sm:text-base lg:text-lg text-white/80 mb-4 leading-relaxed max-w-2xl transition-all duration-1000 delay-[850ms] ${
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            Da implantação de Boas Práticas ao desenvolvimento estratégico de rótulos e identidade visual —
-            garantimos conformidade com a legislação e fortalecimento da sua marca.
+            Atendemos Indaiatuba/SP e toda a região de Campinas com atendimento presencial e online. 
+            Da implantação de boas práticas ao desenvolvimento estratégico de rótulos — garantimos 
+            conformidade com a legislação e fortalecimento da sua marca.
           </p>
           <p
             className={`text-base sm:text-lg lg:text-xl font-semibold text-white italic mb-10 transition-all duration-1000 delay-[1000ms] ${
