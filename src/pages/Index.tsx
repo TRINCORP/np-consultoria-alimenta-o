@@ -37,9 +37,9 @@ const Index = () => {
     <>
       {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
       <SEO
-        title="Segurança, Conformidade e Estratégia para o Seu Negócio de Alimentos"
-        description="A NP Consultoria e NP Rotulagem oferecem soluções completas para empresas do setor alimentício: segurança sanitária, organização operacional, prevenção de perdas, regularização de produtos e desenvolvimento de rótulos."
-        keywords="consultoria alimentar, segurança sanitária, rotulagem nutricional, boas práticas alimentação, regularização de produtos, identidade visual alimentos, prevenção de perdas, conformidade legislação alimentar, NP Consultoria, NP Rotulagem" />
+        title="Consultoria em Segurança Alimentar e Vigilância Sanitária em Indaiatuba"
+        description="A NP Consultoria Alimentar é especializada em adequação sanitária, boas práticas, rotulagem nutricional e alvará sanitário para restaurantes, cozinhas industriais e indústrias em Indaiatuba e região."
+        keywords="consultoria vigilância sanitária restaurante, consultoria segurança alimentar, adequação sanitária, consultoria Indaiatuba, alvará sanitário, manual de boas práticas, rotulagem nutricional, treinamento manipuladores alimentos, consultoria para abrir restaurante, NP Consultoria" />
       
       <FloatingIcons />
       <div className="min-h-screen bg-background">

@@ -46,8 +46,8 @@ const Footer = () => {
               />
             </Link>
             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 max-w-xs">
-              Liderando a transformação no setor alimentar com soluções inovadoras em 
-              consultoria, rotulagem e segurança alimentar.
+              Consultoria especializada em segurança alimentar, vigilância sanitária, 
+              rotulagem nutricional e boas práticas em Indaiatuba e região de Campinas.
             </p>
             <div className="flex items-center gap-3">
               {[
