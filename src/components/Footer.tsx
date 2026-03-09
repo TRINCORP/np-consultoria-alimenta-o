@@ -130,8 +130,8 @@ const Footer = () => {
               <li className="flex items-start gap-3 text-white/70">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 shrink-0" />
                 <span className="text-xs sm:text-sm">
-                  São Paulo, Brasil<br />
-                  Atendimento em todo o território nacional
+                  Indaiatuba/SP, Brasil<br />
+                  Atendemos presencialmente Indaiatuba e região de Campinas
                 </span>
               </li>
             </ul>
