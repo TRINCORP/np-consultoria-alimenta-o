@@ -120,7 +120,7 @@ const LogoHero = () => {
           }`}
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          CONSULTORIA & ROTULAGEM DE ALIMENTOS
+          CONSULTORIA EM SEGURANÇA ALIMENTAR · INDAIATUBA E REGIÃO
         </p>
       </div>
 
