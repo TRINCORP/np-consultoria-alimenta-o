@@ -33,7 +33,7 @@ const PremiumCTA = () => {
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-medium group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 w-full sm:w-auto"
             >
-              Agendar Consulta Gratuita
+              Falar com um Especialista
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
