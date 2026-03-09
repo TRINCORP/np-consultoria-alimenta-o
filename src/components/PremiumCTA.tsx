@@ -20,12 +20,12 @@ const PremiumCTA = () => {
           </span>
 
           <h2 className="scroll-reveal-blur stagger-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-            Elevamos a <span className="text-gradient">Qualidade Alimentar</span> ao Próximo Nível
+            Sua Operação Merece <span className="text-gradient">Segurança e Conformidade</span>
           </h2>
 
           <p className="scroll-reveal stagger-2 text-sm sm:text-base md:text-lg lg:text-xl text-white/70 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-            Agende uma consulta gratuita com os nossos especialistas e descubra como 
-            podemos ajudar a sua empresa a alcançar a excelência em segurança alimentar.
+            Solicite uma consultoria sem compromisso. Atendemos restaurantes, cozinhas industriais, 
+            indústrias e produtores artesanais em Indaiatuba e região de Campinas.
           </p>
 
           <div className="scroll-reveal stagger-3 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-12">
@@ -33,7 +33,7 @@ const PremiumCTA = () => {
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base font-medium group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 w-full sm:w-auto"
             >
-              Agendar Consulta Gratuita
+              Falar com um Especialista
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 

@@ -46,8 +46,8 @@ const Footer = () => {
               />
             </Link>
             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 max-w-xs">
-              Liderando a transformação no setor alimentar com soluções inovadoras em 
-              consultoria, rotulagem e segurança alimentar.
+              Consultoria especializada em segurança alimentar, vigilância sanitária, 
+              rotulagem nutricional e boas práticas em Indaiatuba e região de Campinas.
             </p>
             <div className="flex items-center gap-3">
               {[
@@ -130,8 +130,8 @@ const Footer = () => {
               <li className="flex items-start gap-3 text-white/70">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 shrink-0" />
                 <span className="text-xs sm:text-sm">
-                  São Paulo, Brasil<br />
-                  Atendimento em todo o território nacional
+                  Indaiatuba/SP, Brasil<br />
+                  Atendemos presencialmente Indaiatuba e região de Campinas
                 </span>
               </li>
             </ul>
