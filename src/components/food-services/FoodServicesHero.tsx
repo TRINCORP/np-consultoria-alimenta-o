@@ -23,7 +23,7 @@ const FoodServicesHero = () => {
       <div className="absolute inset-0">
         <img
           src={equipeNP}
-          alt="Equipe NP Consultoria em Serviços de Alimentação"
+          alt="Consultoria em vigilância sanitária para restaurantes e cozinhas industriais em Indaiatuba"
           className="w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/95 via-[#1a1a1a]/70 to-[#1a1a1a]/40" />
@@ -41,7 +41,7 @@ const FoodServicesHero = () => {
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            NP Consultoria em Serviços de Alimentação
+            Consultoria em Segurança Alimentar — Indaiatuba e Região
           </span>
 
           {/* Title */}
@@ -52,7 +52,7 @@ const FoodServicesHero = () => {
                   isRevealed ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                 }`}
               >
-                {"Segurança".split("").map((letter, i) => (
+                {"Consultoria".split("").map((letter, i) => (
                   <span
                     key={i}
                     className={`inline-block py-1 transition-all duration-500 hover:text-primary hover:-translate-y-1 ${
@@ -98,9 +98,9 @@ const FoodServicesHero = () => {
                 }`}
                 style={{ transitionDelay: "400ms" }}
               >
-                É{" "}
+                Vigilância{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10 italic text-primary">Estratégia</span>
+                  <span className="relative z-10 italic text-primary">Sanitária</span>
                   <span
                     className={`absolute -left-2 sm:-left-3 top-0 text-primary/40 transition-all duration-500 ${
                       isRevealed ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
@@ -118,7 +118,6 @@ const FoodServicesHero = () => {
                     ]
                   </span>
                 </span>
-                {" "}de Marca
               </span>
             </span>
           </h1>
@@ -129,9 +128,9 @@ const FoodServicesHero = () => {
             }`}
             style={{ transitionDelay: "800ms" }}
           >
-            Com fiscalizações cada vez mais rigorosas e consumidores mais atentos, não basta "estar regular".
-            É preciso ter processo, controle e consistência. A NP Consultoria estrutura seu negócio para crescer
-            com segurança, eficiência e profissionalismo.
+            Adequação sanitária completa para restaurantes, cozinhas industriais e indústrias de alimentos.
+            Manual de boas práticas, alvará sanitário, treinamento de manipuladores e toda a documentação
+            exigida pela vigilância sanitária — em Indaiatuba e região de Campinas.
           </p>
 
           <div

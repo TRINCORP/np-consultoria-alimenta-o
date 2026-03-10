@@ -8,17 +8,21 @@ import {
   School,
   CalendarDays,
   Heart,
+  Store,
+  Cookie,
 } from "lucide-react";
 
 const segments = [
-  { icon: UtensilsCrossed, label: "Restaurantes" },
-  { icon: Croissant, label: "Padarias" },
-  { icon: Beef, label: "Açougues" },
-  { icon: Coffee, label: "Lanchonetes" },
-  { icon: Factory, label: "Indústrias de alimentos" },
-  { icon: School, label: "Alimentação escolar" },
-  { icon: CalendarDays, label: "Eventos" },
-  { icon: Heart, label: "ILPI" },
+  { icon: UtensilsCrossed, label: "Restaurantes e Lanchonetes" },
+  { icon: Croissant, label: "Padarias e Confeitarias" },
+  { icon: Beef, label: "Açougues e Frigoríficos" },
+  { icon: Coffee, label: "Cafeterias e Bares" },
+  { icon: Factory, label: "Indústrias de Alimentos" },
+  { icon: School, label: "Alimentação Escolar" },
+  { icon: Cookie, label: "Produtores Artesanais" },
+  { icon: Store, label: "Alimentos para Supermercado" },
+  { icon: CalendarDays, label: "Eventos e Buffets" },
+  { icon: Heart, label: "ILPI e Hospitais" },
 ];
 
 const FoodServicesSegments = () => {
@@ -35,19 +39,27 @@ const FoodServicesSegments = () => {
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Segmentos Atendidos
+            Segmentos Atendidos em Indaiatuba e Região
           </span>
           <h2
             className={`text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-white transition-all duration-700 delay-100 ${
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Empresas que{" "}
-            <span className="text-gradient italic">Confiam</span> na NP
+            Consultoria para{" "}
+            <span className="text-gradient italic">Todos os Segmentos</span> do Setor Alimentício
           </h2>
+          <p
+            className={`text-white/60 mt-4 max-w-2xl mx-auto text-sm md:text-base transition-all duration-700 delay-200 ${
+              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            De restaurantes a indústrias de alimentos, de produtores artesanais a quem quer vender em supermercado — 
+            atendemos com adequação sanitária, documentação e rotulagem nutricional ANVISA.
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 lg:gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 lg:gap-6 max-w-5xl mx-auto">
           {segments.map((seg, i) => {
             const Icon = seg.icon;
             return (

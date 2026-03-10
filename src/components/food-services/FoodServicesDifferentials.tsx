@@ -1,18 +1,19 @@
 import { useInView } from "react-intersection-observer";
-import { Shield, Users, Eye, Target, TrendingUp } from "lucide-react";
+import { Shield, Users, Eye, Target, TrendingUp, MapPin } from "lucide-react";
 
 const differentials = [
-  { icon: Users, text: "Atendimento personalizado" },
-  { icon: Shield, text: "Equipe técnica especializada" },
-  { icon: Eye, text: "Experiência prática em operações reais" },
-  { icon: Target, text: "Atuação estratégica e preventiva" },
-  { icon: TrendingUp, text: "Foco em segurança, organização e rentabilidade" },
+  { icon: MapPin, text: "Atuação presencial em Indaiatuba, Campinas e região" },
+  { icon: Users, text: "Atendimento personalizado para cada tipo de negócio" },
+  { icon: Shield, text: "Equipe técnica especializada em vigilância sanitária" },
+  { icon: Eye, text: "Experiência prática em restaurantes, cozinhas industriais e indústrias" },
+  { icon: Target, text: "Atuação estratégica e preventiva — não apenas corretiva" },
+  { icon: TrendingUp, text: "Foco em adequação sanitária, organização e rentabilidade" },
 ];
 
 const philosophyQuotes = [
-  "Segurança de alimentos não é mais apenas obrigação. É posicionamento de marca.",
-  "Empresas que tratam a segurança dos alimentos como parte da estratégia — e não apenas como exigência da Vigilância — saem na frente.",
-  "Quem trabalha de forma preventiva reduz autuações, evita desperdícios, protege a reputação e fortalece a confiança do cliente.",
+  "Consultoria em segurança alimentar não é custo — é investimento em credibilidade e crescimento.",
+  "Empresas que tratam a adequação sanitária como estratégia de marca saem na frente da concorrência.",
+  "Manual de boas práticas, treinamento de manipuladores e alvará sanitário: a base para operar com tranquilidade.",
 ];
 
 const FoodServicesDifferentials = () => {
@@ -33,14 +34,14 @@ const FoodServicesDifferentials = () => {
                   diffInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
               >
-                Diferenciais
+                Por Que Escolher a NP Consultoria
               </span>
               <h2
                 className={`text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-white transition-all duration-700 delay-100 ${
                   diffInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
               >
-                Por que a <span className="text-gradient italic">NP</span>?
+                Diferenciais da <span className="text-gradient italic">NP Consultoria Alimentar</span>
               </h2>
             </div>
 
@@ -106,7 +107,7 @@ const FoodServicesDifferentials = () => {
             }`}
           >
             <p className="text-2xl md:text-3xl lg:text-4xl font-playfair font-bold text-white leading-tight mb-4">
-              Segurança bem-feita quase não aparece.
+              Adequação sanitária bem-feita quase não aparece.
             </p>
             <p className="text-2xl md:text-3xl lg:text-4xl font-playfair font-bold leading-tight">
               <span className="text-gradient italic">Mas quando falha, vira manchete.</span>
