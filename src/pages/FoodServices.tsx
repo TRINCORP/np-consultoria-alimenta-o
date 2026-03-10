@@ -12,9 +12,9 @@ const FoodServices = () => {
   return (
     <>
       <SEO
-        title="Consultoria em Serviços de Alimentação | NP Consultoria"
-        description="Consultoria especializada em segurança alimentar, boas práticas, redução de desperdícios, gestão de equipe e rotulagem nutricional. Estruture seu negócio para crescer com segurança e profissionalismo."
-        keywords="consultoria alimentar, boas práticas alimentação, segurança alimentar, vigilância sanitária, rotulagem nutricional, redução desperdícios, gestão equipe alimentação, treinamento manipuladores, NP Consultoria"
+        title="Consultoria Vigilância Sanitária Restaurante e Indústria | Indaiatuba"
+        description="Consultoria em vigilância sanitária para restaurante, cozinha industrial e indústria de alimentos em Indaiatuba e região de Campinas. Manual de boas práticas, alvará sanitário, treinamento de manipuladores, rotulagem nutricional ANVISA e adequação sanitária completa."
+        keywords="consultoria vigilância sanitária restaurante, como regularizar restaurante na vigilância sanitária, adequação sanitária para restaurante, como passar na vigilância sanitária, manual de boas práticas vigilância sanitária, consultoria segurança alimentar, adequação sanitária para cozinha industrial, consultoria para alvará sanitário, o que a vigilância sanitária exige em restaurante, manual de boas práticas para restaurante, como fazer manual de boas práticas, empresa que faz manual de boas práticas, POP manipulação de alimentos, documentação vigilância sanitária restaurante, manual de boas práticas cozinha industrial, documentos obrigatórios vigilância sanitária, treinamento manipulação de alimentos, curso boas práticas manipulação de alimentos, treinamento vigilância sanitária restaurante, capacitação manipuladores de alimentos, consultoria para restaurante, consultoria alimentar, consultoria para cozinha industrial, consultoria segurança alimentar restaurante, consultoria para abrir restaurante, como abrir fábrica de alimentos, regularizar fábrica de alimentos, licença sanitária indústria de alimentos, consultoria indústria alimentícia, consultoria vigilância sanitária Indaiatuba, rotulagem nutricional Indaiatuba, tabela nutricional Indaiatuba, consultoria segurança alimentar Indaiatuba, manual de boas práticas Indaiatuba, consultoria restaurante Indaiatuba"
       />
       <div className="min-h-screen">
         <Header />

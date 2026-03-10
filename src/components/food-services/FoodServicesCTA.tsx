@@ -22,20 +22,21 @@ const FoodServicesCTA = () => {
             transition: "all 0.8s ease",
           }}
         >
-          Segurança que posiciona
+          Consultoria em Segurança Alimentar
           <br />
-          <em className="text-[hsl(var(--primary-glow))] italic">sua marca.</em>
+          <em className="text-[hsl(var(--primary-glow))] italic">em Indaiatuba e Região</em>
         </h2>
 
         <p
-          className="text-white/45 max-w-[48ch] mx-auto mb-8 sm:mb-10 leading-[1.75] text-xs sm:text-sm md:text-base"
+          className="text-white/45 max-w-[52ch] mx-auto mb-8 sm:mb-10 leading-[1.75] text-xs sm:text-sm md:text-base"
           style={{
             opacity: inView ? 1 : 0,
             transform: inView ? "translateY(0)" : "translateY(16px)",
             transition: "all 0.8s ease 0.15s",
           }}
         >
-          Empresas que tratam segurança dos alimentos como estratégia saem na frente. Vamos conversar sobre o seu negócio.
+          Alvará sanitário, manual de boas práticas, treinamento de manipuladores, rotulagem nutricional ANVISA 
+          e adequação sanitária completa. Solicite um orçamento sem compromisso.
         </p>
 
         <div
@@ -53,7 +54,7 @@ const FoodServicesCTA = () => {
               hover:-translate-y-1 hover:shadow-[0_12px_30px_hsl(0_0%_0%/0.25)]
               transition-all duration-300 group"
           >
-            <span className="relative z-10">Fale com um consultor →</span>
+            <span className="relative z-10">Solicitar Orçamento →</span>
             <span className="absolute inset-0 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
           </a>
         </div>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
-import { Search, ClipboardList, TrendingDown, Users, GraduationCap, Tag, BarChart3 } from "lucide-react";
+import { Search, ClipboardList, TrendingDown, Users, GraduationCap, Tag, BarChart3, Building2 } from "lucide-react";
 import "./food-services-timeline.css";
 
 interface ServiceCard {
@@ -16,65 +16,74 @@ const services: ServiceCard[] = [
   {
     icon: Search,
     number: "01",
-    category: "Conformidade",
-    title: "Implantação de Boas Práticas",
+    category: "Vigilância Sanitária",
+    title: "Consultoria em Vigilância Sanitária para Restaurantes",
     description:
-      "Implantação completa conforme a legislação sanitária vigente, garantindo segurança dos alimentos, organização e conformidade com a Vigilância Sanitária.",
-    tags: ["Manual de BPF", "POPs", "Treinamento"],
+      "Adequação sanitária completa para restaurantes, lanchonetes e cozinhas industriais. Preparamos seu estabelecimento para passar na vigilância sanitária, atendendo todas as exigências legais e obtendo o alvará sanitário.",
+    tags: ["Adequação sanitária", "Alvará sanitário", "Fiscalização"],
   },
   {
     icon: ClipboardList,
     number: "02",
-    category: "Regulatório",
-    title: "Adequação para Vigilância Sanitária",
+    category: "Documentação Obrigatória",
+    title: "Manual de Boas Práticas e POP para Restaurante",
     description:
-      "Preparamos seu estabelecimento para inspeções sanitárias, reduzindo riscos de autuações, multas e interdições com plano de ação corretivo.",
-    tags: ["Check-list técnico", "Fiscalizações", "Documentação"],
-  },
-  {
-    icon: TrendingDown,
-    number: "03",
-    category: "Eficiência",
-    title: "Prevenção de Perdas e Desperdícios",
-    description:
-      "Estratégias para diminuir perdas operacionais e aumentar a rentabilidade com controle de estoque, validade e reaproveitamento seguro.",
-    tags: ["PVPS", "Controle de estoque", "Análise de perdas"],
-  },
-  {
-    icon: Users,
-    number: "04",
-    category: "Pessoas",
-    title: "Gestão de Equipe e Liderança",
-    description:
-      "Estruturamos equipes mais organizadas, produtivas e alinhadas com os objetivos da empresa, com avaliação de desempenho e desenvolvimento de líderes.",
-    tags: ["Liderança", "Avaliação", "Regulamento interno"],
+      "Elaboração do Manual de Boas Práticas (BPF) e dos Procedimentos Operacionais Padrão (POP) de manipulação de alimentos — documentação obrigatória exigida pela vigilância sanitária para restaurantes e cozinhas industriais.",
+    tags: ["Manual de BPF", "POP manipulação", "Documentos obrigatórios"],
   },
   {
     icon: GraduationCap,
-    number: "05",
+    number: "03",
     category: "Capacitação",
-    title: "Treinamento de Manipuladores",
+    title: "Treinamento de Manipuladores de Alimentos",
     description:
-      "Capacitação teórica e prática com foco em higiene, conduta profissional, contaminação cruzada, controle de temperatura e atendimento ao cliente.",
-    tags: ["Higiene", "Temp. segura", "Atendimento"],
+      "Curso de boas práticas de manipulação de alimentos com certificado. Capacitação teórica e prática em higiene, controle de temperatura, contaminação cruzada e conduta profissional — exigido pela vigilância sanitária.",
+    tags: ["Curso manipuladores", "Certificado", "Boas práticas"],
+  },
+  {
+    icon: TrendingDown,
+    number: "04",
+    category: "Eficiência Operacional",
+    title: "Redução de Perdas e Controle de Estoque",
+    description:
+      "Estratégias para diminuir perdas operacionais e aumentar a rentabilidade do seu restaurante com controle de estoque, validade PVPS e reaproveitamento seguro de alimentos.",
+    tags: ["Controle de estoque", "PVPS", "Redução de desperdício"],
+  },
+  {
+    icon: Users,
+    number: "05",
+    category: "Gestão de Pessoas",
+    title: "Gestão de Equipe e Liderança em Alimentação",
+    description:
+      "Estruturamos equipes mais organizadas e produtivas, com avaliação de desempenho, regulamento interno e desenvolvimento de líderes para restaurantes e cozinhas industriais.",
+    tags: ["Liderança", "Avaliação", "Regulamento interno"],
   },
   {
     icon: Tag,
     number: "06",
-    category: "Rotulagem",
-    title: "Desenvolvimento e Adequação de Rótulos",
+    category: "Rotulagem ANVISA",
+    title: "Rotulagem Nutricional e Tabela Nutricional",
     description:
-      "Rótulos 100% conforme a legislação da Anvisa, com tabela nutricional, alergênicos, glúten e rotulagem frontal — aliando estética, marketing e legislação.",
-    tags: ["Anvisa", "Design", "Identidade visual"],
+      "Desenvolvimento de rótulos e tabela nutricional conforme legislação ANVISA. Rotulagem para produtos artesanais, para vender em supermercado e registro de produto alimentício — incluindo rotulagem frontal e alergênicos.",
+    tags: ["Tabela nutricional", "ANVISA", "Produtos artesanais"],
   },
   {
     icon: BarChart3,
     number: "07",
     category: "Auditoria",
-    title: "Revisão Técnica de Rótulos",
+    title: "Auditoria e Revisão Técnica de Rótulos",
     description:
-      "Analisamos rótulos existentes, apontamos não conformidades e regularizamos o enquadramento sanitário dos seus produtos antes que gerem multas ou notificações.",
-    tags: ["Auditoria", "Enquadramento", "Preventivo"],
+      "Analisamos rótulos existentes, identificamos não conformidades e regularizamos o enquadramento sanitário dos seus produtos antes que gerem multas ou notificações da ANVISA.",
+    tags: ["Auditoria de rótulos", "Enquadramento", "Preventivo"],
+  },
+  {
+    icon: Building2,
+    number: "08",
+    category: "Indústria",
+    title: "Consultoria para Abrir Fábrica de Alimentos",
+    description:
+      "Apoio técnico completo para abrir e regularizar fábrica de alimentos. Licença sanitária para indústria de alimentos, registro de produtos na ANVISA, projeto de layout e acompanhamento em fiscalizações.",
+    tags: ["Licença sanitária", "Registro ANVISA", "Indústria alimentícia"],
   },
 ];
 
@@ -200,7 +209,6 @@ const FoodServicesTimeline = () => {
   const animRef = useRef<number>(0);
   const { ref: headerRef, inView: headerInView } = useInView({ threshold: 0.2, triggerOnce: true });
 
-  // Initialize particles pool — reduced from 180 to 80
   useEffect(() => {
     const pool: Particle[] = [];
     for (let i = 0; i < 80; i++) pool.push(new Particle());
@@ -212,7 +220,6 @@ const FoodServicesTimeline = () => {
     if (p) p.spawn(cx, y);
   }, []);
 
-  // Canvas animation loop with visibility detection
   useEffect(() => {
     const canvas = canvasRef.current;
     const timeline = timelineRef.current;
@@ -226,7 +233,6 @@ const FoodServicesTimeline = () => {
     const cx = CW / 2;
     let isVisible = false;
 
-    // Pause canvas when off-screen
     const observer = new IntersectionObserver(
       ([entry]) => { isVisible = entry.isIntersecting; },
       { threshold: 0, rootMargin: "200px" }
@@ -250,7 +256,6 @@ const FoodServicesTimeline = () => {
     const draw = () => {
       if (!ctx || !canvas) return;
 
-      // Skip heavy rendering when off-screen
       if (!isVisible) {
         animRef.current = requestAnimationFrame(draw);
         return;
@@ -262,7 +267,6 @@ const FoodServicesTimeline = () => {
       const progress = progressRef.current;
       const fY = progress * H;
 
-      // Ghost track
       ctx.beginPath();
       ctx.moveTo(cx, 0);
       ctx.lineTo(cx, H);
@@ -276,7 +280,6 @@ const FoodServicesTimeline = () => {
         return;
       }
 
-      // Soft aura layers
       [{ w: 26, a: 0.07 }, { w: 14, a: 0.12 }].forEach(({ w, a }) => {
         ctx.beginPath();
         ctx.moveTo(cx, 0);
@@ -286,7 +289,6 @@ const FoodServicesTimeline = () => {
         ctx.stroke();
       });
 
-      // Rose side aura
       ctx.beginPath();
       ctx.moveTo(cx, 0);
       ctx.lineTo(cx, fY);
@@ -294,7 +296,6 @@ const FoodServicesTimeline = () => {
       ctx.lineWidth = 30;
       ctx.stroke();
 
-      // Main line — slate-to-rose gradient
       const mainGrad = ctx.createLinearGradient(0, 0, 0, fY);
       mainGrad.addColorStop(0, "#4A5960");
       mainGrad.addColorStop(0.4, "#6A7B83");
@@ -310,7 +311,6 @@ const FoodServicesTimeline = () => {
       ctx.stroke();
       ctx.shadowBlur = 0;
 
-      // Shimmer highlight
       const t = Date.now() * 0.0014;
       const shY = (Math.sin(t) * 0.5 + 0.5) * fY;
       const shG = ctx.createLinearGradient(0, shY - 90, 0, shY + 90);
@@ -324,20 +324,17 @@ const FoodServicesTimeline = () => {
       ctx.lineWidth = 5;
       ctx.stroke();
 
-      // ── ORB — NP Logo shape ──
       orbTRef.current += 0.04;
       const wobble = Math.sin(orbTRef.current * 1.5) * 4;
       const ox = cx + wobble;
       const oy = fY;
       const OR = 18;
 
-      // Spawn particles — throttled
       if (progress > 0.004 && progress < 0.997) {
         if (Math.random() > 0.4) spawnP(cx, oy);
         if (Math.random() > 0.8) spawnP(cx, oy);
       }
 
-      // Outer halo glow rings
       [
         { r: 44, ca: "rgba(106,123,131,", a: 0.035 },
         { r: 30, ca: "rgba(106,123,131,", a: 0.08 },
@@ -352,20 +349,16 @@ const FoodServicesTimeline = () => {
         ctx.fill();
       });
 
-      // Draw NP logo inside the orb
       ctx.save();
       ctx.translate(ox, oy);
 
-      // Clip to circle
       ctx.beginPath();
       ctx.arc(0, 0, OR, 0, Math.PI * 2);
       ctx.clip();
 
-      // White background
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(-OR, -OR, OR * 2, OR * 2);
 
-      // Slate leaf (left)
       ctx.beginPath();
       ctx.moveTo(0, -OR);
       ctx.bezierCurveTo(-OR * 0.8, -OR * 0.8, -OR * 1.1, -OR * 0.2, -OR * 0.9, OR * 0.1);
@@ -376,7 +369,6 @@ const FoodServicesTimeline = () => {
       ctx.fillStyle = "#6A7B83";
       ctx.fill();
 
-      // Rose leaf (right)
       ctx.beginPath();
       ctx.moveTo(0, OR);
       ctx.bezierCurveTo(OR * 0.8, OR * 0.8, OR * 1.1, OR * 0.2, OR * 0.9, -OR * 0.1);
@@ -387,7 +379,6 @@ const FoodServicesTimeline = () => {
       ctx.fillStyle = "#D1B6AD";
       ctx.fill();
 
-      // Thin circle border
       ctx.beginPath();
       ctx.arc(0, 0, OR - 0.5, 0, Math.PI * 2);
       ctx.strokeStyle = "rgba(106,123,131,0.4)";
@@ -396,7 +387,6 @@ const FoodServicesTimeline = () => {
 
       ctx.restore();
 
-      // Glow behind the whole orb
       ctx.shadowColor = "#ffffff";
       ctx.shadowBlur = 22;
       ctx.beginPath();
@@ -406,14 +396,12 @@ const FoodServicesTimeline = () => {
       ctx.stroke();
       ctx.shadowBlur = 0;
 
-      // Particles
       particlesRef.current.forEach(p => {
         if (!p.alive) return;
         p.update();
         p.draw(ctx);
       });
 
-      // Dotted remainder
       ctx.setLineDash([3, 9]);
       ctx.beginPath();
       ctx.moveTo(cx, fY + 3);
@@ -444,11 +432,9 @@ const FoodServicesTimeline = () => {
 
   return (
     <section ref={sectionRef} className="fs-timeline-section">
-      {/* Noise overlay */}
       <div className="fs-noise-overlay" />
 
       <div className="fs-timeline-container">
-        {/* Section header */}
         <div ref={headerRef} className="fs-section-header">
           <p
             className="fs-eyebrow"
@@ -458,7 +444,7 @@ const FoodServicesTimeline = () => {
               transition: "all 0.7s ease",
             }}
           >
-            O que fazemos
+            Nossos Serviços de Consultoria Alimentar
           </p>
           <h2
             className="fs-section-title"
@@ -468,13 +454,12 @@ const FoodServicesTimeline = () => {
               transition: "all 0.8s ease 0.1s",
             }}
           >
-            Soluções para o seu
+            Consultoria para Restaurantes,
             <br />
-            <span>negócio de alimentação</span>
+            <span>Cozinhas Industriais e Indústrias</span>
           </h2>
         </div>
 
-        {/* Timeline */}
         <div ref={timelineRef} className="fs-timeline">
           <canvas ref={canvasRef} className="fs-line-canvas" />
 
