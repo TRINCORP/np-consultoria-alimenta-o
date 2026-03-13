@@ -41,7 +41,7 @@ const faqGroups = [
     faqs: [
       {
         question: "O que é o Manual de Boas Práticas e quem precisa ter?",
-        answer: "O Manual de Boas Práticas (MBP) é um documento obrigatório para qualquer estabelecimento que manipula alimentos — restaurantes, lanchonetes, padarias, cozinhas industriais e fábricas. Ele descreve as rotinas de higiene, manipulação, armazenamento e controle de qualidade do local.",
+        answer: "O Manual de Boas Práticas (MBP) é um documento obrigatório para qualquer estabelecimento que manipula alimentos, como restaurantes, lanchonetes, padarias, cozinhas industriais e fábricas. Ele descreve as rotinas de higiene, manipulação, armazenamento e controle de qualidade do local.",
       },
       {
         question: "Como fazer um Manual de Boas Práticas para restaurante?",
