@@ -53,7 +53,7 @@ const faqGroups = [
       },
       {
         question: "O que é POP (Procedimento Operacional Padrão) para alimentos?",
-        answer: "O POP é um documento que descreve passo a passo como realizar cada atividade de manipulação de alimentos — como higienização de equipamentos, controle de temperatura e recebimento de mercadorias. É obrigatório pela ANVISA e complementa o Manual de Boas Práticas.",
+        answer: "O POP é um documento que descreve passo a passo como realizar cada atividade de manipulação de alimentos, incluindo higienização de equipamentos, controle de temperatura e recebimento de mercadorias. É obrigatório pela ANVISA e complementa o Manual de Boas Práticas.",
       },
       {
         question: "O Manual de Boas Práticas precisa ser atualizado? Com que frequência?",
