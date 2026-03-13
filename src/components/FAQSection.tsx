@@ -57,7 +57,7 @@ const faqGroups = [
       },
       {
         question: "O Manual de Boas Práticas precisa ser atualizado? Com que frequência?",
-        answer: "Sim, o MBP deve ser atualizado sempre que houver mudanças na operação — novo cardápio, reforma, troca de equipe ou alteração na legislação. Recomenda-se uma revisão anual. A NP Consultoria oferece acompanhamento contínuo para manter sua documentação sempre em dia.",
+        answer: "Sim, o MBP deve ser atualizado sempre que houver mudanças na operação, como novo cardápio, reforma, troca de equipe ou alteração na legislação. Recomenda-se uma revisão anual. A NP Consultoria oferece acompanhamento contínuo para manter sua documentação sempre em dia.",
       },
     ],
   },
