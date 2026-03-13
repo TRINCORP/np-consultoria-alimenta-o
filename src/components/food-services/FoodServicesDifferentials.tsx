@@ -6,7 +6,7 @@ const differentials = [
   { icon: Users, text: "Atendimento personalizado para cada tipo de negócio" },
   { icon: Shield, text: "Equipe técnica especializada em vigilância sanitária" },
   { icon: Eye, text: "Experiência prática em restaurantes, cozinhas industriais e indústrias" },
-  { icon: Target, text: "Atuação estratégica e preventiva — não apenas corretiva" },
+  { icon: Target, text: "Atuação estratégica e preventiva, não apenas corretiva" },
   { icon: TrendingUp, text: "Foco em adequação sanitária, organização e rentabilidade" },
 ];
 
