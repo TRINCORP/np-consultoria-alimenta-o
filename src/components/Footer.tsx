@@ -3,6 +3,8 @@ import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, ArrowUpRight } from
 import logoNP from "@/assets/logoNP.png";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
+const WHATSAPP_NUMBER = "5519989750741";
+
 const Footer = () => {
   const containerRef = useScrollReveal();
   const currentYear = new Date().getFullYear();
@@ -11,19 +13,17 @@ const Footer = () => {
     services: [
       { label: "Consultoria Alimentar", href: "/servicos-alimentares" },
       { label: "Rotulagem Nutricional", href: "/np-rotulagem" },
-      { label: "Segurança Alimentar", href: "#" },
-      { label: "Formação de Equipas", href: "#" },
+      { label: "Manual de Boas Práticas", href: "/servicos-alimentares" },
+      { label: "Treinamento de Equipes", href: "/servicos-alimentares" },
     ],
     company: [
       { label: "Sobre Nós", href: "/sobre" },
-      { label: "Nossa Equipa", href: "/equipe" },
-      { label: "Casos de Sucesso", href: "#" },
-      { label: "Carreiras", href: "#" },
+      { label: "Nossa Equipe", href: "/equipe" },
+      { label: "Perguntas Frequentes", href: "/faq" },
     ],
     legal: [
       { label: "Política de Privacidade", href: "#" },
       { label: "Termos de Uso", href: "#" },
-      { label: "Cookies", href: "#" },
     ],
   };
 
@@ -51,8 +51,8 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-3">
               {[
+                { icon: Instagram, href: "https://www.instagram.com/np.consultoriaalimentos/", label: "Instagram" },
                 { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-                { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
                 { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
               ].map((social) => (
                 <a
@@ -112,13 +112,18 @@ const Footer = () => {
           {/* Contact info */}
           <div className="scroll-reveal-right stagger-4 col-span-2 lg:col-span-4">
             <h4 className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-white/40 mb-3 sm:mb-4">
-              Contacto
+              Contato
             </h4>
             <ul className="space-y-3 sm:space-y-4">
               <li>
-                <a href="tel:+551199999999" className="flex items-start gap-3 text-white/70 hover:text-primary transition-colors duration-300 group">
+                <a 
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Quero saber mais sobre os serviços da NP Consultoria.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-white/70 hover:text-primary transition-colors duration-300 group"
+                >
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5 mt-0.5 shrink-0" />
-                  <span className="text-xs sm:text-sm">+55 11 9999-9999</span>
+                  <span className="text-xs sm:text-sm">(19) 98975-0741</span>
                 </a>
               </li>
               <li>

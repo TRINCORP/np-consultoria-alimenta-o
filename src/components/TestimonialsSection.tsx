@@ -3,22 +3,25 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 const testimonials = [
   {
     rating: 5,
-    text: "A NP Consultoria Alimentos transformou os nossos protocolos de segurança alimentar, levando a uma melhoria da conformidade e da confiança dos clientes.",
-    name: "Maria Silva",
-    role: "Gestora de Serviços de Alimentação"
+    text: "A NP Consultoria organizou toda a nossa operação. Passamos na vistoria da vigilância sanitária sem nenhuma pendência e hoje temos processos muito mais claros para a equipe.",
+    name: "Fernanda Oliveira",
+    role: "Proprietária de Restaurante, Indaiatuba",
+    initials: "FO",
   },
   {
     rating: 5,
-    text: "Graças à NP Rotulagem, os nossos rótulos de alimentos cumprem agora todas as normas regulamentares, reduzindo os riscos legais e aumentando a confiança dos consumidores.",
-    name: "Carlos Pereira",
-    role: "Diretor de Garantia de Qualidade"
+    text: "Precisávamos regularizar a rotulagem dos nossos produtos para vender em supermercado. A NP Rotulagem cuidou de tudo: tabela nutricional, adequação à ANVISA e design do rótulo. Resultado impecável.",
+    name: "Ricardo Mendes",
+    role: "Produtor Artesanal, Campinas",
+    initials: "RM",
   },
   {
     rating: 5,
-    text: "A parceria com a NP Consultoria Alimentos elevou os nossos padrões nutricionais. As suas informações ajudaram-nos a otimizar as ofertas do menu.",
-    name: "Ana Costa",
-    role: "Nutricionista Chefe"
-  }
+    text: "Contratamos a NP para o treinamento dos manipuladores de alimentos e elaboração do Manual de Boas Práticas. A equipe ficou muito mais engajada e organizada. Recomendo de olhos fechados.",
+    name: "Juliana Campos",
+    role: "Gerente de Cozinha Industrial, Salto",
+    initials: "JC",
+  },
 ];
 
 const TestimonialsSection = () => {
@@ -34,10 +37,10 @@ const TestimonialsSection = () => {
             Depoimentos
           </span>
           <h2 className="scroll-reveal-blur stagger-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
-            Histórias de <span className="text-gradient">Sucesso</span>
+            Quem já <span className="text-gradient">confiou na NP</span>
           </h2>
           <p className="scroll-reveal stagger-2 text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Descubra como os nossos clientes transformaram as suas operações com a nossa consultoria especializada
+            Veja o que nossos clientes dizem sobre a experiência com a consultoria
           </p>
         </div>
 
@@ -71,7 +74,9 @@ const TestimonialsSection = () => {
               </p>
               
               <div className="flex items-center gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-border/30">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex-shrink-0" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary to-primary/60 flex-shrink-0 flex items-center justify-center text-primary-foreground font-bold text-sm sm:text-base">
+                  {testimonial.initials}
+                </div>
                 <div>
                   <h4 className="font-semibold text-foreground text-sm sm:text-base">{testimonial.name}</h4>
                   <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.role}</p>
