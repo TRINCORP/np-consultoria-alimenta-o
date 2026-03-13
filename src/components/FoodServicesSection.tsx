@@ -2,6 +2,8 @@ import { useInView } from "react-intersection-observer";
 import equipeNPHome from "@/assets/equipe_NP_home.jpeg";
 import { Search, ClipboardList, TrendingDown, Users, BarChart3, CheckCircle2 } from "lucide-react";
 
+const WHATSAPP_NUMBER = "5519989750741";
+
 const services = [
   {
     icon: Search,
@@ -53,7 +55,7 @@ const FoodServicesSection = () => {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       
-      {/* Top section: Image + Intro (same layout as before) */}
+      {/* Top section: Image + Intro */}
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full relative z-10 min-h-screen">
         <div className="h-[400px] sm:h-[500px] lg:h-screen overflow-hidden relative group order-2 lg:order-1 lg:sticky lg:top-0">
           <img 
@@ -84,7 +86,7 @@ const FoodServicesSection = () => {
                 textInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              A melhoria operacional em serviços de alimentação não acontece por acaso — ela exige <strong className="text-white">método, organização, conhecimento técnico</strong> e gestão eficiente.
+              A melhoria operacional em serviços de alimentação não acontece por acaso. Ela exige <strong className="text-white">método, organização, conhecimento técnico</strong> e gestão eficiente.
             </p>
             <p 
               className={`text-sm sm:text-base lg:text-lg mb-8 text-white/75 leading-relaxed transition-all duration-700 delay-300 ${
@@ -199,10 +201,21 @@ const FoodServicesSection = () => {
             </div>
 
             <div className="mt-8 pt-6 border-t border-[#d6b9b2]/15 text-center">
-              <p className="text-white/80 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                Uma consultoria especializada não apenas adequa sua empresa às normas — ela{' '}
+              <p className="text-white/80 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mb-6">
+                Uma consultoria especializada não apenas adequa sua empresa às normas. Ela{' '}
                 <strong className="text-[#d6b9b2]">estrutura seu negócio para crescer</strong> com segurança, eficiência e profissionalismo.
               </p>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Gostaria de saber mais sobre a consultoria para meu estabelecimento.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-[#d6b9b2] text-[#2d2a28] font-semibold text-sm hover:bg-[#d6b9b2]/90 transition-all duration-300 hover:scale-105 shadow-lg"
+              >
+                Solicitar Diagnóstico Gratuito
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>

@@ -53,7 +53,7 @@ const ClientsSection: React.FC = () => {
             Empresas que <span className="text-gradient">Confiam</span> em Nós
           </h2>
           <p className="scroll-reveal stagger-2 text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Mais de 300 empresas já transformaram a sua segurança alimentar connosco
+            Mais de 300 empresas já transformaram sua segurança alimentar conosco
           </p>
         </div>
 
