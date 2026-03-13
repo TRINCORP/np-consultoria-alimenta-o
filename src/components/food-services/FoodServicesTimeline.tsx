@@ -37,7 +37,7 @@ const services: ServiceCard[] = [
     category: "Capacitação",
     title: "Treinamento de Manipuladores de Alimentos",
     description:
-      "Curso de boas práticas de manipulação de alimentos com certificado. Capacitação teórica e prática em higiene, controle de temperatura, contaminação cruzada e conduta profissional — exigido pela vigilância sanitária.",
+      "Curso de boas práticas de manipulação de alimentos com certificado. Capacitação teórica e prática em higiene, controle de temperatura, contaminação cruzada e conduta profissional, conforme exigido pela vigilância sanitária.",
     tags: ["Curso manipuladores", "Certificado", "Boas práticas"],
   },
   {
