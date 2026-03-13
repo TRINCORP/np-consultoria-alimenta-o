@@ -98,7 +98,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
   // Phase sequencing
   useEffect(() => {
-    const timers: NodeJS.Timeout[] = [];
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
     timers.push(setTimeout(() => setPhase("logo-enter"), 400));
     timers.push(setTimeout(() => {
