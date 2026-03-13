@@ -70,7 +70,7 @@ const faqGroups = [
       },
       {
         question: "Como registrar um produto alimentício na ANVISA?",
-        answer: "Nem todos os produtos precisam de registro na ANVISA — muitos são dispensados de registro e precisam apenas de notificação. A NP Consultoria analisa seu produto e orienta sobre o caminho correto, preparando toda a documentação necessária.",
+        answer: "Nem todos os produtos precisam de registro na ANVISA. Muitos são dispensados de registro e precisam apenas de notificação. A NP Consultoria analisa seu produto e orienta sobre o caminho correto, preparando toda a documentação necessária.",
       },
       {
         question: "Quais são as exigências da ANVISA para alimentos artesanais?",
