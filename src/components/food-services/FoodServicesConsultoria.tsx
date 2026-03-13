@@ -189,7 +189,7 @@ const FoodServicesConsultoria = () => {
               headerInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            A melhoria operacional em serviços de alimentação não acontece por acaso — ela exige método,
+            A melhoria operacional em serviços de alimentação não acontece por acaso. Ela exige método,
             organização, conhecimento técnico e gestão eficiente.
           </p>
         </div>

@@ -70,7 +70,7 @@ const PhilosophySection = () => {
 
             <div className={`space-y-5 transition-all duration-1000 delay-200 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Na NP Consultoria e NP Rotulagem, acreditamos que a segurança dos alimentos vai além da obrigação legal — ela é um <strong className="text-foreground">compromisso com a vida, com a marca e com a sustentabilidade do negócio.</strong>
+                Na NP Consultoria e NP Rotulagem, acreditamos que a segurança dos alimentos vai além da obrigação legal. Ela é um <strong className="text-foreground">compromisso com a vida, com a marca e com a sustentabilidade do negócio.</strong>
               </p>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                 Trabalhamos com uma visão preventiva e estratégica, onde organização, gestão eficiente e conformidade caminham juntas. Nosso propósito é transformar estabelecimentos e marcas alimentícias em operações seguras, estruturadas e preparadas para crescer com responsabilidade.
@@ -94,7 +94,7 @@ const PhilosophySection = () => {
               <div className="relative rounded-[1.4rem] overflow-hidden bg-card shadow-2xl shadow-primary/10">
                 <img
                   src={equipeNP}
-                  alt="Equipe NP Consultoria — especialistas em segurança alimentar e gestão de qualidade"
+                  alt="Equipe NP Consultoria, especialistas em segurança alimentar e gestão de qualidade"
                   className="w-full aspect-[4/5] object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />

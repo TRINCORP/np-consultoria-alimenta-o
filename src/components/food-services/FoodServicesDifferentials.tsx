@@ -6,12 +6,12 @@ const differentials = [
   { icon: Users, text: "Atendimento personalizado para cada tipo de negócio" },
   { icon: Shield, text: "Equipe técnica especializada em vigilância sanitária" },
   { icon: Eye, text: "Experiência prática em restaurantes, cozinhas industriais e indústrias" },
-  { icon: Target, text: "Atuação estratégica e preventiva — não apenas corretiva" },
+  { icon: Target, text: "Atuação estratégica e preventiva, não apenas corretiva" },
   { icon: TrendingUp, text: "Foco em adequação sanitária, organização e rentabilidade" },
 ];
 
 const philosophyQuotes = [
-  "Consultoria em segurança alimentar não é custo — é investimento em credibilidade e crescimento.",
+  "Consultoria em segurança alimentar não é custo. É investimento em credibilidade e crescimento.",
   "Empresas que tratam a adequação sanitária como estratégia de marca saem na frente da concorrência.",
   "Manual de boas práticas, treinamento de manipuladores e alvará sanitário: a base para operar com tranquilidade.",
 ];

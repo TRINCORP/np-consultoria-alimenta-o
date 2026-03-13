@@ -28,7 +28,7 @@ const services: ServiceCard[] = [
     category: "Documentação Obrigatória",
     title: "Manual de Boas Práticas e POP para Restaurante",
     description:
-      "Elaboração do Manual de Boas Práticas (BPF) e dos Procedimentos Operacionais Padrão (POP) de manipulação de alimentos — documentação obrigatória exigida pela vigilância sanitária para restaurantes e cozinhas industriais.",
+      "Elaboração do Manual de Boas Práticas (BPF) e dos Procedimentos Operacionais Padrão (POP) de manipulação de alimentos, documentação obrigatória exigida pela vigilância sanitária para restaurantes e cozinhas industriais.",
     tags: ["Manual de BPF", "POP manipulação", "Documentos obrigatórios"],
   },
   {
@@ -37,7 +37,7 @@ const services: ServiceCard[] = [
     category: "Capacitação",
     title: "Treinamento de Manipuladores de Alimentos",
     description:
-      "Curso de boas práticas de manipulação de alimentos com certificado. Capacitação teórica e prática em higiene, controle de temperatura, contaminação cruzada e conduta profissional — exigido pela vigilância sanitária.",
+      "Curso de boas práticas de manipulação de alimentos com certificado. Capacitação teórica e prática em higiene, controle de temperatura, contaminação cruzada e conduta profissional, conforme exigido pela vigilância sanitária.",
     tags: ["Curso manipuladores", "Certificado", "Boas práticas"],
   },
   {
@@ -64,7 +64,7 @@ const services: ServiceCard[] = [
     category: "Rotulagem ANVISA",
     title: "Rotulagem Nutricional e Tabela Nutricional",
     description:
-      "Desenvolvimento de rótulos e tabela nutricional conforme legislação ANVISA. Rotulagem para produtos artesanais, para vender em supermercado e registro de produto alimentício — incluindo rotulagem frontal e alergênicos.",
+      "Desenvolvimento de rótulos e tabela nutricional conforme legislação ANVISA. Rotulagem para produtos artesanais, para vender em supermercado e registro de produto alimentício, incluindo rotulagem frontal e alergênicos.",
     tags: ["Tabela nutricional", "ANVISA", "Produtos artesanais"],
   },
   {

@@ -41,7 +41,7 @@ const faqGroups = [
     faqs: [
       {
         question: "O que é o Manual de Boas Práticas e quem precisa ter?",
-        answer: "O Manual de Boas Práticas (MBP) é um documento obrigatório para qualquer estabelecimento que manipula alimentos — restaurantes, lanchonetes, padarias, cozinhas industriais e fábricas. Ele descreve as rotinas de higiene, manipulação, armazenamento e controle de qualidade do local.",
+        answer: "O Manual de Boas Práticas (MBP) é um documento obrigatório para qualquer estabelecimento que manipula alimentos, como restaurantes, lanchonetes, padarias, cozinhas industriais e fábricas. Ele descreve as rotinas de higiene, manipulação, armazenamento e controle de qualidade do local.",
       },
       {
         question: "Como fazer um Manual de Boas Práticas para restaurante?",
@@ -53,11 +53,11 @@ const faqGroups = [
       },
       {
         question: "O que é POP (Procedimento Operacional Padrão) para alimentos?",
-        answer: "O POP é um documento que descreve passo a passo como realizar cada atividade de manipulação de alimentos — como higienização de equipamentos, controle de temperatura e recebimento de mercadorias. É obrigatório pela ANVISA e complementa o Manual de Boas Práticas.",
+        answer: "O POP é um documento que descreve passo a passo como realizar cada atividade de manipulação de alimentos, incluindo higienização de equipamentos, controle de temperatura e recebimento de mercadorias. É obrigatório pela ANVISA e complementa o Manual de Boas Práticas.",
       },
       {
         question: "O Manual de Boas Práticas precisa ser atualizado? Com que frequência?",
-        answer: "Sim, o MBP deve ser atualizado sempre que houver mudanças na operação — novo cardápio, reforma, troca de equipe ou alteração na legislação. Recomenda-se uma revisão anual. A NP Consultoria oferece acompanhamento contínuo para manter sua documentação sempre em dia.",
+        answer: "Sim, o MBP deve ser atualizado sempre que houver mudanças na operação, como novo cardápio, reforma, troca de equipe ou alteração na legislação. Recomenda-se uma revisão anual. A NP Consultoria oferece acompanhamento contínuo para manter sua documentação sempre em dia.",
       },
     ],
   },
@@ -70,7 +70,7 @@ const faqGroups = [
       },
       {
         question: "Como registrar um produto alimentício na ANVISA?",
-        answer: "Nem todos os produtos precisam de registro na ANVISA — muitos são dispensados de registro e precisam apenas de notificação. A NP Consultoria analisa seu produto e orienta sobre o caminho correto, preparando toda a documentação necessária.",
+        answer: "Nem todos os produtos precisam de registro na ANVISA. Muitos são dispensados de registro e precisam apenas de notificação. A NP Consultoria analisa seu produto e orienta sobre o caminho correto, preparando toda a documentação necessária.",
       },
       {
         question: "Quais são as exigências da ANVISA para alimentos artesanais?",
@@ -78,7 +78,7 @@ const faqGroups = [
       },
       {
         question: "Preciso de tabela nutricional para vender meu produto?",
-        answer: "Sim, a tabela nutricional é obrigatória para a maioria dos alimentos embalados vendidos no Brasil. A NP Rotulagem elabora tabelas nutricionais precisas, conforme as normas vigentes da ANVISA, para todos os tipos de produto — artesanais, industriais ou de pequena escala.",
+        answer: "Sim, a tabela nutricional é obrigatória para a maioria dos alimentos embalados vendidos no Brasil. A NP Rotulagem elabora tabelas nutricionais precisas, conforme as normas vigentes da ANVISA, para todos os tipos de produto, sejam artesanais, industriais ou de pequena escala.",
       },
     ],
   },

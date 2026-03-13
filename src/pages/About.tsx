@@ -288,7 +288,7 @@ const About = () => {
                 </p>
                 <footer className="mt-8">
                   <cite className="text-primary font-semibold not-italic text-lg">
-                    — Equipe NP Consultoria
+                    Equipe NP Consultoria
                   </cite>
                 </footer>
               </blockquote>
