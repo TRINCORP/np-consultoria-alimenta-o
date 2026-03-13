@@ -218,7 +218,7 @@ const IntroSection = () => {
             }`}
           >
             Atendemos Indaiatuba/SP e toda a região de Campinas com atendimento presencial e online. 
-            Da implantação de boas práticas ao desenvolvimento estratégico de rótulos — garantimos 
+            Da implantação de boas práticas ao desenvolvimento estratégico de rótulos, garantimos 
             conformidade com a legislação e fortalecimento da sua marca.
           </p>
           <p

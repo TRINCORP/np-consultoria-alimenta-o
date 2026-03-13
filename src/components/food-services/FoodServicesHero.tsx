@@ -41,7 +41,7 @@ const FoodServicesHero = () => {
               isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Consultoria em Segurança Alimentar — Indaiatuba e Região
+            Consultoria em Segurança Alimentar | Indaiatuba e Região
           </span>
 
           {/* Title */}

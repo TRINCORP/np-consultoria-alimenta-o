@@ -78,7 +78,7 @@ const faqGroups = [
       },
       {
         question: "Preciso de tabela nutricional para vender meu produto?",
-        answer: "Sim, a tabela nutricional é obrigatória para a maioria dos alimentos embalados vendidos no Brasil. A NP Rotulagem elabora tabelas nutricionais precisas, conforme as normas vigentes da ANVISA, para todos os tipos de produto — artesanais, industriais ou de pequena escala.",
+        answer: "Sim, a tabela nutricional é obrigatória para a maioria dos alimentos embalados vendidos no Brasil. A NP Rotulagem elabora tabelas nutricionais precisas, conforme as normas vigentes da ANVISA, para todos os tipos de produto, sejam artesanais, industriais ou de pequena escala.",
       },
     ],
   },

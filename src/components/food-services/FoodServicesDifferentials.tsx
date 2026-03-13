@@ -11,7 +11,7 @@ const differentials = [
 ];
 
 const philosophyQuotes = [
-  "Consultoria em segurança alimentar não é custo — é investimento em credibilidade e crescimento.",
+  "Consultoria em segurança alimentar não é custo. É investimento em credibilidade e crescimento.",
   "Empresas que tratam a adequação sanitária como estratégia de marca saem na frente da concorrência.",
   "Manual de boas práticas, treinamento de manipuladores e alvará sanitário: a base para operar com tranquilidade.",
 ];

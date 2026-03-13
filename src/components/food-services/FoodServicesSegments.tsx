@@ -54,7 +54,7 @@ const FoodServicesSegments = () => {
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            De restaurantes a indústrias de alimentos, de produtores artesanais a quem quer vender em supermercado — 
+            De restaurantes a indústrias de alimentos, de produtores artesanais a quem quer vender em supermercado: 
             atendemos com adequação sanitária, documentação e rotulagem nutricional ANVISA.
           </p>
         </div>

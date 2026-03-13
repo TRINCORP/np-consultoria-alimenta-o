@@ -64,7 +64,7 @@ const services: ServiceCard[] = [
     category: "Rotulagem ANVISA",
     title: "Rotulagem Nutricional e Tabela Nutricional",
     description:
-      "Desenvolvimento de rótulos e tabela nutricional conforme legislação ANVISA. Rotulagem para produtos artesanais, para vender em supermercado e registro de produto alimentício — incluindo rotulagem frontal e alergênicos.",
+      "Desenvolvimento de rótulos e tabela nutricional conforme legislação ANVISA. Rotulagem para produtos artesanais, para vender em supermercado e registro de produto alimentício, incluindo rotulagem frontal e alergênicos.",
     tags: ["Tabela nutricional", "ANVISA", "Produtos artesanais"],
   },
   {

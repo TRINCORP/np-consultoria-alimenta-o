@@ -94,7 +94,7 @@ const PhilosophySection = () => {
               <div className="relative rounded-[1.4rem] overflow-hidden bg-card shadow-2xl shadow-primary/10">
                 <img
                   src={equipeNP}
-                  alt="Equipe NP Consultoria — especialistas em segurança alimentar e gestão de qualidade"
+                  alt="Equipe NP Consultoria, especialistas em segurança alimentar e gestão de qualidade"
                   className="w-full aspect-[4/5] object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
