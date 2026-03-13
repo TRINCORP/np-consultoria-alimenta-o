@@ -28,7 +28,7 @@ const services: ServiceCard[] = [
     category: "Documentação Obrigatória",
     title: "Manual de Boas Práticas e POP para Restaurante",
     description:
-      "Elaboração do Manual de Boas Práticas (BPF) e dos Procedimentos Operacionais Padrão (POP) de manipulação de alimentos — documentação obrigatória exigida pela vigilância sanitária para restaurantes e cozinhas industriais.",
+      "Elaboração do Manual de Boas Práticas (BPF) e dos Procedimentos Operacionais Padrão (POP) de manipulação de alimentos, documentação obrigatória exigida pela vigilância sanitária para restaurantes e cozinhas industriais.",
     tags: ["Manual de BPF", "POP manipulação", "Documentos obrigatórios"],
   },
   {
