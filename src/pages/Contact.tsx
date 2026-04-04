@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -8,16 +9,20 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import FormSuccessModal from "@/components/FormSuccessModal";
+import { SmokeEffect } from "@/components/effects/SmokeEffect";
+import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 import {
   Phone,
   Mail,
   MapPin,
-  Clock,
   Send,
   Instagram,
   ArrowRight,
   CheckCircle2,
   MessageCircle,
+  Shield,
+  Award,
+  Headphones,
 } from "lucide-react";
 
 const WHATSAPP_NUMBER = "5519989750741";
@@ -31,53 +36,58 @@ const contactInfo = [
     label: "WhatsApp",
     value: "(19) 98975-0741",
     href: WHATSAPP_URL,
-    description: "Resposta rápida em horário comercial",
-    color: "from-emerald-500/20 to-emerald-600/10",
-    iconColor: "text-emerald-400",
+    description: "Atendimento rápido e direto",
   },
   {
     icon: Mail,
     label: "E-mail",
     value: "np.consultoriaalimentacao@gmail.com",
     href: "mailto:np.consultoriaalimentacao@gmail.com",
-    description: "Respondemos em até 24 horas úteis",
-    color: "from-sky-500/20 to-sky-600/10",
-    iconColor: "text-sky-400",
+    description: "Respondemos em até 24h úteis",
   },
   {
     icon: Instagram,
     label: "Instagram",
     value: "@np.consultoriaalimentos",
     href: "https://www.instagram.com/np.consultoriaalimentos/",
-    description: "Acompanhe nosso trabalho e dicas",
-    color: "from-pink-500/20 to-pink-600/10",
-    iconColor: "text-pink-400",
+    description: "Dicas e bastidores do nosso trabalho",
   },
   {
     icon: MapPin,
     label: "Localização",
-    value: "Indaiatuba/SP",
+    value: "São Paulo, Brasil",
     href: "https://maps.google.com/?q=Indaiatuba+SP",
-    description: "Atendemos Indaiatuba e região de Campinas",
-    color: "from-amber-500/20 to-amber-600/10",
-    iconColor: "text-amber-400",
+    description: "Atendimento presencial e remoto",
   },
 ];
 
 const reasons = [
-  "Preciso regularizar meu restaurante na vigilância sanitária",
-  "Quero fazer a rotulagem nutricional dos meus produtos",
-  "Preciso de manual de boas práticas para minha cozinha",
-  "Quero treinamento de manipulação de alimentos para minha equipe",
-  "Preciso de consultoria para abrir um negócio alimentício",
+  "Regularizar meu restaurante",
+  "Rotulagem nutricional",
+  "Manual de boas práticas",
+  "Treinamento de equipe",
+  "Abrir negócio alimentício",
   "Outro assunto",
 ];
 
+const trustItems = [
+  { icon: Shield, label: "Consultoria especializada em segurança alimentar", delay: 0 },
+  { icon: Award, label: "Mais de 300 empresas atendidas com excelência", delay: 150 },
+  { icon: Headphones, label: "Atendimento personalizado em horário comercial", delay: 300 },
+];
+
 const Contact = () => {
-  const heroRef = useScrollReveal();
-  const formRef = useScrollReveal();
-  const infoRef = useScrollReveal();
-  const ctaRef = useScrollReveal();
+  const formSectionRef = useScrollReveal();
+  const trustRef = useScrollReveal();
+
+  const [heroRef, heroInView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  useEffect(() => {
+    if (heroInView) {
+      setTimeout(() => setIsRevealed(true), 300);
+    }
+  }, [heroInView]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -90,15 +100,11 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
-  const formElement = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simula envio
     await new Promise((resolve) => setTimeout(resolve, 1500));
-
     setIsSubmitting(false);
     setShowSuccess(true);
     setFormData({ name: "", email: "", phone: "", company: "", reason: "", message: "" });
@@ -113,329 +119,451 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Contato | NP Consultoria em Alimentos"
-        description="Entre em contato com a NP Consultoria. Consultoria em segurança alimentar, vigilância sanitária, rotulagem nutricional e boas práticas em Indaiatuba e região de Campinas."
-        keywords="contato NP consultoria, consultoria alimentar Indaiatuba, vigilância sanitária contato, rotulagem nutricional contato"
+        title="Contato | NP Consultoria em Segurança Alimentar e Rotulagem"
+        description="Fale com a NP Consultoria. Especialistas em consultoria alimentar, vigilância sanitária, rotulagem nutricional ANVISA e manual de boas práticas para restaurantes e indústrias."
+        keywords="contato consultoria alimentar, consultoria vigilância sanitária, rotulagem nutricional contato, manual de boas práticas, treinamento manipulação de alimentos, consultoria segurança alimentar"
       />
       <Header />
 
-      {/* Hero */}
+      {/* ═══════════════════ HERO ═══════════════════ */}
       <section
         ref={heroRef}
-        className="relative pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 md:pb-24 bg-gradient-to-br from-[#1a1a1a] via-[#252220] to-[#1a1a1a] overflow-hidden"
+        className="relative min-h-[70vh] sm:min-h-[60vh] flex items-center bg-[#1a1a1a] text-white overflow-hidden"
       >
-        {/* Decorative elements */}
+        {/* Smoke + particles */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-primary/3 rounded-full blur-3xl" />
-          <div className="absolute top-20 right-1/4 w-px h-40 bg-gradient-to-b from-transparent via-white/10 to-transparent hidden md:block" />
-          <div className="absolute bottom-20 left-1/3 w-px h-32 bg-gradient-to-b from-transparent via-white/10 to-transparent hidden md:block" />
+          <SmokeEffect />
+          <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-primary/40 rounded-full floating hidden sm:block" />
+          <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-accent/30 rounded-full floating animation-delay-500 hidden sm:block" />
+          <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-primary/30 rounded-full floating animation-delay-1000 hidden sm:block" />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/95 via-[#1a1a1a]/80 to-[#1a1a1a]/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.08),transparent_70%)]" />
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-6 sm:px-8 py-28 sm:py-32 md:py-36 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="scroll-reveal-scale inline-block px-5 py-2 rounded-full bg-primary/20 text-primary text-xs sm:text-sm font-medium mb-6">
-              Fale Conosco
-            </span>
-            <h1 className="scroll-reveal-blur stagger-1 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Vamos Transformar a{" "}
-              <span className="text-gradient">Segurança do Seu Negócio</span>
-            </h1>
-            <p className="scroll-reveal stagger-2 text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+            {/* Animated title */}
+            <div className="mb-6 sm:mb-8">
+              <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                <span className="block py-1">
+                  <span
+                    className={`inline-block transition-all duration-1000 ease-out ${
+                      isRevealed ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                    }`}
+                  >
+                    {"Fale".split("").map((letter, i) => (
+                      <span
+                        key={i}
+                        className={`inline-block transition-all duration-500 hover:text-primary hover:-translate-y-1 ${
+                          isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                        }`}
+                        style={{
+                          transitionDelay: `${i * 60 + 200}ms`,
+                          textShadow: isRevealed ? "0 0 40px rgba(180, 120, 90, 0.3)" : "none",
+                        }}
+                      >
+                        {letter}
+                      </span>
+                    ))}
+                    {" "}
+                    <span className="relative inline-block">
+                      <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent-light to-primary bg-[length:200%_auto] animate-gradient-x">
+                        Conosco
+                      </span>
+                      <span
+                        className={`absolute inset-0 blur-xl bg-primary/30 transition-opacity duration-1000 ${
+                          isRevealed ? "opacity-100" : "opacity-0"
+                        }`}
+                        style={{ transitionDelay: "800ms" }}
+                      />
+                    </span>
+                  </span>
+                </span>
+
+                {/* Animated divider */}
+                <span className="block my-3 sm:my-4 flex justify-center">
+                  <span
+                    className={`block h-1 bg-gradient-to-r from-primary via-accent-light to-transparent rounded-full transition-all duration-1000 ease-out ${
+                      isRevealed ? "w-20 sm:w-28 opacity-100" : "w-0 opacity-0"
+                    }`}
+                    style={{ transitionDelay: "600ms" }}
+                  />
+                </span>
+
+                <span className="block py-1">
+                  <span
+                    className={`inline-block transition-all duration-1000 ease-out ${
+                      isRevealed ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                    }`}
+                    style={{ transitionDelay: "400ms" }}
+                  >
+                    Sua{" "}
+                    <span className="relative inline-block">
+                      <span className="relative z-10 italic text-primary">Operação</span>
+                      <span
+                        className={`absolute -left-2 sm:-left-3 top-0 text-primary/40 transition-all duration-500 ${
+                          isRevealed ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                        }`}
+                        style={{ transitionDelay: "1000ms" }}
+                      >
+                        [
+                      </span>
+                      <span
+                        className={`absolute -right-2 sm:-right-3 top-0 text-primary/40 transition-all duration-500 ${
+                          isRevealed ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+                        }`}
+                        style={{ transitionDelay: "1000ms" }}
+                      >
+                        ]
+                      </span>
+                    </span>
+                    {" "}Merece o Melhor
+                  </span>
+                </span>
+              </h1>
+            </div>
+
+            <p
+              className={`text-sm sm:text-base md:text-lg text-white/70 max-w-xl mx-auto leading-relaxed transition-all duration-1000 ${
+                isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: "900ms" }}
+            >
               Conte para nós o que você precisa. Nossa equipe de especialistas está pronta
-              para ajudar sua operação a alcançar excelência em conformidade sanitária.
+              para transformar a segurança e a conformidade do seu negócio.
             </p>
+
+            <div
+              className={`flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 transition-all duration-1000 ${
+                isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: "1100ms" }}
+            >
+              <a href="#formulario">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-5 text-sm font-medium group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 w-full sm:w-auto">
+                  Enviar Mensagem
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </a>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 rounded-full px-8 py-5 text-sm font-medium transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+                >
+                  <MessageCircle className="mr-2 w-4 h-4" />
+                  WhatsApp Direto
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Cards */}
-      <section ref={infoRef} className="py-12 sm:py-16 bg-background relative -mt-8 sm:-mt-12 z-10">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+      {/* ═══════════════════ CONTACT CARDS ═══════════════════ */}
+      <section className="py-10 sm:py-14 bg-background relative -mt-6 sm:-mt-10 z-10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
             {contactInfo.map((info, i) => (
               <a
                 key={info.label}
                 href={info.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`scroll-reveal stagger-${i + 1} group relative bg-card rounded-2xl border border-border p-5 sm:p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1`}
+                className="group relative bg-card rounded-2xl border border-border p-4 sm:p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 overflow-hidden"
               >
-                <div
-                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${info.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <info.icon className={`w-5 h-5 ${info.iconColor}`} />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <BrilliantReflection />
                 </div>
-                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider mb-1">
-                  {info.label}
-                </p>
-                <p className="text-sm sm:text-base font-semibold text-foreground mb-1 break-all sm:break-normal">
-                  {info.value}
-                </p>
-                <p className="text-xs text-muted-foreground">{info.description}</p>
+                <div className="relative z-10">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <info.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  </div>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider mb-1">
+                    {info.label}
+                  </p>
+                  <p className="text-xs sm:text-sm font-semibold text-foreground mb-1 break-all sm:break-normal leading-tight">
+                    {info.value}
+                  </p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">{info.description}</p>
+                </div>
               </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Form + Info Section */}
-      <section ref={formRef} className="py-12 sm:py-20 bg-muted/30">
-        <div className="container mx-auto px-6">
+      {/* ═══════════════════ TRUST BADGES ═══════════════════ */}
+      <section ref={trustRef} className="py-10 sm:py-14 bg-muted/20">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            {trustItems.map((item, i) => (
+              <div
+                key={item.label}
+                className={`scroll-reveal stagger-${i + 1} flex items-center gap-3 sm:gap-4 bg-card rounded-2xl border border-border p-4 sm:p-5`}
+              >
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <item.icon className="w-5 h-5 text-primary" />
+                </div>
+                <p className="text-xs sm:text-sm font-medium text-foreground leading-snug">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ FORM + WHATSAPP ═══════════════════ */}
+      <section ref={formSectionRef} id="formulario" className="py-12 sm:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-            {/* Left side: info + schedule */}
-            <div className="scroll-reveal lg:col-span-2 flex flex-col gap-6 sm:gap-8">
+            {/* Left: WhatsApp CTA + info */}
+            <div className="scroll-reveal lg:col-span-2 flex flex-col gap-5 sm:gap-6">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3">
                   Como podemos ajudar?
                 </h2>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  Preencha o formulário ao lado ou entre em contato diretamente pelos nossos canais.
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Preencha o formulário ou fale diretamente com um consultor pelo WhatsApp.
                   Retornamos todas as mensagens em até 24 horas úteis.
                 </p>
               </div>
 
-              {/* Schedule card */}
-              <div className="bg-card rounded-2xl border border-border p-5 sm:p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground">Horário de Atendimento</h3>
-                </div>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Segunda a Sexta</span>
-                    <span className="font-medium text-foreground">08h às 18h</span>
-                  </div>
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Sábados</span>
-                    <span className="font-medium text-foreground">08h às 12h</span>
-                  </div>
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Domingos e Feriados</span>
-                    <span className="font-medium text-foreground/60">Fechado</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick WhatsApp CTA */}
+              {/* WhatsApp CTA */}
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 bg-gradient-to-r from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 rounded-2xl p-5 sm:p-6 hover:border-emerald-500/40 transition-all duration-300"
+                className="group flex items-center gap-4 bg-gradient-to-r from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20 rounded-2xl p-4 sm:p-5 hover:border-emerald-500/40 transition-all duration-300 overflow-hidden relative"
               >
-                <div className="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <MessageCircle className="w-6 h-6 text-white" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <BrilliantReflection />
                 </div>
-                <div>
-                  <p className="font-semibold text-foreground text-sm sm:text-base">
-                    Prefere conversar pelo WhatsApp?
-                  </p>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    Clique aqui e fale diretamente com um consultor
-                  </p>
+                <div className="relative z-10 flex items-center gap-4 w-full">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-foreground text-sm">
+                      Prefere o WhatsApp?
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Clique e fale com um consultor agora
+                    </p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-emerald-500 shrink-0 group-hover:translate-x-1 transition-transform duration-300 hidden sm:block ml-auto" />
                 </div>
-                <ArrowRight className="w-5 h-5 text-emerald-500 shrink-0 group-hover:translate-x-1 transition-transform duration-300 hidden sm:block" />
               </a>
 
-              {/* Trust badges */}
-              <div className="flex flex-wrap gap-3">
+              {/* Trust chips */}
+              <div className="flex flex-wrap gap-2">
                 {[
                   "Resposta em até 24h",
                   "+300 empresas atendidas",
-                  "Atendimento personalizado",
+                  "Consultoria personalizada",
                 ].map((badge) => (
                   <span
                     key={badge}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-medium"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] sm:text-xs font-medium"
                   >
                     <CheckCircle2 className="w-3 h-3" />
                     {badge}
                   </span>
                 ))}
               </div>
+
+              {/* Contact mini list */}
+              <div className="bg-card rounded-2xl border border-border p-4 sm:p-5 space-y-3">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
+                >
+                  <Phone className="w-4 h-4 shrink-0" />
+                  <span>(19) 98975-0741</span>
+                </a>
+                <a
+                  href="mailto:np.consultoriaalimentacao@gmail.com"
+                  className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
+                >
+                  <Mail className="w-4 h-4 shrink-0" />
+                  <span className="break-all sm:break-normal">np.consultoriaalimentacao@gmail.com</span>
+                </a>
+                <div className="flex items-center gap-3 text-muted-foreground text-sm">
+                  <MapPin className="w-4 h-4 shrink-0" />
+                  <span>Atendimento presencial e remoto</span>
+                </div>
+              </div>
             </div>
 
-            {/* Right side: form */}
+            {/* Right: form */}
             <div className="scroll-reveal-right stagger-2 lg:col-span-3">
               <form
-                ref={formElement}
                 onSubmit={handleSubmit}
-                className="bg-card rounded-2xl border border-border p-6 sm:p-8 shadow-sm"
+                className="bg-card rounded-2xl border border-border p-5 sm:p-8 shadow-sm relative overflow-hidden"
               >
-                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                  Envie sua mensagem
-                </h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                  Preencha os campos abaixo e entraremos em contato rapidamente.
-                </p>
+                <div className="relative z-10">
+                  <h3 className="text-base sm:text-xl font-bold text-foreground mb-1">
+                    Envie sua mensagem
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-5 sm:mb-6">
+                    Preencha os campos e entraremos em contato rapidamente.
+                  </p>
 
-                {/* Reason chips */}
-                <div className="mb-6">
-                  <Label className="text-sm font-medium text-foreground mb-3 block">
-                    Qual o motivo do seu contato?
-                  </Label>
-                  <div className="flex flex-wrap gap-2">
-                    {reasons.map((reason) => (
-                      <button
-                        key={reason}
-                        type="button"
-                        onClick={() => handleReasonClick(reason)}
-                        className={`px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 border ${
-                          selectedReason === reason
-                            ? "bg-primary text-primary-foreground border-primary shadow-md"
-                            : "bg-muted/50 text-muted-foreground border-border hover:border-primary/30 hover:bg-primary/5"
-                        }`}
-                      >
-                        {reason}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-sm font-medium">
-                      Nome completo *
+                  {/* Reason chips */}
+                  <div className="mb-5 sm:mb-6">
+                    <Label className="text-xs sm:text-sm font-medium text-foreground mb-2 sm:mb-3 block">
+                      Qual o motivo do contato?
                     </Label>
-                    <Input
-                      id="name"
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {reasons.map((reason) => (
+                        <button
+                          key={reason}
+                          type="button"
+                          onClick={() => handleReasonClick(reason)}
+                          className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-medium transition-all duration-200 border ${
+                            selectedReason === reason
+                              ? "bg-primary text-primary-foreground border-primary shadow-md"
+                              : "bg-muted/50 text-muted-foreground border-border hover:border-primary/30 hover:bg-primary/5"
+                          }`}
+                        >
+                          {reason}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="name" className="text-xs sm:text-sm font-medium">
+                        Nome completo *
+                      </Label>
+                      <Input
+                        id="name"
+                        required
+                        placeholder="Seu nome"
+                        value={formData.name}
+                        onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
+                        className="rounded-xl h-10 sm:h-11 text-sm"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="email" className="text-xs sm:text-sm font-medium">
+                        E-mail *
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        required
+                        placeholder="seu@email.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
+                        className="rounded-xl h-10 sm:h-11 text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="phone" className="text-xs sm:text-sm font-medium">
+                        Telefone / WhatsApp
+                      </Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="(19) 99999-9999"
+                        value={formData.phone}
+                        onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
+                        className="rounded-xl h-10 sm:h-11 text-sm"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="company" className="text-xs sm:text-sm font-medium">
+                        Empresa / Estabelecimento
+                      </Label>
+                      <Input
+                        id="company"
+                        placeholder="Nome da empresa"
+                        value={formData.company}
+                        onChange={(e) => setFormData((p) => ({ ...p, company: e.target.value }))}
+                        className="rounded-xl h-10 sm:h-11 text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5 mb-5 sm:mb-6">
+                    <Label htmlFor="message" className="text-xs sm:text-sm font-medium">
+                      Mensagem *
+                    </Label>
+                    <Textarea
+                      id="message"
                       required
-                      placeholder="Seu nome"
-                      value={formData.name}
-                      onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
-                      className="rounded-xl h-11"
+                      placeholder="Descreva como podemos ajudar..."
+                      value={formData.message}
+                      onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
+                      className="rounded-xl min-h-[100px] sm:min-h-[120px] resize-none text-sm"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium">
-                      E-mail *
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      required
-                      placeholder="seu@email.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-                      className="rounded-xl h-11"
-                    />
-                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full h-11 sm:h-13 text-sm font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl group transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                        Enviando...
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        Enviar Mensagem
+                        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      </span>
+                    )}
+                  </Button>
+
+                  <p className="text-[10px] sm:text-xs text-muted-foreground text-center mt-3">
+                    Ao enviar, você concorda com nossa política de privacidade.
+                  </p>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-sm font-medium">
-                      Telefone / WhatsApp
-                    </Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="(19) 99999-9999"
-                      value={formData.phone}
-                      onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
-                      className="rounded-xl h-11"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="company" className="text-sm font-medium">
-                      Empresa / Estabelecimento
-                    </Label>
-                    <Input
-                      id="company"
-                      placeholder="Nome da empresa"
-                      value={formData.company}
-                      onChange={(e) => setFormData((p) => ({ ...p, company: e.target.value }))}
-                      className="rounded-xl h-11"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2 mb-6">
-                  <Label htmlFor="message" className="text-sm font-medium">
-                    Mensagem *
-                  </Label>
-                  <Textarea
-                    id="message"
-                    required
-                    placeholder="Descreva como podemos ajudar..."
-                    value={formData.message}
-                    onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
-                    className="rounded-xl min-h-[120px] resize-none"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full h-12 sm:h-14 text-sm sm:text-base font-semibold bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl group transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                      Enviando...
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      Enviar Mensagem
-                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                    </span>
-                  )}
-                </Button>
-
-                <p className="text-xs text-muted-foreground text-center mt-4">
-                  Ao enviar, você concorda com nossa política de privacidade.
-                </p>
               </form>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Map / Location CTA */}
-      <section ref={ctaRef} className="py-12 sm:py-16 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="scroll-reveal max-w-4xl mx-auto bg-gradient-to-br from-[#1a1a1a] via-[#252220] to-[#1a1a1a] rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-            </div>
-            <div className="relative z-10">
-              <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center mx-auto mb-6">
-                <MapPin className="w-7 h-7 text-primary" />
-              </div>
-              <h2 className="scroll-reveal-blur stagger-1 text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-                Indaiatuba e Região de Campinas
-              </h2>
-              <p className="scroll-reveal stagger-2 text-sm sm:text-base text-white/60 max-w-lg mx-auto mb-8 leading-relaxed">
-                Atendemos presencialmente restaurantes, cozinhas industriais, indústrias alimentícias
-                e produtores artesanais em toda a região metropolitana de Campinas.
-              </p>
-              <div className="scroll-reveal stagger-3 flex flex-col sm:flex-row items-center justify-center gap-3">
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+      {/* ═══════════════════ BOTTOM CTA ═══════════════════ */}
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-[#1a1a1a] via-[#252220] to-[#1a1a1a] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <SmokeEffect />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_60%)]" />
+
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+              Pronto para Elevar a{" "}
+              <span className="text-gradient">Qualidade do Seu Negócio</span>?
+            </h2>
+            <p className="text-xs sm:text-sm md:text-base text-white/60 max-w-lg mx-auto mb-6 sm:mb-8 leading-relaxed">
+              Solicite um diagnóstico gratuito e descubra como garantir segurança alimentar,
+              conformidade com a ANVISA e maior competitividade para sua operação.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 sm:px-8 py-5 text-sm font-medium group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 w-full sm:w-auto">
+                  Solicitar Diagnóstico Gratuito
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </a>
+              <a href="#formulario">
+                <Button
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 rounded-full px-6 sm:px-8 py-5 text-sm font-medium transition-all duration-300 hover:scale-105 w-full sm:w-auto"
                 >
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-5 text-sm font-medium group transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 w-full sm:w-auto">
-                    Agendar Visita Técnica
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </a>
-                <a
-                  href="https://maps.google.com/?q=Indaiatuba+SP"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    variant="outline"
-                    className="border-white/20 text-white hover:bg-white/10 rounded-full px-8 py-5 text-sm font-medium transition-all duration-300 hover:scale-105 w-full sm:w-auto"
-                  >
-                    Ver no Mapa
-                  </Button>
-                </a>
-              </div>
+                  Enviar Mensagem
+                </Button>
+              </a>
             </div>
           </div>
         </div>
