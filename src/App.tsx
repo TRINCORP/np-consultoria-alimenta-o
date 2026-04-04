@@ -9,6 +9,7 @@ import NPLabeling from "./pages/NPLabeling";
 import Team from "./pages/Team";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTop from "./components/ScrollToTop";
