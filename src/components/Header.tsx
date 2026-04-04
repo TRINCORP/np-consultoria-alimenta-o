@@ -95,7 +95,7 @@ const Header = () => {
     };
   }, []);
 
-  const [isContactOpen, setIsContactOpen] = useState(false);
+  
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
