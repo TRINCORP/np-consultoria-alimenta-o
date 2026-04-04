@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X, Mail, Phone, Instagram, MapPin, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logoNP from "@/assets/logoNP.png";
 
 const WHATSAPP_NUMBER = "5519989750741";
