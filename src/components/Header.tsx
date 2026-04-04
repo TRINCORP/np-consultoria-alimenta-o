@@ -193,8 +193,6 @@ const Header = () => {
             </button>
           </div>
         </div>
-        {/* Mobile Contact Dropdown */}
-        <ContactDropdown isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
       </div>
 
       {/* Mobile Menu Overlay */}
