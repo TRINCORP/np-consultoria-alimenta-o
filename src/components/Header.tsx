@@ -6,6 +6,30 @@ import logoNP from "@/assets/logoNP.png";
 
 const WHATSAPP_NUMBER = "5519989750741";
 
+const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const rafRef = useRef<number>(0);
+  const lastScrolled = useRef(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        const scrolled = window.scrollY > 50;
+        if (scrolled !== lastScrolled.current) {
+          lastScrolled.current = scrolled;
+          setIsScrolled(scrolled);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -55,16 +79,16 @@ const WHATSAPP_NUMBER = "5519989750741";
             ))}
           </nav>
 
-            <Link to="/contato">
-              <Button 
-                variant="default" 
-                className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25 ${
-                  isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
-                }`}
-              >
-                Contato
-              </Button>
-            </Link>
+          <Link to="/contato">
+            <Button 
+              variant="default" 
+              className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25 ${
+                isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
+              }`}
+            >
+              Contato
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -123,6 +147,7 @@ const WHATSAPP_NUMBER = "5519989750741";
                 { to: "/np-rotulagem", label: "Rotulagem" },
                 { to: "/equipe", label: "Equipe" },
                 { to: "/faq", label: "FAQ" },
+                { to: "/contato", label: "Contato" },
               ].map(({ to, label }) => (
                 <Link 
                   key={to}
