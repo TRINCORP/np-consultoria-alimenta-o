@@ -175,14 +175,15 @@ const Header = () => {
           </Link>
           
           <div className="flex items-center gap-2">
-            <Button 
-              variant="default" 
-              size="sm" 
-              onClick={() => setIsContactOpen(!isContactOpen)}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium shadow-lg shadow-primary/25"
-            >
-              Contato
-            </Button>
+            <Link to="/contato">
+              <Button 
+                variant="default" 
+                size="sm" 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium shadow-lg shadow-primary/25"
+              >
+                Contato
+              </Button>
+            </Link>
             
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
