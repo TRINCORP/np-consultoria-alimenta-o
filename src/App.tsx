@@ -9,6 +9,7 @@ import NPLabeling from "./pages/NPLabeling";
 import Team from "./pages/Team";
 import FAQ from "./pages/FAQ";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollToTop from "./components/ScrollToTop";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/equipe" element={<Team />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/sobre" element={<About />} />
+          <Route path="/contato" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
