@@ -1,6 +1,7 @@
 import equipeNP from "@/assets/equipe_np.jpg";
 import { useInView } from "react-intersection-observer";
 import { ShieldCheck, LayoutGrid, TrendingUp } from "lucide-react";
+import OrganicLine from "@/components/OrganicLine";
 
 const pillars = [
   {
@@ -87,6 +88,16 @@ const PhilosophySection = () => {
           {/* Right: Image accent — 5 cols */}
           <div className={`lg:col-span-5 transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-10 scale-95'}`}>
             <div className="relative group">
+              {/* Organic SVG line — like More Nutrition benefit section */}
+              <div className="absolute -left-16 top-0 bottom-0 w-24 hidden lg:block" style={{ overflow: "visible" }}>
+                <OrganicLine
+                  variant="sCurve"
+                  stroke="hsl(20, 30%, 68%)"
+                  strokeWidth={24}
+                  opacity={0.18}
+                  className="h-full"
+                />
+              </div>
               {/* Decorative frame */}
               <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 rounded-[2rem] blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
               <div className="absolute -inset-[2px] rounded-[1.5rem] bg-gradient-to-br from-primary/40 via-accent/30 to-primary/40 opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
@@ -139,6 +150,16 @@ const PhilosophySection = () => {
               </article>
             ))}
           </div>
+        </div>
+
+        {/* Organic wave line at the bottom — runs into next section */}
+        <div className="mt-12 -mx-6 overflow-visible" style={{ height: "60px" }}>
+          <OrganicLine
+            variant="wave"
+            stroke="hsl(20, 30%, 68%)"
+            strokeWidth={2}
+            opacity={0.5}
+          />
         </div>
       </div>
     </section>
