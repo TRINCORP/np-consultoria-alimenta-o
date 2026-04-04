@@ -145,18 +145,16 @@ const Header = () => {
             ))}
           </nav>
 
-          <div className="relative">
-            <Button 
-              variant="default" 
-              onClick={() => setIsContactOpen(!isContactOpen)}
-              className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25 ${
-                isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
-              }`}
-            >
-              Contato
-            </Button>
-            <ContactDropdown isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
-          </div>
+            <Link to="/contato">
+              <Button 
+                variant="default" 
+                className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25 ${
+                  isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
+                }`}
+              >
+                Contato
+              </Button>
+            </Link>
         </div>
       </div>
 
