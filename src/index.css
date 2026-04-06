@@ -255,6 +255,32 @@ All colors MUST be HSL. Maintaining brand identity with enhanced effects.
   }
 }
 
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+@keyframes scroll-x-reverse {
+  0% {
+    transform: translateX(-33.333%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-x {
+  animation: scroll-x 30s linear infinite;
+}
+
+.animate-scroll-x-reverse {
+  animation: scroll-x-reverse 35s linear infinite;
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
