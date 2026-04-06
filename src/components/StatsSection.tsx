@@ -1,7 +1,6 @@
-/* ─── StatsSection — bold More Nutrition-style hero facts ─── */
-
 import { useInView } from "react-intersection-observer";
 import AnimatedCounter from "./AnimatedCounter";
+import { Building2, Users, CheckCircle, Calendar } from "lucide-react";
 
 const stats = [
   {
@@ -9,107 +8,108 @@ const stats = [
     suffix: "+",
     label: "Empresas Atendidas",
     description: "em todo o Brasil",
+    icon: Building2,
+  },
+  {
+    value: 50000,
+    suffix: "+",
+    label: "Consumidores Impactados",
+    description: "com alimentação segura",
+    icon: Users,
   },
   {
     value: 92,
     suffix: "%",
     label: "Aprovação em Inspeções",
     description: "taxa de sucesso",
+    icon: CheckCircle,
   },
   {
     value: 15,
     suffix: "+",
     label: "Anos de Experiência",
     description: "no mercado alimentar",
+    icon: Calendar,
   },
 ];
 
 const StatsSection = () => {
-  const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true });
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
 
   return (
-    <section
-      className="relative overflow-hidden py-16 sm:py-20 md:py-28 bg-gradient-to-br from-[#2d2a28] via-[#3d3835] to-[#2d2a28]"
-      ref={ref}
-    >
-      {/* Subtle grid */}
-      <div
-        className="absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+    <section className="py-16 md:py-24 bg-gradient-to-br from-[#2d2a28] via-[#3d3835] to-[#2d2a28] relative overflow-hidden">
+      {/* Animated grid background */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }} />
+      </div>
 
-      {/* Center glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-
-
-      <div className="container mx-auto px-6 relative z-10">
-
+      {/* Glowing orbs */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-primary/10 rounded-full blur-[150px]" />
+      
+      <div className="container mx-auto px-6 relative z-10" ref={ref}>
         {/* Section label */}
-        <div
-          className={`text-center mb-12 sm:mb-16 transition-all duration-700 ${
-            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
-          <span className="text-primary/70 text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase">
-            Nossos Resultados
+        <div className={`text-center mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <span className="text-primary/80 text-sm font-medium tracking-widest uppercase">
+            Nossos Números
           </span>
-          <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
-            Números que{" "}
-            <span className="text-primary-glow italic font-playfair">falam por si</span>
-          </h2>
         </div>
 
-        {/* Stats grid — 3 large bold numbers like More Nutrition's "20g · 95% · 85mg" */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/6 rounded-3xl overflow-hidden border border-white/6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className={`relative group flex flex-col items-center justify-center text-center
-                bg-transparent px-8 py-10 sm:py-14
-                hover:bg-primary/5 transition-colors duration-500
-                ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
-              style={{ transitionDelay: `${index * 150}ms`, transitionDuration: "700ms" }}
+              className={`group relative text-center p-6 rounded-2xl 
+                bg-white/5 backdrop-blur-sm border border-white/10
+                hover:bg-white/10 hover:border-white/20 transition-all duration-500
+                ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
-              {/* Divider between cells on desktop */}
-              {index > 0 && (
-                <div className="hidden sm:block absolute left-0 top-1/4 bottom-1/4 w-px bg-white/10" />
-              )}
+              {/* Icon */}
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center
+                  group-hover:scale-110 group-hover:bg-primary/30 transition-all duration-300">
+                  <stat.icon className="w-6 h-6 text-primary" />
+                </div>
+              </div>
 
-              {/* Big number */}
-              <div className="mb-2 flex items-end justify-center gap-1">
+              {/* Counter */}
+              <div className="mb-2">
                 <AnimatedCounter
                   end={stat.value}
                   suffix={stat.suffix}
-                  duration={2200}
-                  className="text-6xl sm:text-7xl md:text-8xl font-black text-white leading-none tracking-tight"
+                  duration={2500}
+                  className="text-4xl md:text-5xl font-bold text-white"
                 />
               </div>
-
+              
               {/* Label */}
-              <h3 className="text-base sm:text-lg font-semibold text-white/90 mb-1">
+              <h3 className="text-base md:text-lg font-semibold text-white/90 mb-1">
                 {stat.label}
               </h3>
-
+              
               {/* Description */}
-              <p className="text-sm text-white/45">{stat.description}</p>
+              <p className="text-sm text-white/50">
+                {stat.description}
+              </p>
 
-              {/* Hover green underline accent */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-12 bg-primary transition-all duration-500 rounded-full" />
+              {/* Hover glow effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-primary/5 to-transparent 
+                opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </div>
           ))}
         </div>
 
         {/* Bottom decorative line */}
-        <div
-          className={`mt-12 flex justify-center transition-all duration-1000 delay-500 ${
-            inView ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="w-20 h-px rounded-full bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+        <div className={`mt-12 flex justify-center transition-all duration-1000 delay-500 
+          ${inView ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="w-24 h-1 rounded-full bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
         </div>
       </div>
     </section>
