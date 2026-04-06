@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logoNP from "@/assets/logoNP.png";
 
@@ -11,6 +11,8 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const rafRef = useRef<number>(0);
   const lastScrolled = useRef(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +32,17 @@ const Header = () => {
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
+
+  const scrollToContato = () => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    } else {
+      document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -79,16 +92,15 @@ const Header = () => {
             ))}
           </nav>
 
-          <Link to="/contato">
-            <Button 
-              variant="default" 
-              className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25 ${
-                isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
-              }`}
-            >
-              Contato
-            </Button>
-          </Link>
+          <Button 
+            variant="default" 
+            onClick={scrollToContato}
+            className={`bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25 cursor-pointer ${
+              isScrolled ? 'px-5 py-2 text-sm' : 'px-6 py-2.5 text-sm'
+            }`}
+          >
+            Contato
+          </Button>
         </div>
       </div>
 
@@ -109,15 +121,14 @@ const Header = () => {
           </Link>
           
           <div className="flex items-center gap-2">
-            <Link to="/contato">
-              <Button 
-                variant="default" 
-                size="sm" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium shadow-lg shadow-primary/25"
-              >
-                Contato
-              </Button>
-            </Link>
+            <Button 
+              variant="default" 
+              size="sm" 
+              onClick={scrollToContato}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium shadow-lg shadow-primary/25"
+            >
+              Contato
+            </Button>
             
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -147,7 +158,6 @@ const Header = () => {
                 { to: "/np-rotulagem", label: "Rotulagem" },
                 { to: "/equipe", label: "Equipe" },
                 { to: "/faq", label: "FAQ" },
-                { to: "/contato", label: "Contato" },
               ].map(({ to, label }) => (
                 <Link 
                   key={to}
@@ -158,6 +168,15 @@ const Header = () => {
                   {label}
                 </Link>
               ))}
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  scrollToContato();
+                }}
+                className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-colors py-3 px-4 rounded-xl text-left"
+              >
+                Contato
+              </button>
             </nav>
             
             <div className="mt-6 pt-6 border-t border-white/10">
