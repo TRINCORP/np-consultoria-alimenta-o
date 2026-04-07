@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import FoodServicesHero from "@/components/food-services/FoodServicesHero";
-import FoodServicesTimeline from "@/components/food-services/FoodServicesTimeline";
+import FoodServicesShowcase from "@/components/food-services/FoodServicesShowcase";
 import FoodServicesCTA from "@/components/food-services/FoodServicesCTA";
 import FoodServicesSegments from "@/components/food-services/FoodServicesSegments";
 import FoodServicesDifferentials from "@/components/food-services/FoodServicesDifferentials";
@@ -19,7 +19,7 @@ const FoodServices = () => {
       <div className="min-h-screen">
         <Header />
         <FoodServicesHero />
-        <FoodServicesTimeline />
+        <FoodServicesShowcase />
         <FoodServicesMural />
         <FoodServicesSegments />
         <FoodServicesDifferentials />
