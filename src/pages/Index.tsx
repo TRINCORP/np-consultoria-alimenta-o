@@ -5,7 +5,6 @@ import HeroServices from "@/components/HeroServices";
 import IntroAnimation from "@/components/IntroAnimation";
 import PhilosophySection from "@/components/PhilosophySection";
 import FoodServicesSection from "@/components/FoodServicesSection";
-import FoodServicesSection from "@/components/FoodServicesSection";
 import ClientsSection from "@/components/ClientsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FloatingIcons from "@/components/FloatingIcons";
