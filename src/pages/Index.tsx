@@ -5,7 +5,7 @@ import HeroServices from "@/components/HeroServices";
 import IntroAnimation from "@/components/IntroAnimation";
 import PhilosophySection from "@/components/PhilosophySection";
 import FoodServicesSection from "@/components/FoodServicesSection";
-import PremiumServicesSection from "@/components/PremiumServicesSection";
+import FoodServicesSection from "@/components/FoodServicesSection";
 import ClientsSection from "@/components/ClientsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FloatingIcons from "@/components/FloatingIcons";
@@ -52,7 +52,7 @@ const Index = () => {
         <PhilosophySection />
         <WhyChooseUs />
         <FoodServicesSection />
-        <PremiumServicesSection />
+        <FoodServicesSection />
         <ClientsSection />
         <TestimonialsSection />
         <PremiumCTA />
