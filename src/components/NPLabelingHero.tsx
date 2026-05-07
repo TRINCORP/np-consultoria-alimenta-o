@@ -23,18 +23,15 @@ const NPLabelingHero = () => {
       <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-accent/30 rounded-full floating animation-delay-500 hidden sm:block" />
       <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-primary/30 rounded-full floating animation-delay-1000 hidden sm:block" />
       
+      {/* Ambient background — gradient + smoke (no full-bg image) */}
       <div className="absolute inset-0">
-        <img 
-          src={npRotulagemBg} 
-          alt="NP Rotulagem - Lata com design da empresa" 
-          className="w-full h-full object-cover object-center" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/95 via-[#1a1a1a]/70 to-[#1a1a1a]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent sm:hidden" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,hsl(var(--primary)/0.12),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_60%,hsl(var(--primary)/0.10),transparent_50%)]" />
         <SmokeEffect />
       </div>
-      
-      <div ref={ref} className="container mx-auto px-6 sm:px-8 lg:px-16 py-24 sm:py-20 lg:py-32 relative z-10">
+
+      <div ref={ref} className="container mx-auto px-6 sm:px-8 lg:px-16 py-24 sm:py-20 lg:py-32 relative z-10
+        grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-center">
         <div className="max-w-3xl">
           {/* Title */}
           <div className="mb-6 sm:mb-8">
@@ -146,7 +143,40 @@ const NPLabelingHero = () => {
             </button>
           </div>
         </div>
+
+        {/* Bottle showcase — right column, never overlaps text */}
+        <div
+          className={`relative hidden lg:flex items-center justify-center transition-all duration-[1200ms] ease-out ${
+            isRevealed ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
+          }`}
+          style={{ transitionDelay: "500ms" }}
+        >
+          {/* Glow halo */}
+          <div className="absolute inset-0 rounded-full blur-3xl opacity-70"
+            style={{ background: "radial-gradient(circle, hsl(var(--primary)/0.35), transparent 65%)" }} />
+          {/* Rotating ring */}
+          <div className="absolute w-[420px] h-[420px] rounded-full border border-primary/20 animate-[spin_28s_linear_infinite]" />
+          <div className="absolute w-[340px] h-[340px] rounded-full border border-primary/10 animate-[spin_40s_linear_infinite_reverse]" />
+
+          {/* Bottle image floating */}
+          <img
+            src={npRotulagemBg}
+            alt="NP Rotulagem — embalagem com rotulagem precisa"
+            className="relative z-10 max-h-[560px] w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] animate-[npFloat_6s_ease-in-out_infinite]"
+          />
+
+          {/* Floating accent dots */}
+          <span className="absolute top-10 right-6 w-2 h-2 rounded-full bg-primary/60 animate-[npFloat_5s_ease-in-out_infinite]" />
+          <span className="absolute bottom-12 left-6 w-1.5 h-1.5 rounded-full bg-accent/70 animate-[npFloat_7s_ease-in-out_infinite]" style={{ animationDelay: "1s" }} />
+        </div>
       </div>
+
+      <style>{`
+        @keyframes npFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-14px); }
+        }
+      `}</style>
     </section>
   );
 };
