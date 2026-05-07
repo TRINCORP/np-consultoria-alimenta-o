@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import conhecaServicos from "@/assets/conheca-nossos-servicos.png";
+import equipeNP from "@/assets/equipe_NP_home.jpeg";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
 const WHATSAPP = "5519989750741";
@@ -24,23 +24,24 @@ const FoodServicesHero = () => {
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex flex-col bg-[#1C1A18]">
 
-      {/* Ambient warm gradient background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full"
-          style={{ background: "radial-gradient(circle, hsl(20 45% 55% / 0.18), transparent 70%)" }} />
-        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(circle, hsl(20 35% 50% / 0.12), transparent 70%)" }} />
+      {/* Photo */}
+      <div className="absolute inset-0">
+        <img
+          src={equipeNP}
+          alt="Consultoria em vigilância sanitária — NP Consultoria"
+          className="w-full h-full object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1A18] via-[#1C1A18]/88 to-[#1C1A18]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A18] via-transparent to-[#1C1A18]/30" />
       </div>
 
       {/* Subtle warm radial */}
       <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none"
         style={{ background: "radial-gradient(circle, hsl(20 35% 62% / 0.07), transparent 65%)" }} />
 
-      {/* ── Main content — 2 columns ── */}
-      <div className="relative z-10 flex-1 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-center
-        px-6 sm:px-12 lg:px-20 pt-32 pb-10 max-w-[1400px] mx-auto w-full">
-
-        <div className="flex flex-col justify-center">
+      {/* Main content */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center
+        px-6 sm:px-12 lg:px-20 pt-32 pb-10 max-w-[720px]">
 
         {/* Eyebrow */}
         <div className={r("delay-[0ms]")}>
@@ -66,7 +67,6 @@ const FoodServicesHero = () => {
             protege e{" "}
             <span className="relative inline-block">
               certifica.
-              {/* Animated underline */}
               <span
                 className={`absolute -bottom-1 left-0 h-[3px] rounded-full
                   bg-[hsl(20_35%_62%/0.55)]
@@ -111,44 +111,15 @@ const FoodServicesHero = () => {
             Ver Serviços
           </button>
         </div>
-        </div>
-
-        {/* ── Image card — right column ── */}
-        <div className={`relative ${r("delay-[300ms]")}`}>
-          {/* Decorative frame glow */}
-          <div className="absolute -inset-4 rounded-[2rem] opacity-60 blur-2xl pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at center, hsl(20 45% 60% / 0.35), transparent 70%)" }} />
-
-          <div className="relative rounded-[1.75rem] overflow-hidden border border-[hsl(20_35%_62%/0.25)]
-            shadow-[0_30px_80px_rgba(0,0,0,0.45)] bg-[hsl(20_25%_92%)]">
-            <img
-              src={conhecaServicos}
-              alt="Equipe NP Consultoria apresentando: Conheça nossos serviços de boas práticas de manipulação de alimentos"
-              className="w-full h-auto object-cover block"
-              loading="eager"
-            />
-            {/* Subtle warm overlay */}
-            <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/20 rounded-[1.75rem]" />
-          </div>
-
-          {/* Floating tag */}
-          <div className="absolute -bottom-5 -left-3 sm:-left-5 bg-[#1C1A18] border border-[hsl(20_35%_62%/0.35)]
-            rounded-full px-5 py-2.5 shadow-xl flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[hsl(20_45%_68%)]" />
-            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[hsl(20_45%_72%)]">
-              Equipe NP · Especialistas
-            </span>
-          </div>
-        </div>
       </div>
 
-      {/* ── Stats bar — pinned bottom ── */}
+      {/* Stats bar */}
       <div className={`relative z-10 mx-6 sm:mx-12 lg:mx-20 mb-10
         transition-all duration-[900ms] delay-[600ms]
         ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
 
         <div className="flex items-stretch divide-x divide-white/10
-          border border-white/8 rounded-2xl bg-white/[0.04] backdrop-blur-sm overflow-hidden">
+          border border-white/[0.08] rounded-2xl bg-white/[0.04] backdrop-blur-sm overflow-hidden">
           {heroStats.map(({ value, label }, i) => (
             <div key={i} className="flex-1 px-6 py-5 flex flex-col gap-1">
               <span className="font-playfair font-bold text-[hsl(20_45%_72%)] leading-none"
