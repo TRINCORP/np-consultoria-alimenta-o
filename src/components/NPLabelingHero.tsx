@@ -1,4 +1,4 @@
-import npRotulagemBg from "@/assets/np-rotulagem-bg.png";
+import npRotulagemBg from "@/assets/lata-rotulagem.png";
 import { SmokeEffect } from "@/components/effects/SmokeEffect";
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -17,7 +17,7 @@ const NPLabelingHero = () => {
   }, [inView]);
 
   return (
-    <section className="bg-[#1a1a1a] text-white min-h-screen flex items-center relative overflow-hidden">
+    <section className="text-white min-h-screen flex items-center relative overflow-hidden bg-gradient-to-br from-black via-[#1a1a1a] to-[#4a4a4a]">
       {/* Subtle floating particles */}
       <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-primary/40 rounded-full floating hidden sm:block" />
       <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-accent/30 rounded-full floating animation-delay-500 hidden sm:block" />
