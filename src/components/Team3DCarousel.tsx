@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
 import { TeamMember } from "@/data/teamMembers";
 
 interface Team3DCarouselProps {
@@ -7,241 +6,150 @@ interface Team3DCarouselProps {
 }
 
 const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [active, setActive] = useState(0);
+
+  /* ── keyboard navigation ── */
+  const handleKey = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft")
+        setActive((p) => (p - 1 + members.length) % members.length);
+      if (e.key === "ArrowRight")
+        setActive((p) => (p + 1) % members.length);
+    },
+    [members.length]
+  );
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)');
-    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    setIsMobile(mq.matches);
-    try {
-      mq.addEventListener('change', onChange);
-    } catch {
-      // Safari fallback
-      // @ts-ignore
-      mq.addListener(onChange);
-    }
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [handleKey]);
+
+  /* ── touch / swipe ── */
+  useEffect(() => {
+    let startX = 0;
+    const onStart = (e: TouchEvent) => (startX = e.changedTouches[0].screenX);
+    const onEnd = (e: TouchEvent) => {
+      const diff = startX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50)
+        setActive((p) =>
+          diff > 0
+            ? (p + 1) % members.length
+            : (p - 1 + members.length) % members.length
+        );
+    };
+    document.addEventListener("touchstart", onStart);
+    document.addEventListener("touchend", onEnd);
     return () => {
-      try {
-        mq.removeEventListener('change', onChange);
-      } catch {
-        // @ts-ignore
-        mq.removeListener(onChange);
-      }
+      document.removeEventListener("touchstart", onStart);
+      document.removeEventListener("touchend", onEnd);
     };
-  }, []);
-  const updateCarousel = (newIndex: number) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentIndex((newIndex + members.length) % members.length);
-    
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 800);
-  };
+  }, [members.length]);
 
-  const getCardPosition = (index: number) => {
-    const offset = (index - currentIndex + members.length) % members.length;
-    
-    if (offset === 0) return "center";
-    if (offset === 1) return "right-1";
-    if (offset === 2) return "right-2";
-    if (offset === members.length - 1) return "left-1";
-    if (offset === members.length - 2) return "left-2";
-    return "hidden";
-  };
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        updateCarousel(currentIndex - 1);
-      } else if (e.key === "ArrowRight") {
-        updateCarousel(currentIndex + 1);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [currentIndex]);
-
-  // Touch navigation
-  useEffect(() => {
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartX = e.changedTouches[0].screenX;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const diff = touchStartX - touchEndX;
-      const swipeThreshold = 50;
-
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          updateCarousel(currentIndex + 1);
-        } else {
-          updateCarousel(currentIndex - 1);
-        }
-      }
-    };
-
-    document.addEventListener("touchstart", handleTouchStart);
-    document.addEventListener("touchend", handleTouchEnd);
-    
-    return () => {
-      document.removeEventListener("touchstart", handleTouchStart);
-      document.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [currentIndex]);
+  const current = members[active];
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f5] relative overflow-hidden py-20">
-      {/* Background Title */}
-      <h1 className="absolute top-[45px] left-1/2 transform -translate-x-1/2 text-[4.5rem] md:text-[7.5rem] font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none font-[Arial_Black,Arial_Bold,Arial,sans-serif]"
+    <section className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f5] relative overflow-hidden py-20 px-4">
+
+      {/* ── Background title ── */}
+      <h1
+        className="absolute top-[45px] left-1/2 -translate-x-1/2 text-[4.5rem] md:text-[7.5rem] font-black uppercase tracking-tight pointer-events-none whitespace-nowrap select-none"
         style={{
-          background: 'linear-gradient(to bottom, rgba(195, 156, 144, 0.35) 30%, rgba(255, 255, 255, 0) 76%)',
-          WebkitBackgroundClip: 'text',
-          backgroundClip: 'text',
-          color: 'transparent'
-        }}>
+          fontFamily: "Arial Black, Arial Bold, Arial, sans-serif",
+          background:
+            "linear-gradient(to bottom, rgba(195,156,144,0.35) 30%, rgba(255,255,255,0) 76%)",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
+        }}
+      >
         NOSSA EQUIPE
       </h1>
 
-      {/* Carousel Container */}
-      <div className="w-full max-w-[1200px] h-[450px] relative mt-20" style={{ perspective: "1000px" }}>
-        {/* Navigation Arrows */}
-        <button
-          onClick={() => updateCarousel(currentIndex - 1)}
-          className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1 border-none outline-none"
-          style={{ 
-            background: 'rgba(195, 156, 144, 0.6)',
-            color: 'white',
-            paddingRight: '3px'
-          }}
-          aria-label="Membro anterior"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        
-        <button
-          onClick={() => updateCarousel(currentIndex + 1)}
-          className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 text-2xl pb-1 border-none outline-none"
-          style={{ 
-            background: 'rgba(195, 156, 144, 0.6)',
-            color: 'white',
-            paddingLeft: '3px'
-          }}
-          aria-label="Próximo membro"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-
-        {/* Cards Track */}
-        <div className="w-full h-full flex justify-center items-center relative" style={{ transformStyle: "preserve-3d" }}>
-          {members.map((member, index) => {
-            const position = getCardPosition(index);
-            
-            let transformClasses = "";
-            let opacityClasses = "";
-            let zIndexClasses = "";
-            let filterClasses = "";
-
-            switch (position) {
-              case "center":
-                transformClasses = "translate-x-0 scale-110 translate-z-0";
-                opacityClasses = "opacity-100";
-                zIndexClasses = "z-[10]";
-                filterClasses = "";
-                break;
-              case "left-1":
-                transformClasses = "-translate-x-[200px] scale-90";
-                opacityClasses = "opacity-90";
-                zIndexClasses = "z-[5]";
-                filterClasses = "grayscale";
-                break;
-              case "left-2":
-                transformClasses = "-translate-x-[400px] scale-[0.8]";
-                opacityClasses = "opacity-70";
-                zIndexClasses = "z-[1]";
-                filterClasses = "grayscale";
-                break;
-              case "right-1":
-                transformClasses = "translate-x-[200px] scale-90";
-                opacityClasses = "opacity-90";
-                zIndexClasses = "z-[5]";
-                filterClasses = "grayscale";
-                break;
-              case "right-2":
-                transformClasses = "translate-x-[400px] scale-[0.8]";
-                opacityClasses = "opacity-70";
-                zIndexClasses = "z-[1]";
-                filterClasses = "grayscale";
-                break;
-              default:
-                transformClasses = "";
-                opacityClasses = "opacity-0";
-                zIndexClasses = "z-0";
-                filterClasses = "";
-            }
-
-            return (
-              <div
-                key={member.id}
-                onClick={() => updateCarousel(index)}
-                className={`absolute w-[280px] h-[380px] bg-white rounded-[20px] cursor-pointer transition-all duration-[800ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${transformClasses} ${opacityClasses} ${zIndexClasses} ${position === "hidden" ? "pointer-events-none" : ""}`}
-                style={{ 
-                  overflow: "hidden",
-                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)'
+      {/* ── Cards row ── */}
+      <div className="flex items-end justify-center gap-3 sm:gap-4 md:gap-6 mt-28 w-full max-w-[1100px]">
+        {members.map((member, i) => {
+          const isActive = i === active;
+          return (
+            <button
+              key={member.id}
+              onClick={() => setActive(i)}
+              aria-label={`Ver perfil de ${member.name}`}
+              className="relative flex-shrink-0 rounded-[20px] overflow-hidden focus:outline-none"
+              style={{
+                width: isActive ? "clamp(180px, 22vw, 280px)" : "clamp(120px, 15vw, 200px)",
+                height: isActive ? "clamp(240px, 32vw, 400px)" : "clamp(160px, 22vw, 290px)",
+                transition: "width 600ms cubic-bezier(0.4,0,0.2,1), height 600ms cubic-bezier(0.4,0,0.2,1), box-shadow 600ms, transform 600ms",
+                boxShadow: isActive
+                  ? "0 32px 64px rgba(0,0,0,0.22)"
+                  : "0 8px 24px rgba(0,0,0,0.10)",
+                transform: isActive ? "translateY(-16px)" : "translateY(0px)",
+              }}
+            >
+              <img
+                src={member.image}
+                alt={member.name}
+                loading="lazy"
+                draggable={false}
+                className="w-full h-full object-cover select-none"
+                style={{
+                  filter: isActive ? "none" : "grayscale(100%)",
+                  transition: "filter 600ms",
+                  objectPosition: "top center",
                 }}
-              >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className={`w-full h-full object-cover transition-all duration-[800ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${filterClasses}`}
-                  loading="lazy"
+              />
+
+              {/* Active glow ring */}
+              {isActive && (
+                <span
+                  className="absolute inset-0 rounded-[20px] pointer-events-none"
+                  style={{
+                    boxShadow: "inset 0 0 0 2.5px rgba(195,156,144,0.7)",
+                  }}
                 />
-              </div>
-            );
-          })}
-        </div>
+              )}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Member Info */}
-      <div className="text-center mt-10 transition-all duration-500 ease-out px-4">
-        <h2 className="text-[2.5rem] font-bold mb-[10px] relative inline-block"
-          style={{ color: 'rgb(195, 156, 144)' }}>
-          {members[currentIndex].name}
-          <span className="absolute left-[-120px] top-full w-[100px] h-[2px]" 
-            style={{ background: 'rgb(195, 156, 144)' }}></span>
-          <span className="absolute right-[-120px] top-full w-[100px] h-[2px]"
-            style={{ background: 'rgb(195, 156, 144)' }}></span>
+      {/* ── Member info ── */}
+      <div className="text-center mt-10 px-4 transition-all duration-500">
+        <h2
+          className="text-[2.2rem] sm:text-[2.5rem] font-bold mb-0 relative inline-block"
+          style={{ color: "rgb(195,156,144)" }}
+        >
+          {/* decorative lines */}
+          <span
+            className="hidden sm:block absolute right-[calc(100%+1.2rem)] top-1/2 -translate-y-1/2 h-[2px] w-[70px]"
+            style={{ background: "rgb(195,156,144)" }}
+          />
+          {current.name}
+          <span
+            className="hidden sm:block absolute left-[calc(100%+1.2rem)] top-1/2 -translate-y-1/2 h-[2px] w-[70px]"
+            style={{ background: "rgb(195,156,144)" }}
+          />
         </h2>
-        <p className="text-[#848696] text-[1.5rem] font-medium uppercase tracking-[0.1em] opacity-80 py-[10px] -mt-[15px]">
-          {members[currentIndex].role}
+
+        <p className="text-[#848696] text-base sm:text-[1.25rem] font-medium uppercase tracking-[0.1em] opacity-80 mt-1">
+          {current.role}
         </p>
       </div>
 
-      {/* Dots Navigation */}
-      <div className="flex justify-center gap-[10px] mt-[60px]">
-        {members.map((_, index) => (
+      {/* ── Dots ── */}
+      <div className="flex justify-center gap-[10px] mt-10">
+        {members.map((_, i) => (
           <button
-            key={index}
-            onClick={() => updateCarousel(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
-              index === currentIndex
-                ? "scale-[1.2]"
-                : "hover:bg-opacity-30"
-            }`}
+            key={i}
+            onClick={() => setActive(i)}
+            aria-label={`Ir para membro ${i + 1}`}
+            className="w-3 h-3 rounded-full transition-all duration-300"
             style={{
-              background: index === currentIndex 
-                ? 'rgb(195, 156, 144)' 
-                : 'rgba(195, 156, 144, 0.2)'
+              background:
+                i === active
+                  ? "rgb(195,156,144)"
+                  : "rgba(195,156,144,0.2)",
+              transform: i === active ? "scale(1.25)" : "scale(1)",
             }}
-            aria-label={`Ir para membro ${index + 1}`}
           />
         ))}
       </div>

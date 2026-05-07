@@ -1,154 +1,148 @@
 import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { SmokeEffect } from "@/components/effects/SmokeEffect";
 import equipeNP from "@/assets/equipe_NP_home.jpeg";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+
+const WHATSAPP = "5519989750741";
+
+const heroStats = [
+  { value: "300+", label: "Empresas atendidas" },
+  { value: "92%",  label: "Aprovação na 1ª vistoria" },
+  { value: "15+",  label: "Anos de experiência" },
+];
 
 const FoodServicesHero = () => {
-  const [isRevealed, setIsRevealed] = useState(false);
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (inView) setTimeout(() => setIsRevealed(true), 300);
-  }, [inView]);
+    const t = setTimeout(() => setMounted(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  const r = (delay: string) =>
+    `transition-all duration-[900ms] ${delay} ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`;
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex items-center bg-[#1a1a1a]">
-      {/* Floating particles — hide on mobile for performance */}
-      <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-primary/40 rounded-full floating hidden sm:block" />
-      <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-accent/30 rounded-full floating animation-delay-500 hidden sm:block" />
-      <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-primary/30 rounded-full floating animation-delay-1000 hidden sm:block" />
+    <section className="relative min-h-screen w-full overflow-hidden flex flex-col bg-[#1C1A18]">
 
-      {/* Background */}
+      {/* ── Photo — right half ── */}
       <div className="absolute inset-0">
         <img
           src={equipeNP}
-          alt="Consultoria em vigilância sanitária para restaurantes e cozinhas industriais em Indaiatuba"
+          alt="Consultoria em vigilância sanitária — NP Consultoria"
           className="w-full h-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/95 via-[#1a1a1a]/70 to-[#1a1a1a]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent sm:hidden" />
-        <SmokeEffect />
+        {/* Strong left fade: text stays legible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1A18] via-[#1C1A18]/88 to-[#1C1A18]/30" />
+        {/* Bottom fade for stat bar */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A18] via-transparent to-[#1C1A18]/30" />
       </div>
 
-      {/* Content */}
-      <div ref={ref} className="container mx-auto px-6 sm:px-8 lg:px-16 py-24 sm:py-20 lg:py-32 relative z-10">
-        <div className="max-w-3xl">
-          {/* Badge */}
-          <span
-            className={`inline-block px-4 sm:px-5 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 sm:mb-8 transition-all duration-700 ${
-              isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            Consultoria em Segurança Alimentar | Indaiatuba e Região
+      {/* Subtle warm radial */}
+      <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none"
+        style={{ background: "radial-gradient(circle, hsl(20 35% 62% / 0.07), transparent 65%)" }} />
+
+      {/* ── Main content ── */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center
+        px-6 sm:px-12 lg:px-20 pt-32 pb-10 max-w-[720px]">
+
+        {/* Eyebrow */}
+        <div className={r("delay-[0ms]")}>
+          <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.3em] uppercase
+            border border-[hsl(20_35%_62%/0.35)] text-[hsl(20_45%_70%)]
+            rounded-full px-4 py-2 bg-[hsl(20_35%_62%/0.08)] mb-10 select-none">
+            <span className="w-1.5 h-1.5 rounded-full bg-[hsl(20_45%_68%)] animate-pulse" />
+            Consultoria em Segurança Alimentar · Indaiatuba e Região
           </span>
+        </div>
 
-          {/* Title */}
-          <h1 className="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
-            <span className="block py-1">
-              <span
-                className={`inline-block py-2 text-white transition-all duration-1000 ease-out ${
-                  isRevealed ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                }`}
-              >
-                {"Consultoria".split("").map((letter, i) => (
-                  <span
-                    key={i}
-                    className={`inline-block py-1 transition-all duration-500 hover:text-primary hover:-translate-y-1 ${
-                      isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                    }`}
-                    style={{
-                      transitionDelay: `${i * 50 + 200}ms`,
-                      textShadow: isRevealed ? "0 0 40px rgba(180, 120, 90, 0.3)" : "none",
-                    }}
-                  >
-                    {letter}
-                  </span>
-                ))}
-                {" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent-light to-primary bg-[length:200%_auto] animate-gradient-x">
-                    Alimentar
-                  </span>
-                  <span
-                    className={`absolute inset-0 blur-xl bg-primary/30 transition-opacity duration-1000 ${
-                      isRevealed ? "opacity-100" : "opacity-0"
-                    }`}
-                    style={{ transitionDelay: "800ms" }}
-                  />
-                </span>
-              </span>
-            </span>
+        {/* Headline */}
+        <h1 className="font-playfair font-bold text-white leading-[1.05] mb-7"
+          style={{ fontSize: "clamp(2.8rem, 6.5vw, 6rem)" }}>
 
-            {/* Animated divider */}
-            <span className="block my-3 sm:my-4">
+          <span className={`block ${r("delay-[80ms]")}`}>
+            Consultoria
+          </span>
+          <span className={`block ${r("delay-[180ms]")}`}>
+            <em className="italic text-[hsl(20_45%_70%)]">Alimentar</em> que
+          </span>
+          <span className={`block ${r("delay-[280ms]")}`}>
+            protege e{" "}
+            <span className="relative inline-block">
+              certifica.
+              {/* Animated underline */}
               <span
-                className={`block h-1 bg-gradient-to-r from-primary via-accent-light to-transparent rounded-full transition-all duration-1000 ease-out ${
-                  isRevealed ? "w-24 sm:w-32 opacity-100" : "w-0 opacity-0"
-                }`}
-                style={{ transitionDelay: "600ms" }}
+                className={`absolute -bottom-1 left-0 h-[3px] rounded-full
+                  bg-[hsl(20_35%_62%/0.55)]
+                  transition-all duration-[1100ms] delay-[800ms]
+                  ${mounted ? "w-full" : "w-0"}`}
               />
             </span>
+          </span>
+        </h1>
 
-            <span className="block py-1">
-              <span
-                className={`inline-block py-2 text-white transition-all duration-1000 ease-out ${
-                  isRevealed ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                }`}
-                style={{ transitionDelay: "400ms" }}
-              >
-                Vigilância{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 italic text-primary">Sanitária</span>
-                  <span
-                    className={`absolute -left-2 sm:-left-3 top-0 text-primary/40 transition-all duration-500 ${
-                      isRevealed ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-                    }`}
-                    style={{ transitionDelay: "1000ms" }}
-                  >
-                    [
-                  </span>
-                  <span
-                    className={`absolute -right-2 sm:-right-3 top-0 text-primary/40 transition-all duration-500 ${
-                      isRevealed ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-                    }`}
-                    style={{ transitionDelay: "1000ms" }}
-                  >
-                    ]
-                  </span>
-                </span>
-              </span>
-            </span>
-          </h1>
+        {/* Descriptor */}
+        <p className={`text-white/55 text-base sm:text-lg leading-relaxed max-w-[520px] mb-10 ${r("delay-[360ms]")}`}>
+          Adequação sanitária completa para restaurantes, cozinhas industriais e indústrias de alimentos.
+          Manual de boas práticas, alvará sanitário, treinamento de manipuladores e rotulagem ANVISA.
+        </p>
 
-          <p
-            className={`text-sm sm:text-base md:text-lg lg:text-xl text-white/80 mb-8 sm:mb-12 max-w-2xl leading-relaxed transition-all duration-1000 ${
-              isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-            style={{ transitionDelay: "800ms" }}
+        {/* CTAs */}
+        <div className={`flex flex-wrap gap-3 ${r("delay-[440ms]")}`}>
+          <a
+            href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de saber mais sobre a consultoria em segurança alimentar.")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2.5
+              bg-[hsl(20_35%_62%)] text-white rounded-full
+              px-8 py-4 text-sm font-semibold
+              hover:bg-[hsl(20_35%_55%)]
+              hover:shadow-[0_12px_36px_hsl(20_35%_62%/0.4)]
+              hover:-translate-y-0.5 transition-all duration-300"
           >
-            Adequação sanitária completa para restaurantes, cozinhas industriais e indústrias de alimentos.
-            Manual de boas práticas, alvará sanitário, treinamento de manipuladores e toda a documentação
-            exigida pela vigilância sanitária — em Indaiatuba e região de Campinas.
-          </p>
+            Solicitar Consultoria
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </a>
 
-          <div
-            className={`flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 transition-all duration-1000 ${
-              isRevealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-            style={{ transitionDelay: "1000ms" }}
+          <button
+            onClick={() => document.getElementById("servicos")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2
+              border border-white/20 text-white/70 rounded-full
+              px-8 py-4 text-sm font-medium
+              hover:border-[hsl(20_35%_62%/0.5)] hover:text-white
+              transition-all duration-300"
           >
-            <button className="btn-hero w-full sm:w-auto">Solicitar Consultoria</button>
-            <button className="btn-secondary interactive-element w-full sm:w-auto">Nossos Serviços</button>
-          </div>
+            Ver Serviços
+          </button>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50">
-        <span className="text-[0.6rem] sm:text-xs tracking-widest uppercase">Descubra</span>
-        <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce" />
+      {/* ── Stats bar — pinned bottom ── */}
+      <div className={`relative z-10 mx-6 sm:mx-12 lg:mx-20 mb-10
+        transition-all duration-[900ms] delay-[600ms]
+        ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+
+        <div className="flex items-stretch divide-x divide-white/10
+          border border-white/8 rounded-2xl bg-white/[0.04] backdrop-blur-sm overflow-hidden">
+          {heroStats.map(({ value, label }, i) => (
+            <div key={i} className="flex-1 px-6 py-5 flex flex-col gap-1">
+              <span className="font-playfair font-bold text-[hsl(20_45%_72%)] leading-none"
+                style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)" }}>
+                {value}
+              </span>
+              <span className="text-[11px] font-medium uppercase tracking-wider text-white/35 leading-snug">
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll hint */}
+      <div className="absolute bottom-6 right-8 z-10 hidden lg:flex flex-col items-center gap-2 text-white/25">
+        <span className="text-[10px] tracking-[0.25em] uppercase" style={{ writingMode: "vertical-lr" }}>
+          Descubra
+        </span>
+        <ChevronDown className="w-4 h-4 animate-bounce" />
       </div>
     </section>
   );

@@ -1,11 +1,7 @@
 import React from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useInView } from "react-intersection-observer";
 
-type Client = {
-  id: number;
-  name: string;
-  image: string;
-};
+type Client = { id: number; name: string; image: string };
 
 const clients: Client[] = [
   { id: 1,  name: "Driblix pizzaria",        image: "/fotos_clientes/driblix.png" },
@@ -30,73 +26,102 @@ const clients: Client[] = [
 const row1 = clients.slice(0, 11);
 const row2 = clients.slice(5).concat(clients.slice(0, 5));
 
+const LogoRow = ({
+  items,
+  reverse = false,
+}: {
+  items: Client[];
+  reverse?: boolean;
+}) => (
+  <div className="overflow-hidden">
+    <div
+      className="flex gap-4 sm:gap-5"
+      style={{
+        animation: `${reverse ? "marqueeReverse" : "marqueeForward"} 32s linear infinite`,
+        width: "max-content",
+      }}
+    >
+      {[...items, ...items, ...items].map((client, i) => (
+        <div
+          key={`${client.id}-${i}`}
+          className="shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28
+            rounded-2xl bg-white border border-[hsl(210_10%_88%)]
+            shadow-[0_2px_12px_hsl(210_15%_12%/0.05)]
+            flex items-center justify-center p-3 sm:p-4
+            hover:shadow-[0_6px_24px_hsl(20_35%_60%/0.15)]
+            hover:border-[hsl(20_35%_70%/0.3)]
+            hover:scale-105
+            transition-all duration-300"
+        >
+          <img
+            src={client.image}
+            alt={client.name}
+            loading="lazy"
+            className="w-full h-full object-contain"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 const ClientsSection: React.FC = () => {
-  const containerRef = useScrollReveal();
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section ref={containerRef} id="clients" className="py-16 sm:py-20 md:py-28 bg-gradient-to-b from-background via-muted/20 to-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.03),transparent_50%)]" />
+    <section id="clients" className="bg-[#FAF9F7] py-20 lg:py-28 overflow-hidden">
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Header with side labels */}
-        <div className="relative mb-10 sm:mb-16 md:mb-20">
-          <span className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 text-primary/50 text-xs sm:text-sm italic">
-            Indaiatuba e região
-          </span>
-          <span className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 text-primary/50 text-xs sm:text-sm italic">
-            Desde 2009
-          </span>
-
-          <div className="text-center">
-            <span className="scroll-reveal-scale inline-block text-primary/80 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase mb-4 sm:mb-6">
-              Parceiros de Confiança
+      {/* ── Header ── */}
+      <div ref={ref} className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16 mb-14 lg:mb-16">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
+              text-[hsl(20_35%_58%)] mb-5
+              transition-all duration-700 ${inView ? "opacity-100" : "opacity-0"}`}>
+              Parceiros de confiança
             </span>
-            <h2 className="scroll-reveal-blur stagger-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
-              Mais de 300 Empresas
-              <br />
-              <span className="text-gradient">Confiam na NP.</span>
+            <h2
+              className={`font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08]
+                transition-all duration-700 delay-100 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
+            >
+              Mais de{" "}
+              <em className="italic text-[hsl(20_35%_58%)]">300 empresas</em>
+              <br />confiam na NP.
             </h2>
           </div>
-        </div>
 
-        {/* Row 1 - scrolls left */}
-        <div className="scroll-reveal stagger-2 overflow-hidden mb-4 sm:mb-6">
-          <div className="flex animate-scroll-x gap-4 sm:gap-5 md:gap-6">
-            {[...row1, ...row1, ...row1].map((client, i) => (
-              <div
-                key={`r1-${i}`}
-                className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-white border border-border/20 shadow-sm flex items-center justify-center p-2 sm:p-3 md:p-4 hover:shadow-md hover:scale-105 transition-all duration-300"
-              >
-                <img
-                  src={client.image}
-                  alt={client.name}
-                  loading="lazy"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Row 2 - scrolls right */}
-        <div className="scroll-reveal stagger-3 overflow-hidden">
-          <div className="flex animate-scroll-x-reverse gap-4 sm:gap-5 md:gap-6">
-            {[...row2, ...row2, ...row2].map((client, i) => (
-              <div
-                key={`r2-${i}`}
-                className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-white border border-border/20 shadow-sm flex items-center justify-center p-2 sm:p-3 md:p-4 hover:shadow-md hover:scale-105 transition-all duration-300"
-              >
-                <img
-                  src={client.image}
-                  alt={client.name}
-                  loading="lazy"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            ))}
+          <div className={`flex items-center gap-6 transition-all duration-700 delay-200
+            ${inView ? "opacity-100" : "opacity-0"}`}>
+            <div className="text-center">
+              <span className="font-playfair font-bold text-[hsl(20_35%_58%)] text-3xl leading-none block">2009</span>
+              <span className="text-[11px] font-medium uppercase tracking-wider text-[hsl(210_10%_55%)] mt-1 block">Desde</span>
+            </div>
+            <div className="w-px h-10 bg-[hsl(210_10%_88%)]" />
+            <div className="text-center">
+              <span className="font-playfair font-bold text-[hsl(20_35%_58%)] text-3xl leading-none block">SP</span>
+              <span className="text-[11px] font-medium uppercase tracking-wider text-[hsl(210_10%_55%)] mt-1 block">Indaiatuba</span>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* ── Marquee rows ── */}
+      <div className="space-y-4">
+        <LogoRow items={row1} reverse={false} />
+        <LogoRow items={row2} reverse={true} />
+      </div>
+
+      <style>{`
+        @keyframes marqueeForward {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-33.333%); }
+        }
+        @keyframes marqueeReverse {
+          from { transform: translateX(-33.333%); }
+          to   { transform: translateX(0); }
+        }
+      `}</style>
     </section>
   );
 };

@@ -1,8 +1,7 @@
 import nataliaMingatto from "@/assets/team/Natalia_Mingatto.png";
-import bruna from "@/assets/team/bruna.png";
 import paty from "@/assets/team/paty2.png";
-import sara from "@/assets/team/sara.png";
 import cristiane from "@/assets/team/cristiane.png";
+import ieandra from "@/assets/team/Iendra.png";
 
 export interface TeamMember {
   id: number;
@@ -35,19 +34,6 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    id: 2,
-    name: "Bruna Elis Vieira",
-    role: "Consultora de alimentos, Desenvolvimento de arte visual",
-    bio: "Estudante de nutrição e formada em marketing, Bruna é responsável por visitas técnicas, elaboração de documentos e pela criação de materiais visuais que facilitam a comunicação com clientes e colaboradores. Sua atuação é marcada pelo cuidado com os detalhes e criatividade.",
-    image: bruna,
-    specializations: ["Marketing", "Visitas técnicas", "Criação de arte visual"],
-    social: {
-      email: "roberto.silva@npnutricao.com",
-      linkedin: "#",
-      instagram: "https://www.instagram.com/np.consultoriaalimentos/"
-    }
-  },
-  {
     id: 3,
     name: "Patricia Rossetti",
     role: "Sócia/Nutricionista",
@@ -62,14 +48,13 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: 4,
-    name: "Sara Mingatti Brigído",
+    name: "Iandra",
     role: "Consultora de alimentos",
-    bio: "Estudante de nutrição. Sara integra a equipe como consultora responsável por visitas técnicas e apoio nos processo de implementação das boas práticas. Seu comprometimento e atenção no atendimento tornam a experiência do cliente mais segura e eficiente.",
-    image: sara,
-    specializations: ["Boas práticas", "Relatórios técnicos", "Visitas técnicas"],
+    bio: "",
+    image: ieandra,
+    specializations: [],
     social: {
-      email: "sara.brigido@npnutricao.com",
-      linkedin: "#"
+      instagram: "https://www.instagram.com/np.consultoriaalimentos/"
     }
   },
   {

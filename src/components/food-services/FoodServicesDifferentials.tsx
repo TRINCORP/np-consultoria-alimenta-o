@@ -2,124 +2,130 @@ import { useInView } from "react-intersection-observer";
 import { Shield, Users, Eye, Target, TrendingUp, MapPin } from "lucide-react";
 
 const differentials = [
-  { icon: MapPin, text: "Atuação presencial em Indaiatuba, Campinas e região" },
-  { icon: Users, text: "Atendimento personalizado para cada tipo de negócio" },
-  { icon: Shield, text: "Equipe técnica especializada em vigilância sanitária" },
-  { icon: Eye, text: "Experiência prática em restaurantes, cozinhas industriais e indústrias" },
-  { icon: Target, text: "Atuação estratégica e preventiva, não apenas corretiva" },
-  { icon: TrendingUp, text: "Foco em adequação sanitária, organização e rentabilidade" },
-];
-
-const philosophyQuotes = [
-  "Consultoria em segurança alimentar não é custo. É investimento em credibilidade e crescimento.",
-  "Empresas que tratam a adequação sanitária como estratégia de marca saem na frente da concorrência.",
-  "Manual de boas práticas, treinamento de manipuladores e alvará sanitário: a base para operar com tranquilidade.",
+  { icon: MapPin,     number: "01", title: "Presença Local",           desc: "Atuação presencial em Indaiatuba, Campinas e região — acompanhamos vistorias e fiscalizações ao seu lado." },
+  { icon: Users,     number: "02", title: "Atendimento Personalizado", desc: "Cada negócio tem sua realidade. Adaptamos nossas soluções à sua operação, cultura e objetivos." },
+  { icon: Shield,    number: "03", title: "Equipe Técnica Especializada", desc: "Profissionais com formação e experiência prática em vigilância sanitária, nutrição e gestão alimentar." },
+  { icon: Eye,       number: "04", title: "Experiência Multissetorial", desc: "Mais de 15 anos atendendo restaurantes, cozinhas industriais, indústrias e produtores artesanais." },
+  { icon: Target,    number: "05", title: "Atuação Preventiva",        desc: "Não esperamos a autuação acontecer. Identificamos riscos antes e criamos planos de correção eficazes." },
+  { icon: TrendingUp, number: "06", title: "Foco em Resultados",       desc: "Adequação sanitária como estratégia de crescimento: mais organização, menos desperdício, mais rentabilidade." },
 ];
 
 const FoodServicesDifferentials = () => {
-  const { ref: diffRef, inView: diffInView } = useInView({ threshold: 0.1, triggerOnce: true });
-  const { ref: philRef, inView: philInView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref: headRef, inView: headInView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref: listRef, inView: listInView } = useInView({ threshold: 0.04, triggerOnce: true });
   const { ref: closingRef, inView: closingInView } = useInView({ threshold: 0.2, triggerOnce: true });
 
   return (
-    <section className="bg-[#1a1a1a] relative overflow-hidden">
-      {/* Differentials */}
-      <div ref={diffRef} className="py-20 lg:py-28 relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.06),transparent_60%)]" />
-        <div className="container mx-auto px-6 lg:px-16 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-14">
-              <span
-                className={`inline-block px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium tracking-wider uppercase mb-6 transition-all duration-700 ${
-                  diffInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
-              >
-                Por Que Escolher a NP Consultoria
-              </span>
-              <h2
-                className={`text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-white transition-all duration-700 delay-100 ${
-                  diffInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
-              >
-                Diferenciais da <span className="text-gradient italic">NP Consultoria Alimentar</span>
-              </h2>
-            </div>
+    <section className="bg-[#1C1A18] overflow-hidden">
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {differentials.map((diff, i) => {
-                const Icon = diff.icon;
-                return (
-                  <div
-                    key={i}
-                    className={`group flex items-start gap-4 p-6 rounded-2xl bg-white/[0.03] border border-primary/10
-                      hover:bg-white/[0.06] hover:border-primary/30 hover:-translate-y-1 transition-all duration-500
-                      ${diffInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                    style={{ transitionDelay: `${200 + i * 100}ms` }}
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <span className="text-white/80 text-sm lg:text-base font-medium">{diff.text}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, hsl(20 35% 62% / 0.06), transparent)" }} />
 
-      {/* Philosophy section */}
-      <div ref={philRef} className="py-20 lg:py-32 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.03] to-transparent" />
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+      {/* ── Differentials ── */}
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16 py-20 lg:py-28 relative z-10">
 
-        <div className="container mx-auto px-6 lg:px-16 relative z-10">
-          <div className="max-w-3xl mx-auto space-y-16">
-            {philosophyQuotes.map((quote, i) => (
-              <blockquote
-                key={i}
-                className={`text-center transition-all duration-1000 ${
-                  philInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-                style={{ transitionDelay: `${i * 300}ms` }}
-              >
-                <p className="text-xl md:text-2xl lg:text-3xl font-playfair italic text-white/90 leading-relaxed">
-                  "{quote}"
-                </p>
-                {i < philosophyQuotes.length - 1 && (
-                  <div className="mt-16 flex justify-center">
-                    <div className="w-16 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-                  </div>
-                )}
-              </blockquote>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Dramatic closing */}
-      <div ref={closingRef} className="py-20 lg:py-28 relative">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-transparent" />
-        <div className="container mx-auto px-6 lg:px-16 relative z-10 text-center">
-          <div
-            className={`max-w-2xl mx-auto transition-all duration-1000 ${
-              closingInView ? "opacity-100 scale-100" : "opacity-0 scale-95"
-            }`}
-          >
-            <p className="text-2xl md:text-3xl lg:text-4xl font-playfair font-bold text-white leading-tight mb-4">
-              Adequação sanitária bem-feita quase não aparece.
-            </p>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-playfair font-bold leading-tight">
-              <span className="text-gradient italic">Mas quando falha, vira manchete.</span>
-            </p>
-
-            <div
-              className={`mt-12 transition-all duration-700 delay-500 ${
-                closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-              }`}
+        {/* Header */}
+        <div ref={headRef} className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 lg:mb-20">
+          <div>
+            <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
+              text-[hsl(20_35%_62%)] mb-5
+              transition-all duration-700 ${headInView ? "opacity-100" : "opacity-0"}`}>
+              Por que escolher a NP
+            </span>
+            <h2
+              className={`font-playfair font-bold text-white leading-[1.08]
+                transition-all duration-700 delay-100 ${headInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
             >
-              <button className="btn-hero">Fale com a NP</button>
+              Diferenciais da{" "}
+              <em className="italic text-[hsl(20_45%_70%)]">NP Consultoria</em>.
+            </h2>
+          </div>
+
+          <p className={`text-white/40 text-sm leading-relaxed max-w-xs
+            transition-all duration-700 delay-200 ${headInView ? "opacity-100" : "opacity-0"}`}>
+            Técnica, prática e completamente personalizada — do diagnóstico à conformidade total.
+          </p>
+        </div>
+
+        {/* Differentials — editorial numbered list */}
+        <div ref={listRef} className="space-y-0 divide-y divide-white/[0.06]">
+          {differentials.map(({ icon: Icon, number, title, desc }, i) => (
+            <div
+              key={i}
+              className={`group grid grid-cols-[auto_1fr_auto] lg:grid-cols-[80px_1fr_300px] items-start
+                gap-6 lg:gap-10 py-8 lg:py-9
+                hover:bg-white/[0.025] transition-all duration-400
+                ${listInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              {/* Number */}
+              <span className="font-playfair font-bold text-white/15 group-hover:text-[hsl(20_35%_62%/0.4)]
+                transition-colors duration-400 leading-none"
+                style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)" }}>
+                {number}
+              </span>
+
+              {/* Title + icon */}
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[hsl(20_35%_62%/0.1)] flex items-center justify-center flex-shrink-0
+                  group-hover:bg-[hsl(20_35%_62%/0.2)] group-hover:scale-105
+                  transition-all duration-300">
+                  <Icon className="w-4.5 h-4.5 text-[hsl(20_45%_68%)]" strokeWidth={1.6} />
+                </div>
+                <h3 className="font-semibold text-white text-base sm:text-lg
+                  group-hover:text-[hsl(20_45%_72%)] transition-colors duration-400">
+                  {title}
+                </h3>
+              </div>
+
+              {/* Description */}
+              <p className="text-white/40 text-sm leading-relaxed col-span-full lg:col-auto
+                group-hover:text-white/60 transition-colors duration-400">
+                {desc}
+              </p>
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Closing — full-bleed statement ── */}
+      <div ref={closingRef}
+        className="border-t border-white/[0.06] py-20 lg:py-28 text-center relative"
+        style={{ background: "linear-gradient(to bottom, #1C1A18, #141210)" }}>
+
+        <div className="max-w-[900px] mx-auto px-6 sm:px-12">
+          <p
+            className={`font-playfair font-bold text-white leading-[1.15] mb-4
+              transition-all duration-[1000ms] ${closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
+          >
+            Adequação sanitária bem-feita
+            <br />quase não aparece.
+          </p>
+          <p
+            className={`font-playfair font-bold italic text-[hsl(20_45%_68%)] leading-tight mb-12
+              transition-all duration-[1000ms] delay-150 ${closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
+          >
+            Mas quando falha, vira manchete.
+          </p>
+
+          <div className={`transition-all duration-700 delay-400 ${closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <a
+              href={`https://wa.me/5519989750741?text=${encodeURIComponent("Olá! Gostaria de falar com a NP Consultoria.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5
+                bg-[hsl(20_35%_62%)] text-white rounded-full
+                px-10 py-4 text-sm font-semibold
+                hover:bg-[hsl(20_35%_55%)]
+                hover:shadow-[0_12px_36px_hsl(20_35%_62%/0.4)]
+                hover:-translate-y-0.5 transition-all duration-300"
+            >
+              Fale com a NP
+            </a>
           </div>
         </div>
       </div>

@@ -1,63 +1,138 @@
 import { useInView } from "react-intersection-observer";
+import { ArrowRight, Phone, Mail, Instagram } from "lucide-react";
+
+const WHATSAPP = "5519989750741";
+
+const channels = [
+  { icon: Phone,     label: "WhatsApp",   value: "(19) 98975-0741",             href: `https://wa.me/${WHATSAPP}` },
+  { icon: Mail,      label: "E-mail",     value: "np.consultoriaalimentcao@gmail.com", href: "mailto:np.consultoriaalimentcao@gmail.com" },
+  { icon: Instagram, label: "Instagram",  value: "@np.consultoriaalimentos",    href: "https://www.instagram.com/np.consultoriaalimentos/" },
+];
 
 const FoodServicesCTA = () => {
-  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true });
 
   return (
-    <section
-      ref={ref}
-      className="relative bg-[hsl(210_15%_14%)] py-20 sm:py-28 md:py-36 text-center overflow-hidden"
-    >
-      {/* Radial glows */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_110%,hsl(var(--primary)/0.15),transparent_70%)]" />
-      </div>
+    <section ref={ref} className="bg-[#FAF9F7] py-20 lg:py-28 overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16">
 
-      <div className="relative z-10 max-w-2xl mx-auto px-6">
-        <h2
-          className="font-playfair text-2xl sm:text-3xl md:text-4xl lg:text-[3.2rem] font-bold text-white mb-3 sm:mb-4 leading-tight"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s ease",
-          }}
-        >
-          Consultoria em Segurança Alimentar
-          <br />
-          <em className="text-[hsl(var(--primary-glow))] italic">em Indaiatuba e Região</em>
-        </h2>
-
-        <p
-          className="text-white/45 max-w-[52ch] mx-auto mb-8 sm:mb-10 leading-[1.75] text-xs sm:text-sm md:text-base"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-            transition: "all 0.8s ease 0.15s",
-          }}
-        >
-          Alvará sanitário, manual de boas práticas, treinamento de manipuladores, rotulagem nutricional ANVISA 
-          e adequação sanitária completa. Solicite um orçamento sem compromisso.
-        </p>
-
+        {/* ── Main CTA block ── */}
         <div
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-            transition: "all 0.8s ease 0.3s",
-          }}
+          className={`relative rounded-[2rem] overflow-hidden
+            transition-all duration-[1000ms] ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          style={{ background: "linear-gradient(135deg, #1C1A18, #252220)" }}
         >
-          <a
-            href="#contato"
-            className="inline-block relative overflow-hidden rounded-full px-8 sm:px-10 py-3 sm:py-4 text-xs sm:text-sm tracking-[0.06em] text-white font-medium
-              border border-[hsl(var(--primary)/0.25)]
-              bg-gradient-to-br from-[hsl(var(--primary-dark))] to-[hsl(210_15%_30%)]
-              hover:-translate-y-1 hover:shadow-[0_12px_30px_hsl(0_0%_0%/0.25)]
-              transition-all duration-300 group"
-          >
-            <span className="relative z-10">Solicitar Orçamento →</span>
-            <span className="absolute inset-0 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
-          </a>
+          {/* Ambient warm glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
+            style={{ background: "radial-gradient(ellipse at top, hsl(20 35% 62% / 0.12), transparent 65%)" }} />
+
+          {/* Content */}
+          <div className="relative z-10 px-8 sm:px-14 lg:px-20 py-16 lg:py-20">
+
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+
+              {/* Left: text */}
+              <div className="max-w-[540px]">
+                <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
+                  text-[hsl(20_35%_62%)] mb-6
+                  transition-all duration-700 delay-100 ${inView ? "opacity-100" : "opacity-0"}`}>
+                  Consultoria em Segurança Alimentar · Indaiatuba e Região
+                </span>
+
+                <h2
+                  className={`font-playfair font-bold text-white leading-[1.08] mb-6
+                    transition-all duration-700 delay-150 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                  style={{ fontSize: "clamp(2rem, 4vw, 3.6rem)" }}
+                >
+                  Alvará sanitário, BPF e rotulagem
+                  <br />
+                  <em className="italic text-[hsl(20_45%_70%)]">sem complicação</em>.
+                </h2>
+
+                <p className={`text-white/45 text-sm sm:text-base leading-relaxed mb-10
+                  transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                  Solicite um orçamento sem compromisso. Retornamos em até 24h úteis.
+                  Atendemos presencialmente em Indaiatuba e toda a região de Campinas.
+                </p>
+
+                <div className={`flex flex-wrap gap-3 transition-all duration-700 delay-300
+                  ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                  <a
+                    href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de solicitar um orçamento sem compromisso.")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2.5
+                      bg-[hsl(20_35%_62%)] text-white rounded-full
+                      px-8 py-4 text-sm font-semibold
+                      hover:bg-[hsl(20_35%_55%)]
+                      hover:shadow-[0_12px_36px_hsl(20_35%_62%/0.45)]
+                      hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    Solicitar Orçamento
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </a>
+
+                  <a
+                    href="#contato"
+                    className="inline-flex items-center gap-2
+                      border border-white/20 text-white/65 rounded-full
+                      px-8 py-4 text-sm font-medium
+                      hover:border-white/40 hover:text-white
+                      transition-all duration-300"
+                  >
+                    Enviar Mensagem
+                  </a>
+                </div>
+              </div>
+
+              {/* Right: contact channels */}
+              <div className={`flex flex-col gap-3 min-w-[260px]
+                transition-all duration-700 delay-400 ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"}`}>
+
+                <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/30 mb-1">
+                  Canais de contato
+                </p>
+
+                {channels.map(({ icon: Icon, label, value, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 p-4 rounded-[1rem]
+                      border border-white/[0.07] bg-white/[0.04]
+                      hover:border-[hsl(20_35%_62%/0.35)] hover:bg-[hsl(20_35%_62%/0.07)]
+                      transition-all duration-300"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-[hsl(20_35%_62%/0.12)]
+                      flex items-center justify-center flex-shrink-0
+                      group-hover:bg-[hsl(20_35%_62%/0.22)]
+                      transition-colors duration-300">
+                      <Icon className="w-4 h-4 text-[hsl(20_45%_68%)]" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <span className="block text-[10px] text-white/30 uppercase tracking-wider">{label}</span>
+                      <span className="block text-sm font-medium text-white/70
+                        group-hover:text-white transition-colors duration-300 truncate max-w-[200px]">
+                        {value}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+
+                {/* Schedule note */}
+                <p className="text-[11px] text-white/25 mt-2 leading-relaxed">
+                  Seg–Sex 08h–18h · Sáb 08h–12h
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Thin bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[2px]"
+            style={{ background: "linear-gradient(to right, transparent, hsl(20 35% 62% / 0.4), transparent)" }} />
         </div>
+
       </div>
     </section>
   );

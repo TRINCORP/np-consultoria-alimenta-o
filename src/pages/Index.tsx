@@ -51,7 +51,6 @@ const Index = () => {
         <PhilosophySection />
         <WhyChooseUs />
         <FoodServicesSection />
-        <FoodServicesSection />
         <ClientsSection />
         <TestimonialsSection />
         <PremiumCTA />

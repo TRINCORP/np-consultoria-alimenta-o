@@ -6,140 +6,140 @@ const pillars = [
   {
     icon: ShieldCheck,
     title: "Segurança",
-    description: "Garantir alimentos seguros, processos controlados e conformidade com a legislação sanitária.",
-    accent: "from-primary/20 to-primary/5",
+    desc: "Alimentos seguros, processos controlados e total conformidade com a legislação sanitária.",
   },
   {
     icon: LayoutGrid,
     title: "Organização",
-    description: "Estruturar operações, reduzir perdas, padronizar rotinas e fortalecer a gestão.",
-    accent: "from-accent/20 to-accent/5",
+    desc: "Operações estruturadas, rotinas padronizadas e gestão eficiente de cada detalhe.",
   },
   {
     icon: TrendingUp,
-    title: "Crescimento Sustentável",
-    description: "Preparar empresas e marcas para crescer com responsabilidade, credibilidade e posicionamento estratégico no mercado.",
-    accent: "from-primary/15 to-accent/10",
+    title: "Crescimento",
+    desc: "Marcas preparadas para crescer com credibilidade, responsabilidade e posicionamento.",
   },
 ];
 
 const PhilosophySection = () => {
-  const { ref: sectionRef, inView } = useInView({
-    threshold: 0.05,
-    triggerOnce: true,
-  });
-
-  const { ref: pillarsRef, inView: pillarsInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+  const { ref: topRef, inView: topInView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref: pillarsRef, inView: pillarsInView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section
-      ref={sectionRef}
-      className="bg-background py-16 sm:py-24 md:py-32 overflow-hidden relative"
-      aria-labelledby="philosophy-heading"
-    >
-      {/* Subtle animated background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]" />
-      </div>
+    <section className="bg-[#FAF9F7] py-20 lg:py-32 overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16">
 
-      <div className="container-custom relative z-10">
-        {/* Top: Asymmetric layout — text heavy, image accent */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          
-          {/* Left: Main content — 7 cols */}
-          <div className="lg:col-span-7 space-y-8">
-            <div className={`transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-primary mb-4 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5">
-                Nossa Filosofia
-              </span>
-              <h2
-                id="philosophy-heading"
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-[1.15] mb-6"
-              >
-                Compromisso com a{" "}
-                <span className="text-gradient silver-shine-text font-playfair italic">
-                  Segurança Alimentar
-                </span>{" "}
-                e o Crescimento do Seu Negócio
-              </h2>
+        {/* ── Top split: image + statement ── */}
+        <div ref={topRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20 lg:mb-28">
+
+          {/* Image */}
+          <div className={`relative transition-all duration-[1000ms] ${topInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
+            <div className="relative rounded-[2rem] overflow-hidden aspect-[4/5] max-w-sm mx-auto lg:max-w-none
+              shadow-[0_32px_64px_hsl(210_15%_12%/0.12)]">
+              <img
+                src={equipeNP}
+                alt="Equipe NP Consultoria"
+                className="w-full h-full object-cover object-top"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(20_20%_12%/0.55)] via-transparent to-transparent" />
+
+              {/* Quote overlay */}
+              <div className="absolute bottom-6 left-6 right-6 bg-white/88 backdrop-blur-[14px]
+                rounded-[1.25rem] px-5 py-4 border border-white/50">
+                <p className="font-playfair italic text-[hsl(210_15%_12%)] text-sm leading-snug">
+                  "Quando há método, conhecimento e liderança,
+                  o resultado é natural."
+                </p>
+                <span className="mt-2 block text-[11px] font-semibold tracking-[0.2em] uppercase text-[hsl(20_35%_58%)]">
+                  — NP Consultoria
+                </span>
+              </div>
             </div>
 
-            <div className={`space-y-5 transition-all duration-1000 delay-200 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Na NP Consultoria e NP Rotulagem, acreditamos que a segurança dos alimentos vai além da obrigação legal. Ela é um <strong className="text-foreground">compromisso com a vida, com a marca e com a sustentabilidade do negócio.</strong>
-              </p>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Trabalhamos com uma visão preventiva e estratégica, onde organização, gestão eficiente e conformidade caminham juntas. Nosso propósito é transformar estabelecimentos e marcas alimentícias em operações seguras, estruturadas e preparadas para crescer com responsabilidade.
-              </p>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Entendemos que cada empresa possui sua realidade, seus desafios e sua identidade. Por isso, atuamos de forma personalizada, aplicando soluções técnicas que sejam <strong className="text-foreground">viáveis, práticas e alinhadas aos objetivos de cada cliente.</strong>
-              </p>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Mais do que adequar empresas às normas, buscamos desenvolver equipes, fortalecer lideranças e estruturar processos que gerem resultados duradouros.
-              </p>
-            </div>
+            {/* Floating accent dot */}
+            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full
+              bg-[hsl(20_35%_70%/0.15)] border border-[hsl(20_35%_70%/0.2)] hidden lg:block" />
           </div>
 
-          {/* Right: Image accent — 5 cols */}
-          <div className={`lg:col-span-5 transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-10 scale-95'}`}>
-            <div className="relative group">
-              {/* Decorative frame */}
-              <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 rounded-[2rem] blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
-              <div className="absolute -inset-[2px] rounded-[1.5rem] bg-gradient-to-br from-primary/40 via-accent/30 to-primary/40 opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
-              
-              <div className="relative rounded-[1.4rem] overflow-hidden bg-card shadow-2xl shadow-primary/10">
-                <img
-                  src={equipeNP}
-                  alt="Equipe NP Consultoria, especialistas em segurança alimentar e gestão de qualidade"
-                  className="w-full aspect-[4/5] object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                {/* Gradient overlay at bottom */}
-                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5">
-                  <p className="text-white/90 text-sm font-medium italic leading-snug">
-                    "Quando há método, conhecimento e liderança, o resultado é natural: segurança, rentabilidade e valorização da marca."
+          {/* Statement */}
+          <div className={`transition-all duration-[1000ms] delay-200 ${topInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+            <span className="inline-block text-[11px] font-semibold tracking-[0.32em] uppercase
+              text-[hsl(20_35%_58%)] mb-6">
+              Nossa filosofia
+            </span>
+
+            <h2 className="font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08] mb-8"
+              style={{ fontSize: "clamp(2.2rem, 4vw, 3.6rem)" }}>
+              Segurança alimentar{" "}
+              <em className="italic text-[hsl(20_35%_58%)]">é um compromisso</em>,
+              <br />não uma obrigação.
+            </h2>
+
+            <div className="space-y-5 text-[hsl(210_10%_45%)] text-base leading-relaxed">
+              <p>
+                Na NP, acreditamos que a segurança dos alimentos vai além da legislação.
+                É um <strong className="text-[hsl(210_15%_18%)] font-semibold">compromisso com a vida,
+                com a marca e com a sustentabilidade do negócio.</strong>
+              </p>
+              <p>
+                Atuamos de forma preventiva e estratégica — onde organização, gestão eficiente
+                e conformidade caminham juntas para transformar operações em referências de qualidade.
+              </p>
+            </div>
+
+            {/* Thin rule */}
+            <div className="my-8 h-px bg-[hsl(20_35%_70%/0.2)]" />
+
+            <p className="font-playfair italic text-[hsl(20_35%_52%)] text-lg leading-snug">
+              "Mais do que adequar empresas às normas,<br />
+              desenvolvemos equipes e fortalecem marcas."
+            </p>
+          </div>
+        </div>
+
+        {/* ── Three pillars ── */}
+        <div ref={pillarsRef}>
+          <p className={`text-[11px] font-semibold tracking-[0.32em] uppercase text-[hsl(210_10%_55%)]
+            text-center mb-10 transition-all duration-700 ${pillarsInView ? "opacity-100" : "opacity-0"}`}>
+            Três pilares que guiam tudo
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+            {pillars.map(({ icon: Icon, title, desc }, i) => (
+              <div
+                key={title}
+                className={`group relative rounded-[1.5rem] border border-[hsl(20_35%_70%/0.18)]
+                  bg-white p-8 lg:p-10 overflow-hidden
+                  hover:border-[hsl(20_35%_70%/0.45)] hover:-translate-y-1
+                  hover:shadow-[0_16px_48px_hsl(20_35%_60%/0.1)]
+                  transition-all duration-500
+                  ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ transitionDelay: `${i * 120}ms` }}
+              >
+                {/* Hover gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[hsl(20_35%_70%/0.06)] to-transparent
+                  opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[1.5rem]" />
+
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-[hsl(20_35%_70%/0.1)]
+                    flex items-center justify-center mb-6
+                    group-hover:bg-[hsl(20_35%_70%/0.18)] group-hover:scale-105
+                    transition-all duration-300">
+                    <Icon className="w-5 h-5 text-[hsl(20_35%_58%)]" strokeWidth={1.75} />
+                  </div>
+
+                  <h3 className="font-playfair font-bold text-xl text-[hsl(210_15%_10%)] mb-3">
+                    {title}
+                  </h3>
+                  <p className="text-[hsl(210_10%_48%)] text-sm leading-relaxed">
+                    {desc}
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom: Three Pillars */}
-        <div ref={pillarsRef} className="mt-16 sm:mt-24">
-          <h3 className={`text-center text-xl sm:text-2xl font-bold text-foreground mb-3 transition-all duration-700 ${pillarsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-            Nossa filosofia se baseia em três pilares
-          </h3>
-          <div className={`w-16 h-1 bg-primary/60 rounded-full mx-auto mb-12 transition-all duration-700 delay-100 ${pillarsInView ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {pillars.map((pillar, index) => (
-              <article
-                key={pillar.title}
-                className={`relative group rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-8 sm:p-10 transition-all duration-700 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 ${
-                  pillarsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: `${200 + index * 150}ms` }}
-              >
-                {/* Gradient bg on hover */}
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${pillar.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                
-                <div className="relative z-10">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                    <pillar.icon className="w-7 h-7" />
-                  </div>
-                  <h4 className="text-xl font-bold text-foreground mb-3">{pillar.title}</h4>
-                  <p className="text-muted-foreground leading-relaxed">{pillar.description}</p>
-                </div>
-              </article>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );

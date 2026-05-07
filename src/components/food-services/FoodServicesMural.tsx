@@ -1,192 +1,211 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
-import fotoInspecao from "@/assets/food-services/foto1-inspecao.png";
-import fotoEstoque from "@/assets/food-services/foto2-estoque.png";
-import fotoEquipe from "@/assets/food-services/foto3-equipe.png";
-import fotoTemperatura from "@/assets/food-services/foto4-temperatura.png";
+
+import foto01 from "@/assets/food-services/field/servicos01.jpeg";
+import foto02 from "@/assets/food-services/field/servicos02.jpeg";
+import foto03 from "@/assets/food-services/field/servicos03.jpeg";
+import foto04 from "@/assets/food-services/field/servicos04.jpeg";
+import foto06 from "@/assets/food-services/field/servicos06.jpeg";
+import foto10 from "@/assets/food-services/field/servicos10.jpeg";
+import foto11 from "@/assets/food-services/field/servicos11.jpeg";
+import foto13 from "@/assets/food-services/field/servicos13.jpeg";
+import foto15 from "@/assets/food-services/field/servicos15.jpeg";
+
+const galleryItems = [
+  {
+    src: foto01,
+    alt: "Equipe NP Consultoria",
+    category: "Nossa Equipe",
+    caption: "Comprometimento em cada detalhe",
+  },
+  {
+    src: foto02,
+    alt: "Consultoria em campo",
+    category: "Consultoria Ativa",
+    caption: "Análise direta no ambiente real",
+  },
+  {
+    src: foto03,
+    alt: "Profissional em restaurante",
+    category: "Avaliação de Produtos",
+    caption: "Controle da origem ao prato",
+  },
+  {
+    src: foto04,
+    alt: "Atendimento nutricional",
+    category: "Nutrição Clínica",
+    caption: "Cuidado humano e técnico",
+  },
+  {
+    src: foto06,
+    alt: "Profissionais NP",
+    category: "Excelência Profissional",
+    caption: "Padrão e dedicação absolutos",
+  },
+  {
+    src: foto10,
+    alt: "Controle de qualidade no buffet",
+    category: "Controle de Qualidade",
+    caption: "Padrão elevado em cada etapa",
+  },
+  {
+    src: foto11,
+    alt: "Monitoramento de buffet",
+    category: "Supervisão de Produção",
+    caption: "Higiene, apresentação e sabor",
+  },
+  {
+    src: foto13,
+    alt: "Implantação de BPF",
+    category: "Documentação NP",
+    caption: "BPF implantada com rigor técnico",
+  },
+  {
+    src: foto15,
+    alt: "Equipe de cozinha",
+    category: "Gestão de Cozinha",
+    caption: "Liderança e eficiência operacional",
+  },
+];
 
 const FoodServicesMural = () => {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const { ref: headerRef, inView } = useInView({ threshold: 0.15, triggerOnce: true });
 
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
+  /* ── drag-to-scroll ── */
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStart = useRef({ x: 0, scrollLeft: 0 });
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (!trackRef.current) return;
+    setIsDragging(true);
+    dragStart.current = { x: e.pageX, scrollLeft: trackRef.current.scrollLeft };
   };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !trackRef.current) return;
+    e.preventDefault();
+    const dx = e.pageX - dragStart.current.x;
+    trackRef.current.scrollLeft = dragStart.current.scrollLeft - dx;
+  };
+  const stopDrag = () => setIsDragging(false);
 
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
+  /* touch support */
+  const touchStart = useRef({ x: 0, scrollLeft: 0 });
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (!trackRef.current) return;
+    touchStart.current = { x: e.touches[0].pageX, scrollLeft: trackRef.current.scrollLeft };
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (!trackRef.current) return;
+    const dx = e.touches[0].pageX - touchStart.current.x;
+    trackRef.current.scrollLeft = touchStart.current.scrollLeft - dx;
   };
 
   return (
-    <section className="bg-[#1a1a1a] py-16 lg:py-24 relative overflow-hidden">
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.04),transparent_70%)]" />
+    <section className="bg-[#1a1a1a] py-16 lg:py-24 overflow-hidden">
 
-      <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-10 lg:mb-14">
-          <span
-            className={`inline-block px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs sm:text-sm font-medium tracking-wider uppercase mb-5 transition-all duration-700 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            Nosso Dia a Dia
-          </span>
-          <h2
-            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-white transition-all duration-700 delay-100 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            A NP em <span className="text-gradient italic">Ação</span>
-          </h2>
-        </div>
+      {/* ── Header ── */}
+      <div
+        ref={headerRef}
+        className="px-6 lg:px-[6%] mb-10 lg:mb-14"
+      >
+        <span
+          className={`block text-[0.72rem] font-semibold tracking-[0.3em] uppercase text-primary mb-4 transition-all duration-700 ${
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
+          Nossa Atuação em Campo
+        </span>
 
-        {/* ── BENTO GRID MURAL ── */}
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 auto-rows-[140px] sm:auto-rows-[180px] lg:auto-rows-[200px] gap-3 sm:gap-4">
-
-          {/* Video — large, spans 2 cols + 2 rows */}
-          <div
-            className={`relative col-span-2 row-span-2 rounded-2xl overflow-hidden group cursor-pointer transition-all duration-700 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-            style={{ transitionDelay: "100ms" }}
-            onClick={togglePlay}
-          >
-            <video
-              ref={videoRef}
-              src="/videos/np-atendimento.mp4"
-              className="w-full h-full object-cover"
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster=""
-            />
-            <div className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"}`} />
-
-            {/* Play/Pause overlay */}
-            <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"}`}>
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:scale-110 transition-transform duration-300">
-                {isPlaying ? (
-                  <Pause className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="white" />
-                ) : (
-                  <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white ml-1" fill="white" />
-                )}
-              </div>
-            </div>
-
-            {/* Mute button */}
-            <button
-              onClick={(e) => { e.stopPropagation(); toggleMute(); }}
-              className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-black/60 transition-all duration-200 z-10"
+        <div className="flex items-end justify-between gap-6 flex-wrap">
+          <div>
+            <h2
+              className={`font-playfair text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.1] transition-all duration-700 delay-100 ${
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
             >
-              {isMuted ? (
-                <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-              ) : (
-                <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
-              )}
-            </button>
+              Cada visita.<br />
+              Cada detalhe.<br />
+              Cada{" "}
+              <em className="font-playfair italic text-transparent bg-clip-text"
+                style={{ backgroundImage: "linear-gradient(135deg, #e8a4b8 0%, #d4849a 45%, #b8607a 100%)" }}>
+                resultado.
+              </em>
+            </h2>
 
-            {/* Label */}
-            <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-10">
-              <span className="px-3 py-1 rounded-full bg-primary/80 text-white text-[10px] sm:text-xs font-medium tracking-wide">
-                ▶ Conheça a NP
-              </span>
-            </div>
+            <p
+              className={`mt-4 text-white/45 text-sm lg:text-base leading-relaxed max-w-lg transition-all duration-700 delay-200 ${
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
+              Conheça o trabalho que fazemos no campo, dentro das cozinhas,
+              com as equipes — onde a transformação realmente acontece.
+            </p>
           </div>
 
-          {/* Foto equipe — tall vertical on right */}
-          <div
-            className={`relative col-span-2 md:col-span-2 row-span-2 rounded-2xl overflow-hidden group transition-all duration-700 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          <span
+            className={`font-mono text-[0.75rem] tracking-[0.15em] uppercase text-white/25 flex items-center gap-2 transition-all duration-700 delay-300 ${
+              inView ? "opacity-100" : "opacity-0"
             }`}
-            style={{ transitionDelay: "250ms" }}
           >
-            <img
-              src={fotoEquipe}
-              alt="Equipe NP analisando documentos"
-              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 via-transparent to-transparent" />
-            <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4">
-              <p className="text-white font-semibold text-sm sm:text-base">Análise Documental</p>
-              <p className="text-white/60 text-xs sm:text-sm">Equipe técnica em campo</p>
-            </div>
-          </div>
-
-          {/* Foto inspeção — wide bottom-left */}
-          <div
-            className={`relative col-span-1 row-span-1 rounded-2xl overflow-hidden group transition-all duration-700 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-            style={{ transitionDelay: "400ms" }}
-          >
-            <img
-              src={fotoInspecao}
-              alt="Inspeção de qualidade NP"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 to-transparent" />
-            <span className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 text-white/90 text-[10px] sm:text-xs font-medium">
-              Inspeção
-            </span>
-          </div>
-
-          {/* Foto estoque */}
-          <div
-            className={`relative col-span-1 row-span-1 rounded-2xl overflow-hidden group transition-all duration-700 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-            style={{ transitionDelay: "500ms" }}
-          >
-            <img
-              src={fotoEstoque}
-              alt="Controle de estoque NP"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 to-transparent" />
-            <span className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 text-white/90 text-[10px] sm:text-xs font-medium">
-              Estoque
-            </span>
-          </div>
-
-          {/* Foto temperatura — wide */}
-          <div
-            className={`relative col-span-2 row-span-1 rounded-2xl overflow-hidden group transition-all duration-700 ${
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-            style={{ transitionDelay: "600ms" }}
-          >
-            <img
-              src={fotoTemperatura}
-              alt="Controle de temperatura NP"
-              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 via-transparent to-transparent" />
-            <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-white/90 text-[10px] sm:text-xs font-medium">
-                Monitoramento de Temperatura
-              </span>
-            </div>
-          </div>
-
+            ←→ Arraste para explorar
+          </span>
         </div>
+      </div>
+
+      {/* ── Horizontal gallery ── */}
+      <div
+        ref={trackRef}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={stopDrag}
+        onMouseLeave={stopDrag}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        className={`flex gap-4 sm:gap-5 px-6 lg:px-[6%] pb-4 overflow-x-auto select-none
+          [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth
+          ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        style={{ scrollSnapType: "x mandatory" }}
+      >
+        {galleryItems.map((item, i) => (
+          <div
+            key={i}
+            className={`relative flex-none w-[280px] sm:w-[340px] lg:w-[370px] h-[380px] sm:h-[440px] lg:h-[490px]
+              rounded-[18px] overflow-hidden group
+              transition-all duration-700 ${
+                inView
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }`}
+            style={{
+              scrollSnapAlign: "start",
+              transitionDelay: `${i * 60}ms`,
+            }}
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              loading="lazy"
+              draggable={false}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.07] pointer-events-none"
+            />
+
+            {/* caption — slides up on hover */}
+            <div
+              className="absolute bottom-0 left-0 right-0 px-6 py-7
+                bg-gradient-to-t from-black/75 to-transparent
+                translate-y-full group-hover:translate-y-0
+                transition-transform duration-[450ms] ease-out"
+            >
+              <span className="block text-[0.7rem] font-semibold tracking-[0.15em] uppercase text-primary mb-1">
+                {item.category}
+              </span>
+              <p className="font-playfair text-[1.05rem] font-semibold text-white leading-snug">
+                {item.caption}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
