@@ -33,9 +33,10 @@ const Hero = () => {
         />
         {/* Mobile: fade de baixo (texto legível), imagem visível no topo */}
         <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-[#F5EDE6] via-[#F5EDE6]/75 to-[#F5EDE6]/10" />
-        {/* Desktop: fade da esquerda (texto legível), imagem visível à direita */}
-        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-[#F5EDE6] via-[#F5EDE6]/80 to-transparent" />
-        <div className="absolute inset-0 hidden lg:block bg-gradient-to-b from-[#F5EDE6]/50 via-transparent to-[#F5EDE6]/30" />
+        {/* Desktop: fade da esquerda apenas nos primeiros 55%, direita totalmente visível */}
+        <div className="absolute inset-0 hidden lg:block"
+          style={{ background: "linear-gradient(to right, #F5EDE6 0%, #F5EDE6cc 30%, #F5EDE690 45%, transparent 58%)" }} />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-b from-[#F5EDE6]/40 via-transparent to-[#F5EDE6]/20" />
       </div>
 
       {/* Content */}
