@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import equipeHeroBg from "@/assets/equipe_NP_home.jpeg";
+import heroFoto from "@/assets/hero_section_foto.png";
 
 const WHATSAPP = "5519989750741";
 
@@ -22,33 +22,37 @@ const Hero = () => {
     `transition-all duration-[900ms] ${delay} ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`;
 
   return (
-    <section className="relative min-h-screen flex flex-col bg-[#1C1A18] overflow-hidden">
+    <section className="relative min-h-screen flex flex-col bg-[#F5EDE6] overflow-hidden">
 
       {/* Photo */}
       <div className="absolute inset-0">
         <img
-          src={equipeHeroBg}
+          src={heroFoto}
           alt="NP Consultoria Alimentar"
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1A18] via-[#1C1A18]/82 to-[#1C1A18]/15" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A18] via-transparent to-[#1C1A18]/40" />
+        {/* Left fade — garante legibilidade do texto sobre o fundo claro */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F5EDE6] via-[#F5EDE6]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5EDE6]/60 via-transparent to-[#F5EDE6]/40" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-end
-        px-6 sm:px-12 lg:px-20 pb-20 lg:pb-28 pt-36 max-w-[700px]">
+        px-6 sm:px-12 lg:px-20 pb-20 lg:pb-28 pt-36 max-w-[680px]">
 
         {/* Eyebrow */}
         <p className={`text-[11px] font-semibold tracking-[0.42em] uppercase
-          text-[hsl(20_45%_65%)] mb-8 ${fade("delay-[0ms]")}`}>
+          text-[hsl(20_45%_48%)] mb-8 ${fade("delay-[0ms]")}`}>
           Indaiatuba · Região de Campinas
         </p>
 
         {/* Headline */}
         <h1
-          className="font-playfair font-bold text-white leading-[1.04] mb-8"
-          style={{ fontSize: "clamp(3.2rem, 6.5vw, 5.8rem)" }}
+          className="font-playfair font-bold leading-[1.04] mb-8"
+          style={{
+            fontSize: "clamp(3rem, 6.5vw, 5.6rem)",
+            color: "hsl(20 20% 14%)",
+          }}
         >
           <span className={`block ${fade("delay-[100ms]")}`}>
             Segurança alimentar
@@ -56,11 +60,12 @@ const Hero = () => {
           <span className={`block ${fade("delay-[220ms]")}`}>
             que{" "}
             <span className="relative inline-block">
-              <em className="italic text-[hsl(20_45%_70%)]">protege</em>
+              <em className="italic" style={{ color: "hsl(20 45% 50%)" }}>protege</em>
               <span
-                className={`absolute -bottom-1 left-0 h-[2px] rounded-full bg-[hsl(20_35%_62%/0.55)]
+                className={`absolute -bottom-1 left-0 h-[2px] rounded-full
                   transition-all duration-[1300ms] delay-[900ms]
                   ${mounted ? "w-full" : "w-0"}`}
+                style={{ background: "hsl(20 40% 60% / 0.45)" }}
               />
             </span>
             {" "}e certifica.
@@ -68,7 +73,10 @@ const Hero = () => {
         </h1>
 
         {/* Descriptor */}
-        <p className={`text-white/40 text-base leading-relaxed max-w-[400px] mb-12 ${fade("delay-[360ms]")}`}>
+        <p
+          className={`text-base leading-relaxed max-w-[400px] mb-12 ${fade("delay-[360ms]")}`}
+          style={{ color: "hsl(20 12% 42%)" }}
+        >
           Do diagnóstico ao alvará sanitário — consultoria especializada
           para restaurantes, cozinhas e indústrias de alimentos.
         </p>
@@ -79,12 +87,21 @@ const Hero = () => {
             href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de solicitar uma consultoria.")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3
-              bg-[hsl(20_35%_62%)] text-white rounded-full
-              px-9 py-4 text-sm font-semibold
-              hover:bg-[hsl(20_35%_55%)]
-              hover:shadow-[0_16px_40px_hsl(20_35%_62%/0.4)]
+            className="group inline-flex items-center gap-3 rounded-full
+              px-9 py-4 text-sm font-semibold text-white
               hover:-translate-y-0.5 transition-all duration-300"
+            style={{
+              background: "hsl(20 38% 52%)",
+              boxShadow: "0 8px 28px hsl(20 38% 52% / 0.25)",
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 40px hsl(20 38% 52% / 0.4)";
+              (e.currentTarget as HTMLElement).style.background = "hsl(20 38% 45%)";
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px hsl(20 38% 52% / 0.25)";
+              (e.currentTarget as HTMLElement).style.background = "hsl(20 38% 52%)";
+            }}
           >
             Solicitar Consultoria
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -92,24 +109,37 @@ const Hero = () => {
 
           <button
             onClick={() => document.getElementById("servicos")?.scrollIntoView({ behavior: "smooth" })}
-            className="text-sm text-white/35 hover:text-white/70 transition-colors duration-300
-              tracking-wide underline-offset-4 hover:underline"
+            className="text-sm tracking-wide underline-offset-4 hover:underline transition-colors duration-300"
+            style={{ color: "hsl(20 12% 50%)" }}
           >
             Ver serviços
           </button>
         </div>
 
         {/* Stats */}
-        <div className={`flex items-stretch divide-x divide-white/[0.1] ${fade("delay-[600ms]")}`}>
-          {stats.map(({ value, label }) => (
-            <div key={label} className="flex flex-col gap-1.5 pr-10 last:pr-0 pl-10 first:pl-0">
+        <div
+          className={`flex items-stretch ${fade("delay-[600ms]")}`}
+          style={{ borderTop: "1px solid hsl(20 15% 82%)", paddingTop: "1.5rem", gap: 0 }}
+        >
+          {stats.map(({ value, label }, i) => (
+            <div
+              key={label}
+              className="flex flex-col gap-1.5 pr-10 last:pr-0 pl-10 first:pl-0"
+              style={i > 0 ? { borderLeft: "1px solid hsl(20 15% 82%)" } : undefined}
+            >
               <span
-                className="font-playfair font-bold text-[hsl(20_45%_72%)] leading-none"
-                style={{ fontSize: "clamp(1.9rem, 3vw, 2.8rem)" }}
+                className="font-playfair font-bold leading-none"
+                style={{
+                  fontSize: "clamp(1.9rem, 3vw, 2.8rem)",
+                  color: "hsl(20 42% 46%)",
+                }}
               >
                 {value}
               </span>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-white/25 leading-snug">
+              <span
+                className="text-[10px] uppercase tracking-[0.25em] leading-snug"
+                style={{ color: "hsl(20 12% 55%)" }}
+              >
                 {label}
               </span>
             </div>
@@ -124,12 +154,15 @@ const Hero = () => {
           ${mounted ? "opacity-100" : "opacity-0"}`}
       >
         <span
-          className="text-[9px] tracking-[0.35em] uppercase text-white/20"
-          style={{ writingMode: "vertical-lr" }}
+          className="text-[9px] tracking-[0.35em] uppercase"
+          style={{ writingMode: "vertical-lr", color: "hsl(20 15% 62%)" }}
         >
           Scroll
         </span>
-        <div className="w-px h-14 bg-gradient-to-b from-white/20 to-transparent" />
+        <div
+          className="w-px h-14"
+          style={{ background: "linear-gradient(to bottom, hsl(20 15% 62% / 0.5), transparent)" }}
+        />
       </div>
 
     </section>
