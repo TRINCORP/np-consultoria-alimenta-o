@@ -42,7 +42,7 @@ const ServiceCard = ({ service, index, visible }: {
   return (
     <div
       className={`group relative rounded-[1.25rem] border border-white/8
-        bg-white/[0.04] backdrop-blur-sm p-7 overflow-hidden
+        bg-white/[0.04] backdrop-blur-sm p-7 overflow-hidden h-full
         hover:border-[hsl(20_35%_70%/0.4)] hover:-translate-y-2
         hover:bg-white/[0.08]
         transition-all duration-500
@@ -157,9 +157,11 @@ const FoodServicesSection = () => {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          <div className="flex flex-wrap justify-center gap-4 lg:gap-5">
             {services.map((service, i) => (
-              <ServiceCard key={i} service={service} index={i} visible={cardsInView} />
+              <div key={i} className="w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-14px)]">
+                <ServiceCard service={service} index={i} visible={cardsInView} />
+              </div>
             ))}
           </div>
         </div>
