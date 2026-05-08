@@ -29,16 +29,18 @@ const Hero = () => {
         <img
           src={heroFoto}
           alt="NP Consultoria Alimentar"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-[70%_center] lg:object-center"
         />
-        {/* Left fade — garante legibilidade do texto sobre o fundo claro */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F5EDE6] via-[#F5EDE6]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F5EDE6]/60 via-transparent to-[#F5EDE6]/40" />
+        {/* Mobile: fade de baixo (texto legível), imagem visível no topo */}
+        <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-[#F5EDE6] via-[#F5EDE6]/75 to-[#F5EDE6]/10" />
+        {/* Desktop: fade da esquerda (texto legível), imagem visível à direita */}
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-[#F5EDE6] via-[#F5EDE6]/80 to-transparent" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-b from-[#F5EDE6]/50 via-transparent to-[#F5EDE6]/30" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-end
-        px-6 sm:px-12 lg:px-20 pb-20 lg:pb-28 pt-36 max-w-[680px]">
+        px-6 sm:px-12 lg:px-20 pb-16 lg:pb-28 pt-[52vw] sm:pt-[40vw] lg:pt-36 max-w-[680px]">
 
         {/* Eyebrow */}
         <p className={`text-[11px] font-semibold tracking-[0.42em] uppercase
