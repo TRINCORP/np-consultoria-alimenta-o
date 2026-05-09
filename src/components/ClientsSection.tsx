@@ -5,23 +5,17 @@ import npLogo from "@/assets/logo-np-circle.png";
 type Client = { id: number; name: string; image: string };
 
 const clients: Client[] = [
-  { id: 1,  name: "Driblix pizzaria",        image: "/fotos_clientes/driblix.png" },
-  { id: 2,  name: "Padaria gianini",         image: "/fotos_clientes/gianini.png" },
+  { id: 1,  name: "Driblix Pizzaria",        image: "/fotos_clientes/driblix.png" },
+  { id: 2,  name: "Padaria Gianini",         image: "/fotos_clientes/gianini.png" },
   { id: 3,  name: "Benedito",                image: "/fotos_clientes/benedito.png" },
-  { id: 4,  name: "A boutique das flores",   image: "/fotos_clientes/boutiqueFlores.png" },
-  { id: 5,  name: "Caviúnas",                image: "/fotos_clientes/caviunas.png" },
-  { id: 6,  name: "Della Torre restaurante", image: "/fotos_clientes/dellatorre.png" },
-  { id: 7,  name: "Pereira pastelaria",      image: "/fotos_clientes/pereira.png" },
-  { id: 8,  name: "Santa Ana cafeteria",     image: "/fotos_clientes/santaana.png" },
-  { id: 9,  name: "Summer",                  image: "/fotos_clientes/summer.png" },
-  { id: 10, name: "Azeite",                  image: "/fotos_clientes/azeite.png" },
-  { id: 11, name: "Bandeira",                image: "/fotos_clientes/bandeira.png" },
-  { id: 12, name: "Fabi",                    image: "/fotos_clientes/fabi.png" },
-  { id: 13, name: "Florência Gourmet",       image: "/fotos_clientes/florencia.png" },
-  { id: 14, name: "Gerbelli",                image: "/fotos_clientes/gerbelli.png" },
-  { id: 15, name: "Jesuita",                 image: "/fotos_clientes/jesuita.png" },
-  { id: 16, name: "Maria Ana",               image: "/fotos_clientes/mariaana.png" },
-  { id: 17, name: "Na Rua",                  image: "/fotos_clientes/narua.png" },
+  { id: 4,  name: "Della Torre Restaurante", image: "/fotos_clientes/dellatorre.png" },
+  { id: 5,  name: "Pastelaria Pereira",      image: "/fotos_clientes/pereira.png" },
+  { id: 6,  name: "Summer Gastro Bar",       image: "/fotos_clientes/summer.png" },
+  { id: 7,  name: "Azeite Restaurante",      image: "/fotos_clientes/azeite.png" },
+  { id: 8,  name: "Fabi Back",               image: "/fotos_clientes/fabi.png" },
+  { id: 9,  name: "Gerbelli Doceria",        image: "/fotos_clientes/gerbelli.png" },
+  { id: 10, name: "Mosteiro de Itaici",      image: "/fotos_clientes/jesuita.png" },
+  { id: 11, name: "Na Rua",                  image: "/fotos_clientes/narua.png" },
 ];
 
 /* Divide clients into 2 non-overlapping groups for the rows */
