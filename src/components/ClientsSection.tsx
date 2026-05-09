@@ -24,16 +24,15 @@ const clients: Client[] = [
   { id: 17, name: "Na Rua",                  image: "/fotos_clientes/narua.png" },
 ];
 
-/* Divide clients into 3 non-overlapping groups for the rows */
-const rowA = clients.slice(0, 6);
-const rowB = clients.slice(6, 12).reverse();
-const rowC = clients.slice(12, 17);
+/* Divide clients into 2 non-overlapping groups for the rows */
+const half = Math.ceil(clients.length / 2);
+const rowA = clients.slice(0, half);
+const rowB = clients.slice(half).reverse();
 
-/* Curated tile background palette (warm + earthy, on-brand) */
+/* Curated light tile background palette so all logos render naturally */
 const tileBgs = [
-  "#F5E9DA", "#FFFFFF", "#1F2937", "#E8C9A8", "#0F3D2E",
-  "#C9542F", "#FAF3E7", "#2D2A26", "#D9B382", "#0E1B2C",
-  "#EDE3D2", "#3A2A1F", "#F2D7C2", "#1C1A18", "#E5DACB",
+  "#FFFFFF", "#F5E9DA", "#FAF3E7", "#E8C9A8",
+  "#EDE3D2", "#F2D7C2", "#E5DACB", "#FBF6EC",
 ];
 
 const LogoRow = ({
@@ -57,7 +56,6 @@ const LogoRow = ({
     >
       {[...items, ...items, ...items].map((client, i) => {
         const bg = tileBgs[(client.id + offsetIndex + i) % tileBgs.length];
-        const isDark = ["#1F2937","#0F3D2E","#2D2A26","#0E1B2C","#3A2A1F","#1C1A18","#C9542F"].includes(bg);
         return (
           <div
             key={`${client.id}-${i}`}
@@ -69,8 +67,7 @@ const LogoRow = ({
           >
             {/* Country tag */}
             <span
-              className={`absolute top-1.5 right-2 text-[9px] font-semibold tracking-[0.2em]
-                ${isDark ? "text-white/55" : "text-black/45"}`}
+              className="absolute top-1.5 right-2 text-[9px] font-semibold tracking-[0.2em] text-black/45"
             >
               BR
             </span>
@@ -79,7 +76,6 @@ const LogoRow = ({
               alt={client.name}
               loading="lazy"
               className="max-w-full max-h-full object-contain"
-              style={isDark ? { filter: "brightness(0) invert(1)" } : undefined}
             />
           </div>
         );
@@ -124,8 +120,7 @@ const ClientsSection: React.FC = () => {
         {/* Marquee rows in the background */}
         <div className="space-y-3 sm:space-y-4 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
           <LogoRow items={rowA} reverse={false} duration={70} offsetIndex={0} />
-          <LogoRow items={rowB} reverse={true}  duration={60} offsetIndex={5} />
-          <LogoRow items={rowC} reverse={false} duration={80} offsetIndex={10} />
+          <LogoRow items={rowB} reverse={true}  duration={80} offsetIndex={3} />
         </div>
 
         {/* Center NP medallion */}
