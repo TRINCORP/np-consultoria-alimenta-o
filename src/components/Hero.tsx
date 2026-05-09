@@ -22,40 +22,25 @@ const Hero = () => {
     `transition-all duration-[900ms] ${delay} ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`;
 
   return (
-    <section className="relative min-h-screen flex flex-col bg-[#F5EDE6] overflow-hidden">
+    <section className="relative min-h-screen flex flex-col lg:flex-row bg-[#F5EDE6] overflow-hidden">
 
-      {/* Photo */}
-      <div className="absolute inset-0">
-        <img
-          src={heroFoto}
-          alt="NP Consultoria Alimentar"
-          className="w-full h-full object-cover object-[70%_center] lg:object-center"
-        />
-        {/* Mobile: fade de baixo (texto legível), imagem visível no topo */}
-        <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-[#F5EDE6] via-[#F5EDE6]/75 to-[#F5EDE6]/10" />
-        {/* Desktop: fade da esquerda apenas nos primeiros 55%, direita totalmente visível */}
-        <div className="absolute inset-0 hidden lg:block"
-          style={{ background: "linear-gradient(to right, #F5EDE6 0%, #F5EDE6cc 30%, #F5EDE690 45%, transparent 58%)" }} />
-        <div className="absolute inset-0 hidden lg:block bg-gradient-to-b from-[#F5EDE6]/40 via-transparent to-[#F5EDE6]/20" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end
-        px-6 sm:px-12 lg:px-20 pb-16 lg:pb-28 pt-[52vw] sm:pt-[40vw] lg:pt-36 max-w-[680px]">
+      {/* ── LEFT — Texto ── */}
+      <div className="relative z-10 flex flex-col justify-center
+        w-full lg:w-[52%] xl:w-[50%]
+        px-6 sm:px-12 lg:px-16 xl:px-24
+        pt-28 pb-10 lg:py-28
+        order-2 lg:order-1">
 
         {/* Eyebrow */}
         <p className={`text-[11px] font-semibold tracking-[0.42em] uppercase
-          text-[hsl(20_45%_48%)] mb-8 ${fade("delay-[0ms]")}`}>
+          text-[hsl(20_45%_48%)] mb-7 ${fade("delay-[0ms]")}`}>
           Indaiatuba · Região de Campinas
         </p>
 
         {/* Headline */}
         <h1
-          className="font-playfair font-bold leading-[1.04] mb-8"
-          style={{
-            fontSize: "clamp(3rem, 6.5vw, 5.6rem)",
-            color: "hsl(20 20% 14%)",
-          }}
+          className="font-playfair font-bold leading-[1.05] mb-7"
+          style={{ fontSize: "clamp(2.6rem, 5vw, 5rem)", color: "hsl(20 20% 14%)" }}
         >
           <span className={`block ${fade("delay-[100ms]")}`}>
             Segurança alimentar
@@ -77,21 +62,21 @@ const Hero = () => {
 
         {/* Descriptor */}
         <p
-          className={`text-base leading-relaxed max-w-[400px] mb-12 ${fade("delay-[360ms]")}`}
+          className={`text-base leading-relaxed max-w-[420px] mb-10 ${fade("delay-[360ms]")}`}
           style={{ color: "hsl(20 12% 42%)" }}
         >
           Do diagnóstico ao alvará sanitário — consultoria especializada
           para restaurantes, cozinhas e indústrias de alimentos.
         </p>
 
-        {/* CTA */}
-        <div className={`flex items-center gap-6 mb-16 ${fade("delay-[460ms]")}`}>
+        {/* CTAs */}
+        <div className={`flex flex-wrap items-center gap-4 mb-14 ${fade("delay-[460ms]")}`}>
           <a
             href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de solicitar uma consultoria.")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 rounded-full
-              px-9 py-4 text-sm font-semibold text-white
+              px-8 py-4 text-sm font-semibold text-white
               hover:-translate-y-0.5 transition-all duration-300"
             style={{
               background: "hsl(20 38% 52%)",
@@ -121,21 +106,18 @@ const Hero = () => {
 
         {/* Stats */}
         <div
-          className={`flex items-stretch ${fade("delay-[600ms]")}`}
-          style={{ borderTop: "1px solid hsl(20 15% 82%)", paddingTop: "1.5rem", gap: 0 }}
+          className={`flex items-stretch flex-wrap gap-y-4 ${fade("delay-[600ms]")}`}
+          style={{ borderTop: "1px solid hsl(20 15% 82%)", paddingTop: "1.5rem" }}
         >
           {stats.map(({ value, label }, i) => (
             <div
               key={label}
-              className="flex flex-col gap-1.5 pr-10 last:pr-0 pl-10 first:pl-0"
+              className="flex flex-col gap-1.5 pr-8 last:pr-0 pl-8 first:pl-0"
               style={i > 0 ? { borderLeft: "1px solid hsl(20 15% 82%)" } : undefined}
             >
               <span
                 className="font-playfair font-bold leading-none"
-                style={{
-                  fontSize: "clamp(1.9rem, 3vw, 2.8rem)",
-                  color: "hsl(20 42% 46%)",
-                }}
+                style={{ fontSize: "clamp(1.8rem, 2.8vw, 2.6rem)", color: "hsl(20 42% 46%)" }}
               >
                 {value}
               </span>
@@ -150,9 +132,24 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll line */}
+      {/* ── RIGHT — Imagem em tamanho natural ── */}
       <div
-        className={`absolute right-10 bottom-10 hidden lg:flex flex-col items-center gap-3
+        className={`w-full lg:w-[48%] xl:w-[50%] flex items-center justify-center
+          order-1 lg:order-2 pt-20 lg:pt-0
+          transition-all duration-[1000ms] delay-[200ms]
+          ${mounted ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
+      >
+        <img
+          src={heroFoto}
+          alt="NP Consultoria Alimentar — segurança e certificação"
+          className="w-full h-auto object-contain max-h-[55vw] lg:max-h-screen"
+          style={{ display: "block" }}
+        />
+      </div>
+
+      {/* Scroll line — desktop only */}
+      <div
+        className={`absolute right-8 bottom-8 hidden lg:flex flex-col items-center gap-3
           transition-all duration-700 delay-[800ms]
           ${mounted ? "opacity-100" : "opacity-0"}`}
       >
