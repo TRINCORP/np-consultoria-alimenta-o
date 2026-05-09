@@ -24,6 +24,11 @@ const clients: Client[] = [
   { id: 17, name: "Na Rua",                  image: "/fotos_clientes/narua.png" },
 ];
 
+/* Divide clients into 3 non-overlapping groups for the rows */
+const rowA = clients.slice(0, 6);
+const rowB = clients.slice(6, 12).reverse();
+const rowC = clients.slice(12, 17);
+
 /* Curated tile background palette (warm + earthy, on-brand) */
 const tileBgs = [
   "#F5E9DA", "#FFFFFF", "#1F2937", "#E8C9A8", "#0F3D2E",
@@ -35,10 +40,12 @@ const LogoRow = ({
   items,
   reverse = false,
   duration = 60,
+  offsetIndex = 0,
 }: {
   items: Client[];
   reverse?: boolean;
   duration?: number;
+  offsetIndex?: number;
 }) => (
   <div className="overflow-hidden">
     <div
@@ -49,7 +56,7 @@ const LogoRow = ({
       }}
     >
       {[...items, ...items, ...items].map((client, i) => {
-        const bg = tileBgs[(client.id + i) % tileBgs.length];
+        const bg = tileBgs[(client.id + offsetIndex + i) % tileBgs.length];
         const isDark = ["#1F2937","#0F3D2E","#2D2A26","#0E1B2C","#3A2A1F","#1C1A18","#C9542F"].includes(bg);
         return (
           <div
@@ -80,11 +87,6 @@ const LogoRow = ({
     </div>
   </div>
 );
-
-/* Two halves of the catalogue, shuffled per row for visual variety */
-const rowA = clients;
-const rowB = [...clients].reverse();
-const rowC = clients.slice(4).concat(clients.slice(0, 4));
 
 const ClientsSection: React.FC = () => {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
@@ -121,9 +123,9 @@ const ClientsSection: React.FC = () => {
       <div className="relative">
         {/* Marquee rows in the background */}
         <div className="space-y-3 sm:space-y-4 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
-          <LogoRow items={rowA} reverse={false} duration={70} />
-          <LogoRow items={rowB} reverse={true}  duration={60} />
-          <LogoRow items={rowC} reverse={false} duration={80} />
+          <LogoRow items={rowA} reverse={false} duration={70} offsetIndex={0} />
+          <LogoRow items={rowB} reverse={true}  duration={60} offsetIndex={5} />
+          <LogoRow items={rowC} reverse={false} duration={80} offsetIndex={10} />
         </div>
 
         {/* Center NP medallion */}
@@ -137,12 +139,12 @@ const ClientsSection: React.FC = () => {
             <div className="absolute -inset-12 rounded-full border border-white/[0.05]" />
             {/* Disc */}
             <div className="relative w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 rounded-full
-              bg-white flex items-center justify-center
+              bg-white flex items-center justify-center overflow-hidden
               shadow-[0_30px_80px_rgba(0,0,0,0.6)] ring-1 ring-black/5">
               <img
                 src={npLogo}
                 alt="NP Consultoria"
-                className="w-[78%] h-[78%] object-contain"
+                className="w-[92%] h-[92%] object-cover scale-110"
               />
             </div>
           </div>
