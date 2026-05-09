@@ -123,9 +123,9 @@ const ClientsSection: React.FC = () => {
       <div className="relative">
         {/* Marquee rows in the background */}
         <div className="space-y-3 sm:space-y-4 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
-          <LogoRow items={rowA} reverse={false} duration={70} />
-          <LogoRow items={rowB} reverse={true}  duration={60} />
-          <LogoRow items={rowC} reverse={false} duration={80} />
+          <LogoRow items={rowA} reverse={false} duration={70} offsetIndex={0} />
+          <LogoRow items={rowB} reverse={true}  duration={60} offsetIndex={5} />
+          <LogoRow items={rowC} reverse={false} duration={80} offsetIndex={10} />
         </div>
 
         {/* Center NP medallion */}
@@ -139,12 +139,12 @@ const ClientsSection: React.FC = () => {
             <div className="absolute -inset-12 rounded-full border border-white/[0.05]" />
             {/* Disc */}
             <div className="relative w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 rounded-full
-              bg-white flex items-center justify-center
+              bg-white flex items-center justify-center overflow-hidden
               shadow-[0_30px_80px_rgba(0,0,0,0.6)] ring-1 ring-black/5">
               <img
                 src={npLogo}
                 alt="NP Consultoria"
-                className="w-[78%] h-[78%] object-contain"
+                className="w-[92%] h-[92%] object-cover scale-110"
               />
             </div>
           </div>
