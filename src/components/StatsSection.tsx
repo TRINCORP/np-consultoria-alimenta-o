@@ -2,7 +2,7 @@ import { useInView } from "react-intersection-observer";
 import AnimatedCounter from "./AnimatedCounter";
 
 const stats = [
-  { value: 300, suffix: "+", label: "Empresas\natendidas" },
+  { value: 10000, suffix: "+", label: "Consumidores\nimpactados" },
   { value: 92,  suffix: "%", label: "Aprovação na\nprimeira vistoria" },
   { value: 500, suffix: "+", label: "Profissionais\ntreinados" },
 ];

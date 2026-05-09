@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 const WHATSAPP = "5519989750741";
 
 const heroStats = [
-  { value: "300+", label: "Empresas atendidas" },
+  { value: "+10mil", label: "Consumidores impactados" },
   { value: "92%",  label: "Aprovação na 1ª vistoria" },
   { value: "15+",  label: "Anos de experiência" },
 ];

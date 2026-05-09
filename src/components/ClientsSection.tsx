@@ -99,13 +99,12 @@ const ClientsSection: React.FC = () => {
             transition-all duration-700 delay-100 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
         >
-          Mais de{" "}
-          <em className="italic text-[hsl(20_45%_70%)]">300 empresas</em>
-          {" "}confiam na NP.
+          Clientes que já{" "}
+          <em className="italic text-[hsl(20_45%_70%)]">impactamos</em>.
         </h2>
         <p className={`mt-4 text-white/50 text-sm max-w-xl mx-auto
           transition-all duration-700 delay-200 ${inView ? "opacity-100" : "opacity-0"}`}>
-          Restaurantes, indústrias e cozinhas reconhecidos por marcas oficiais.
+          Estabelecimentos de restaurantes, padarias, indústrias e cozinhas de toda a região.
         </p>
       </div>
 

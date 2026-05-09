@@ -249,9 +249,9 @@ const PremiumServicesSection = () => {
             
             {/* Floating metric */}
             <div className="flex items-baseline gap-3 pb-4 border-b border-border/30">
-              <span className="text-5xl lg:text-6xl font-playfair font-bold text-primary/80">300+</span>
+              <span className="text-5xl lg:text-6xl font-playfair font-bold text-primary/80">+10mil</span>
               <span className="text-sm text-muted-foreground leading-tight">
-                empresas confiam<br />na nossa consultoria
+                consumidores<br />já impactados
               </span>
             </div>
           </div>

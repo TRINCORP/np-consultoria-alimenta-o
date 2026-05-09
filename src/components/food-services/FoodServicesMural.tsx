@@ -206,7 +206,7 @@ const FoodServicesMural = () => {
               }`}
             >
               {[
-                { n: "300+", l: "operações atendidas" },
+                { n: "+10mil", l: "consumidores impactados" },
                 { n: "15+", l: "anos em campo" },
                 { n: "92%", l: "aprovação sanitária" },
               ].map((s) => (

@@ -5,7 +5,7 @@ import heroFoto from "@/assets/hero_section_foto.png";
 const WHATSAPP = "5519989750741";
 
 const stats = [
-  { value: "300+", label: "Empresas" },
+  { value: "+10mil", label: "Consumidores" },
   { value: "92%",  label: "1ª vistoria" },
   { value: "15+",  label: "Anos" },
 ];

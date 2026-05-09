@@ -191,7 +191,7 @@ const PremiumCTA = () => {
 
             {/* Trust pills */}
             <div className="flex flex-wrap gap-2">
-              {["Resposta em até 24h", "+300 empresas", "Atendimento personalizado"].map((badge) => (
+              {["Resposta em até 24h", "+10mil consumidores", "Atendimento personalizado"].map((badge) => (
                 <span key={badge} className="inline-flex items-center gap-1.5 px-3 py-1.5
                   rounded-full bg-[hsl(20_35%_62%/0.1)] border border-[hsl(20_35%_62%/0.2)]
                   text-[hsl(20_45%_70%)] text-[11px] font-medium">
