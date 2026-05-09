@@ -83,8 +83,8 @@ const Header = () => {
               <Link 
                 key={to}
                 to={to} 
-                className={`text-white/90 hover:text-white transition-colors duration-200 font-medium hover:bg-white/10 rounded-full ${
-                  isScrolled ? 'text-sm px-4 py-2' : 'text-sm px-5 py-2.5'
+                className={`font-playfair font-normal tracking-wide text-white/85 hover:text-white transition-colors duration-200 hover:bg-white/10 rounded-full ${
+                  isScrolled ? 'text-sm px-4 py-2' : 'text-[0.95rem] px-5 py-2.5'
                 }`}
               >
                 {label}
@@ -163,7 +163,7 @@ const Header = () => {
                   key={to}
                   to={to} 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-colors py-3 px-4 rounded-xl"
+                  className="font-playfair font-normal text-lg tracking-wide text-white/85 hover:text-white hover:bg-white/5 transition-colors py-3 px-4 rounded-xl"
                 >
                   {label}
                 </Link>
@@ -173,7 +173,7 @@ const Header = () => {
                   setIsMobileMenuOpen(false);
                   scrollToContato();
                 }}
-                className="text-lg font-medium text-white/90 hover:text-white hover:bg-white/5 transition-colors py-3 px-4 rounded-xl text-left"
+                className="font-playfair font-normal text-lg tracking-wide text-white/85 hover:text-white hover:bg-white/5 transition-colors py-3 px-4 rounded-xl text-left"
               >
                 Contato
               </button>
