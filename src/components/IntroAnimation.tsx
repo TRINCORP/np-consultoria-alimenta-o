@@ -9,12 +9,12 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   const [phase, setPhase] = useState<"in" | "hold" | "out" | "done">("in");
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("hold"), 600);
-    const t2 = setTimeout(() => setPhase("out"),  2600);
+    const t1 = setTimeout(() => setPhase("hold"), 400);
+    const t2 = setTimeout(() => setPhase("out"),  2400);
     const t3 = setTimeout(() => {
       setPhase("done");
       onComplete?.();
-    }, 3500);
+    }, 3200);
 
     return () => [t1, t2, t3].forEach(clearTimeout);
   }, [onComplete]);
@@ -29,85 +29,102 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#1C1A18]"
       style={{
         opacity: exiting ? 0 : 1,
-        transition: exiting ? "opacity 900ms cubic-bezier(0.4, 0, 0.2, 1)" : "none",
+        transition: exiting ? "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)" : "none",
         pointerEvents: exiting ? "none" : "auto",
       }}
     >
-      {/* Subtle warm ambient */}
+      {/* Warm ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 60% 50% at 50% 50%, hsl(20 35% 62% / 0.07), transparent)",
+          background:
+            "radial-gradient(ellipse 50% 45% at 50% 50%, hsl(20 35% 62% / 0.12), transparent 70%)",
         }}
       />
 
-      {/* Center content */}
-      <div className="relative flex flex-col items-center gap-7">
-
-        {/* Logo */}
-        <div
+      {/* Center: logo with elegant rotating loader ring */}
+      <div className="relative flex items-center justify-center">
+        {/* Outer rotating ring (gold sweep) */}
+        <svg
+          className="absolute"
+          width="240"
+          height="240"
+          viewBox="0 0 240 240"
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? "scale(1) translateY(0)" : "scale(0.88) translateY(10px)",
-            transition: "opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1)",
-            filter: "drop-shadow(0 0 32px hsl(20 35% 62% / 0.35))",
+            transition: "opacity 600ms ease",
+            animation: "intro-spin 2.4s linear infinite",
           }}
         >
-          <img
-            src={logoNP}
-            alt="NP Consultoria"
-            className="w-20 h-20 sm:w-28 sm:h-28 object-contain"
+          <defs>
+            <linearGradient id="introRing" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(20 45% 68%)" stopOpacity="0" />
+              <stop offset="100%" stopColor="hsl(20 45% 68%)" stopOpacity="1" />
+            </linearGradient>
+          </defs>
+          <circle
+            cx="120"
+            cy="120"
+            r="110"
+            fill="none"
+            stroke="url(#introRing)"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeDasharray="180 520"
           />
-        </div>
+        </svg>
 
-        {/* Name + line */}
-        <div className="flex flex-col items-center gap-4">
+        {/* Static thin ring */}
+        <div
+          className="absolute rounded-full border border-white/10"
+          style={{
+            width: 240,
+            height: 240,
+            opacity: visible ? 1 : 0,
+            transition: "opacity 700ms ease",
+          }}
+        />
 
-          {/* NP CONSULTORIA */}
-          <div
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(12px)",
-              transition: "opacity 700ms 120ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms 120ms cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-            className="flex flex-col items-center gap-1"
-          >
-            <span
-              className="font-playfair font-bold text-white tracking-[0.06em]"
-              style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)" }}
-            >
-              NP
-            </span>
-            <span
-              className="text-[10px] sm:text-[11px] font-semibold tracking-[0.45em] uppercase text-[hsl(20_35%_62%)]"
-            >
-              Consultoria
-            </span>
-          </div>
+        {/* Soft inner glow */}
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: 200,
+            height: 200,
+            background:
+              "radial-gradient(circle, hsl(20 45% 65% / 0.35), transparent 70%)",
+            filter: "blur(20px)",
+            opacity: visible ? 1 : 0,
+            transition: "opacity 900ms ease",
+          }}
+        />
 
-          {/* Thin line */}
-          <div
-            style={{
-              width: visible ? "80px" : "0px",
-              transition: "width 800ms 300ms cubic-bezier(0.16, 1, 0.3, 1)",
-              height: "1px",
-              background: "linear-gradient(to right, transparent, hsl(20 35% 62% / 0.5), transparent)",
-            }}
-          />
-
-          {/* Tagline */}
-          <span
-            style={{
-              opacity: visible ? 1 : 0,
-              transition: "opacity 700ms 450ms ease",
-              color: "hsl(20 35% 62% / 0.4)",
-            }}
-            className="text-[9px] sm:text-[10px] tracking-[0.5em] uppercase font-medium"
-          >
-            Alimentação
-          </span>
-        </div>
+        {/* Logo */}
+        <img
+          src={logoNP}
+          alt="NP Consultoria"
+          className="relative w-32 h-32 sm:w-40 sm:h-40 object-contain"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "scale(1)" : "scale(0.85)",
+            transition:
+              "opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1)",
+            filter: "drop-shadow(0 0 40px hsl(20 45% 65% / 0.55))",
+            animation: visible ? "intro-breathe 3s ease-in-out infinite" : "none",
+          }}
+        />
       </div>
+
+      <style>{`
+        @keyframes intro-spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        @keyframes intro-breathe {
+          0%, 100% { filter: drop-shadow(0 0 30px hsl(20 45% 65% / 0.45)); }
+          50%      { filter: drop-shadow(0 0 55px hsl(20 45% 70% / 0.7)); }
+        }
+      `}</style>
     </div>
   );
 };
