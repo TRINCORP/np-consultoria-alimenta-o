@@ -95,7 +95,7 @@ const PhilosophySection = () => {
 
             <p className="font-playfair italic text-[hsl(20_35%_52%)] text-lg leading-snug">
               "Mais do que adequar empresas às normas,<br />
-              desenvolvemos equipes e fortalecem marcas."
+              desenvolvemos equipes e fortalecemos marcas."
             </p>
           </div>
         </div>
