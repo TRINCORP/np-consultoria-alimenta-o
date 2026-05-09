@@ -4,10 +4,12 @@ import heroFoto from "@/assets/hero_section_foto.png";
 
 const WHATSAPP = "5519989750741";
 
-const stats = [
-  { value: "+10mil", label: "Consumidores" },
-  { value: "92%",  label: "1ª vistoria" },
-  { value: "15+",  label: "Anos" },
+const pillars = [
+  "Adequação Sanitária",
+  "Estratégia Operacional",
+  "Boas Práticas de Fabricação",
+  "Rotulagem ANVISA",
+  "Alvará Sanitário",
 ];
 
 const Hero = () => {
@@ -122,30 +124,27 @@ const Hero = () => {
           </button>
         </div>
 
-        {/* Stats */}
+        {/* Pillars */}
         <div
-          className={`flex items-stretch flex-wrap gap-y-4 ${fade("delay-[600ms]")}`}
-          style={{ borderTop: "1px solid hsl(20 15% 82%)", paddingTop: "1.5rem" }}
+          className={`flex flex-wrap gap-2 ${fade("delay-[600ms]")}`}
+          style={{ borderTop: "1px solid hsl(20 15% 82%)", paddingTop: "1.25rem" }}
         >
-          {stats.map(({ value, label }, i) => (
-            <div
+          {pillars.map((label) => (
+            <span
               key={label}
-              className="flex flex-col gap-1.5 pr-8 last:pr-0 pl-8 first:pl-0"
-              style={i > 0 ? { borderLeft: "1px solid hsl(20 15% 82%)" } : undefined}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium"
+              style={{
+                background: "hsl(20 35% 70% / 0.12)",
+                border: "1px solid hsl(20 35% 65% / 0.25)",
+                color: "hsl(20 30% 38%)",
+              }}
             >
               <span
-                className="font-playfair font-bold leading-none"
-                style={{ fontSize: "clamp(1.5rem, 2.2vw, 2.2rem)", color: "hsl(20 42% 46%)" }}
-              >
-                {value}
-              </span>
-              <span
-                className="text-[10px] uppercase tracking-[0.25em] leading-snug"
-                style={{ color: "hsl(20 12% 55%)" }}
-              >
-                {label}
-              </span>
-            </div>
+                className="w-1 h-1 rounded-full flex-shrink-0"
+                style={{ background: "hsl(20 42% 52%)" }}
+              />
+              {label}
+            </span>
           ))}
         </div>
       </div>
