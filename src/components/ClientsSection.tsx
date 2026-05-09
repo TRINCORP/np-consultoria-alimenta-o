@@ -24,6 +24,11 @@ const clients: Client[] = [
   { id: 17, name: "Na Rua",                  image: "/fotos_clientes/narua.png" },
 ];
 
+/* Divide clients into 3 non-overlapping groups for the rows */
+const rowA = clients.slice(0, 6);
+const rowB = clients.slice(6, 12).reverse();
+const rowC = clients.slice(12, 17);
+
 /* Curated tile background palette (warm + earthy, on-brand) */
 const tileBgs = [
   "#F5E9DA", "#FFFFFF", "#1F2937", "#E8C9A8", "#0F3D2E",
@@ -35,10 +40,12 @@ const LogoRow = ({
   items,
   reverse = false,
   duration = 60,
+  offsetIndex = 0,
 }: {
   items: Client[];
   reverse?: boolean;
   duration?: number;
+  offsetIndex?: number;
 }) => (
   <div className="overflow-hidden">
     <div
@@ -49,7 +56,7 @@ const LogoRow = ({
       }}
     >
       {[...items, ...items, ...items].map((client, i) => {
-        const bg = tileBgs[(client.id + i) % tileBgs.length];
+        const bg = tileBgs[(client.id + offsetIndex + i) % tileBgs.length];
         const isDark = ["#1F2937","#0F3D2E","#2D2A26","#0E1B2C","#3A2A1F","#1C1A18","#C9542F"].includes(bg);
         return (
           <div
@@ -80,11 +87,6 @@ const LogoRow = ({
     </div>
   </div>
 );
-
-/* Two halves of the catalogue, shuffled per row for visual variety */
-const rowA = clients;
-const rowB = [...clients].reverse();
-const rowC = clients.slice(4).concat(clients.slice(0, 4));
 
 const ClientsSection: React.FC = () => {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
