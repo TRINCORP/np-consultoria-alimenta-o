@@ -43,22 +43,21 @@ const Hero = () => {
       </div>
 
       {/* ── Conteúdo ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end
+      <div className="relative z-10 flex-1 flex flex-col justify-center
         px-6 sm:px-12 lg:px-20
-        pb-16 lg:pb-28
-        pt-[55vw] sm:pt-[45vw] lg:pt-0
-        max-w-[620px]">
+        pt-28 pb-12 lg:py-0
+        max-w-[520px]">
 
         {/* Eyebrow */}
         <p className={`text-[11px] font-semibold tracking-[0.42em] uppercase
-          text-[hsl(20_45%_48%)] mb-7 ${fade("delay-[0ms]")}`}>
+          text-[hsl(20_45%_48%)] mb-5 ${fade("delay-[0ms]")}`}>
           Indaiatuba · Região de Campinas
         </p>
 
         {/* Headline */}
         <h1
           className="font-playfair font-bold leading-[1.05] mb-7"
-          style={{ fontSize: "clamp(2.8rem, 5.5vw, 5rem)", color: "hsl(20 20% 14%)" }}
+          style={{ fontSize: "clamp(1.9rem, 3.2vw, 3.4rem)", color: "hsl(20 20% 14%)" }}
         >
           <span className={`block ${fade("delay-[100ms]")}`}>
             Segurança alimentar
@@ -135,7 +134,7 @@ const Hero = () => {
             >
               <span
                 className="font-playfair font-bold leading-none"
-                style={{ fontSize: "clamp(1.8rem, 2.8vw, 2.6rem)", color: "hsl(20 42% 46%)" }}
+                style={{ fontSize: "clamp(1.5rem, 2.2vw, 2.2rem)", color: "hsl(20 42% 46%)" }}
               >
                 {value}
               </span>
