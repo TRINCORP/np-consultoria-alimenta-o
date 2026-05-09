@@ -33,29 +33,30 @@ const PhilosophySection = () => {
 
           {/* Image */}
           <div className={`relative transition-all duration-[1000ms] ${topInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
+
+            {/* Foto sem recorte — proporção natural */}
             <div className="relative rounded-[2rem] overflow-hidden
-              w-full max-w-[420px] mx-auto lg:max-w-none
-              aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5]
+              w-full max-w-[460px] mx-auto lg:max-w-none
               shadow-[0_32px_64px_hsl(210_15%_12%/0.12)]">
               <img
                 src={equipeNP}
-                alt="Equipe NP Consultoria — consultoras especializadas em segurança alimentar e vigilância sanitária atendendo restaurantes, padarias e indústrias em Indaiatuba e região de Campinas"
-                className="w-full h-full object-cover object-top"
+                alt="Equipe NP Consultoria — nutricionistas e consultoras especializadas em segurança alimentar, vigilância sanitária e boas práticas, Indaiatuba e região de Campinas"
+                className="w-full h-auto block"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[hsl(20_20%_12%/0.60)] via-[hsl(20_20%_12%/0.10)] to-transparent" />
+            </div>
 
-              {/* Quote overlay */}
-              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6
-                bg-white/88 backdrop-blur-[14px] rounded-[1.25rem] px-4 py-3 sm:px-5 sm:py-4
-                border border-white/50">
-                <p className="font-playfair italic text-[hsl(210_15%_12%)] text-xs sm:text-sm leading-snug">
-                  "Transformamos operações alimentícias em referências de qualidade e segurança."
-                </p>
-                <span className="mt-1.5 block text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] uppercase text-[hsl(20_35%_58%)]">
-                  — NP Consultoria · Indaiatuba
-                </span>
-              </div>
+            {/* Quote abaixo da foto — fundo sólido para leitura perfeita */}
+            <div className="mt-4 max-w-[460px] mx-auto lg:max-w-none
+              bg-white rounded-[1.25rem] px-5 py-4
+              border border-[hsl(20_35%_70%/0.2)]
+              shadow-[0_8px_24px_hsl(20_35%_60%/0.08)]">
+              <p className="font-playfair italic text-[hsl(210_15%_14%)] text-sm leading-snug">
+                "Transformamos operações alimentícias em referências de qualidade e segurança."
+              </p>
+              <span className="mt-2 block text-[11px] font-semibold tracking-[0.2em] uppercase text-[hsl(20_38%_55%)]">
+                — NP Consultoria · Indaiatuba
+              </span>
             </div>
 
             {/* Floating accent dot */}
