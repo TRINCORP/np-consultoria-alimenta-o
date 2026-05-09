@@ -22,14 +22,32 @@ const Hero = () => {
     `transition-all duration-[900ms] ${delay} ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`;
 
   return (
-    <section className="relative min-h-screen flex flex-col lg:flex-row bg-[#F5EDE6] overflow-hidden">
+    <section className="relative min-h-screen flex flex-col bg-[#F5EDE6] overflow-hidden">
 
-      {/* ── LEFT — Texto ── */}
-      <div className="relative z-10 flex flex-col justify-center
-        w-full lg:w-[52%] xl:w-[50%]
-        px-6 sm:px-12 lg:px-16 xl:px-24
-        pt-28 pb-10 lg:py-28
-        order-2 lg:order-1">
+      {/* ── Foto de fundo — sem zoom (object-contain) ── */}
+      <div className="absolute inset-0">
+        <img
+          src={heroFoto}
+          alt="NP Consultoria Alimentar"
+          className="w-full h-full object-contain object-right"
+        />
+        {/* Fade esquerda para legibilidade do texto — desktop */}
+        <div
+          className="absolute inset-0 hidden lg:block"
+          style={{
+            background: "linear-gradient(to right, #F5EDE6 0%, #F5EDE6e6 28%, #F5EDE6aa 48%, #F5EDE620 68%, transparent 80%)",
+          }}
+        />
+        {/* Fade mobile — texto embaixo, imagem no topo */}
+        <div className="absolute inset-0 lg:hidden bg-gradient-to-b from-transparent from-40% via-[#F5EDE6]/80 to-[#F5EDE6]" />
+      </div>
+
+      {/* ── Conteúdo ── */}
+      <div className="relative z-10 flex-1 flex flex-col justify-end
+        px-6 sm:px-12 lg:px-20
+        pb-16 lg:pb-28
+        pt-[55vw] sm:pt-[45vw] lg:pt-0
+        max-w-[620px]">
 
         {/* Eyebrow */}
         <p className={`text-[11px] font-semibold tracking-[0.42em] uppercase
@@ -40,7 +58,7 @@ const Hero = () => {
         {/* Headline */}
         <h1
           className="font-playfair font-bold leading-[1.05] mb-7"
-          style={{ fontSize: "clamp(2.6rem, 5vw, 5rem)", color: "hsl(20 20% 14%)" }}
+          style={{ fontSize: "clamp(2.8rem, 5.5vw, 5rem)", color: "hsl(20 20% 14%)" }}
         >
           <span className={`block ${fade("delay-[100ms]")}`}>
             Segurança alimentar
@@ -62,7 +80,7 @@ const Hero = () => {
 
         {/* Descriptor */}
         <p
-          className={`text-base leading-relaxed max-w-[420px] mb-10 ${fade("delay-[360ms]")}`}
+          className={`text-base leading-relaxed max-w-[400px] mb-10 ${fade("delay-[360ms]")}`}
           style={{ color: "hsl(20 12% 42%)" }}
         >
           Do diagnóstico ao alvará sanitário — consultoria especializada
@@ -132,22 +150,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ── RIGHT — Imagem em tamanho natural ── */}
-      <div
-        className={`w-full lg:w-[48%] xl:w-[50%] flex items-center justify-center
-          order-1 lg:order-2 pt-20 lg:pt-0
-          transition-all duration-[1000ms] delay-[200ms]
-          ${mounted ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
-      >
-        <img
-          src={heroFoto}
-          alt="NP Consultoria Alimentar — segurança e certificação"
-          className="w-full h-auto object-contain max-h-[55vw] lg:max-h-screen"
-          style={{ display: "block" }}
-        />
-      </div>
-
-      {/* Scroll line — desktop only */}
+      {/* Scroll line — desktop */}
       <div
         className={`absolute right-8 bottom-8 hidden lg:flex flex-col items-center gap-3
           transition-all duration-700 delay-[800ms]
