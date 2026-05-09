@@ -85,23 +85,25 @@ const FoodServicesSection = () => {
         style={{ background: "radial-gradient(circle at bottom left, hsl(20 35% 62% / 0.05), transparent 65%)" }} />
 
       {/* ── Top: Image + intro text ── */}
-      <div ref={introRef} className="grid grid-cols-1 lg:grid-cols-2 min-h-[85vh]">
+      <div ref={introRef} className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[85vh]">
 
-        {/* Photo — sticky on desktop */}
-        <div className="relative h-[55vw] sm:h-[480px] lg:h-auto lg:sticky lg:top-0 overflow-hidden order-2 lg:order-1">
-          <img
-            src={equipeNPHome}
-            alt="Equipe NP Consultoria realizando diagnóstico operacional"
-            className="w-full h-full object-cover object-top"
-            loading="lazy"
-          />
-          {/* Gradient overlay fading to section bg */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1C1A18]/50 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A18]/60 via-transparent to-transparent lg:hidden" />
+        {/* Photo — sticky on desktop, framed card on mobile */}
+        <div className="relative order-2 lg:order-1 px-6 sm:px-10 lg:px-0 pb-4 lg:pb-0 lg:sticky lg:top-0 lg:h-auto lg:self-stretch">
+          <div className="relative w-full h-[420px] sm:h-[520px] lg:h-full rounded-[1.5rem] lg:rounded-none overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.45)] lg:shadow-none">
+            <img
+              src={equipeNPHome}
+              alt="Equipe NP Consultoria realizando diagnóstico operacional"
+              className="w-full h-full object-cover object-[center_20%] lg:object-top scale-105 lg:scale-100"
+              loading="lazy"
+            />
+            {/* Gradient overlays */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1C1A18]/50 via-transparent to-transparent hidden lg:block" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A18]/85 via-[#1C1A18]/10 to-transparent lg:hidden" />
+          </div>
         </div>
 
         {/* Text */}
-        <div className="flex items-center px-6 sm:px-10 lg:px-16 py-16 lg:py-24 order-1 lg:order-2">
+        <div className="flex items-center px-6 sm:px-10 lg:px-16 pt-10 pb-16 lg:py-24 order-1 lg:order-2">
           <div className="max-w-lg">
             <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
               text-[hsl(20_35%_62%)] mb-8
