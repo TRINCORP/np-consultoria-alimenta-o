@@ -22,7 +22,8 @@ const Hero = () => {
     `transition-all duration-[900ms] ${delay} ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`;
 
   return (
-    <section className="relative min-h-screen flex flex-col bg-[#F5EDE6] overflow-hidden">
+    <section className="relative flex flex-col bg-[#F5EDE6] overflow-hidden"
+      style={{ minHeight: "100svh" }}>
 
       {/* ── Foto de fundo — sem zoom (object-contain) ── */}
       <div className="absolute inset-0">
@@ -45,19 +46,19 @@ const Hero = () => {
       {/* ── Conteúdo ── */}
       <div className="relative z-10 flex-1 flex flex-col justify-center
         px-6 sm:px-12 lg:px-20
-        pt-28 pb-12 lg:py-0
-        max-w-[520px]">
+        pt-24 pb-8 lg:py-0
+        max-w-[500px]">
 
         {/* Eyebrow */}
         <p className={`text-[11px] font-semibold tracking-[0.42em] uppercase
-          text-[hsl(20_45%_48%)] mb-5 ${fade("delay-[0ms]")}`}>
+          text-[hsl(20_45%_48%)] mb-4 ${fade("delay-[0ms]")}`}>
           Indaiatuba · Região de Campinas
         </p>
 
         {/* Headline */}
         <h1
           className="font-playfair font-bold leading-[1.05] mb-7"
-          style={{ fontSize: "clamp(1.9rem, 3.2vw, 3.4rem)", color: "hsl(20 20% 14%)" }}
+          style={{ fontSize: "clamp(1.6rem, 2.4vw, 2.8rem)", color: "hsl(20 20% 14%)" }}
         >
           <span className={`block ${fade("delay-[100ms]")}`}>
             Segurança alimentar
@@ -79,7 +80,7 @@ const Hero = () => {
 
         {/* Descriptor */}
         <p
-          className={`text-base leading-relaxed max-w-[400px] mb-10 ${fade("delay-[360ms]")}`}
+          className={`text-sm leading-relaxed max-w-[380px] mb-7 ${fade("delay-[360ms]")}`}
           style={{ color: "hsl(20 12% 42%)" }}
         >
           Do diagnóstico ao alvará sanitário — consultoria especializada
@@ -87,7 +88,7 @@ const Hero = () => {
         </p>
 
         {/* CTAs */}
-        <div className={`flex flex-wrap items-center gap-4 mb-14 ${fade("delay-[460ms]")}`}>
+        <div className={`flex flex-wrap items-center gap-4 mb-8 ${fade("delay-[460ms]")}`}>
           <a
             href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de solicitar uma consultoria.")}`}
             target="_blank"
