@@ -219,28 +219,9 @@ const FoodServicesMural = () => {
             </ul>
           </div>
 
-          <div className={`flex items-center gap-3 transition-all duration-700 delay-300 ${inView ? "opacity-100" : "opacity-0"}`}>
-            <button
-              onClick={() => scrollBy("left")}
-              aria-label="Anterior"
-              className="w-11 h-11 rounded-full border border-white/15 bg-white/5
-                flex items-center justify-center
-                hover:bg-white/12 hover:border-[hsl(20_35%_62%/0.5)]
-                transition-all duration-300 group"
-            >
-              <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-[hsl(20_45%_70%)] transition-colors duration-300" />
-            </button>
-            <button
-              onClick={() => scrollBy("right")}
-              aria-label="Próximo"
-              className="w-11 h-11 rounded-full border border-white/15 bg-white/5
-                flex items-center justify-center
-                hover:bg-white/12 hover:border-[hsl(20_35%_62%/0.5)]
-                transition-all duration-300 group"
-            >
-              <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-[hsl(20_45%_70%)] transition-colors duration-300" />
-            </button>
-          </div>
+          <span className={`font-mono text-[0.72rem] tracking-[0.15em] uppercase text-white/25 transition-all duration-700 delay-300 ${inView ? "opacity-100" : "opacity-0"}`}>
+            Arraste para explorar
+          </span>
         </div>
 
         {/* Progress bar */}
@@ -253,6 +234,38 @@ const FoodServicesMural = () => {
       </div>
 
       {/* ── Horizontal gallery ── */}
+      <div className="relative">
+
+        {/* Seta esquerda */}
+        <button
+          onClick={() => scrollBy("left")}
+          aria-label="Anterior"
+          className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-20
+            w-11 h-11 rounded-full
+            bg-black/60 backdrop-blur-md border border-white/15
+            flex items-center justify-center
+            hover:bg-[hsl(20_35%_62%/0.25)] hover:border-[hsl(20_35%_62%/0.5)]
+            transition-all duration-300 group
+            hidden sm:flex"
+        >
+          <ChevronLeft className="w-5 h-5 text-white/70 group-hover:text-[hsl(20_45%_72%)] transition-colors duration-300" />
+        </button>
+
+        {/* Seta direita */}
+        <button
+          onClick={() => scrollBy("right")}
+          aria-label="Próximo"
+          className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-20
+            w-11 h-11 rounded-full
+            bg-black/60 backdrop-blur-md border border-white/15
+            flex items-center justify-center
+            hover:bg-[hsl(20_35%_62%/0.25)] hover:border-[hsl(20_35%_62%/0.5)]
+            transition-all duration-300 group
+            hidden sm:flex"
+        >
+          <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-[hsl(20_45%_72%)] transition-colors duration-300" />
+        </button>
+
       <div
         ref={trackRef}
         onMouseDown={onMouseDown}
@@ -319,6 +332,7 @@ const FoodServicesMural = () => {
             <div className="absolute inset-0 rounded-[18px] ring-1 ring-inset ring-white/0 group-hover:ring-white/15 transition-all duration-500 pointer-events-none" />
           </figure>
         ))}
+      </div>
       </div>
     </section>
   );
