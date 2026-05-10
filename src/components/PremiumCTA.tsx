@@ -57,10 +57,28 @@ const PremiumCTA = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
 
+  const APPS_SCRIPT_URL = "COLE_AQUI_A_URL_DO_WEB_APP";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name:    formData.name,
+          email:   formData.email,
+          phone:   formData.phone,
+          company: formData.company,
+          reason:  selectedReason ?? "",
+          message: formData.message,
+        }),
+      });
+    } catch (_) {
+      // no-cors não lança erro mesmo em sucesso — seguimos
+    }
     setIsSubmitting(false);
     setShowSuccess(true);
     setFormData({ name: "", email: "", phone: "", company: "", reason: "", message: "" });
