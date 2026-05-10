@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { Camera, ArrowUpRight } from "lucide-react";
+import { Camera, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 import foto01 from "@/assets/food-services/field/servicos01.jpeg";
 import foto02 from "@/assets/food-services/field/servicos02.jpeg";
@@ -112,6 +112,10 @@ const FoodServicesMural = () => {
   };
   const stopDrag = () => setIsDragging(false);
 
+  const scrollBy = (dir: "left" | "right") => {
+    trackRef.current?.scrollBy({ left: dir === "right" ? 400 : -400, behavior: "smooth" });
+  };
+
   /* touch support */
   const touchStart = useRef({ x: 0, scrollLeft: 0 });
   const onTouchStart = (e: React.TouchEvent) => {
@@ -215,13 +219,28 @@ const FoodServicesMural = () => {
             </ul>
           </div>
 
-          <span
-            className={`font-mono text-[0.75rem] tracking-[0.15em] uppercase text-white/25 flex items-center gap-2 transition-all duration-700 delay-300 ${
-              inView ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            ←→ Arraste para explorar
-          </span>
+          <div className={`flex items-center gap-3 transition-all duration-700 delay-300 ${inView ? "opacity-100" : "opacity-0"}`}>
+            <button
+              onClick={() => scrollBy("left")}
+              aria-label="Anterior"
+              className="w-11 h-11 rounded-full border border-white/15 bg-white/5
+                flex items-center justify-center
+                hover:bg-white/12 hover:border-[hsl(20_35%_62%/0.5)]
+                transition-all duration-300 group"
+            >
+              <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-[hsl(20_45%_70%)] transition-colors duration-300" />
+            </button>
+            <button
+              onClick={() => scrollBy("right")}
+              aria-label="Próximo"
+              className="w-11 h-11 rounded-full border border-white/15 bg-white/5
+                flex items-center justify-center
+                hover:bg-white/12 hover:border-[hsl(20_35%_62%/0.5)]
+                transition-all duration-300 group"
+            >
+              <ChevronRight className="w-5 h-5 text-white/60 group-hover:text-[hsl(20_45%_70%)] transition-colors duration-300" />
+            </button>
+          </div>
         </div>
 
         {/* Progress bar */}
