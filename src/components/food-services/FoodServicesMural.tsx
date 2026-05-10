@@ -240,30 +240,28 @@ const FoodServicesMural = () => {
         <button
           onClick={() => scrollBy("left")}
           aria-label="Anterior"
-          className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-20
-            w-11 h-11 rounded-full
+          className="absolute left-2 sm:left-3 lg:left-4 top-1/2 -translate-y-1/2 z-20
+            w-9 h-9 sm:w-11 sm:h-11 rounded-full
             bg-black/60 backdrop-blur-md border border-white/15
             flex items-center justify-center
             hover:bg-[hsl(20_35%_62%/0.25)] hover:border-[hsl(20_35%_62%/0.5)]
-            transition-all duration-300 group
-            hidden sm:flex"
+            transition-all duration-300 group"
         >
-          <ChevronLeft className="w-5 h-5 text-white/70 group-hover:text-[hsl(20_45%_72%)] transition-colors duration-300" />
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-[hsl(20_45%_72%)] transition-colors duration-300" />
         </button>
 
         {/* Seta direita */}
         <button
           onClick={() => scrollBy("right")}
           aria-label="Próximo"
-          className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-20
-            w-11 h-11 rounded-full
+          className="absolute right-2 sm:right-3 lg:right-4 top-1/2 -translate-y-1/2 z-20
+            w-9 h-9 sm:w-11 sm:h-11 rounded-full
             bg-black/60 backdrop-blur-md border border-white/15
             flex items-center justify-center
             hover:bg-[hsl(20_35%_62%/0.25)] hover:border-[hsl(20_35%_62%/0.5)]
-            transition-all duration-300 group
-            hidden sm:flex"
+            transition-all duration-300 group"
         >
-          <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-[hsl(20_45%_72%)] transition-colors duration-300" />
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-[hsl(20_45%_72%)] transition-colors duration-300" />
         </button>
 
       <div
