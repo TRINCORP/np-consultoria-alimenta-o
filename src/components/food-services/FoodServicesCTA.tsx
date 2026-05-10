@@ -27,29 +27,28 @@ const FoodServicesCTA = () => {
             style={{ background: "radial-gradient(ellipse at top, hsl(20 35% 62% / 0.12), transparent 65%)" }} />
 
           {/* Content */}
-          <div className="relative z-10 px-8 sm:px-14 lg:px-20 py-16 lg:py-20">
+          <div className="relative z-10 px-5 sm:px-10 lg:px-20 py-10 sm:py-14 lg:py-20">
 
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-10">
 
               {/* Left: text */}
-              <div className="max-w-[540px]">
-                <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
-                  text-[hsl(20_35%_62%)] mb-6
+              <div className="w-full lg:max-w-[540px]">
+                <span className={`block text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] sm:tracking-[0.32em] uppercase
+                  text-[hsl(20_35%_62%)] mb-4 sm:mb-6
                   transition-all duration-700 delay-100 ${inView ? "opacity-100" : "opacity-0"}`}>
-                  Consultoria em Segurança Alimentar · Indaiatuba e Região
+                  Consultoria · Indaiatuba e Região
                 </span>
 
                 <h2
-                  className={`font-playfair font-bold text-white leading-[1.08] mb-6
+                  className={`font-playfair font-bold text-white leading-[1.08] mb-4 sm:mb-6
                     transition-all duration-700 delay-150 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                  style={{ fontSize: "clamp(2rem, 4vw, 3.6rem)" }}
+                  style={{ fontSize: "clamp(1.7rem, 4vw, 3.6rem)" }}
                 >
-                  Alvará sanitário, BPF e rotulagem
-                  <br />
+                  Alvará sanitário, BPF e rotulagem{" "}
                   <em className="italic text-[hsl(20_45%_70%)]">sem complicação</em>.
                 </h2>
 
-                <p className={`text-white/45 text-sm sm:text-base leading-relaxed mb-10
+                <p className={`text-white/45 text-sm leading-relaxed mb-6 sm:mb-10
                   transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
                   Solicite um orçamento sem compromisso. Retornamos em até 24h úteis.
                   Atendemos presencialmente em Indaiatuba e toda a região de Campinas.
@@ -63,7 +62,7 @@ const FoodServicesCTA = () => {
                     rel="noopener noreferrer"
                     className="group inline-flex items-center gap-2.5
                       bg-[hsl(20_35%_62%)] text-white rounded-full
-                      px-8 py-4 text-sm font-semibold
+                      px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold
                       hover:bg-[hsl(20_35%_55%)]
                       hover:shadow-[0_12px_36px_hsl(20_35%_62%/0.45)]
                       hover:-translate-y-0.5 transition-all duration-300"
@@ -76,7 +75,7 @@ const FoodServicesCTA = () => {
                     href="#contato"
                     className="inline-flex items-center gap-2
                       border border-white/20 text-white/65 rounded-full
-                      px-8 py-4 text-sm font-medium
+                      px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-medium
                       hover:border-white/40 hover:text-white
                       transition-all duration-300"
                   >
@@ -86,7 +85,7 @@ const FoodServicesCTA = () => {
               </div>
 
               {/* Right: contact channels */}
-              <div className={`flex flex-col gap-3 min-w-[260px]
+              <div className={`flex flex-col gap-3 w-full lg:min-w-[260px] lg:max-w-[320px]
                 transition-all duration-700 delay-400 ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"}`}>
 
                 <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/30 mb-1">
