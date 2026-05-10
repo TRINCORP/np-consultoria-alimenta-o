@@ -166,9 +166,6 @@ const FoodServicesMural = () => {
           <span className="text-[0.72rem] font-semibold tracking-[0.3em] uppercase text-primary">
             Nossa Atuação em Campo
           </span>
-          <span className="hidden sm:inline-flex items-center gap-1.5 ml-2 text-[0.7rem] tracking-[0.18em] uppercase text-white/35">
-            <MapPin className="w-3 h-3" /> Indaiatuba e região de Campinas
-          </span>
         </div>
 
         <div className="flex items-end justify-between gap-6 flex-wrap">
