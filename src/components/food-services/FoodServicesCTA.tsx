@@ -111,7 +111,7 @@ const FoodServicesCTA = () => {
                     </div>
                     <div className="min-w-0">
                       <span className="block text-[10px] text-white/30 uppercase tracking-wider mb-0.5">{label}</span>
-                      <span className="block text-sm font-medium text-white/70 break-all leading-snug
+                      <span className="block text-xs font-medium text-white/70 leading-snug
                         group-hover:text-white transition-colors duration-300">
                         {value}
                       </span>
