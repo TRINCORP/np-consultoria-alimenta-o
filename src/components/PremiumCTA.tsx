@@ -57,7 +57,7 @@ const PremiumCTA = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
 
-  const APPS_SCRIPT_URL = "COLE_AQUI_A_URL_DO_WEB_APP";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlvLZplgrZGHZ2wg5JJkxAYrf42Rm6YAQFy9BRYjewtGlcQ6dLYytgLP7t_sSiGjEerA/exec";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
