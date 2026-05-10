@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { MapPin, Camera, ArrowUpRight } from "lucide-react";
+import { Camera, ArrowUpRight } from "lucide-react";
 
 import foto01 from "@/assets/food-services/field/servicos01.jpeg";
 import foto02 from "@/assets/food-services/field/servicos02.jpeg";
@@ -268,9 +268,6 @@ const FoodServicesMural = () => {
             {/* index badge */}
             <span className="absolute top-4 left-4 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/10 text-[0.65rem] font-mono tracking-[0.15em] text-white/80">
               {String(i + 1).padStart(2, "0")} / {String(galleryItems.length).padStart(2, "0")}
-            </span>
-            <span className="absolute top-4 right-4 z-20 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/10 text-[0.65rem] tracking-[0.12em] uppercase text-white/70">
-              <MapPin className="w-3 h-3" /> {item.location}
             </span>
 
             <img
