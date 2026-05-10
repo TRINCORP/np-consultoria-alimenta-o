@@ -39,10 +39,10 @@ const Footer = () => {
           {/* Brand column */}
           <div className="scroll-reveal col-span-2 sm:col-span-2 lg:col-span-4">
             <Link to="/" className="inline-block mb-4 sm:mb-6 group">
-              <img 
-                src={logoNP} 
-                alt="NP Consultoria" 
-                className="h-10 sm:h-12 w-auto brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity duration-300" 
+              <img
+                src={logoNP}
+                alt="NP Consultoria"
+                className="h-16 sm:h-20 w-auto opacity-95 group-hover:opacity-100 transition-opacity duration-300"
               />
             </Link>
             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 max-w-xs">
