@@ -63,18 +63,17 @@ const PremiumCTA = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
+      const params = new URLSearchParams({
+        name:    formData.name,
+        email:   formData.email,
+        phone:   formData.phone,
+        company: formData.company,
+        reason:  selectedReason ?? "",
+        message: formData.message,
+      });
+      await fetch(`${APPS_SCRIPT_URL}?${params.toString()}`, {
+        method: "GET",
         mode: "no-cors",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify({
-          name:    formData.name,
-          email:   formData.email,
-          phone:   formData.phone,
-          company: formData.company,
-          reason:  selectedReason ?? "",
-          message: formData.message,
-        }),
       });
     } catch (_) {
       // no-cors não lança erro mesmo em sucesso — seguimos
