@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HeroServices from "@/components/HeroServices";
@@ -15,21 +15,14 @@ import StatsSection from "@/components/StatsSection";
 import PremiumCTA from "@/components/PremiumCTA";
 
 const Index = () => {
-  const [showIntro, setShowIntro] = useState(true);
-  const [introComplete, setIntroComplete] = useState(false);
-
-  useEffect(() => {
-    // Verifica se já viu a intro nesta sessão
-    const hasSeenIntro = sessionStorage.getItem("hasSeenIntro");
-    if (hasSeenIntro) {
-      setShowIntro(false);
-      setIntroComplete(true);
-    }
-  }, []);
+  // Inicialização lazy — lê sessionStorage antes do primeiro render, sem flash
+  const [showIntro, setShowIntro] = useState(
+    () => !sessionStorage.getItem("hasSeenIntro")
+  );
 
   const handleIntroComplete = () => {
     sessionStorage.setItem("hasSeenIntro", "true");
-    setIntroComplete(true);
+    setShowIntro(false);
   };
 
   return (
