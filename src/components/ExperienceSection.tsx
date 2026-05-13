@@ -1,8 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import labelReview from "@/assets/label-review.jpg";
-import labelDesign from "@/assets/label-design.jpg";
-import vegetablesLabels from "@/assets/vegetables-labels.jpg";
+import labelReview from "@/assets/revisao_rotulos.png";
+import labelDesign from "@/assets/rotulos_personalizados.png";
+import vegetablesLabels from "@/assets/rotulagem_conforme.png";
 import { BrilliantReflection } from "@/components/effects/BrilliantReflection";
 
 const services = [
