@@ -6,123 +6,125 @@ interface IntroAnimationProps {
 }
 
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
-  const [phase, setPhase] = useState<"in" | "hold" | "out" | "done">("in");
+  const [phase, setPhase] = useState<"in" | "hold" | "phrase" | "out" | "done">("in");
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase("hold"), 400);
-    const t2 = setTimeout(() => setPhase("out"),  2400);
-    const t3 = setTimeout(() => {
+    const t1 = setTimeout(() => setPhase("hold"),   500);
+    const t2 = setTimeout(() => setPhase("phrase"), 1300);
+    const t3 = setTimeout(() => setPhase("out"),    3600);
+    const t4 = setTimeout(() => {
       setPhase("done");
       onComplete?.();
-    }, 3200);
+    }, 4400);
 
-    return () => [t1, t2, t3].forEach(clearTimeout);
+    return () => [t1, t2, t3, t4].forEach(clearTimeout);
   }, [onComplete]);
 
   if (phase === "done") return null;
 
-  const visible = phase === "hold";
-  const exiting = phase === "out";
+  const logoVisible   = phase === "hold" || phase === "phrase" || phase === "out";
+  const phraseVisible = phase === "phrase" || phase === "out";
+  const exiting       = phase === "out";
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#1C1A18]"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
       style={{
+        background: "#D4CFC9",
         opacity: exiting ? 0 : 1,
         transition: exiting ? "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)" : "none",
         pointerEvents: exiting ? "none" : "auto",
       }}
     >
-      {/* Warm ambient glow */}
+      {/* Subtle vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse 50% 45% at 50% 50%, hsl(20 35% 62% / 0.12), transparent 70%)",
+          background: "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.06) 100%)",
         }}
       />
 
-      {/* Center: logo with elegant rotating loader ring */}
-      <div className="relative flex items-center justify-center">
-        {/* Outer rotating ring (gold sweep) */}
-        <svg
-          className="absolute"
-          width="240"
-          height="240"
-          viewBox="0 0 240 240"
-          style={{
-            opacity: visible ? 1 : 0,
-            transition: "opacity 600ms ease",
-            animation: "intro-spin 2.4s linear infinite",
-          }}
-        >
-          <defs>
-            <linearGradient id="introRing" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(20 45% 68%)" stopOpacity="0" />
-              <stop offset="100%" stopColor="hsl(20 45% 68%)" stopOpacity="1" />
-            </linearGradient>
-          </defs>
-          <circle
-            cx="120"
-            cy="120"
-            r="110"
-            fill="none"
-            stroke="url(#introRing)"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            strokeDasharray="180 520"
-          />
-        </svg>
-
-        {/* Static thin ring */}
-        <div
-          className="absolute rounded-full border border-white/10"
-          style={{
-            width: 240,
-            height: 240,
-            opacity: visible ? 1 : 0,
-            transition: "opacity 700ms ease",
-          }}
-        />
-
-        {/* Soft inner glow */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 200,
-            height: 200,
-            background:
-              "radial-gradient(circle, hsl(20 45% 65% / 0.35), transparent 70%)",
-            filter: "blur(20px)",
-            opacity: visible ? 1 : 0,
-            transition: "opacity 900ms ease",
-          }}
-        />
-
-        {/* Logo */}
+      {/* Logo */}
+      <div
+        style={{
+          opacity: logoVisible ? 1 : 0,
+          transform: logoVisible ? "scale(1) translateY(0)" : "scale(0.82) translateY(16px)",
+          transition: "opacity 900ms cubic-bezier(0.16,1,0.3,1), transform 900ms cubic-bezier(0.16,1,0.3,1)",
+          filter: logoVisible ? "drop-shadow(0 8px 32px rgba(0,0,0,0.12))" : "none",
+        }}
+      >
         <img
           src={logoNP}
           alt="NP Consultoria"
-          className="relative w-32 h-32 sm:w-40 sm:h-40 object-contain"
+          className="w-28 h-28 sm:w-36 sm:h-36 object-contain"
+        />
+      </div>
+
+      {/* Divider line */}
+      <div
+        className="relative overflow-hidden my-7"
+        style={{ height: "1px", width: "120px" }}
+      >
+        <div
           style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "scale(1)" : "scale(0.85)",
-            transition:
-              "opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1)",
-            filter: "drop-shadow(0 0 40px hsl(20 45% 65% / 0.55))",
-            animation: visible ? "intro-breathe 3s ease-in-out infinite" : "none",
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to right, transparent, #9A8F86, transparent)",
+            transform: phraseVisible ? "scaleX(1)" : "scaleX(0)",
+            transformOrigin: "center",
+            transition: "transform 700ms cubic-bezier(0.16,1,0.3,1)",
           }}
         />
       </div>
 
+      {/* Eyebrow */}
+      <p
+        className="text-[10px] font-semibold tracking-[0.45em] uppercase mb-4"
+        style={{
+          color: "#7A726C",
+          opacity: phraseVisible ? 1 : 0,
+          transition: "opacity 600ms 100ms ease",
+        }}
+      >
+        NP Consultoria
+      </p>
+
+      {/* Impactful phrase */}
+      <div
+        style={{
+          opacity: phraseVisible ? 1 : 0,
+          transform: phraseVisible ? "translateY(0)" : "translateY(12px)",
+          transition: "opacity 800ms 200ms cubic-bezier(0.16,1,0.3,1), transform 800ms 200ms cubic-bezier(0.16,1,0.3,1)",
+          textAlign: "center",
+          padding: "0 1.5rem",
+        }}
+      >
+        <p
+          className="font-playfair font-bold"
+          style={{
+            fontSize: "clamp(1.3rem, 3.5vw, 2rem)",
+            color: "#2A211B",
+            lineHeight: 1.25,
+          }}
+        >
+          Alimentos seguros.
+        </p>
+        <p
+          className="font-playfair italic"
+          style={{
+            fontSize: "clamp(1.3rem, 3.5vw, 2rem)",
+            color: "#7A5C4E",
+            lineHeight: 1.25,
+          }}
+        >
+          Negócios protegidos.
+        </p>
+      </div>
+
       <style>{`
-        @keyframes intro-spin {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
         @keyframes intro-breathe {
-          0%, 100% { filter: drop-shadow(0 0 30px hsl(20 45% 65% / 0.45)); }
-          50%      { filter: drop-shadow(0 0 55px hsl(20 45% 70% / 0.7)); }
+          0%, 100% { opacity: 0.92; }
+          50%      { opacity: 1; }
         }
       `}</style>
     </div>
