@@ -5,7 +5,7 @@ const differentials = [
   { icon: MapPin,     number: "01", title: "Presença Local",           desc: "Atuação presencial em Indaiatuba, Campinas e região — acompanhamos vistorias e fiscalizações ao seu lado." },
   { icon: Users,     number: "02", title: "Atendimento Personalizado", desc: "Cada negócio tem sua realidade. Adaptamos nossas soluções à sua operação, cultura e objetivos." },
   { icon: Shield,    number: "03", title: "Equipe Técnica Especializada", desc: "Profissionais com formação e experiência prática em vigilância sanitária, nutrição e gestão alimentar." },
-  { icon: Eye,       number: "04", title: "Experiência Multissetorial", desc: "Mais de 15 anos atendendo restaurantes, cozinhas industriais, indústrias e produtores artesanais." },
+  { icon: Eye,       number: "04", title: "Experiência Multissetorial", desc: "Ampla experiência atendendo restaurantes, cozinhas industriais, indústrias e produtores artesanais." },
   { icon: Target,    number: "05", title: "Atuação Preventiva",        desc: "Não esperamos a autuação acontecer. Identificamos riscos antes e criamos planos de correção eficazes." },
   { icon: TrendingUp, number: "06", title: "Foco em Resultados",       desc: "Adequação sanitária como estratégia de crescimento: mais organização, menos desperdício, mais rentabilidade." },
 ];

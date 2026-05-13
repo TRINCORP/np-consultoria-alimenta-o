@@ -66,7 +66,7 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
       </h1>
 
       {/* ── Cards row ── */}
-      <div className="flex items-end justify-center gap-3 sm:gap-4 md:gap-6 mt-28 w-full max-w-[1100px]">
+      <div className="flex items-end justify-center gap-2 sm:gap-4 md:gap-6 mt-24 sm:mt-28 w-full max-w-[1100px] px-2">
         {members.map((member, i) => {
           const isActive = i === active;
           return (
@@ -74,15 +74,15 @@ const Team3DCarousel: React.FC<Team3DCarouselProps> = ({ members }) => {
               key={member.id}
               onClick={() => setActive(i)}
               aria-label={`Ver perfil de ${member.name}`}
-              className="relative flex-shrink-0 rounded-[20px] overflow-hidden focus:outline-none"
+              className="relative flex-shrink-0 rounded-[16px] sm:rounded-[20px] overflow-hidden focus:outline-none"
               style={{
-                width: isActive ? "clamp(180px, 22vw, 280px)" : "clamp(120px, 15vw, 200px)",
-                height: isActive ? "clamp(240px, 32vw, 400px)" : "clamp(160px, 22vw, 290px)",
+                width: isActive ? "clamp(100px, 22vw, 280px)" : "clamp(68px, 14vw, 200px)",
+                height: isActive ? "clamp(140px, 32vw, 400px)" : "clamp(96px, 22vw, 290px)",
                 transition: "width 600ms cubic-bezier(0.4,0,0.2,1), height 600ms cubic-bezier(0.4,0,0.2,1), box-shadow 600ms, transform 600ms",
                 boxShadow: isActive
                   ? "0 32px 64px rgba(0,0,0,0.22)"
                   : "0 8px 24px rgba(0,0,0,0.10)",
-                transform: isActive ? "translateY(-16px)" : "translateY(0px)",
+                transform: isActive ? "translateY(-12px)" : "translateY(0px)",
               }}
             >
               <img

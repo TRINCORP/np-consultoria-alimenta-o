@@ -7,7 +7,7 @@ const WHATSAPP = "5519989750741";
 const heroStats = [
   { value: "+10mil", label: "Consumidores impactados" },
   { value: "92%",  label: "Aprovação na 1ª vistoria" },
-  { value: "15+",  label: "Anos de experiência" },
+  { value: "NP",   label: "Experiência estratégica" },
 ];
 
 const FoodServicesHero = () => {

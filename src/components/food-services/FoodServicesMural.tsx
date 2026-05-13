@@ -208,7 +208,7 @@ const FoodServicesMural = () => {
             >
               {[
                 { n: "+10mil", l: "consumidores impactados" },
-                { n: "15+", l: "anos em campo" },
+                { n: "NP", l: "experiência estratégica" },
                 { n: "92%", l: "aprovação sanitária" },
               ].map((s) => (
                 <li key={s.l} className="flex items-baseline gap-2">

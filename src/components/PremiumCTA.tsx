@@ -142,23 +142,14 @@ const PremiumCTA = () => {
 
             {/* Hours */}
             <div className="rounded-[1.25rem] border border-white/8 bg-white/[0.03] p-5">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-[hsl(20_35%_62%/0.15)] flex items-center justify-center">
                   <Clock className="w-4 h-4 text-[hsl(20_45%_70%)]" strokeWidth={1.5} />
                 </div>
-                <span className="font-semibold text-white text-sm">Horário de Atendimento</span>
-              </div>
-              <div className="space-y-2 text-sm">
-                {[
-                  ["Segunda a Sexta", "08h às 18h"],
-                  ["Sábados", "08h às 12h"],
-                  ["Dom. e Feriados", "—"],
-                ].map(([day, time]) => (
-                  <div key={day} className="flex justify-between">
-                    <span className="text-white/35">{day}</span>
-                    <span className={`font-medium ${time === "—" ? "text-white/25" : "text-white"}`}>{time}</span>
-                  </div>
-                ))}
+                <div>
+                  <span className="font-semibold text-white text-sm block">Horário de Atendimento</span>
+                  <span className="text-white/45 text-xs">Horário comercial</span>
+                </div>
               </div>
             </div>
 

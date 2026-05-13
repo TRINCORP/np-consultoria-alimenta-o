@@ -27,22 +27,24 @@ const Hero = () => {
     <section className="relative flex flex-col bg-[#F5EDE6] overflow-hidden"
       style={{ minHeight: "100svh" }}>
 
-      {/* ── Foto de fundo — sem zoom (object-contain) ── */}
+      {/* ── Foto de fundo ── */}
       <div className="absolute inset-0">
+        {/* Mobile: imagem posicionada no canto direito superior */}
         <img
           src={heroFoto}
           alt="NP Consultoria Alimentar"
-          className="w-full h-full object-contain object-right"
+          className="w-full h-full lg:object-contain lg:object-right object-cover object-right-top"
         />
-        {/* Fade esquerda para legibilidade do texto — desktop */}
+        {/* Desktop: fade esquerda */}
         <div
           className="absolute inset-0 hidden lg:block"
           style={{
             background: "linear-gradient(to right, #F5EDE6 0%, #F5EDE6e6 28%, #F5EDE6aa 48%, #F5EDE620 68%, transparent 80%)",
           }}
         />
-        {/* Fade mobile — texto embaixo, imagem no topo */}
-        <div className="absolute inset-0 lg:hidden bg-gradient-to-b from-transparent from-40% via-[#F5EDE6]/80 to-[#F5EDE6]" />
+        {/* Mobile: fade forte de baixo pra cima — texto legível, logo visível no topo */}
+        <div className="absolute inset-0 lg:hidden"
+          style={{ background: "linear-gradient(to top, #F5EDE6 45%, #F5EDE6cc 60%, #F5EDE655 80%, transparent 100%)" }} />
       </div>
 
       {/* ── Conteúdo ── */}
