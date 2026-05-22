@@ -79,6 +79,7 @@ const Header = () => {
               { to: "/equipe", label: "Equipe" },
               { to: "/sobre", label: "Sobre" },
               { to: "/faq", label: "FAQ" },
+              { to: "/curso-consultoras", label: "Formação" },
             ].map(({ to, label }) => (
               <Link 
                 key={to}
@@ -158,6 +159,7 @@ const Header = () => {
                 { to: "/np-rotulagem", label: "Rotulagem" },
                 { to: "/equipe", label: "Equipe" },
                 { to: "/faq", label: "FAQ" },
+              { to: "/curso-consultoras", label: "Formação" },
               ].map(({ to, label }) => (
                 <Link 
                   key={to}
