@@ -1,6 +1,10 @@
 import React from "react";
 import { useInView } from "react-intersection-observer";
 import npLogo from "@/assets/logo-np-circle.png";
+import gorilasLogo from "@/assets/gorilas.png";
+import graoParaLogo from "@/assets/grao_para.png";
+import stagioneLogo from "@/assets/stagione.png";
+import staldenLogo from "@/assets/stalden_np.png";
 
 type Client = { id: number; name: string; image: string };
 
@@ -16,6 +20,10 @@ const clients: Client[] = [
   { id: 9,  name: "Gerbelli Doceria",        image: "/fotos_clientes/gerbelli.png" },
   { id: 10, name: "Mosteiro de Itaici",      image: "/fotos_clientes/jesuita.png" },
   { id: 11, name: "Na Rua",                  image: "/fotos_clientes/narua.png" },
+  { id: 12, name: "Gorilas Bee",             image: gorilasLogo },
+  { id: 13, name: "Grão Pará Restaurante",   image: graoParaLogo },
+  { id: 14, name: "Stagione",                image: stagioneLogo },
+  { id: 15, name: "Stalden Café e Chocolate",image: staldenLogo },
 ];
 
 /* Divide clients into 2 non-overlapping groups for the rows */
