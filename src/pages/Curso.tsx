@@ -1,8 +1,30 @@
 import { useInView } from "react-intersection-observer";
-import { ArrowRight, CheckCircle2, BookOpen, Users, Star, TrendingUp, FileText, ClipboardList, DollarSign, Calendar, Target, Award } from "lucide-react";
+import { useRef, useEffect } from "react";
+import { ArrowRight, CheckCircle2, BookOpen, Users, TrendingUp, FileText, ClipboardList, DollarSign, Calendar, Target, Award } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+
+/* ── hook: parallax floating word via rAF ── */
+function useFloatWord() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let raf: number;
+    const loop = () => {
+      if (ref.current) {
+        const p = Math.min(
+          1,
+          Math.max(0, 1 - ref.current.getBoundingClientRect().top / window.innerHeight)
+        );
+        ref.current.style.setProperty("--p", p.toFixed(3));
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return ref;
+}
 
 const WHATSAPP = "5519989750741";
 const WA_CURSO = encodeURIComponent("Olá! Tenho interesse no Curso de Formação para Consultoras em Serviços de Alimentação. Pode me passar mais informações?");
@@ -43,6 +65,9 @@ const Curso = () => {
   const { ref: whoRef,    inView: whoInView    } = useInView({ threshold: 0.1, triggerOnce: true });
   const { ref: resultRef, inView: resultInView } = useInView({ threshold: 0.05, triggerOnce: true });
   const { ref: ctaRef,    inView: ctaInView    } = useInView({ threshold: 0.2, triggerOnce: true });
+
+  const metodoWordRef = useFloatWord();
+  const carreiraWordRef = useFloatWord();
 
   return (
     <>
@@ -182,8 +207,34 @@ const Curso = () => {
         </section>
 
         {/* ── PARA QUEM É + DIFERENCIAL ── */}
-        <section ref={whoRef} className="bg-[#1C1A18] py-20 lg:py-28 overflow-hidden">
-          <div className="max-w-[1100px] mx-auto px-6 sm:px-12 lg:px-16">
+        <section ref={whoRef} className="bg-[#1C1A18] py-20 lg:py-28" style={{ position: "relative", overflow: "clip" }}>
+          {/* Float word — MÉTODO */}
+          <div
+            ref={metodoWordRef}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              userSelect: "none",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "clamp(160px, 28vw, 480px)",
+              fontWeight: 300,
+              fontStyle: "italic",
+              lineHeight: 1,
+              letterSpacing: "-0.04em",
+              opacity: 0.055,
+              color: "#ffffff",
+              fontFamily: "'Playfair Display', serif",
+              transform: "translateX(calc((var(--p, 0) - 0.5) * 22%)) translateY(calc(var(--p, 0) * 8%))",
+            } as React.CSSProperties}
+          >
+            MÉTODO
+          </div>
+
+          <div className="max-w-[1100px] mx-auto px-6 sm:px-12 lg:px-16" style={{ position: "relative", zIndex: 1 }}>
             <div className="grid lg:grid-cols-2 gap-16">
 
               {/* Para quem */}
@@ -240,6 +291,7 @@ const Curso = () => {
               </div>
             </div>
           </div>
+          </div>
         </section>
 
         {/* ── RESULTADOS ── */}
@@ -280,8 +332,35 @@ const Curso = () => {
         </section>
 
         {/* ── CTA FINAL ── */}
-        <section ref={ctaRef} className="bg-[#1C1A18] py-20 lg:py-28 overflow-hidden">
-          <div className="max-w-[900px] mx-auto px-6 sm:px-12 lg:px-16 text-center">
+        <section ref={ctaRef} className="bg-[#1C1A18] py-20 lg:py-28" style={{ position: "relative", overflow: "clip" }}>
+
+          {/* Float word — CARREIRA */}
+          <div
+            ref={carreiraWordRef}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              userSelect: "none",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "clamp(120px, 22vw, 400px)",
+              fontWeight: 300,
+              fontStyle: "italic",
+              lineHeight: 1,
+              letterSpacing: "-0.04em",
+              opacity: 0.05,
+              color: "#ffffff",
+              fontFamily: "'Playfair Display', serif",
+              transform: "translateX(calc((var(--p, 0) - 0.5) * 22%)) translateY(calc(var(--p, 0) * 8%))",
+            } as React.CSSProperties}
+          >
+            CARREIRA
+          </div>
+
+          <div className="max-w-[900px] mx-auto px-6 sm:px-12 lg:px-16 text-center" style={{ position: "relative", zIndex: 1 }}>
             <div
               className={`transition-all duration-[1000ms] ${ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
             >
