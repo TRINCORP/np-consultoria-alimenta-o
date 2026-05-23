@@ -67,7 +67,6 @@ const Curso = () => {
   const { ref: ctaRef,    inView: ctaInView    } = useInView({ threshold: 0.2, triggerOnce: true });
 
   const metodoWordRef = useFloatWord();
-  const carreiraWordRef = useFloatWord();
 
   return (
     <>
@@ -332,35 +331,8 @@ const Curso = () => {
         </section>
 
         {/* ── CTA FINAL ── */}
-        <section ref={ctaRef} className="bg-[#1C1A18] py-20 lg:py-28" style={{ position: "relative", overflow: "clip" }}>
-
-          {/* Float word — CARREIRA */}
-          <div
-            ref={carreiraWordRef}
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              pointerEvents: "none",
-              userSelect: "none",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "clamp(120px, 22vw, 400px)",
-              fontWeight: 300,
-              fontStyle: "italic",
-              lineHeight: 1,
-              letterSpacing: "-0.04em",
-              opacity: 0.05,
-              color: "#ffffff",
-              fontFamily: "'Playfair Display', serif",
-              transform: "translateX(calc((var(--p, 0) - 0.5) * 22%)) translateY(calc(var(--p, 0) * 8%))",
-            } as React.CSSProperties}
-          >
-            CARREIRA
-          </div>
-
-          <div className="max-w-[900px] mx-auto px-6 sm:px-12 lg:px-16 text-center" style={{ position: "relative", zIndex: 1 }}>
+        <section ref={ctaRef} className="bg-[#1C1A18] py-20 lg:py-28 overflow-hidden">
+          <div className="max-w-[900px] mx-auto px-6 sm:px-12 lg:px-16 text-center">
             <div
               className={`transition-all duration-[1000ms] ${ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
             >
