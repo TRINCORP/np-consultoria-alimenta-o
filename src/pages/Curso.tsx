@@ -205,9 +205,10 @@ const Curso = () => {
           </div>
         </section>
 
-        {/* ── PARA QUEM É + DIFERENCIAL ── */}
-        <section ref={whoRef} className="bg-[#1C1A18] py-20 lg:py-28" style={{ position: "relative", overflow: "clip" }}>
-          {/* Float word — MÉTODO */}
+        {/* ── PALAVRA FLUTUANTE — MÉTODO ── */}
+        <div
+          style={{ position: "relative", overflow: "clip", background: "#1C1A18", height: "180px" }}
+        >
           <div
             ref={metodoWordRef}
             aria-hidden="true"
@@ -219,12 +220,12 @@ const Curso = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontSize: "clamp(160px, 28vw, 480px)",
+              fontSize: "clamp(72px, 11vw, 148px)",
               fontWeight: 300,
               fontStyle: "italic",
               lineHeight: 1,
               letterSpacing: "-0.04em",
-              opacity: 0.055,
+              opacity: 0.12,
               color: "#ffffff",
               fontFamily: "'Playfair Display', serif",
               transform: "translateX(calc((var(--p, 0) - 0.5) * 22%)) translateY(calc(var(--p, 0) * 8%))",
@@ -232,8 +233,11 @@ const Curso = () => {
           >
             MÉTODO
           </div>
+        </div>
 
-          <div className="max-w-[1100px] mx-auto px-6 sm:px-12 lg:px-16" style={{ position: "relative", zIndex: 1 }}>
+        {/* ── PARA QUEM É + DIFERENCIAL ── */}
+        <section ref={whoRef} className="bg-[#1C1A18] py-20 lg:py-28">
+          <div className="max-w-[1100px] mx-auto px-6 sm:px-12 lg:px-16">
             <div className="grid lg:grid-cols-2 gap-16">
 
               {/* Para quem */}
