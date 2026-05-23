@@ -290,7 +290,6 @@ const Curso = () => {
               </div>
             </div>
           </div>
-          </div>
         </section>
 
         {/* ── RESULTADOS ── */}
