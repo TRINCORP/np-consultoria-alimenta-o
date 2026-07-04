@@ -55,7 +55,7 @@ const Header = () => {
         <div 
           className={`flex items-center justify-between transition-all duration-500 ease-out ${
             isScrolled 
-              ? 'bg-black/40 backdrop-blur-md rounded-full px-4 py-2.5 gap-2 border border-white/10 shadow-2xl max-w-fit mx-auto' 
+              ? 'bg-[#1a1a1a]/90 rounded-full px-4 py-2.5 gap-2 border border-white/10 shadow-2xl max-w-fit mx-auto'
               : 'bg-[#2a2a2a] px-8 py-4 w-full'
           }`}
         >
@@ -112,7 +112,7 @@ const Header = () => {
         <div 
           className={`flex items-center justify-between transition-all duration-500 ease-out ${
             isScrolled 
-              ? 'bg-black/40 backdrop-blur-md rounded-full px-3 py-2 gap-1 border border-white/10 shadow-2xl' 
+              ? 'bg-[#1a1a1a]/90 rounded-full px-3 py-2 gap-1 border border-white/10 shadow-2xl'
               : 'bg-[#2a2a2a] px-4 py-3 w-full'
           }`}
         >
@@ -151,7 +151,7 @@ const Header = () => {
         style={{ top: '70px' }}
       >
         <div className="px-4 pt-4">
-          <div className="bg-[#1a1a2e]/95 backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-2xl">
+          <div className="bg-[#1a1a2e] rounded-2xl border border-white/10 p-6 shadow-2xl">
             <nav className="flex flex-col gap-1">
               {[
                 { to: "/sobre", label: "Sobre" },

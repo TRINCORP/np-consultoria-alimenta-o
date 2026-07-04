@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NP Consultoria em Alimentação — Excelência que Transforma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================
+       RESET & VARIABLES
+    ======================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --r-pale:    #fdf0f4;
+      --r-light:   #f5c6d5;
+      --r-soft:    #e8a4b8;
+      --r-main:    #d4849a;
+      --r-deep:    #b8607a;
+      --r-vivid:   #c45b78;
+      --g-900:     #161616;
+      --g-800:     #242424;
+      --g-700:     #3a3a3a;
+      --g-500:     #6b6b6b;
+      --g-300:     #aaaaaa;
+      --g-100:     #f0f0f0;
+      --white:     #ffffff;
+      --grad-rose: linear-gradient(135deg, #e8a4b8 0%, #d4849a 45%, #b8607a 100%);
+      --grad-dark: linear-gradient(160deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--g-800);
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* ========================================
+       CUSTOM CURSOR
+    ======================================== */
+    #cur {
+      position: fixed; width: 10px; height: 10px;
+      background: var(--r-deep); border-radius: 50%;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: width .15s, height .15s, background .15s;
+    }
+    #cur-ring {
+      position: fixed; width: 38px; height: 38px;
+      border: 1.5px solid var(--r-main); border-radius: 50%;
+      pointer-events: none; z-index: 99998;
+      transform: translate(-50%,-50%);
+      transition: width .3s, height .3s, border-color .3s, background .3s;
+    }
+    #cur-ring.big {
+      width: 72px; height: 72px;
+      border-color: var(--r-deep);
+      background: rgba(212,132,154,.1);
+    }
+    #cur.link { width: 6px; height: 6px; background: var(--r-vivid); }
+
+    /* ========================================
+       PAGE LOADER
+    ======================================== */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--g-900);
+      z-index: 99990;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.5rem;
+      transition: opacity .7s ease, visibility .7s ease;
+    }
+    #loader.out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    .ld-letters {
+      display: flex; gap: 0.2rem;
+      overflow: hidden;
+    }
+    .ld-letters span {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem,12vw,10rem);
+      font-weight: 900;
+      background: var(--grad-rose);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      transform: translateY(60px);
+      animation: ldChar .5s ease forwards;
+    }
+    .ld-letters span:nth-child(1){ animation-delay: .1s; }
+    .ld-letters span:nth-child(2){ animation-delay: .25s; }
+
+    .ld-sub {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      opacity: 0;
+      animation: ldChar .5s ease .5s forwards;
+    }
+
+    .ld-bar-wrap {
+      width: 180px; height: 1px;
+      background: rgba(255,255,255,.1);
+      overflow: hidden;
+    }
+    .ld-bar {
+      height: 100%;
+      background: var(--grad-rose);
+      width: 0;
+      animation: ldBar 1.8s cubic-bezier(.4,0,.2,1) .3s forwards;
+    }
+
+    @keyframes ldChar {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes ldBar {
+      to { width: 100%; }
+    }
+
+    /* ========================================
+       NAVIGATION
+    ======================================== */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 9000;
+      padding: 1.8rem 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: padding .4s, background .4s, box-shadow .4s;
+    }
+    #nav.stuck {
+      padding: 1rem 5%;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 2px 40px rgba(0,0,0,.07);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; font-weight: 900;
+      color: var(--white);
+      text-decoration: none;
+      transition: color .4s;
+    }
+    #nav.stuck .nav-logo { color: var(--g-900); }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .8rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      transition: color .3s;
+    }
+    #nav.stuck .nav-links a { color: var(--g-500); }
+    .nav-links a:hover { color: var(--r-main) !important; }
+
+    .nav-pill {
+      padding: .65rem 1.8rem;
+      background: var(--grad-rose);
+      color: white !important;
+      border-radius: 100px;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 24px rgba(212,132,154,.4);
+      transition: transform .2s, box-shadow .2s !important;
+    }
+    .nav-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(212,132,154,.6) !important;
+      color: white !important;
+    }
+
+    /* ========================================
+       HERO
+    ======================================== */
+    #hero {
+      position: relative;
+      height: 100vh; min-height: 680px;
+      background: var(--g-900);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    #ptx { /* particle canvas */
+      position: absolute; inset: 0; z-index: 0;
+    }
+
+    .hero-photo {
+      position: absolute; inset: 0; z-index: 1;
+      background: url('fotos/servicos06.jpeg') center/cover no-repeat;
+      opacity: .12;
+      transform: scale(1.05);
+      animation: heroZoom 12s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.12); }
+    }
+
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at 60% 50%, rgba(184,96,122,.18) 0%, transparent 65%),
+                  linear-gradient(180deg, transparent 40%, rgba(22,22,22,.8) 100%);
+    }
+
+    .hero-body {
+      position: relative; z-index: 3;
+      text-align: center;
+      padding: 0 5%;
+      max-width: 1050px;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(212,132,154,.35);
+      border-radius: 100px;
+      padding: .45rem 1.3rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .72rem; font-weight: 500;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--r-soft);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fup .8s ease .5s forwards;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--r-main);
+      border-radius: 50%;
+      animation: blink 1.5s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 9vw, 8.5rem);
+      font-weight: 900;
+      line-height: .95;
+      color: var(--white);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fup .8s ease .8s forwards;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      background: var(--grad-rose);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-p {
+      font-size: clamp(.95rem, 2.2vw, 1.25rem);
+      font-weight: 300;
+      color: rgba(255,255,255,.6);
+      max-width: 560px;
+      margin: 0 auto 3rem;
+      line-height: 1.85;
+      opacity: 0;
+      animation: fup .8s ease 1.1s forwards;
+    }
+
+    .hero-btns {
+      display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+      opacity: 0;
+      animation: fup .8s ease 1.4s forwards;
+    }
+
+    .btn-r {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: 1rem 2.8rem;
+      background: var(--grad-rose);
+      color: white;
+      border-radius: 100px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .9rem; font-weight: 600;
+      letter-spacing: .04em;
+      text-decoration: none;
+      box-shadow: 0 6px 32px rgba(212,132,154,.45);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-r:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(212,132,154,.65); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: 1rem 2.8rem;
+      background: transparent;
+      color: rgba(255,255,255,.8);
+      border: 1.5px solid rgba(255,255,255,.25);
+      border-radius: 100px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .9rem; font-weight: 500;
+      text-decoration: none;
+      transition: border-color .3s, background .3s, color .3s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--r-main);
+      background: rgba(212,132,154,.12);
+      color: white;
+    }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      opacity: 0;
+      animation: fadeIn .8s ease 2.2s forwards;
+    }
+    .hero-scroll span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+    }
+    .scroll-tick {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, transparent, var(--r-main));
+      animation: tick 2s ease infinite;
+    }
+    @keyframes tick {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      49%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      50%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ========================================
+       MARQUEE
+    ======================================== */
+    .marquee-wrap {
+      background: var(--grad-rose);
+      padding: 1.15rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: march 28s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .78rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+      padding: 0 2.2rem;
+    }
+    .marquee-track .sep { color: rgba(255,255,255,.45); }
+    @keyframes march { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ========================================
+       SHARED SECTION STYLES
+    ======================================== */
+    .sec { padding: 7rem 6%; }
+
+    .eyebrow {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: var(--r-main);
+      margin-bottom: .9rem;
+    }
+
+    .h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem,4.8vw,3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--g-900);
+      margin-bottom: 1.5rem;
+    }
+
+    /* reveal on scroll */
+    .rv {
+      opacity: 0;
+      transform: translateY(44px);
+      transition: opacity .85s ease, transform .85s ease;
+    }
+    .rv.on { opacity: 1; transform: translateY(0); }
+    .rv.d1 { transition-delay: .1s; }
+    .rv.d2 { transition-delay: .2s; }
+    .rv.d3 { transition-delay: .3s; }
+    .rv.d4 { transition-delay: .4s; }
+    .rv.d5 { transition-delay: .5s; }
+
+    /* ========================================
+       MANIFESTO
+    ======================================== */
+    #manifesto {
+      background: var(--g-900);
+      padding: 9rem 6%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .mf-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+    .mf-orb-a {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(212,132,154,.18) 0%, transparent 70%);
+      top: -200px; left: -150px;
+    }
+    .mf-orb-b {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(184,96,122,.12) 0%, transparent 70%);
+      bottom: -150px; right: -100px;
+    }
+    .mf-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem,4.2vw,3.5rem);
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--white);
+      max-width: 850px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .mf-text .em {
+      background: var(--grad-rose);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .mf-sub {
+      font-size: 1.05rem; font-weight: 300;
+      color: rgba(255,255,255,.45);
+      max-width: 560px;
+      margin: 2rem auto 0;
+      line-height: 1.9;
+      position: relative; z-index: 1;
+    }
+
+    /* ========================================
+       SERVICES
+    ======================================== */
+    #services { background: var(--r-pale); }
+
+    .srv-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4.5rem;
+    }
+    .srv-head p {
+      font-size: 1.05rem; color: var(--g-500);
+      line-height: 1.85; max-width: 420px;
+    }
+
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .srv-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.8rem 2.4rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+    .srv-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--grad-rose);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .srv-card:hover { transform: translateY(-10px); box-shadow: 0 24px 60px rgba(212,132,154,.28); }
+    .srv-card:hover::after { opacity: 1; }
+
+    .srv-num {
+      position: absolute; top: 1.4rem; right: 1.6rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem; font-weight: 900;
+      color: var(--g-100); line-height: 1;
+      transition: color .4s;
+      z-index: 1;
+    }
+    .srv-card:hover .srv-num { color: rgba(255,255,255,.18); }
+
+    .srv-ico {
+      font-size: 2.2rem;
+      margin-bottom: 1.4rem;
+      display: block;
+      position: relative; z-index: 1;
+    }
+    .srv-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--g-900);
+      margin-bottom: .9rem;
+      position: relative; z-index: 1;
+      transition: color .4s;
+    }
+    .srv-desc {
+      font-size: .88rem; color: var(--g-500);
+      line-height: 1.75;
+      position: relative; z-index: 1;
+      transition: color .4s;
+    }
+    .srv-card:hover .srv-title,
+    .srv-card:hover .srv-desc { color: rgba(255,255,255,.92); }
+
+    /* ========================================
+       STATS
+    ======================================== */
+    #stats {
+      padding: 5.5rem 6%;
+      background: var(--white);
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .stat {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      border-radius: 16px;
+      background: var(--r-pale);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .stat:hover { transform: translateY(-6px); box-shadow: 0 16px 50px rgba(212,132,154,.2); }
+    .stat-n {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem,5vw,4.5rem);
+      font-weight: 900;
+      background: var(--grad-rose);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: .6rem;
+    }
+    .stat-l {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .75rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--g-500);
+    }
+
+    /* ========================================
+       GALLERY
+    ======================================== */
+    #gallery {
+      padding: 7rem 0;
+      background: var(--g-900);
+      overflow: hidden;
+    }
+    .gal-head {
+      padding: 0 6%;
+      margin-bottom: 3.5rem;
+    }
+    .gal-head .h2 { color: var(--white); }
+    .gal-lead {
+      font-size: 1.05rem; font-weight: 300;
+      color: rgba(255,255,255,.45);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-top: 0;
+    }
+    .gal-head-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .gal-hint {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.25);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .gal-hint::before {
+      content: '←→';
+      font-size: .9rem;
+      color: var(--r-main);
+    }
+
+    .gal-track {
+      display: flex;
+      gap: 1.4rem;
+      padding: .5rem 6% 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      cursor: grab;
+      user-select: none;
+    }
+    .gal-track::-webkit-scrollbar { display: none; }
+    .gal-track.dragging { cursor: grabbing; }
+
+    .gal-item {
+      flex: 0 0 370px;
+      height: 490px;
+      border-radius: 18px;
+      overflow: hidden;
+      scroll-snap-align: start;
+      position: relative;
+    }
+    .gal-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .gal-item:hover img { transform: scale(1.07); }
+
+    .gal-item-cap {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.8rem 1.6rem;
+      background: linear-gradient(transparent, rgba(0,0,0,.72));
+      color: white;
+      transform: translateY(110%);
+      transition: transform .45s ease;
+    }
+    .gal-item:hover .gal-item-cap { transform: translateY(0); }
+    .gal-item-cap small {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .7rem; letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--r-soft);
+      display: block; margin-bottom: .3rem;
+    }
+    .gal-item-cap p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 600;
+    }
+
+    /* ========================================
+       FULL-BLEED QUOTE
+    ======================================== */
+    #quote-sec {
+      position: relative;
+      height: 80vh; min-height: 520px;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .qbg {
+      position: absolute; inset: 0;
+      background: url('fotos/servicos07.jpeg') center/cover no-repeat;
+      filter: brightness(.25) saturate(.5);
+    }
+    .qbg-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(22,22,22,.85) 45%, transparent 100%);
+    }
+    .q-body {
+      position: relative; z-index: 1;
+      padding: 0 6%;
+      max-width: 680px;
+    }
+    .q-big {
+      font-size: clamp(3.5rem,8vw,7rem);
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      color: rgba(255,255,255,.08);
+      line-height: 1;
+      margin-bottom: -1rem;
+    }
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem,3.8vw,3rem);
+      font-weight: 700;
+      line-height: 1.4;
+      color: white;
+      margin-bottom: 2rem;
+    }
+    .q-text em { color: var(--r-soft); font-style: italic; }
+    .q-attr {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .78rem; letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--r-main);
+    }
+
+    /* ========================================
+       MISSION / SPLIT
+    ======================================== */
+    #mission {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+      padding: 0;
+    }
+    .mis-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .mis-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .7s ease;
+    }
+    .mis-img:hover img { transform: scale(1.04); }
+
+    .mis-txt {
+      background: var(--r-pale);
+      padding: 6rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .mis-txt p {
+      font-size: 1.02rem;
+      color: var(--g-500);
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ========================================
+       TREINAMENTO SHOWCASE
+    ======================================== */
+    #training {
+      background: var(--white);
+      padding: 7rem 6%;
+    }
+    .tr-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 4rem;
+    }
+    .tr-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+    .tr-ph {
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform .4s;
+    }
+    .tr-ph:hover { transform: scale(1.03); }
+    .tr-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tr-ph.tall { grid-row: span 2; }
+    .tr-ph.tall img { height: 420px; }
+    .tr-ph:not(.tall) img { height: 200px; }
+
+    .tr-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem,3vw,2.4rem);
+      font-weight: 700;
+      color: var(--g-900);
+      line-height: 1.25;
+      margin-bottom: 1.4rem;
+    }
+    .tr-text p {
+      font-size: .98rem;
+      color: var(--g-500);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+    .tr-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+    .tr-list li {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .88rem;
+      color: var(--g-700);
+      padding: .65rem 0;
+      border-bottom: 1px solid var(--g-100);
+      display: flex;
+      align-items: center; gap: .75rem;
+    }
+    .tr-list li::before {
+      content: '✦';
+      color: var(--r-main);
+      font-size: .65rem;
+    }
+
+    /* ========================================
+       CTA
+    ======================================== */
+    #cta {
+      background: var(--g-900);
+      padding: 9rem 6%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-orb {
+      position: absolute;
+      width: 900px; height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,132,154,.15) 0%, transparent 60%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      pointer-events: none;
+      animation: orbPulse 5s ease infinite;
+    }
+    @keyframes orbPulse {
+      0%,100% { transform: translate(-50%,-50%) scale(1); opacity:1; }
+      50%      { transform: translate(-50%,-50%) scale(1.1); opacity:.7; }
+    }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.3rem,6vw,5rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .cta-h span {
+      background: var(--grad-rose);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cta-p {
+      font-size: 1.05rem; font-weight: 300;
+      color: rgba(255,255,255,.5);
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      line-height: 1.9;
+    }
+    .cta-btns {
+      display: flex; gap: 1.4rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: 1.1rem 2.8rem;
+      background: #25D366;
+      color: white;
+      border-radius: 100px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .92rem; font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 30px rgba(37,211,102,.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(37,211,102,.6); }
+
+    /* ========================================
+       FOOTER
+    ======================================== */
+    footer {
+      background: var(--g-900);
+      border-top: 1px solid rgba(255,255,255,.05);
+      padding: 4rem 6% 2rem;
+    }
+    .ft-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .ft-brand .ft-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900;
+      background: var(--grad-rose);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ft-brand p {
+      font-size: .82rem;
+      color: rgba(255,255,255,.25);
+      margin-top: .3rem;
+    }
+    .ft-col h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .7rem; font-weight: 600;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--r-main);
+      margin-bottom: 1rem;
+    }
+    .ft-col ul { list-style: none; }
+    .ft-col ul li {
+      font-size: .83rem;
+      color: rgba(255,255,255,.3);
+      line-height: 2.1;
+    }
+    .ft-bottom {
+      text-align: center;
+      font-size: .75rem;
+      color: rgba(255,255,255,.15);
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+
+    /* ========================================
+       FLOATING WA BUTTON
+    ======================================== */
+    #wa-float {
+      position: fixed; bottom: 2rem; right: 2rem;
+      z-index: 8000;
+      width: 58px; height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(37,211,102,.5);
+      animation: floatWa 3s ease infinite;
+    }
+    #wa-float:hover { transform: scale(1.12); }
+    #wa-float svg { width: 28px; height: 28px; fill: white; }
+    @keyframes floatWa {
+      0%,100% { box-shadow: 0 4px 24px rgba(37,211,102,.5); }
+      50%      { box-shadow: 0 8px 40px rgba(37,211,102,.7); }
+    }
+
+    /* ========================================
+       KEYFRAMES GLOBALS
+    ======================================== */
+    @keyframes fup { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width:1100px) {
+      .srv-grid { grid-template-columns: repeat(2,1fr); }
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+      .srv-head { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    @media (max-width:900px) {
+      #mission { grid-template-columns: 1fr; }
+      .mis-img { height: 55vw; }
+      .mis-txt { padding: 4rem 6%; }
+      .tr-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width:680px) {
+      .srv-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .gal-item { flex: 0 0 280px; height: 380px; }
+      #cur, #cur-ring { display: none; }
+      body { cursor: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="ld-letters">
+      <span>N</span><span>P</span>
+    </div>
+    <p class="ld-sub">Consultoria em Alimentação</p>
+    <div class="ld-bar-wrap"><div class="ld-bar"></div></div>
+  </div>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/5500000000000" id="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">NP</a>
+    <ul class="nav-links">
+      <li><a href="#services">Serviços</a></li>
+      <li><a href="#gallery">Galeria</a></li>
+      <li><a href="#training">Treinamentos</a></li>
+      <li><a href="#mission">Sobre</a></li>
+      <li><a href="#cta" class="nav-pill">Fale Conosco</a></li>
+    </ul>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <section id="hero">
+    <canvas id="ptx"></canvas>
+    <div class="hero-photo"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-body">
+      <div class="hero-tag">Excelência em Alimentação Profissional</div>
+      <h1 class="hero-h1">
+        Onde Comer<br>vira <em>Arte.</em>
+      </h1>
+      <p class="hero-p">
+        Transformamos serviços de alimentação em máquinas de resultado.<br>
+        Do diagnóstico à excelência — sem atalhos, sem meio-termo.
+      </p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-r">Nossos Serviços</a>
+        <a href="#gallery" class="btn-ghost">Ver Resultados →</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Descubra</span>
+      <div class="scroll-tick"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       MARQUEE
+  ════════════════════════════════════════ -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>Consultoria em UAN</span><span class="sep">✦</span>
+      <span>Treinamento de Equipes</span><span class="sep">✦</span>
+      <span>Vigilância Sanitária</span><span class="sep">✦</span>
+      <span>Gestão de Cardápio</span><span class="sep">✦</span>
+      <span>Nutrição Clínica</span><span class="sep">✦</span>
+      <span>Boas Práticas de Fabricação</span><span class="sep">✦</span>
+      <span>Manuais e POPs</span><span class="sep">✦</span>
+      <span>Adequação Sanitária</span><span class="sep">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span>Consultoria em UAN</span><span class="sep">✦</span>
+      <span>Treinamento de Equipes</span><span class="sep">✦</span>
+      <span>Vigilância Sanitária</span><span class="sep">✦</span>
+      <span>Gestão de Cardápio</span><span class="sep">✦</span>
+      <span>Nutrição Clínica</span><span class="sep">✦</span>
+      <span>Boas Práticas de Fabricação</span><span class="sep">✦</span>
+      <span>Manuais e POPs</span><span class="sep">✦</span>
+      <span>Adequação Sanitária</span><span class="sep">✦</span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       MANIFESTO
+  ════════════════════════════════════════ -->
+  <section id="manifesto">
+    <div class="mf-orb mf-orb-a"></div>
+    <div class="mf-orb mf-orb-b"></div>
+    <p class="mf-text rv">
+      "Não somos consultores.<br>
+      Somos os <span class="em">arquitetos</span><br>
+      do seu sucesso alimentar."
+    </p>
+    <p class="mf-sub rv d2">
+      A NP Consultoria nasceu da convicção de que a excelência em alimentação
+      é possível em qualquer escala. Do restaurante ao hospital,
+      da cozinha industrial ao atendimento individual.
+    </p>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SERVICES
+  ════════════════════════════════════════ -->
+  <section id="services" class="sec">
+    <div class="srv-head">
+      <div class="rv">
+        <span class="eyebrow">O que fazemos</span>
+        <h2 class="h2">Soluções que<br>geram resultado<br><em style="font-style:italic;color:var(--r-deep)">real.</em></h2>
+      </div>
+      <p class="rv d1">
+        Do treinamento de equipes ao compliance sanitário, da nutrição clínica
+        à gestão de cardápio — cobrimos todo o ecossistema da alimentação
+        profissional com profundidade e comprometimento absoluto.
+      </p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card rv">
+        <span class="srv-num">01</span>
+        <span class="srv-ico">🍽️</span>
+        <h3 class="srv-title">Consultoria em UAN</h3>
+        <p class="srv-desc">Diagnóstico completo e reestruturação de Unidades de Alimentação e Nutrição para máxima eficiência operacional e qualidade.</p>
+      </div>
+      <div class="srv-card rv d1">
+        <span class="srv-num">02</span>
+        <span class="srv-ico">🎓</span>
+        <h3 class="srv-title">Treinamento de Equipes</h3>
+        <p class="srv-desc">Capacitação profissional com metodologias modernas. Times que dominam higiene, segurança alimentar e excelência no serviço.</p>
+      </div>
+      <div class="srv-card rv d2">
+        <span class="srv-num">03</span>
+        <span class="srv-ico">📋</span>
+        <h3 class="srv-title">Vigilância Sanitária</h3>
+        <p class="srv-desc">Adequação completa às normas vigentes. Elimine riscos de autuações, interdições e problemas legais de uma vez por todas.</p>
+      </div>
+      <div class="srv-card rv d1">
+        <span class="srv-num">04</span>
+        <span class="srv-ico">📊</span>
+        <h3 class="srv-title">Gestão de Cardápio</h3>
+        <p class="srv-desc">Cardápios equilibrados, sazonais e rentáveis. Planejamento nutricional aliado à inteligência financeira e satisfação do cliente.</p>
+      </div>
+      <div class="srv-card rv d2">
+        <span class="srv-num">05</span>
+        <span class="srv-ico">🩺</span>
+        <h3 class="srv-title">Nutrição Clínica</h3>
+        <p class="srv-desc">Atendimento nutricional individualizado. Protocolos personalizados com foco em resultados mensuráveis e qualidade de vida.</p>
+      </div>
+      <div class="srv-card rv d3">
+        <span class="srv-num">06</span>
+        <span class="srv-ico">✅</span>
+        <h3 class="srv-title">Manuais e BPF</h3>
+        <p class="srv-desc">Implantação de Manuais de Boas Práticas e POPs personalizados. Documentação que protege, certifica e profissionaliza seu negócio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       STATS
+  ════════════════════════════════════════ -->
+  <section id="stats">
+    <div class="stats-row">
+      <div class="stat rv">
+        <div class="stat-n" data-target="200" data-suf="+">0+</div>
+        <p class="stat-l">Empresas Transformadas</p>
+      </div>
+      <div class="stat rv d1">
+        <div class="stat-n" data-target="500" data-suf="+">0+</div>
+        <p class="stat-l">Profissionais Treinados</p>
+      </div>
+      <div class="stat rv d2">
+        <div class="stat-n" data-target="10" data-suf="+">0+</div>
+        <p class="stat-l">Anos de Experiência</p>
+      </div>
+      <div class="stat rv d3">
+        <div class="stat-n" data-target="100" data-suf="%">0%</div>
+        <p class="stat-l">Comprometimento</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       GALLERY
+  ════════════════════════════════════════ -->
+  <section id="gallery">
+    <div class="gal-head rv">
+      <span class="eyebrow">Nossa Atuação em Campo</span>
+      <div class="gal-head-row">
+        <div>
+          <h2 class="h2">Cada visita.<br>Cada detalhe.<br>Cada <em style="font-style:italic;background:var(--grad-rose);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">resultado.</em></h2>
+          <p class="gal-lead">Conheça o trabalho que fazemos no campo, dentro das cozinhas, com as equipes — onde a transformação realmente acontece.</p>
+        </div>
+        <div class="gal-hint">Arraste para explorar</div>
+      </div>
+    </div>
+
+    <div class="gal-track" id="galTrack">
+      <div class="gal-item">
+        <img src="fotos/servicos01.jpeg" alt="Equipe NP Consultoria" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Nossa Equipe</small>
+          <p>Comprometimento em cada detalhe</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos02.jpeg" alt="Consultoria em campo" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Consultoria Ativa</small>
+          <p>Análise direta no ambiente real</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos03.jpeg" alt="Profissional em restaurante" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Avaliação de Produtos</small>
+          <p>Controle da origem ao prato</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos04.jpeg" alt="Atendimento nutricional" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Nutrição Clínica</small>
+          <p>Cuidado humano e técnico</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos06.jpeg" alt="Profissionais NP" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Excelência Profissional</small>
+          <p>Padrão e dedicação absolutos</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos10.jpeg" alt="Controle de qualidade no buffet" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Controle de Qualidade</small>
+          <p>Padrão elevado em cada etapa</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos11.jpeg" alt="Monitoramento de buffet" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Supervisão de Produção</small>
+          <p>Higiene, apresentação e sabor</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos13.jpeg" alt="Implantação de BPF" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Documentação NP</small>
+          <p>BPF implantada com rigor técnico</p>
+        </div>
+      </div>
+      <div class="gal-item">
+        <img src="fotos/servicos15.jpeg" alt="Equipe de cozinha" loading="lazy">
+        <div class="gal-item-cap">
+          <small>Gestão de Cozinha</small>
+          <p>Liderança e eficiência operacional</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FULL-BLEED QUOTE
+  ════════════════════════════════════════ -->
+  <section id="quote-sec">
+    <div class="qbg"></div>
+    <div class="qbg-overlay"></div>
+    <div class="q-body rv">
+      <div class="q-big">"</div>
+      <p class="q-text">
+        Transformamos cozinhas em<br>
+        <em>máquinas de resultado.</em><br>
+        Do diagnóstico à perfeição —<br>sem atalhos.
+      </p>
+      <p class="q-attr">— NP Consultoria em Alimentação</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       TREINAMENTOS
+  ════════════════════════════════════════ -->
+  <section id="training" class="sec">
+    <span class="eyebrow rv">Capacitação profissional</span>
+    <h2 class="h2 rv" style="max-width:600px">
+      Equipes que sabem o que fazem<br>
+      <em style="font-style:italic;color:var(--r-deep)">fazem a diferença.</em>
+    </h2>
+
+    <div class="tr-grid">
+      <div class="tr-photos rv d1">
+        <div class="tr-ph tall">
+          <img src="fotos/servicos07.jpeg" alt="Treinamento em grupo" loading="lazy">
+        </div>
+        <div class="tr-ph">
+          <img src="fotos/servicos08.jpeg" alt="Capacitação de equipe" loading="lazy">
+        </div>
+        <div class="tr-ph">
+          <img src="fotos/servicos14.jpeg" alt="Regulamento Interno" loading="lazy">
+        </div>
+      </div>
+
+      <div class="tr-text rv d2">
+        <h3>Treinamentos que<br>ficam na prática.</h3>
+        <p>
+          Nosso método vai além da teoria. Entramos no ambiente real,
+          entendemos a rotina da equipe e desenvolvemos capacitações
+          que geram mudança de comportamento — permanente.
+        </p>
+        <p>
+          Cada treinamento é customizado para a realidade do cliente,
+          com linguagem acessível, materiais visuais e acompanhamento pós-implantação.
+        </p>
+        <ul class="tr-list">
+          <li>Higiene e manipulação de alimentos</li>
+          <li>Regulamento Interno personalizado</li>
+          <li>Boas Práticas de Fabricação (BPF)</li>
+          <li>Controle de temperatura e armazenamento</li>
+          <li>Atendimento ao cliente no serviço de alimentação</li>
+          <li>Liderança e gestão de equipe na cozinha</li>
+        </ul>
+        <a href="#cta" class="btn-r" style="margin-top:1rem">Quero Capacitar Minha Equipe</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       MISSION / SPLIT
+  ════════════════════════════════════════ -->
+  <section id="mission">
+    <div class="mis-img">
+      <img src="fotos/servicos09.jpeg" alt="Consultora NP apresentando" loading="lazy">
+    </div>
+    <div class="mis-txt">
+      <div class="rv">
+        <span class="eyebrow">Quem somos</span>
+        <h2 class="h2">A consultoria que<br>veste<br><em style="font-style:italic;color:var(--r-deep)">a sua causa.</em></h2>
+        <p>
+          A NP Consultoria em Alimentação é formada por nutricionistas
+          apaixonadas pela transformação real. Atuamos de forma presencial,
+          próxima e estratégica — entendendo o DNA de cada negócio para
+          criar soluções que realmente funcionam.
+        </p>
+        <p>
+          Seja um restaurante buscando excelência operacional, uma empresa
+          precisando de conformidade sanitária, ou um paciente que precisa
+          de orientação nutricional individualizada — a NP está ao seu lado
+          em cada passo do caminho.
+        </p>
+        <a href="#cta" class="btn-r" style="margin-top:.5rem">Conheça Nossa História</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       CTA
+  ════════════════════════════════════════ -->
+  <section id="cta">
+    <div class="cta-orb"></div>
+    <div class="cta-inner">
+      <span class="eyebrow rv">Pronto para o próximo nível?</span>
+      <h2 class="cta-h rv">
+        Seu negócio merece<br>
+        <span>o melhor em alimentação.</span>
+      </h2>
+      <p class="cta-p rv d1">
+        Entre em contato agora e descubra como a NP Consultoria pode
+        transformar completamente o seu serviço de alimentação.
+      </p>
+      <div class="cta-btns rv d2">
+        <a href="https://wa.me/5500000000000" class="btn-wa" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Falar pelo WhatsApp
+        </a>
+        <a href="mailto:contato@npconsultoria.com.br" class="btn-r">Enviar E-mail</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <div class="ft-row">
+      <div class="ft-brand">
+        <div class="ft-logo">NP</div>
+        <p>Consultoria em Alimentação</p>
+      </div>
+      <div class="ft-col">
+        <h4>Serviços</h4>
+        <ul>
+          <li>Consultoria em UAN</li>
+          <li>Treinamento de Equipes</li>
+          <li>Vigilância Sanitária</li>
+          <li>Gestão de Cardápio</li>
+          <li>Nutrição Clínica</li>
+          <li>Manuais e BPF</li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contato</h4>
+        <ul>
+          <li>contato@npconsultoria.com.br</li>
+          <li>@npconsultoria</li>
+          <li>WhatsApp: (00) 00000-0000</li>
+        </ul>
+      </div>
+    </div>
+    <p class="ft-bottom">© 2025 NP Consultoria em Alimentação. Todos os direitos reservados.</p>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════ -->
+  <script>
+  /* ── LOADER ─────────────────────────────── */
+  window.addEventListener('load', () => {
+    setTimeout(() => document.getElementById('loader').classList.add('out'), 2200);
+  });
+
+  /* ── CUSTOM CURSOR ──────────────────────── */
+  const $cur  = document.getElementById('cur');
+  const $ring = document.getElementById('cur-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    $cur.style.left = mx + 'px';
+    $cur.style.top  = my + 'px';
+  });
+
+  (function tickRing() {
+    rx += (mx - rx) * 0.11;
+    ry += (my - ry) * 0.11;
+    $ring.style.left = rx + 'px';
+    $ring.style.top  = ry + 'px';
+    requestAnimationFrame(tickRing);
+  })();
+
+  document.querySelectorAll('a, button, .srv-card, .stat, .gal-item').forEach(el => {
+    el.addEventListener('mouseenter', () => { $ring.classList.add('big'); $cur.classList.add('link'); });
+    el.addEventListener('mouseleave', () => { $ring.classList.remove('big'); $cur.classList.remove('link'); });
+  });
+
+  /* ── PARTICLE CANVAS ────────────────────── */
+  const cvs = document.getElementById('ptx');
+  const ctx = cvs.getContext('2d');
+
+  function resize() {
+    cvs.width  = window.innerWidth;
+    cvs.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class P {
+    constructor() { this.init(); }
+    init() {
+      this.x  = Math.random() * cvs.width;
+      this.y  = Math.random() * cvs.height;
+      this.r  = Math.random() * 2.2 + .4;
+      this.vx = (Math.random() - .5) * .35;
+      this.vy = (Math.random() - .5) * .35;
+      this.a  = Math.random() * .45 + .05;
+      this.c  = Math.random() > .55 ? '#d4849a' : '#f5c6d5';
+    }
+    step() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < -5 || this.x > cvs.width + 5 ||
+          this.y < -5 || this.y > cvs.height + 5) this.init();
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.a;
+      ctx.fillStyle = this.c;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  const pts = Array.from({ length: 110 }, () => new P());
+
+  function drawLines() {
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x;
+        const dy = pts[i].y - pts[j].y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+        if (d < 115) {
+          ctx.save();
+          ctx.globalAlpha = (1 - d / 115) * .13;
+          ctx.strokeStyle = '#d4849a';
+          ctx.lineWidth = .5;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+  }
+
+  (function frame() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    pts.forEach(p => { p.step(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(frame);
+  })();
+
+  /* ── NAV SCROLL ─────────────────────────── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('stuck', window.scrollY > 70);
+  }, { passive: true });
+
+  /* ── SCROLL REVEAL ──────────────────────── */
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.rv').forEach(el => revObs.observe(el));
+
+  /* ── COUNTER ANIMATION ──────────────────── */
+  const cntObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el  = e.target;
+      const end = parseInt(el.dataset.target);
+      const suf = el.dataset.suf || '';
+      let cur = 0;
+      const inc = end / 55;
+      const id = setInterval(() => {
+        cur += inc;
+        if (cur >= end) { cur = end; clearInterval(id); }
+        el.textContent = Math.floor(cur) + suf;
+      }, 22);
+      cntObs.unobserve(el);
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('.stat-n[data-target]').forEach(el => cntObs.observe(el));
+
+  /* ── GALLERY DRAG SCROLL ────────────────── */
+  const track = document.getElementById('galTrack');
+  let drag = false, sx = 0, sl = 0;
+
+  track.addEventListener('mousedown', e => {
+    drag = true; sx = e.pageX - track.offsetLeft; sl = track.scrollLeft;
+    track.classList.add('dragging');
+  });
+  track.addEventListener('mouseleave', () => { drag = false; track.classList.remove('dragging'); });
+  track.addEventListener('mouseup',    () => { drag = false; track.classList.remove('dragging'); });
+  track.addEventListener('mousemove', e => {
+    if (!drag) return;
+    e.preventDefault();
+    track.scrollLeft = sl - (e.pageX - track.offsetLeft - sx) * 1.8;
+  });
+
+  // Touch support
+  let tx0 = 0;
+  track.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; sl = track.scrollLeft; }, { passive: true });
+  track.addEventListener('touchmove', e => {
+    track.scrollLeft = sl - (e.touches[0].clientX - tx0) * 1.4;
+  }, { passive: true });
+
+  /* ── PARALLAX HERO ──────────────────────── */
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY;
+    const hp = document.querySelector('.hero-photo');
+    if (hp) hp.style.transform = `scale(1.05) translateY(${s * 0.25}px)`;
+  }, { passive: true });
+  </script>
+
+</body>
+</html>

@@ -4,25 +4,49 @@ import { ArrowRight, CheckCircle2, BookOpen, Users, TrendingUp, FileText, Clipbo
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import servicos12 from "@/np_site/fotos/servicos12.jpeg";
 
-/* ── hook: parallax floating word via rAF ── */
+/* ── hook: parallax floating word via rAF (pausa quando fora da tela) ── */
 function useFloatWord() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let raf: number;
-    const loop = () => {
-      if (ref.current) {
-        const p = Math.min(
-          1,
-          Math.max(0, 1 - ref.current.getBoundingClientRect().top / window.innerHeight)
-        );
+    let active = false;
+    const step = () => {
+      if (active && ref.current) {
+        const p = Math.min(1, Math.max(0, 1 - ref.current.getBoundingClientRect().top / window.innerHeight));
         ref.current.style.setProperty("--p", p.toFixed(3));
       }
-      raf = requestAnimationFrame(loop);
+      raf = requestAnimationFrame(step);
     };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    const io = new IntersectionObserver(([e]) => { active = e.isIntersecting; }, { rootMargin: "200px" });
+    if (ref.current) io.observe(ref.current);
+    raf = requestAnimationFrame(step);
+    return () => { cancelAnimationFrame(raf); io.disconnect(); };
   }, []);
+  return ref;
+}
+
+/* ── hook: parallax imagem via rAF (pausa quando fora da tela) ── */
+function useParallax(strength = 18) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let raf: number;
+    let active = false;
+    const step = () => {
+      if (active && ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        const shift = ((viewH / 2) - (rect.top + rect.height / 2)) / viewH * strength;
+        ref.current.style.transform = `translateY(${shift.toFixed(2)}px) scale(1.06)`;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver(([e]) => { active = e.isIntersecting; }, { rootMargin: "300px" });
+    if (ref.current) io.observe(ref.current);
+    raf = requestAnimationFrame(step);
+    return () => { cancelAnimationFrame(raf); io.disconnect(); };
+  }, [strength]);
   return ref;
 }
 
@@ -62,11 +86,13 @@ const resultados = [
 const Curso = () => {
   const { ref: heroRef,   inView: heroInView   } = useInView({ threshold: 0.1, triggerOnce: true });
   const { ref: learnRef,  inView: learnInView  } = useInView({ threshold: 0.05, triggerOnce: true });
+  const { ref: photoRef,  inView: photoInView  } = useInView({ threshold: 0.12, triggerOnce: true });
   const { ref: whoRef,    inView: whoInView    } = useInView({ threshold: 0.1, triggerOnce: true });
   const { ref: resultRef, inView: resultInView } = useInView({ threshold: 0.05, triggerOnce: true });
   const { ref: ctaRef,    inView: ctaInView    } = useInView({ threshold: 0.2, triggerOnce: true });
 
   const metodoWordRef = useFloatWord();
+  const photoImgRef = useParallax(18);
 
   return (
     <>
@@ -201,6 +227,73 @@ const Curso = () => {
                   <p className="text-[hsl(210_15%_18%)] text-sm leading-relaxed font-medium pt-2">{text}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── FOTO IMERSIVA — MÉTODO EM AÇÃO ── */}
+        <section ref={photoRef} className="relative overflow-hidden bg-[#1C1A18]">
+          {/* Clip-path wipe: revela de cima para baixo conforme entra na tela */}
+          <div
+            className="relative transition-[clip-path] duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{ clipPath: photoInView ? "inset(0% 0 0% 0)" : "inset(0% 0 100% 0)" }}
+          >
+            <div className="relative h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
+              {/* Parallax image — extende além da caixa para ter margem de movimento */}
+              <div
+                ref={photoImgRef}
+                className="absolute inset-[-8%]"
+                style={{ willChange: "transform" }}
+              >
+                <img
+                  src={servicos12}
+                  alt="Consultora NP revisando documentação de boas práticas em serviço de alimentação"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Gradientes de overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A18] via-[#1C1A18]/30 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1C1A18]/55 via-transparent to-transparent pointer-events-none" />
+
+              {/* Texto com stagger reveal */}
+              <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-12 lg:px-16 pb-14 lg:pb-20">
+                <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase text-[hsl(20_45%_68%)] mb-5
+                  transition-[opacity,transform] duration-700 delay-[600ms]
+                  ${photoInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                  O método em prática
+                </span>
+                <h2
+                  className={`font-playfair font-bold text-white leading-[1.05] max-w-3xl
+                    transition-[opacity,transform] duration-[900ms] delay-[750ms]
+                    ${photoInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+                  style={{ fontSize: "clamp(2rem, 4.5vw, 4.2rem)" }}
+                >
+                  Documentação real.<br />
+                  <em className="italic text-[hsl(20_45%_70%)]">Resultado real.</em>
+                </h2>
+                <p className={`mt-5 text-white/50 text-base sm:text-lg max-w-xl leading-relaxed
+                  transition-[opacity,transform] duration-700 delay-[900ms]
+                  ${photoInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                  Da elaboração de POPs ao treinamento de equipes — aprenda exatamente
+                  como uma consultora NP opera no campo.
+                </p>
+                <a
+                  href={`https://wa.me/${WHATSAPP}?text=${WA_CURSO}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className={`mt-8 group inline-flex items-center gap-2
+                    text-[hsl(20_45%_72%)] text-sm font-medium tracking-wide
+                    border-b border-[hsl(20_45%_72%/0.4)] pb-0.5
+                    hover:text-white hover:border-white
+                    transition-[opacity,transform,color,border-color] duration-300 delay-[1050ms]
+                    ${photoInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                >
+                  Quero me inscrever
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              </div>
             </div>
           </div>
         </section>

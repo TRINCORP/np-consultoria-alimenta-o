@@ -9,6 +9,7 @@
   --total: 12;
   --time: 80s;
   --left: -350rem;
+  --start: calc(10rem * var(--total));
   min-width: calc(10rem * var(--total));
   height: 30rem;
   position: relative;
@@ -22,14 +23,14 @@
   position: absolute;
   width: 30rem;
   height: 30rem;
-  left: 100%;
+  left: 0;
   display: flex;
   justify-content: center;
   perspective: 1000px;
   transform-style: preserve-3d;
   animation: why-np-scroll-left var(--time) linear infinite;
   animation-delay: calc(var(--time) / var(--total) * (var(--i) - 1) - var(--time));
-  will-change: left;
+  will-change: transform;
   contain: layout style;
   cursor: pointer;
 }
@@ -119,9 +120,8 @@
 }
 
 @keyframes why-np-scroll-left {
-  to {
-    left: var(--left);
-  }
+  from { transform: translateX(var(--start)); }
+  to   { transform: translateX(var(--left)); }
 }
 
 @keyframes why-np-bounce {

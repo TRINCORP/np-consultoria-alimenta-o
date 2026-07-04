@@ -29,7 +29,7 @@ const services = [
 
 /* Card extraído como componente para usar useInView sem violar Rules of Hooks */
 const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
-  const { ref, inView } = useInView({ threshold: 0.35, triggerOnce: false });
+  const { ref, inView } = useInView({ threshold: 0.35, triggerOnce: true });
 
   return (
     <Card
@@ -47,6 +47,8 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         <img
           src={service.image}
           alt={service.title}
+          loading="lazy"
+          decoding="async"
           className={`w-full h-full object-cover transition-transform duration-700
             ${inView ? "scale-110 rotate-1" : "group-hover:scale-110 group-hover:rotate-1"}`}
         />
