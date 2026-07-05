@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import npLogoAsset from "@/assets/np_logo_oficial.png.asset.json";
-
-const LOGO_URL = npLogoAsset.url;
+import LOGO_URL from "@/assets/np_logo_oficial.png";
 
 /* Paleta oficial da logo NP */
 const GREY_DEEP = "#4B4B4D";
