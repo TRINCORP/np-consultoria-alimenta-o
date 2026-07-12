@@ -487,7 +487,7 @@ const Curso = () => {
                 <div className="rounded-[1.5rem] border border-[hsl(20_35%_62%/0.2)] bg-white/[0.04] p-7 mb-6">
                   <p className="text-white/65 text-base leading-relaxed">
                     Aqui você aprende como trabalhar na prática, exatamente como uma consultora
-                    atua no dia a dia — com <strong className="text-white">modelos reais,
+                    atua no dia a dia, com <strong className="text-white">modelos reais,
                     situações reais e soluções reais</strong>.
                   </p>
                 </div>
