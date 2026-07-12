@@ -1,6 +1,6 @@
 import { useInView } from "react-intersection-observer";
 import { useRef, useEffect } from "react";
-import { ArrowRight, CheckCircle2, BookOpen, Users, TrendingUp, FileText, ClipboardList, DollarSign, Calendar, Target, Award } from "lucide-react";
+import { ArrowRight, CheckCircle2, BookOpen, Users, TrendingUp, FileText, ClipboardList, DollarSign, Calendar, Target, Award, Sparkles, GraduationCap } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -66,6 +66,17 @@ const aprendizados = [
   { icon: Award,       text: "Modelos prontos de documentos para usar na prática" },
 ];
 
+const modulos = [
+  { n: "01", title: "Fundamentos da consultoria", desc: "Postura profissional, escopo de atuação e ética." },
+  { n: "02", title: "Legislação sanitária aplicada", desc: "RDCs, portarias e leitura prática das normas." },
+  { n: "03", title: "Documentação obrigatória", desc: "POPs, Manual de BPF, checklists e registros." },
+  { n: "04", title: "Visita técnica com método", desc: "Diagnóstico, checklist e olhar de vigilância." },
+  { n: "05", title: "Relatórios e plano de ação", desc: "Do achado à solução, com clareza e autoridade." },
+  { n: "06", title: "Treinamento de equipes", desc: "Como conduzir capacitações que engajam." },
+  { n: "07", title: "Rotina e gestão de clientes", desc: "Organização, agenda e escala de atendimentos." },
+  { n: "08", title: "Precificação e contratos", desc: "Quanto cobrar, como fechar, como reter." },
+];
+
 const paraQuem = [
   "Nutricionistas",
   "Técnicos em Nutrição",
@@ -120,7 +131,7 @@ const Curso = () => {
               <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.32em] uppercase
                 border border-[hsl(20_35%_62%/0.35)] text-[hsl(20_45%_70%)]
                 rounded-full px-4 py-2 bg-[hsl(20_35%_62%/0.08)] mb-10 select-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-[hsl(20_45%_68%)] animate-pulse" />
+                <Sparkles className="w-3 h-3" strokeWidth={2} />
                 NP Consultoria · Formação Profissional
               </span>
             </div>
@@ -173,16 +184,32 @@ const Curso = () => {
                 </div>
               </div>
 
-              {/* Card destaque */}
-              <div className={`hidden lg:flex flex-col gap-4 min-w-[240px]
-                transition-all duration-[900ms] delay-400 ${heroInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+              {/* Card destaque — orbital ring + stacked metrics */}
+              <div className={`hidden lg:flex relative flex-col gap-4 min-w-[260px]
+                transition-all duration-[900ms] delay-[400ms] ${heroInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+                <div
+                  aria-hidden
+                  className="absolute -inset-8 rounded-full pointer-events-none opacity-70"
+                  style={{
+                    background: "conic-gradient(from 90deg, transparent, hsl(20 45% 68% / 0.25), transparent 60%)",
+                    animation: "spin 18s linear infinite",
+                    WebkitMask: "radial-gradient(circle, transparent 55%, black 56%, black 62%, transparent 63%)",
+                    mask: "radial-gradient(circle, transparent 55%, black 56%, black 62%, transparent 63%)",
+                  }}
+                />
                 {[
                   { n: "10",    l: "Módulos práticos" },
-                  { n: "100%", l: "Aplicado ao dia a dia" },
-                  { n: "NP",   l: "Método comprovado" },
-                ].map(({ n, l }) => (
-                  <div key={l} className="flex flex-col gap-1 px-6 py-5 rounded-[1.25rem]
-                    border border-white/[0.07] bg-white/[0.04]">
+                  { n: "100%",  l: "Aplicado ao dia a dia" },
+                  { n: "NP",    l: "Método comprovado" },
+                ].map(({ n, l }, i) => (
+                  <div key={l}
+                    className="relative flex flex-col gap-1 px-6 py-5 rounded-[1.25rem]
+                      border border-white/[0.08] bg-gradient-to-br from-white/[0.05] to-white/[0.02]
+                      backdrop-blur-sm
+                      hover:border-[hsl(20_35%_62%/0.4)]
+                      transition-all duration-500"
+                    style={{ transform: `translateX(${i === 1 ? "14px" : "0"})` }}
+                  >
                     <span className="font-playfair font-bold text-[hsl(20_45%_72%)] text-3xl leading-none">{n}</span>
                     <span className="text-[11px] uppercase tracking-[0.2em] text-white/35">{l}</span>
                   </div>
@@ -197,36 +224,125 @@ const Curso = () => {
         </section>
 
         {/* ── O QUE VOCÊ VAI APRENDER ── */}
-        <section ref={learnRef} className="bg-[#FAF9F7] py-20 lg:py-28">
-          <div className="max-w-[1100px] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className={`mb-14 transition-all duration-700 ${learnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <span className="block text-[11px] font-semibold tracking-[0.32em] uppercase text-[hsl(20_35%_58%)] mb-4">
-                Conteúdo do curso
-              </span>
-              <h2 className="font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08]"
-                style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                O que você vai{" "}
-                <em className="italic text-[hsl(20_35%_55%)]">aprender</em>
-              </h2>
+        <section ref={learnRef} className="relative bg-[#FAF9F7] py-20 lg:py-32 overflow-hidden">
+          <div aria-hidden
+            className="absolute -top-4 -right-6 font-playfair italic font-bold pointer-events-none select-none
+              text-[hsl(20_35%_55%/0.06)] leading-none"
+            style={{ fontSize: "clamp(120px, 18vw, 260px)" }}>
+            aprender
+          </div>
+
+          <div className="relative max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16">
+            <div className={`grid lg:grid-cols-[auto_1fr] gap-8 lg:gap-16 mb-16 items-end transition-all duration-700
+              ${learnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <div>
+                <span className="block text-[11px] font-semibold tracking-[0.32em] uppercase text-[hsl(20_35%_58%)] mb-4">
+                  Conteúdo do curso
+                </span>
+                <h2 className="font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08]"
+                  style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
+                  O que você vai{" "}
+                  <em className="italic text-[hsl(20_35%_55%)]">aprender</em>
+                </h2>
+              </div>
+              <p className="text-[hsl(210_15%_35%)] text-base lg:text-lg leading-relaxed max-w-lg lg:justify-self-end">
+                Uma trilha completa que une técnica, prática de campo e visão de negócio.
+                Você não sai apenas informada, sai <strong>preparada</strong>.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {aprendizados.map(({ icon: Icon, text }, i) => (
                 <div
                   key={i}
-                  className={`flex items-start gap-4 p-5 rounded-[1.25rem] bg-white
-                    border border-[hsl(20_35%_70%/0.15)]
-                    hover:border-[hsl(20_35%_70%/0.4)] hover:shadow-[0_8px_28px_hsl(20_35%_60%/0.08)]
+                  className={`group relative flex items-start gap-5 p-6 lg:p-7 rounded-[1.5rem] bg-white
+                    border border-[hsl(20_35%_70%/0.18)] overflow-hidden
+                    hover:border-[hsl(20_35%_62%/0.5)] hover:-translate-y-1
+                    hover:shadow-[0_20px_50px_-20px_hsl(20_35%_55%/0.35)]
                     transition-all duration-500
-                    ${learnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                  style={{ transitionDelay: `${i * 50}ms` }}
+                    ${learnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                  style={{ transitionDelay: `${i * 60}ms` }}
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[hsl(20_35%_70%/0.12)] flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-4.5 h-4.5 text-[hsl(20_38%_52%)]" strokeWidth={1.6} />
+                  <span aria-hidden
+                    className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[hsl(20_45%_62%)] to-[hsl(20_35%_50%)]
+                      scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
+
+                  <div className="flex flex-col items-center flex-shrink-0">
+                    <span className="font-playfair italic text-[hsl(20_35%_55%)] text-3xl leading-none font-bold">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="mt-2 w-8 h-px bg-[hsl(20_35%_62%/0.4)]" />
+                    <div className="mt-3 w-9 h-9 rounded-full bg-[hsl(20_35%_70%/0.12)]
+                      flex items-center justify-center
+                      group-hover:bg-[hsl(20_35%_62%)] group-hover:rotate-[360deg]
+                      transition-all duration-700">
+                      <Icon className="w-4 h-4 text-[hsl(20_38%_52%)] group-hover:text-white transition-colors" strokeWidth={1.8} />
+                    </div>
                   </div>
-                  <p className="text-[hsl(210_15%_18%)] text-sm leading-relaxed font-medium pt-2">{text}</p>
+
+                  <p className="text-[hsl(210_15%_18%)] text-base leading-relaxed font-medium pt-1">
+                    {text}
+                  </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── JORNADA / MÓDULOS ── */}
+        <section className="relative bg-[#F3EEE8] py-20 lg:py-28 overflow-hidden">
+          <div aria-hidden className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(1000px 500px at 80% 0%, hsl(20 45% 62% / 0.08), transparent 70%)" }} />
+
+          <div className="relative max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16">
+            <div className="mb-14 text-center">
+              <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.32em] uppercase text-[hsl(20_35%_58%)] mb-4">
+                <GraduationCap className="w-3.5 h-3.5" /> Trilha da consultora
+              </span>
+              <h2 className="font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08]"
+                style={{ fontSize: "clamp(1.9rem, 3.6vw, 3rem)" }}>
+                Sua jornada,{" "}
+                <em className="italic text-[hsl(20_35%_55%)]">módulo a módulo</em>
+              </h2>
+            </div>
+
+            <div className="relative">
+              <div aria-hidden className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px
+                bg-gradient-to-b from-transparent via-[hsl(20_35%_62%/0.35)] to-transparent" />
+
+              <ol className="space-y-6 md:space-y-10">
+                {modulos.map((m, i) => {
+                  const left = i % 2 === 0;
+                  return (
+                    <li key={m.n} className="relative md:grid md:grid-cols-2 md:gap-12 items-center">
+                      <span aria-hidden
+                        className="hidden md:block absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full
+                          bg-[hsl(20_35%_62%)] ring-4 ring-[#F3EEE8]" />
+
+                      <div className={left ? "md:pr-10 md:flex md:justify-end" : "md:col-start-2 md:pl-10"}>
+                        <div className="p-6 lg:p-7 rounded-[1.25rem] bg-white w-full md:max-w-md
+                          border border-[hsl(20_35%_70%/0.2)]
+                          hover:border-[hsl(20_35%_62%/0.5)]
+                          hover:shadow-[0_20px_50px_-20px_hsl(20_35%_55%/0.35)]
+                          transition-all duration-500">
+                          <div className={`flex items-center gap-3 mb-3 ${left ? "md:flex-row-reverse" : ""}`}>
+                            <span className="font-playfair italic font-bold text-[hsl(20_38%_52%)] text-2xl leading-none">
+                              {m.n}
+                            </span>
+                            <span className="h-px flex-1 bg-[hsl(20_35%_62%/0.25)] max-w-[40px]" />
+                          </div>
+                          <h3 className={`font-playfair font-bold text-[hsl(210_15%_10%)] text-xl leading-snug mb-2 ${left ? "md:text-right" : ""}`}>
+                            {m.title}
+                          </h3>
+                          <p className={`text-[hsl(210_15%_35%)] text-sm leading-relaxed ${left ? "md:text-right" : ""}`}>
+                            {m.desc}
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
           </div>
         </section>
@@ -277,7 +393,7 @@ const Curso = () => {
                 <p className={`mt-5 text-white/50 text-base sm:text-lg max-w-xl leading-relaxed
                   transition-[opacity,transform] duration-700 delay-[900ms]
                   ${photoInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-                  Da elaboração de POPs ao treinamento de equipes — aprenda exatamente
+                  Da elaboração de POPs ao treinamento de equipes, aprenda exatamente
                   como uma consultora NP opera no campo.
                 </p>
                 <a
@@ -381,7 +497,7 @@ const Curso = () => {
                     "Você sairá pronta para atender clientes com segurança técnica e postura profissional."
                   </p>
                   <span className="mt-3 block text-[11px] font-semibold tracking-[0.2em] uppercase text-[hsl(20_35%_55%)]">
-                    — NP Consultoria
+                    NP Consultoria
                   </span>
                 </div>
               </div>
