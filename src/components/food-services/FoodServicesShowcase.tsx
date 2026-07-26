@@ -153,7 +153,7 @@ const FoodServicesShowcase = () => {
   const { ref: gridRef, inView: gridInView } = useInView({ threshold: 0.04, triggerOnce: true });
 
   return (
-    <section id="servicos" className="bg-[#FAF9F7] py-20 lg:py-32 overflow-hidden">
+    <section id="servicos" className="scroll-mt-28 bg-[#FAF9F7] py-20 lg:py-32 overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16">
 
         {/* ── Header ── */}
