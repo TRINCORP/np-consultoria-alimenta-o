@@ -3,89 +3,79 @@ import AnimatedCounter from "./AnimatedCounter";
 
 const stats = [
   { value: 10000, suffix: "+", label: "Consumidores\nimpactados" },
-  { value: 92,  suffix: "%", label: "Aprovação na\nprimeira vistoria" },
+  { value: 92, suffix: "%", label: "Aprovação na\nprimeira vistoria" },
   { value: 500, suffix: "+", label: "Profissionais\ntreinados" },
 ];
 
 const ticker = [
   "VIGILÂNCIA SANITÁRIA", "ALVARÁ SANITÁRIO", "TREINAMENTO DE EQUIPES",
-  "ADEQUAÇÃO SANITÁRIA",  "GESTÃO DA QUALIDADE", "SEGURANÇA ALIMENTAR",
-  "BOAS PRÁTICAS",        "ROTULAGEM ANVISA",    "MANUAIS E POPs",
+  "ADEQUAÇÃO SANITÁRIA", "GESTÃO DA QUALIDADE", "SEGURANÇA ALIMENTAR",
+  "BOAS PRÁTICAS", "ROTULAGEM ANVISA", "MANUAIS E POPs",
 ];
 
 const StatsSection = () => {
   const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: true });
 
   return (
-    <section className="bg-[#1C1A18] overflow-hidden">
-
-      {/* ── Stats band ── */}
-      <div ref={ref} className="px-6 sm:px-12 lg:px-20 py-20 lg:py-28">
-        <div className="max-w-5xl mx-auto">
-
-          {/* Eyebrow */}
-          <p className={`text-[11px] font-semibold tracking-[0.32em] uppercase text-[hsl(20_35%_62%)] mb-14
-            transition-all duration-700 ${inView ? "opacity-100" : "opacity-0"}`}>
+    <section className="np-stats-section overflow-hidden bg-[#111214] text-[#F7F1EB]">
+      <div ref={ref} className="mx-auto w-full max-w-[1540px] px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
+        <div className="flex items-end justify-between gap-8 border-b border-white/12 pb-6">
+          <p className={`text-[9px] font-bold uppercase tracking-[0.3em] text-[#E2A58D] transition-opacity duration-700 sm:text-[10px] ${inView ? "opacity-100" : "opacity-0"}`}>
             Nossos resultados em números
           </p>
+          <span className="hidden max-w-xs text-right text-[10px] font-light leading-5 text-white/38 sm:block">
+            Impacto construído com método, presença técnica e acompanhamento de perto.
+          </span>
+        </div>
 
-          {/* Stats row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-0 sm:divide-x sm:divide-white/10">
-            {stats.map(({ value, suffix, label }, i) => (
-              <div
-                key={i}
-                className={`sm:px-12 first:pl-0 last:pr-0
-                  transition-all duration-700
-                  ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className="font-playfair font-bold leading-none text-white mb-3"
-                  style={{ fontSize: "clamp(3.5rem, 7vw, 6rem)" }}>
-                  <AnimatedCounter
-                    end={value}
-                    suffix={suffix}
-                    duration={2200}
-                    className=""
-                  />
+        <div className="mt-7 grid gap-px overflow-hidden rounded-[1.6rem] border border-white/12 bg-white/12 sm:grid-cols-3 sm:rounded-[1.9rem]">
+          {stats.map(({ value, suffix, label }, index) => (
+            <article
+              key={label}
+              className={`group relative min-h-[190px] overflow-hidden bg-[#17181A] p-6 transition-all duration-700 sm:min-h-[260px] sm:p-8 lg:min-h-[310px] lg:p-10 ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+              style={{ transitionDelay: `${index * 110}ms` }}
+            >
+              <span className="absolute inset-x-0 bottom-0 h-0 bg-[#E2A58D] transition-all duration-500 ease-out group-hover:h-full" />
+              <div className="relative flex h-full items-end justify-between gap-5 sm:block">
+                <span className="font-playfair text-lg italic text-white/20 transition-colors group-hover:text-[#31221D]/35">0{index + 1}</span>
+                <div className="sm:mt-16 lg:mt-20">
+                  <div
+                    className="font-sans font-semibold leading-none tracking-[-0.075em] text-white transition-colors group-hover:text-[#251A17]"
+                    style={{ fontSize: "clamp(3.35rem, 7vw, 7rem)" }}
+                  >
+                    <AnimatedCounter end={value} suffix={suffix} duration={2200} className="" />
+                  </div>
+                  <p className="mt-3 whitespace-pre-line text-[9px] font-semibold uppercase leading-relaxed tracking-[0.16em] text-white/38 transition-colors group-hover:text-[#3C2A23]/65 sm:text-[10px]">
+                    {label}
+                  </p>
                 </div>
-                <p className="text-[13px] font-medium text-white/40 leading-snug whitespace-pre-line uppercase tracking-wider">
-                  {label}
-                </p>
               </div>
-            ))}
-          </div>
-
-          {/* Thin rule */}
-          <div
-            className={`mt-16 h-px transition-all duration-1000 delay-500
-              ${inView ? "opacity-100" : "opacity-0"}`}
-            style={{ background: "linear-gradient(to right, transparent, hsl(20 35% 62% / 0.3), transparent)" }}
-          />
+            </article>
+          ))}
         </div>
       </div>
 
-      {/* ── Scrolling ticker ── */}
-      <div className="overflow-hidden border-t border-white/5 py-4">
-        <div className="np-stats-ticker flex">
-          {[...ticker, ...ticker, ...ticker].map((item, i) => (
-            <span key={i} className="flex items-center shrink-0 text-[11px] font-semibold
-              tracking-[0.22em] uppercase text-white/25 whitespace-nowrap px-6">
+      <div className="overflow-hidden border-y border-white/8 py-4">
+        <div className="np-stats-ticker flex w-max">
+          {[...ticker, ...ticker, ...ticker].map((item, index) => (
+            <span key={`${item}-${index}`} className="flex shrink-0 items-center whitespace-nowrap px-5 text-[9px] font-semibold uppercase tracking-[0.22em] text-white/28 sm:px-7 sm:text-[10px]">
               {item}
-              <span className="ml-6 w-1 h-1 rounded-full bg-[hsl(20_35%_62%/0.5)] shrink-0" />
+              <span className="ml-5 h-1 w-1 shrink-0 rounded-full bg-[#E2A58D]/60 sm:ml-7" />
             </span>
           ))}
         </div>
       </div>
 
       <style>{`
-        .np-stats-ticker { animation: tickerScroll 28s linear infinite; }
+        .np-stats-ticker { animation: statsTickerScroll 28s linear infinite; }
         .np-stats-ticker:hover { animation-play-state: paused; }
-        @keyframes tickerScroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-33.333%); }
-        }
+        @keyframes statsTickerScroll { to { transform: translateX(-33.333%); } }
         @media (prefers-reduced-motion: reduce) {
-          .np-stats-ticker { animation: none; }
+          .np-stats-section *,
+          .np-stats-section *::before,
+          .np-stats-section *::after { animation: none !important; transition-duration: .01ms !important; }
+          .np-stats-section article { opacity: 1; transform: none; }
+          .np-stats-ticker { transform: none; }
         }
       `}</style>
     </section>

@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { ArrowRight, Phone, Mail, Clock, Send, CheckCircle2, MessageCircle, Instagram } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import FormSuccessModal from "@/components/FormSuccessModal";
+import TrincorpSectionHeadline from "@/components/effects/TrincorpSectionHeadline";
 
 const WHATSAPP_NUMBER = "5519989750741";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -103,22 +104,23 @@ const PremiumCTA = () => {
       <div className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
 
         {/* ── Header ── */}
-        <div ref={headRef} className="text-center mb-16 lg:mb-20">
+        <div ref={headRef} className="mb-16 lg:mb-20">
           <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
             text-[hsl(20_35%_62%)] mb-6
             transition-all duration-700 ${headInView ? "opacity-100" : "opacity-0"}`}>
             Pronto para transformar o seu negócio?
           </span>
-          <h2
-            className={`font-playfair font-bold text-white leading-[1.08] mb-5
-              transition-all duration-700 delay-100 ${headInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
-          >
-            Sua operação merece{" "}
-            <em className="italic text-[hsl(20_45%_72%)]">segurança</em>
-            {" "}e conformidade.
-          </h2>
-          <p className={`text-white/45 text-base leading-relaxed max-w-xl mx-auto
+          <TrincorpSectionHeadline
+            label="Sua operação merece segurança e conformidade."
+            tone="dark"
+            lines={[
+              { content: "SUA OPERAÇÃO", effects: ["vertical-slice"] },
+              { content: "MERECE", effects: ["focus-pull", "elastic-width"] },
+              { content: <em>segurança</em>, effects: ["outline-fill", "chromatic-split"] },
+              { content: "E CONFORMIDADE.", effects: ["hard-impact"], className: "text-[.82em]" },
+            ]}
+          />
+          <p className={`mt-8 max-w-xl text-base leading-relaxed text-white/45 sm:mt-10
             transition-all duration-700 delay-200 ${headInView ? "opacity-100" : "opacity-0"}`}>
             Atendemos restaurantes, cozinhas industriais, indústrias e produtores artesanais
             em Indaiatuba e região de Campinas.

@@ -1,4 +1,5 @@
 import { useInView } from "react-intersection-observer";
+import TrincorpSectionHeadline from "@/components/effects/TrincorpSectionHeadline";
 
 const testimonials = [
   {
@@ -53,14 +54,13 @@ const TestimonialsSection = () => {
             Depoimentos
           </span>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2
-              className={`font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08]
-                transition-all duration-700 delay-100 ${headInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-              style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
-            >
-              Quem já{" "}
-              <em className="italic text-[hsl(20_35%_58%)]">confiou</em> na NP.
-            </h2>
+            <TrincorpSectionHeadline
+              label="Quem já confiou na NP."
+              lines={[
+                { content: "QUEM JÁ", effects: ["focus-pull"] },
+                { content: <><em>confiou</em> NA NP.</>, effects: ["outline-fill", "chromatic-split"] },
+              ]}
+            />
             <p className={`text-[hsl(210_10%_50%)] text-sm leading-relaxed max-w-xs md:text-right
               transition-all duration-700 delay-200 ${headInView ? "opacity-100" : "opacity-0"}`}>
               Resultados reais de clientes que transformaram suas operações com a NP Consultoria.
@@ -69,12 +69,15 @@ const TestimonialsSection = () => {
         </div>
 
         {/* ── Cards grid ── */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        <div
+          ref={gridRef}
+          className="np-testimonials-track -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 sm:-mx-12 sm:px-12 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:gap-6"
+        >
           {testimonials.map((t, i) => (
             <div
               key={i}
-              className={`group relative rounded-[1.5rem] border border-[hsl(210_10%_90%)]
-                bg-[#FAF9F7] p-8 overflow-hidden
+              className={`group relative min-w-[86%] snap-start overflow-hidden rounded-[1.5rem] border border-[hsl(210_10%_90%)]
+                bg-[#FAF9F7] p-7 sm:min-w-[62%] sm:p-8 md:min-w-0
                 hover:border-[hsl(20_35%_70%/0.35)]
                 hover:shadow-[0_16px_48px_hsl(20_35%_60%/0.1)]
                 hover:-translate-y-1
@@ -118,6 +121,14 @@ const TestimonialsSection = () => {
             </div>
           ))}
         </div>
+
+        <style>{`
+          .np-testimonials-track { scrollbar-width: none; }
+          .np-testimonials-track::-webkit-scrollbar { display: none; }
+          @media (prefers-reduced-motion: reduce) {
+            .np-testimonials-track > * { opacity: 1 !important; transform: none !important; }
+          }
+        `}</style>
 
       </div>
     </section>

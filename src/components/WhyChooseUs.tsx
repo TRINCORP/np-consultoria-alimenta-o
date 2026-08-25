@@ -1,5 +1,6 @@
 import { useInView } from "react-intersection-observer";
-import { UserCheck, Scale, Building2, MapPin } from "lucide-react";
+import { ArrowUpRight, Building2, MapPin, Scale, UserCheck } from "lucide-react";
+import TrincorpSectionHeadline from "@/components/effects/TrincorpSectionHeadline";
 
 const differentials = [
   {
@@ -29,95 +30,132 @@ const differentials = [
 ];
 
 const WhyChooseUs = () => {
-  const { ref: titleRef, inView: titleInView } = useInView({ threshold: 0.1, triggerOnce: true });
-  const { ref: gridRef, inView: gridInView } = useInView({ threshold: 0.05, triggerOnce: true });
+  const { ref: titleRef, inView: titleVisible } = useInView({ threshold: 0.08, triggerOnce: true });
+  const { ref: listRef, inView: listVisible } = useInView({ threshold: 0.06, triggerOnce: true });
 
   return (
-    <section className="bg-white py-20 lg:py-32 overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16">
+    <section
+      className="np-differentials relative overflow-hidden bg-[#FCFAF8] text-[#19191B]"
+      aria-labelledby="differentials-title"
+    >
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <span className="absolute -right-40 top-40 h-[30rem] w-[30rem] rounded-full bg-[#D98F72]/15 blur-[110px]" />
+        <span className="absolute -left-24 bottom-0 font-playfair text-[clamp(12rem,35vw,34rem)] font-bold leading-none text-[#1A1A1C]/[0.018]">NP</span>
+      </div>
 
-        {/* ── Header ── */}
-        <div ref={titleRef} className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 lg:mb-20">
-          <div>
-            <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
-              text-[hsl(20_35%_58%)] mb-5
-              transition-all duration-700 ${titleInView ? "opacity-100" : "opacity-0"}`}>
+      <div className="relative mx-auto w-full max-w-[1540px] px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
+        <div ref={titleRef}>
+          <div className="flex items-center justify-between border-b border-[#D7CEC8] pb-5">
+            <p className={`text-[9px] font-bold uppercase tracking-[0.3em] text-[#9D5E47] transition-opacity duration-700 sm:text-[10px] ${titleVisible ? "opacity-100" : "opacity-0"}`}>
               Por que escolher a NP
-            </span>
-            <h2
-              className={`font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08]
-                transition-all duration-700 delay-100 ${titleInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-              style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
-            >
-              Técnica, prática e<br />
-              <em className="italic text-[hsl(20_35%_58%)]">completamente personalizada.</em>
-            </h2>
+            </p>
+            <span className="font-playfair text-lg italic text-[#A39790]">NP / 08</span>
           </div>
 
-          <p className={`text-[hsl(210_10%_48%)] text-base leading-relaxed max-w-sm lg:text-right
-            transition-all duration-700 delay-200 ${titleInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="mt-10 sm:mt-14">
+            <TrincorpSectionHeadline
+              id="differentials-title"
+              label="Técnica, prática e completamente personalizada."
+              lines={[
+                { content: "TÉCNICA,", effects: ["vertical-slice"] },
+                {
+                  content: "PRÁTICA E",
+                  effects: ["focus-pull", "elastic-width"],
+                  className: "lg:pl-[13vw]",
+                },
+                {
+                  content: <><em>completamente<br className="sm:hidden" /> personalizada.</em></>,
+                  effects: ["outline-fill", "chromatic-split"],
+                  className: "lg:pl-[2vw]",
+                },
+              ]}
+            />
+          </div>
+
+          <p className={`mt-9 max-w-xl text-sm font-light leading-7 text-[#68615E] transition-all duration-700 sm:ml-auto sm:text-base ${titleVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
             Garantimos segurança alimentar, conformidade com a vigilância sanitária
             e crescimento sustentável para o seu negócio.
           </p>
         </div>
 
-        {/* ── Differentials grid ── */}
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
-          {differentials.map(({ icon: Icon, title, description, number }, i) => (
-            <div
-              key={i}
-              className={`group relative rounded-[1.5rem] border border-[hsl(210_10%_90%)]
-                bg-[#FAF9F7] p-8 lg:p-10 overflow-hidden
-                hover:border-[hsl(20_35%_70%/0.4)] hover:-translate-y-1
-                hover:shadow-[0_20px_56px_hsl(20_35%_60%/0.1)]
-                transition-all duration-500
-                ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              {/* Hover fill */}
-              <div className="absolute inset-0 rounded-[1.5rem] bg-gradient-to-br
-                from-[hsl(20_35%_70%/0.05)] to-transparent
-                opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="relative z-10 flex gap-6">
-                {/* Number */}
-                <span className="font-playfair font-bold text-[hsl(20_35%_70%/0.25)] leading-none select-none
-                  group-hover:text-[hsl(20_35%_70%/0.45)] transition-colors duration-500"
-                  style={{ fontSize: "clamp(2.8rem, 5vw, 4rem)" }}>
-                  {number}
+        <div ref={listRef} className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-12">
+          <div className={`lg:col-span-4 ${listVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-700`}>
+            <div className="lg:sticky lg:top-32">
+              <div className="rounded-[1.6rem] bg-[#19191B] p-6 text-[#F7F1EB] sm:p-8">
+                <span className="text-[8px] font-bold uppercase tracking-[0.28em] text-[#E2A58D] sm:text-[9px]">
+                  A diferença está no contexto
                 </span>
-
-                <div className="flex-1 pt-1">
-                  <div className="w-10 h-10 rounded-xl bg-[hsl(20_35%_70%/0.1)]
-                    flex items-center justify-center mb-5
-                    group-hover:bg-[hsl(20_35%_70%/0.2)] group-hover:scale-105
-                    transition-all duration-300">
-                    <Icon className="w-4.5 h-4.5 text-[hsl(20_35%_55%)]" strokeWidth={1.75} />
-                  </div>
-
-                  <h3 className="font-semibold text-[hsl(210_15%_10%)] text-base mb-2
-                    group-hover:text-[hsl(20_35%_52%)] transition-colors duration-300">
-                    {title}
-                  </h3>
-                  <p className="text-[hsl(210_10%_50%)] text-sm leading-relaxed">
-                    {description}
-                  </p>
-                </div>
+                <p className="mt-5 font-playfair text-2xl font-semibold leading-tight tracking-[-0.03em] sm:text-3xl">
+                  Nenhuma operação é igual. A solução também não deveria ser.
+                </p>
+                <a
+                  href="#contato"
+                  className="group mt-8 inline-flex items-center gap-3 border-b border-white/25 pb-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white/75 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E2A58D]"
+                >
+                  Construir meu plano
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </a>
               </div>
+
+              <p className="mt-7 border-l border-[#C9BBB2] pl-5 font-playfair text-lg italic leading-snug text-[#9D5E47]">
+                “Organização que protege,<br />estratégia que impulsiona.”
+              </p>
             </div>
-          ))}
+          </div>
+
+          <div className="lg:col-span-8">
+            <div className="border-t border-[#D7CEC8]">
+              {differentials.map(({ icon: Icon, title, description, number }, index) => (
+                <article
+                  key={title}
+                  className={`differential-row group relative overflow-hidden border-b border-[#D7CEC8] transition-all duration-700 ${listVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+                  style={{ transitionDelay: `${index * 95}ms` }}
+                >
+                  <span className="absolute inset-0 -translate-x-[102%] bg-[#1A1A1C] transition-transform duration-500 ease-out group-hover:translate-x-0" />
+                  <div className="relative grid grid-cols-[auto_1fr_auto] gap-4 px-1 py-6 sm:gap-7 sm:px-4 sm:py-8">
+                    <div className="flex flex-col items-center gap-4">
+                      <span className="font-playfair text-lg italic text-[#A89C95] transition-colors group-hover:text-white/25">{number}</span>
+                      <span className="grid h-10 w-10 place-items-center rounded-full border border-[#D0C4BC] text-[#9D5E47] transition-colors group-hover:border-white/15 group-hover:bg-white/[0.06] group-hover:text-[#E2A58D] sm:h-12 sm:w-12">
+                        <Icon className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={1.5} />
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-playfair text-[clamp(1.55rem,3.2vw,2.8rem)] font-semibold leading-tight tracking-[-0.035em] text-[#211F21] transition-colors group-hover:text-white">
+                        {title}
+                      </h3>
+                      <p className="mt-3 max-w-xl text-[11px] font-light leading-6 text-[#6F6864] transition-colors group-hover:text-white/52 sm:text-sm sm:leading-7">
+                        {description}
+                      </p>
+                    </div>
+
+                    <ArrowUpRight className="mt-1 h-4 w-4 text-[#9D5E47] transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#E2A58D] sm:h-5 sm:w-5" />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* ── Bottom statement ── */}
-        <div className={`mt-16 pt-12 border-t border-[hsl(210_10%_90%)] text-center
-          transition-all duration-700 delay-500 ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <p className="font-playfair italic text-[hsl(20_35%_52%)] text-xl leading-snug">
-            "NP Consultoria e NP Rotulagem —<br />
-            organização que protege, estratégia que impulsiona."
+        <div className={`mt-16 border-t border-[#D7CEC8] pt-10 text-center transition-all duration-700 lg:mt-24 ${listVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
+          <p className="font-playfair text-xl italic leading-snug text-[#9D5E47] sm:text-2xl">
+            “NP Consultoria e NP Rotulagem —<br className="sm:hidden" />
+            organização que protege, estratégia que impulsiona.”
           </p>
         </div>
-
       </div>
+
+      <style>{`
+        @media (hover: none) {
+          .np-differentials .differential-row:active > span { transform: translateX(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .np-differentials *,
+          .np-differentials *::before,
+          .np-differentials *::after { animation: none !important; transition-duration: .01ms !important; }
+          .np-differentials .differential-row { opacity: 1; transform: none; }
+        }
+      `}</style>
     </section>
   );
 };

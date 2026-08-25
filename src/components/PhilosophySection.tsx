@@ -1,6 +1,7 @@
-import equipeNP from "@/assets/equipe_np.jpg";
 import { useInView } from "react-intersection-observer";
-import { ShieldCheck, LayoutGrid, TrendingUp } from "lucide-react";
+import { ArrowDownRight, LayoutGrid, ShieldCheck, TrendingUp } from "lucide-react";
+import equipeNP from "@/assets/equipe_np.jpg";
+import TrincorpSectionHeadline from "@/components/effects/TrincorpSectionHeadline";
 
 const pillars = [
   {
@@ -21,67 +22,80 @@ const pillars = [
 ];
 
 const PhilosophySection = () => {
-  const { ref: topRef, inView: topInView } = useInView({ threshold: 0.1, triggerOnce: true });
-  const { ref: pillarsRef, inView: pillarsInView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref: statementRef, inView: statementVisible } = useInView({ threshold: 0.08, triggerOnce: true });
+  const { ref: storyRef, inView: storyVisible } = useInView({ threshold: 0.12, triggerOnce: true });
+  const { ref: pillarsRef, inView: pillarsVisible } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section className="bg-[#FAF9F7] py-20 lg:py-32 overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16">
+    <section
+      className="np-philosophy relative overflow-hidden bg-[#F4EEE8] text-[#18181A]"
+      aria-labelledby="philosophy-title"
+    >
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="philosophy-grid absolute inset-0" />
+        <span className="absolute -left-40 top-[32%] h-[32rem] w-[32rem] rounded-full bg-[#D98F72]/18 blur-[120px]" />
+      </div>
 
-        {/* ── Top split: image + statement ── */}
-        <div ref={topRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20 lg:mb-28">
+      <div className="relative mx-auto w-full max-w-[1540px] px-5 py-20 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
+        <div ref={statementRef}>
+          <div className="flex items-center justify-between border-b border-[#CFC5BD] pb-5">
+            <p className={`text-[9px] font-bold uppercase tracking-[0.3em] text-[#9D5E47] transition-opacity duration-700 sm:text-[10px] ${statementVisible ? "opacity-100" : "opacity-0"}`}>
+              Nossa filosofia
+            </p>
+            <span className="font-playfair text-lg italic text-[#9D9088]">NP / 07</span>
+          </div>
 
-          {/* Image */}
-          <div className={`relative transition-all duration-[1000ms] ${topInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
+          <div className="mt-10 sm:mt-14">
+            <TrincorpSectionHeadline
+              id="philosophy-title"
+              label="Segurança alimentar é um compromisso, não uma obrigação."
+              lines={[
+                { content: "SEGURANÇA ALIMENTAR", effects: ["focus-pull"] },
+                {
+                  content: <><em>é um compromisso</em>,</>,
+                  effects: ["outline-fill", "elastic-width"],
+                  className: "lg:pl-[6vw]",
+                },
+                {
+                  content: "NÃO UMA OBRIGAÇÃO.",
+                  effects: ["hard-impact", "chromatic-split"],
+                  className: "lg:pl-[1vw]",
+                },
+              ]}
+            />
+          </div>
+        </div>
 
-            {/* Foto sem recorte — proporção natural */}
-            <div className="relative rounded-[2rem] overflow-hidden
-              w-full max-w-[460px] mx-auto lg:max-w-none
-              shadow-[0_32px_64px_hsl(210_15%_12%/0.12)]">
+        <div ref={storyRef} className="mt-14 grid gap-8 sm:mt-20 lg:grid-cols-12 lg:gap-12">
+          <div className={`philosophy-photo relative lg:col-span-5 ${storyVisible ? "is-visible" : ""}`}>
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-[#D9D0CA]">
               <img
                 src={equipeNP}
                 alt="Equipe NP Consultoria — nutricionistas e consultoras especializadas em segurança alimentar, vigilância sanitária e boas práticas, Indaiatuba e região de Campinas"
-                className="w-full h-auto block"
+                className="h-auto w-full object-cover transition-transform duration-1000 hover:scale-[1.025]"
                 loading="lazy"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#151517]/70 via-transparent to-transparent" />
+              <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
+                <p className="max-w-md font-playfair text-xl italic leading-snug text-white sm:text-2xl">
+                  “Transformamos operações alimentícias em referências de qualidade e segurança.”
+                </p>
+                <span className="mt-4 block text-[8px] font-bold uppercase tracking-[0.24em] text-[#F0B49D] sm:text-[9px]">
+                  NP Consultoria · Indaiatuba
+                </span>
+              </div>
             </div>
-
-            {/* Quote abaixo da foto — fundo sólido para leitura perfeita */}
-            <div className="mt-4 max-w-[460px] mx-auto lg:max-w-none
-              bg-white rounded-[1.25rem] px-5 py-4
-              border border-[hsl(20_35%_70%/0.2)]
-              shadow-[0_8px_24px_hsl(20_35%_60%/0.08)]">
-              <p className="font-playfair italic text-[hsl(210_15%_14%)] text-sm leading-snug">
-                "Transformamos operações alimentícias em referências de qualidade e segurança."
-              </p>
-              <span className="mt-2 block text-[11px] font-semibold tracking-[0.2em] uppercase text-[hsl(20_38%_55%)]">
-                — NP Consultoria · Indaiatuba
-              </span>
-            </div>
-
-            {/* Floating accent dot */}
-            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full
-              bg-[hsl(20_35%_70%/0.15)] border border-[hsl(20_35%_70%/0.2)] hidden lg:block" />
           </div>
 
-          {/* Statement */}
-          <div className={`transition-all duration-[1000ms] delay-200 ${topInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
-            <span className="inline-block text-[11px] font-semibold tracking-[0.32em] uppercase
-              text-[hsl(20_35%_58%)] mb-6">
-              Nossa filosofia
+          <div className={`philosophy-copy flex flex-col justify-center lg:col-span-7 lg:pl-[4vw] ${storyVisible ? "is-visible" : ""}`}>
+            <span className="mb-8 grid h-14 w-14 place-items-center rounded-full border border-[#BBAEA6] text-[#9D5E47]">
+              <ArrowDownRight className="h-5 w-5" strokeWidth={1.4} />
             </span>
 
-            <h2 className="font-playfair font-bold text-[hsl(210_15%_10%)] leading-[1.08] mb-8"
-              style={{ fontSize: "clamp(2.2rem, 4vw, 3.6rem)" }}>
-              Segurança alimentar{" "}
-              <em className="italic text-[hsl(20_35%_58%)]">é um compromisso</em>,
-              <br />não uma obrigação.
-            </h2>
-
-            <div className="space-y-5 text-[hsl(210_10%_45%)] text-base leading-relaxed">
+            <div className="max-w-2xl space-y-6 text-sm font-light leading-7 text-[#615B58] sm:text-base sm:leading-8">
               <p>
                 Na NP, acreditamos que a segurança dos alimentos vai além da legislação.
-                É um <strong className="text-[hsl(210_15%_18%)] font-semibold">compromisso com a vida,
+                É um <strong className="font-medium text-[#242123]">compromisso com a vida,
                 com a marca e com a sustentabilidade do negócio.</strong>
               </p>
               <p>
@@ -90,60 +104,77 @@ const PhilosophySection = () => {
               </p>
             </div>
 
-            {/* Thin rule */}
-            <div className="my-8 h-px bg-[hsl(20_35%_70%/0.2)]" />
-
-            <p className="font-playfair italic text-[hsl(20_35%_52%)] text-lg leading-snug">
-              "Mais do que adequar empresas às normas,<br />
-              desenvolvemos equipes e fortalecemos marcas."
-            </p>
+            <div className="mt-9 border-l-2 border-[#D98F72] pl-5 sm:pl-7">
+              <p className="font-playfair text-xl italic leading-snug text-[#9D5E47] sm:text-2xl">
+                “Mais do que adequar empresas às normas,<br className="hidden sm:block" />
+                desenvolvemos equipes e fortalecemos marcas.”
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* ── Three pillars ── */}
-        <div ref={pillarsRef}>
-          <p className={`text-[11px] font-semibold tracking-[0.32em] uppercase text-[hsl(210_10%_55%)]
-            text-center mb-10 transition-all duration-700 ${pillarsInView ? "opacity-100" : "opacity-0"}`}>
-            Três pilares que guiam tudo
-          </p>
+        <div ref={pillarsRef} className="mt-16 border-t border-[#CFC5BD] pt-8 lg:mt-24 lg:pt-10">
+          <div className="mb-8 flex items-end justify-between gap-6">
+            <p className={`text-[9px] font-bold uppercase tracking-[0.3em] text-[#766C67] transition-opacity duration-700 sm:text-[10px] ${pillarsVisible ? "opacity-100" : "opacity-0"}`}>
+              Três pilares que guiam tudo
+            </p>
+            <span className="hidden text-[9px] font-semibold uppercase tracking-[0.2em] text-[#A2968F] sm:block">
+              Segurança · Organização · Crescimento
+            </span>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-            {pillars.map(({ icon: Icon, title, desc }, i) => (
-              <div
+          <div className="grid gap-px overflow-hidden rounded-[1.65rem] border border-[#CDC2BA] bg-[#CDC2BA] md:grid-cols-3">
+            {pillars.map(({ icon: Icon, title, desc }, index) => (
+              <article
                 key={title}
-                className={`group relative rounded-[1.5rem] border border-[hsl(20_35%_70%/0.18)]
-                  bg-white p-8 lg:p-10 overflow-hidden
-                  hover:border-[hsl(20_35%_70%/0.45)] hover:-translate-y-1
-                  hover:shadow-[0_16px_48px_hsl(20_35%_60%/0.1)]
-                  transition-all duration-500
-                  ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
+                className={`philosophy-pillar group relative min-h-[250px] overflow-hidden bg-[#FBF8F5] p-6 transition-all duration-700 sm:p-8 lg:min-h-[300px] lg:p-10 ${pillarsVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+                style={{ transitionDelay: `${index * 110}ms` }}
               >
-                {/* Hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[hsl(20_35%_70%/0.06)] to-transparent
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[1.5rem]" />
-
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-2xl bg-[hsl(20_35%_70%/0.1)]
-                    flex items-center justify-center mb-6
-                    group-hover:bg-[hsl(20_35%_70%/0.18)] group-hover:scale-105
-                    transition-all duration-300">
-                    <Icon className="w-5 h-5 text-[hsl(20_35%_58%)]" strokeWidth={1.75} />
+                <span className="absolute inset-x-0 bottom-0 h-0 bg-[#1A1A1C] transition-all duration-500 ease-out group-hover:h-full" />
+                <div className="relative flex h-full flex-col">
+                  <div className="flex items-start justify-between">
+                    <span className="grid h-11 w-11 place-items-center rounded-full border border-[#CFC3BB] text-[#9D5E47] transition-colors group-hover:border-white/18 group-hover:text-[#F0B49D]">
+                      <Icon className="h-4 w-4" strokeWidth={1.55} />
+                    </span>
+                    <span className="font-playfair text-lg italic text-[#AA9E97] transition-colors group-hover:text-white/24">0{index + 1}</span>
                   </div>
-
-                  <h3 className="font-playfair font-bold text-xl text-[hsl(210_15%_10%)] mb-3">
-                    {title}
-                  </h3>
-                  <p className="text-[hsl(210_10%_48%)] text-sm leading-relaxed">
-                    {desc}
-                  </p>
+                  <div className="mt-auto pt-12">
+                    <h3 className="font-playfair text-2xl font-semibold tracking-[-0.03em] text-[#1E1C1E] transition-colors group-hover:text-white sm:text-3xl">
+                      {title}
+                    </h3>
+                    <p className="mt-3 max-w-sm text-xs font-light leading-6 text-[#6C6561] transition-colors group-hover:text-white/52 sm:text-sm">
+                      {desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
-
       </div>
+
+      <style>{`
+        .np-philosophy .philosophy-grid {
+          opacity: .052;
+          background-image: linear-gradient(#18181a 1px, transparent 1px), linear-gradient(90deg, #18181a 1px, transparent 1px);
+          background-size: 80px 80px;
+          mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+        }
+        .np-philosophy .philosophy-photo,
+        .np-philosophy .philosophy-copy { opacity: 0; transform: translateY(44px); }
+        .np-philosophy .philosophy-photo.is-visible { animation: philosophyReveal 1s cubic-bezier(.16,1,.3,1) both; }
+        .np-philosophy .philosophy-copy.is-visible { animation: philosophyReveal 1s cubic-bezier(.16,1,.3,1) .14s both; }
+        @keyframes philosophyReveal { to { opacity: 1; transform: translateY(0); } }
+
+        @media (prefers-reduced-motion: reduce) {
+          .np-philosophy *,
+          .np-philosophy *::before,
+          .np-philosophy *::after { animation: none !important; transition-duration: .01ms !important; }
+          .np-philosophy .philosophy-photo,
+          .np-philosophy .philosophy-copy,
+          .np-philosophy .philosophy-pillar { opacity: 1; transform: none; }
+        }
+      `}</style>
     </section>
   );
 };

@@ -1,6 +1,14 @@
 import { useInView } from "react-intersection-observer";
+import {
+  ArrowRight,
+  BarChart3,
+  ClipboardList,
+  Search,
+  TrendingDown,
+  Users,
+} from "lucide-react";
 import equipeNPHome from "@/assets/equipe_NP_home.jpeg";
-import { Search, ClipboardList, TrendingDown, Users, BarChart3, ArrowRight } from "lucide-react";
+import TrincorpSectionHeadline from "@/components/effects/TrincorpSectionHeadline";
 
 const WHATSAPP_NUMBER = "5519989750741";
 
@@ -32,179 +40,182 @@ const services = [
   },
 ];
 
-/* ── Service card as its own component to avoid hook-in-map violation ── */
-const ServiceCard = ({ service, index, visible }: {
-  service: typeof services[0];
-  index: number;
-  visible: boolean;
-}) => {
-  const Icon = service.icon;
-  return (
-    <div
-      className={`group relative rounded-[1.25rem] border border-white/8
-        bg-white/[0.04] backdrop-blur-sm p-7 overflow-hidden h-full
-        hover:border-[hsl(20_35%_70%/0.4)] hover:-translate-y-2
-        hover:bg-white/[0.08]
-        transition-all duration-500
-        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      style={{ transitionDelay: `${index * 90}ms` }}
-    >
-      {/* Shine sweep on hover */}
-      <div className="absolute inset-0 rounded-[1.25rem] overflow-hidden pointer-events-none">
-        <div className="absolute top-0 -left-full w-full h-full
-          bg-gradient-to-r from-transparent via-white/8 to-transparent
-          group-hover:left-full transition-all duration-700" />
-      </div>
-
-      <div className="relative z-10">
-        <div className="w-11 h-11 rounded-xl bg-[hsl(20_35%_70%/0.15)]
-          flex items-center justify-center mb-5
-          group-hover:bg-[hsl(20_35%_70%/0.25)] group-hover:scale-105
-          transition-all duration-300">
-          <Icon className="w-5 h-5 text-[hsl(20_45%_78%)]" strokeWidth={1.6} />
-        </div>
-        <h4 className="font-semibold text-white text-base mb-2">{service.title}</h4>
-        <p className="text-white/55 text-sm leading-relaxed">{service.desc}</p>
-      </div>
-    </div>
-  );
-};
+const quickWins = [
+  "Conformidade com a vigilância sanitária",
+  "Equipes treinadas e produtivas",
+  "Operações mais rentáveis",
+];
 
 const FoodServicesSection = () => {
-  const { ref: introRef, inView: introInView } = useInView({ threshold: 0.08, triggerOnce: true });
-  const { ref: cardsRef, inView: cardsInView } = useInView({ threshold: 0.05, triggerOnce: true });
-  const { ref: ctaRef, inView: ctaInView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref: introRef, inView: introVisible } = useInView({ threshold: 0.08, triggerOnce: true });
+  const { ref: listRef, inView: listVisible } = useInView({ threshold: 0.06, triggerOnce: true });
+  const { ref: ctaRef, inView: ctaVisible } = useInView({ threshold: 0.12, triggerOnce: true });
+
+  const message = encodeURIComponent(
+    "Olá! Gostaria de saber mais sobre a consultoria para meu estabelecimento.",
+  );
 
   return (
-    <section className="bg-[#1C1A18] relative overflow-hidden">
+    <section
+      id="como-atuamos"
+      className="np-operation-section relative overflow-hidden bg-[#141517] text-[#F7F1EB]"
+      aria-labelledby="operation-title"
+    >
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="operation-grid absolute inset-0" />
+        <span className="absolute -right-36 top-44 h-[34rem] w-[34rem] rounded-full bg-[#D98F72]/10 blur-[120px]" />
+      </div>
 
-      {/* Ambient radial glows */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
-        style={{ background: "radial-gradient(circle at top right, hsl(20 35% 62% / 0.07), transparent 65%)" }} />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] pointer-events-none"
-        style={{ background: "radial-gradient(circle at bottom left, hsl(20 35% 62% / 0.05), transparent 65%)" }} />
-
-      {/* ── Top: Image + intro text ── */}
-      <div ref={introRef} className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[85vh]">
-
-        {/* Photo — sticky on desktop, framed card on mobile */}
-        <div className="relative order-2 lg:order-1 px-6 sm:px-10 lg:px-0 pb-4 lg:pb-0 lg:sticky lg:top-0 lg:h-auto lg:self-stretch">
-          <div className="relative w-full h-[420px] sm:h-[520px] lg:h-full rounded-[1.5rem] lg:rounded-none overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.45)] lg:shadow-none">
-            <img
-              src={equipeNPHome}
-              alt="Equipe NP Consultoria realizando diagnóstico operacional"
-              className="w-full h-full object-cover object-[center_20%] lg:object-top scale-105 lg:scale-100"
-              loading="lazy"
-            />
-            {/* Gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1C1A18]/50 via-transparent to-transparent hidden lg:block" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A18]/85 via-[#1C1A18]/10 to-transparent lg:hidden" />
-          </div>
-        </div>
-
-        {/* Text */}
-        <div className="flex items-center px-6 sm:px-10 lg:px-16 pt-10 pb-16 lg:py-24 order-1 lg:order-2">
-          <div className="max-w-lg">
-            <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
-              text-[hsl(20_35%_62%)] mb-8
-              transition-all duration-700 ${introInView ? "opacity-100" : "opacity-0"}`}>
+      <div className="relative mx-auto w-full max-w-[1540px] px-5 pb-20 pt-20 sm:px-8 sm:pb-28 sm:pt-28 lg:px-12 lg:pb-36 lg:pt-36">
+        <div ref={introRef}>
+          <div className="flex items-center justify-between border-b border-white/12 pb-5">
+            <p className={`text-[9px] font-bold uppercase tracking-[0.3em] text-[#E2A58D] transition-opacity duration-700 sm:text-[10px] ${introVisible ? "opacity-100" : "opacity-0"}`}>
               O que fazemos
-            </span>
+            </p>
+            <span className="font-playfair text-lg italic text-white/32">NP / 04</span>
+          </div>
 
-            <h2
-              className={`font-playfair font-bold text-white leading-[1.08] mb-8
-                transition-all duration-700 delay-100 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-              style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
-            >
-              Operações de alimentação{" "}
-              <em className="italic text-[hsl(20_45%_75%)]">transformadas</em>{" "}
-              com consultoria especializada.
-            </h2>
+          <div className="mt-10 sm:mt-14">
+            <TrincorpSectionHeadline
+              id="operation-title"
+              label="Como a NP transforma sua operação"
+              tone="dark"
+              lines={[
+                { content: "COMO A NP", effects: ["vertical-slice"] },
+                {
+                  content: <><em>transforma</em></>,
+                  effects: ["outline-fill", "elastic-width"],
+                  className: "lg:pl-[8vw]",
+                },
+                {
+                  content: "SUA OPERAÇÃO",
+                  effects: ["hard-impact", "chromatic-split"],
+                  className: "lg:pl-[2vw]",
+                },
+              ]}
+            />
+          </div>
 
-            <div className={`space-y-4 text-white/60 text-base leading-relaxed mb-10
-              transition-all duration-700 delay-200 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              <p>
-                A melhoria operacional não acontece por acaso. Ela exige{" "}
-                <strong className="text-white/90 font-semibold">método, organização e conhecimento técnico</strong>.
-              </p>
-              <p>
-                A NP Consultoria atua diretamente na estruturação de operações, promovendo segurança,
-                redução de perdas e aumento de eficiência.
-              </p>
-            </div>
-
-            {/* 3 quick wins */}
-            <ul className={`space-y-3 transition-all duration-700 delay-300 ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-              {["Conformidade com a vigilância sanitária", "Equipes treinadas e produtivas", "Operações mais rentáveis"].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-white/70 text-sm">
-                  <span className="w-5 h-5 rounded-full bg-[hsl(20_35%_62%/0.2)] border border-[hsl(20_35%_62%/0.4)]
-                    flex items-center justify-center flex-shrink-0">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[hsl(20_45%_72%)]" />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className={`mt-10 grid gap-5 border-t border-white/12 pt-7 transition-all duration-700 sm:mt-12 sm:grid-cols-2 lg:ml-auto lg:max-w-4xl ${introVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
+            <p className="text-sm font-light leading-7 text-white/58 sm:text-base">
+              A melhoria operacional não acontece por acaso. Ela exige{" "}
+              <strong className="font-medium text-white/88">método, organização e conhecimento técnico</strong>.
+            </p>
+            <p className="text-sm font-light leading-7 text-white/58 sm:text-base">
+              A NP Consultoria atua diretamente na estruturação de operações, promovendo segurança,
+              redução de perdas e aumento de eficiência.
+            </p>
           </div>
         </div>
-      </div>
 
-      {/* ── Service cards grid ── */}
-      <div ref={cardsRef} className="px-6 sm:px-10 lg:px-16 pt-16 pb-10">
-        <div className="max-w-[1100px] mx-auto">
-          <div className={`text-center mb-12 transition-all duration-700 ${cardsInView ? "opacity-100" : "opacity-0"}`}>
-            <h3 className="font-playfair font-bold text-white text-2xl sm:text-3xl">
-              Como a NP{" "}
-              <em className="italic text-[hsl(20_45%_75%)]">transforma</em> sua operação
-            </h3>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4 lg:gap-5">
-            {services.map((service, i) => (
-              <div key={i} className="w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-14px)]">
-                <ServiceCard service={service} index={i} visible={cardsInView} />
+        <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-5">
+            <div className={`operation-photo lg:sticky lg:top-28 ${introVisible ? "is-visible" : ""}`}>
+              <div className="relative aspect-[4/5] max-h-[760px] overflow-hidden rounded-[1.75rem] bg-[#242528] sm:aspect-[5/6] lg:aspect-[4/5]">
+                <img
+                  src={equipeNPHome}
+                  alt="Equipe NP Consultoria realizando diagnóstico operacional"
+                  className="h-full w-full object-cover object-[center_20%]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111214]/95 via-[#111214]/10 to-transparent" />
+                <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
+                  <p className="max-w-md font-playfair text-2xl font-semibold leading-tight tracking-[-0.03em] sm:text-3xl">
+                    Operações de alimentação <em className="font-normal text-[#E2A58D]">transformadas</em> com consultoria especializada.
+                  </p>
+                  <ul className="mt-6 grid gap-2 border-t border-white/16 pt-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                    {quickWins.map((item, index) => (
+                      <li key={item} className="flex items-start gap-2 text-[9px] font-medium leading-relaxed text-white/58">
+                        <span className="font-playfair text-sm italic text-[#E2A58D]">0{index + 1}</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          <div ref={listRef} className="lg:col-span-7 lg:pt-10">
+            <div className="border-t border-white/12">
+              {services.map(({ icon: Icon, title, desc }, index) => (
+                <article
+                  key={title}
+                  className={`operation-row group relative overflow-hidden border-b border-white/12 transition-all duration-700 ${listVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+                  style={{ transitionDelay: `${index * 90}ms` }}
+                >
+                  <span className="absolute inset-0 -translate-x-[102%] bg-[#E2A58D] transition-transform duration-500 ease-out group-hover:translate-x-0" />
+                  <div className="relative grid grid-cols-[auto_1fr_auto] gap-4 px-1 py-6 sm:gap-6 sm:px-4 sm:py-8">
+                    <div className="flex flex-col items-center gap-4">
+                      <span className="font-playfair text-lg italic text-white/25 transition-colors group-hover:text-[#3D2922]/55">0{index + 1}</span>
+                      <span className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-[#E2A58D] transition-colors group-hover:border-[#3D2922]/18 group-hover:bg-[#3D2922]/8 group-hover:text-[#34231D] sm:h-12 sm:w-12">
+                        <Icon className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={1.5} />
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="font-playfair text-[clamp(1.55rem,3.1vw,2.65rem)] font-semibold leading-tight tracking-[-0.035em] text-white transition-colors group-hover:text-[#281D19]">
+                        {title}
+                      </h3>
+                      <p className="mt-3 max-w-xl text-[11px] font-light leading-6 text-white/48 transition-colors group-hover:text-[#3E2C25]/70 sm:text-sm sm:leading-7">
+                        {desc}
+                      </p>
+                    </div>
+                    <ArrowRight className="mt-1 h-4 w-4 text-[#E2A58D] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#34231D] sm:h-5 sm:w-5" />
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ── Bottom CTA banner ── */}
-      <div ref={ctaRef} className="px-6 sm:px-10 lg:px-16 pb-20">
-        <div className="max-w-[1100px] mx-auto">
-          <div className={`rounded-[1.75rem] border border-[hsl(20_35%_62%/0.2)]
-            bg-[hsl(20_35%_62%/0.06)] p-10 lg:p-14
-            flex flex-col lg:flex-row items-center justify-between gap-8
-            transition-all duration-700 ${ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div ref={ctaRef} className="mt-14 border-t border-white/12 pt-8 lg:mt-20">
+          <div className={`grid gap-7 rounded-[1.65rem] border border-white/12 bg-white/[0.045] p-6 backdrop-blur-sm transition-all duration-700 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10 ${ctaVisible ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"}`}>
             <div>
-              <h3 className="font-playfair font-bold text-white text-xl sm:text-2xl mb-2">
+              <h3 className="font-playfair text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">
                 Pronto para transformar sua operação?
               </h3>
-              <p className="text-white/50 text-sm leading-relaxed max-w-md">
+              <p className="mt-3 max-w-2xl text-xs font-light leading-6 text-white/48 sm:text-sm">
                 Uma consultoria especializada estrutura seu negócio para crescer com{" "}
-                <strong className="text-[hsl(20_45%_72%)]">segurança, eficiência e profissionalismo</strong>.
+                <strong className="font-medium text-[#E2A58D]">segurança, eficiência e profissionalismo</strong>.
               </p>
             </div>
 
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá! Gostaria de saber mais sobre a consultoria para meu estabelecimento.")}`}
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 flex-shrink-0
-                bg-[hsl(20_35%_62%)] text-white rounded-full
-                px-8 py-4 text-sm font-semibold
-                hover:bg-[hsl(20_35%_55%)]
-                hover:shadow-[0_12px_36px_hsl(20_35%_62%/0.4)]
-                hover:-translate-y-0.5
-                transition-all duration-300"
+              className="group inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-[#E2A58D] px-7 py-3.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#211714] transition-all duration-300 hover:-translate-y-1 hover:bg-[#F0B9A3] hover:shadow-[0_18px_50px_-20px_rgba(226,165,141,.75)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-fit"
             >
-              Solicitar Diagnóstico Gratuito
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              Solicitar diagnóstico gratuito
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
         </div>
       </div>
 
+      <style>{`
+        .np-operation-section .operation-grid {
+          opacity: .085;
+          background-image: linear-gradient(rgba(255,255,255,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px);
+          background-size: 80px 80px;
+          mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 86%, transparent);
+        }
+        .np-operation-section .operation-photo { opacity: 0; transform: translateY(48px) rotate(-1deg); }
+        .np-operation-section .operation-photo.is-visible { animation: operationPhotoIn 1s cubic-bezier(.16,1,.3,1) .3s both; }
+        @keyframes operationPhotoIn { to { opacity: 1; transform: translateY(0) rotate(0); } }
+
+        @media (hover: none) {
+          .np-operation-section .operation-row:active > span { transform: translateX(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .np-operation-section *,
+          .np-operation-section *::before,
+          .np-operation-section *::after { animation: none !important; transition-duration: .01ms !important; }
+          .np-operation-section .operation-photo,
+          .np-operation-section .operation-row { opacity: 1; transform: none; }
+        }
+      `}</style>
     </section>
   );
 };

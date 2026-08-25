@@ -5,6 +5,7 @@ import gorilasLogo from "@/assets/gorilas.png";
 import graoParaLogo from "@/assets/grao_para.png";
 import stagioneLogo from "@/assets/stagione.png";
 import staldenLogo from "@/assets/stalden_np.png";
+import TrincorpSectionHeadline from "@/components/effects/TrincorpSectionHeadline";
 
 type Client = { id: number; name: string; image: string };
 
@@ -48,7 +49,7 @@ const LogoRow = ({
   duration?: number;
   offsetIndex?: number;
 }) => (
-  <div className="overflow-hidden">
+  <div className="np-client-row-shell overflow-hidden">
     <div
       className="np-client-logo-row flex gap-3 sm:gap-4"
       style={{
@@ -61,8 +62,8 @@ const LogoRow = ({
         return (
           <div
             key={`${client.id}-${i}`}
-            className="relative shrink-0 w-32 h-28 sm:w-40 sm:h-32 lg:w-44 lg:h-36
-              rounded-2xl flex items-center justify-center p-5
+            className="relative h-24 w-28 shrink-0 rounded-[1.25rem] p-4 sm:h-32 sm:w-40 sm:p-5 lg:h-36 lg:w-44
+              flex items-center justify-center
               shadow-[0_8px_28px_rgba(0,0,0,0.35)]
               transition-transform duration-500 hover:scale-[1.04]"
             style={{ backgroundColor: bg }}
@@ -90,27 +91,27 @@ const ClientsSection: React.FC = () => {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section id="clients" className="relative bg-[#0B0B0C] py-20 lg:py-28 overflow-hidden">
+    <section id="clients" className="relative overflow-hidden bg-[#0B0B0C] py-20 sm:py-24 lg:py-32">
       {/* Ambient warm glow */}
       <div className="pointer-events-none absolute inset-0 opacity-70"
         style={{ background: "radial-gradient(ellipse at 50% 50%, hsl(20 35% 30% / 0.25), transparent 60%)" }} />
 
       {/* ── Header ── */}
-      <div ref={ref} className="relative max-w-[1200px] mx-auto px-6 sm:px-12 lg:px-16 mb-12 lg:mb-14 text-center">
+      <div ref={ref} className="relative mx-auto mb-12 max-w-[1540px] px-5 sm:mb-16 sm:px-8 lg:px-12">
         <span className={`block text-[11px] font-semibold tracking-[0.32em] uppercase
           text-[hsl(20_45%_68%)] mb-5
           transition-all duration-700 ${inView ? "opacity-100" : "opacity-0"}`}>
           Parceiros de confiança
         </span>
-        <h2
-          className={`font-playfair font-bold text-white leading-[1.1]
-            transition-all duration-700 delay-100 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-          style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}
-        >
-          Clientes que já{" "}
-          <em className="italic text-[hsl(20_45%_70%)]">impactamos</em>.
-        </h2>
-        <p className={`mt-4 text-white/50 text-sm max-w-xl mx-auto
+        <TrincorpSectionHeadline
+          label="Clientes que já impactamos."
+          tone="dark"
+          lines={[
+            { content: "CLIENTES QUE JÁ", effects: ["vertical-slice"] },
+            { content: <><em>impactamos</em>.</>, effects: ["outline-fill", "elastic-width"] },
+          ]}
+        />
+        <p className={`mt-7 max-w-xl text-sm leading-relaxed text-white/50 sm:mt-9
           transition-all duration-700 delay-200 ${inView ? "opacity-100" : "opacity-0"}`}>
           Estabelecimentos de restaurantes, padarias, indústrias e cozinhas de toda a região.
         </p>
@@ -134,7 +135,7 @@ const ClientsSection: React.FC = () => {
             <div className="absolute -inset-6 rounded-full border border-white/10" />
             <div className="absolute -inset-12 rounded-full border border-white/[0.05]" />
             {/* Disc */}
-            <div className="relative w-36 h-36 sm:w-44 sm:h-44 lg:w-52 lg:h-52 rounded-full
+            <div className="relative h-24 w-24 rounded-full sm:h-40 sm:w-40 lg:h-52 lg:w-52
               bg-white flex items-center justify-center overflow-hidden
               shadow-[0_30px_80px_rgba(0,0,0,0.6)] ring-1 ring-black/5">
               <img
@@ -159,6 +160,12 @@ const ClientsSection: React.FC = () => {
         }
         @media (prefers-reduced-motion: reduce) {
           .np-client-logo-row { animation: none !important; }
+          .np-client-row-shell {
+            overflow-x: auto;
+            overscroll-behavior-inline: contain;
+            scrollbar-width: none;
+          }
+          .np-client-row-shell::-webkit-scrollbar { display: none; }
         }
       `}</style>
     </section>
