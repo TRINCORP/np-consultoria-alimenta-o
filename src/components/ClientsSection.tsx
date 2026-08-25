@@ -50,7 +50,7 @@ const LogoRow = ({
 }) => (
   <div className="overflow-hidden">
     <div
-      className="flex gap-3 sm:gap-4"
+      className="np-client-logo-row flex gap-3 sm:gap-4"
       style={{
         animation: `${reverse ? "marqueeReverse" : "marqueeForward"} ${duration}s linear infinite`,
         width: "max-content",
@@ -148,6 +148,7 @@ const ClientsSection: React.FC = () => {
       </div>
 
       <style>{`
+        .np-client-logo-row:hover { animation-play-state: paused !important; }
         @keyframes marqueeForward {
           from { transform: translateX(0); }
           to   { transform: translateX(-33.333%); }
@@ -155,6 +156,9 @@ const ClientsSection: React.FC = () => {
         @keyframes marqueeReverse {
           from { transform: translateX(-33.333%); }
           to   { transform: translateX(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .np-client-logo-row { animation: none !important; }
         }
       `}</style>
     </section>

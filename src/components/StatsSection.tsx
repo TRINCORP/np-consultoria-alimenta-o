@@ -66,7 +66,7 @@ const StatsSection = () => {
 
       {/* ── Scrolling ticker ── */}
       <div className="overflow-hidden border-t border-white/5 py-4">
-        <div className="flex" style={{ animation: "tickerScroll 28s linear infinite" }}>
+        <div className="np-stats-ticker flex">
           {[...ticker, ...ticker, ...ticker].map((item, i) => (
             <span key={i} className="flex items-center shrink-0 text-[11px] font-semibold
               tracking-[0.22em] uppercase text-white/25 whitespace-nowrap px-6">
@@ -78,9 +78,14 @@ const StatsSection = () => {
       </div>
 
       <style>{`
+        .np-stats-ticker { animation: tickerScroll 28s linear infinite; }
+        .np-stats-ticker:hover { animation-play-state: paused; }
         @keyframes tickerScroll {
           from { transform: translateX(0); }
           to   { transform: translateX(-33.333%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .np-stats-ticker { animation: none; }
         }
       `}</style>
     </section>

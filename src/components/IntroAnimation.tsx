@@ -11,23 +11,22 @@ interface IntroAnimationProps {
 }
 
 /**
- * Intro minimalista e sofisticada:
- * "NP" surge em serifa monumental, "Consultoria Alimentação" digita letra a letra,
- * uma linha salmão assina o nome e a cena se dissolve.
+ * Assinatura curta de entrada: preserva a lembrança de marca sem atrasar
+ * o acesso ao conteúdo principal.
  */
 const NAME = "NP";
-const SUB = "Consultoria Alimentação";
+const SUB = "Segurança que alimenta crescimento";
 
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   const [exiting, setExiting] = useState(false);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setExiting(true), 2600);
+    const t1 = setTimeout(() => setExiting(true), 1850);
     const t2 = setTimeout(() => {
       setDone(true);
       onComplete?.();
-    }, 3300);
+    }, 2350);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -42,7 +41,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
       style={{
         background: CREAM,
         opacity: exiting ? 0 : 1,
-        transition: "opacity 700ms cubic-bezier(0.22,1,0.36,1)",
+        transition: "opacity 500ms cubic-bezier(0.22,1,0.36,1)",
         pointerEvents: exiting ? "none" : "auto",
       }}
     >
@@ -106,7 +105,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             <span
               key={i}
               className="intro-sub-char"
-              style={{ animationDelay: `${0.9 + i * 0.025}s` }}
+              style={{ animationDelay: `${0.72 + i * 0.018}s` }}
             >
               {ch === " " ? "\u00A0" : ch}
             </span>

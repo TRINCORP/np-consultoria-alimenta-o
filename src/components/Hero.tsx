@@ -1,313 +1,310 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import equipeNP from "@/assets/equipe_NP_home.jpeg";
+import { useEffect, useState, type CSSProperties } from "react";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  CheckCircle2,
+  ClipboardCheck,
+  ScanSearch,
+  ShieldCheck,
+  UsersRound,
+} from "lucide-react";
 
-const WHATSAPP = "5519989750741";
+const WHATSAPP_NUMBER = "5519989750741";
 
-/* Paleta oficial da marca NP — creme, salmão, cinza, ink */
 const CREAM = "#F6F1EC";
-const CREAM_DEEP = "#EFE7E0";
 const SALMON = "#E9B6A2";
 const INK = "#1F1F21";
-const GREY = "#6E6E70";
 
-const v = (o: Record<string, string | number>) => o as CSSProperties;
+const styleWithVars = (values: Record<string, string | number>) =>
+  values as CSSProperties;
 
-const marquee = [
-  "Vigilância Sanitária",
-  "Boas Práticas",
-  "Capacitação de Equipes",
-  "Rotulagem de Alimentos",
-  "Padronização",
-  "Alvará Sanitário",
+const method = [
+  { icon: ScanSearch, label: "Diagnosticar", detail: "riscos e oportunidades" },
+  { icon: ClipboardCheck, label: "Estruturar", detail: "processos e documentos" },
+  { icon: UsersRound, label: "Capacitar", detail: "lideranças e equipes" },
+  { icon: ShieldCheck, label: "Acompanhar", detail: "a evolução da operação" },
 ];
 
-const stats = [
-  { n: "300+", l: "Operações atendidas" },
-  { n: "15+", l: "Anos de estrada" },
-  { n: "92%", l: "Aprovação em auditoria" },
+const proofPoints = [
+  "Plano de ação claro",
+  "Atendimento técnico próximo",
+  "Indaiatuba e região",
+];
+
+const ticker = [
+  "Segurança dos alimentos",
+  "Rotulagem",
+  "Vigilância sanitária",
+  "Treinamento",
+  "Padronização",
+  "Gestão da qualidade",
 ];
 
 const Hero = () => {
-  const [inView, setInView] = useState(false);
-  const imgRef = useRef<HTMLDivElement>(null);
-  const btnRef = useRef<HTMLAnchorElement>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setInView(true), 60);
-    return () => clearTimeout(t);
+    const timer = window.setTimeout(() => setReady(true), 80);
+    return () => window.clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const el = imgRef.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    const onMove = (e: MouseEvent) => {
-      const dx = (e.clientX - window.innerWidth / 2) / window.innerWidth;
-      const dy = (e.clientY - window.innerHeight / 2) / window.innerHeight;
-      el.style.transform = `translate3d(${dx * -14}px, ${dy * -14}px, 0)`;
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  const magnetic = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const el = btnRef.current;
-    if (!el || window.matchMedia("(pointer: coarse)").matches) return;
-    const r = el.getBoundingClientRect();
-    el.style.transform = `translate(${(e.clientX - (r.left + r.width / 2)) * 0.16}px, ${
-      (e.clientY - (r.top + r.height / 2)) * 0.24
-    }px)`;
-  };
-  const resetMagnetic = () => {
-    if (btnRef.current) btnRef.current.style.transform = "translate(0,0)";
-  };
+  const whatsappMessage = encodeURIComponent(
+    "Olá! Gostaria de entender como a NP pode diagnosticar e fortalecer a minha operação.",
+  );
 
   return (
     <section
-      className={`hero-np relative w-full overflow-hidden ${inView ? "is-in" : ""}`}
-      style={{ background: CREAM }}
-      aria-label="NP Consultoria Alimentação"
+      className={`np-kinetic-hero relative isolate min-h-[100svh] overflow-hidden ${ready ? "is-ready" : ""}`}
+      style={{ background: CREAM, color: INK }}
+      aria-labelledby="hero-title"
     >
-      {/* Fundo: campos salmão + grid editorial */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute -top-[22vw] -right-[14vw] w-[52vw] h-[52vw] rounded-full"
-          style={{ background: `radial-gradient(circle, ${SALMON}55, transparent 68%)`, filter: "blur(30px)" }}
-        />
-        <div
-          className="absolute -bottom-[26vw] -left-[18vw] w-[46vw] h-[46vw] rounded-full"
-          style={{ background: `radial-gradient(circle, ${CREAM_DEEP}, transparent 70%)`, filter: "blur(20px)" }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage: `linear-gradient(${INK} 1px, transparent 1px), linear-gradient(90deg, ${INK} 1px, transparent 1px)`,
-            backgroundSize: "88px 88px",
-            maskImage: "radial-gradient(circle at 50% 40%, #000 20%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(circle at 50% 40%, #000 20%, transparent 75%)",
-          }}
-        />
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="hero-grid absolute inset-0" />
+        <div className="hero-aura hero-aura-one absolute rounded-full" />
+        <div className="hero-aura hero-aura-two absolute rounded-full" />
+        <span className="hero-ghost-word absolute select-none font-playfair italic">
+          cuidado
+        </span>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12 pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 lg:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-12 items-center">
-          {/* Conteúdo */}
-          <div className="lg:col-span-7 order-2 lg:order-1">
-            <div className="anim up flex items-center gap-3" style={v({ "--d": "0.05s" })}>
-              <span className="h-px w-8 sm:w-12" style={{ background: SALMON }} />
-              <p
-                className="uppercase font-semibold text-[10px] sm:text-[11px]"
-                style={{ color: GREY, letterSpacing: "0.24em" }}
-              >
-                Assessoria e Consultoria · Serviços de Alimentação
-              </p>
-            </div>
-
-            <h1
-              className="font-playfair mt-6 sm:mt-8"
-              style={{
-                color: INK,
-                fontWeight: 500,
-                lineHeight: 1.08,
-                letterSpacing: "-0.02em",
-                fontSize: "clamp(2.15rem, 6.4vw, 4.9rem)",
-              }}
-            >
-              <span className="mask"><span className="inner" style={v({ "--d": "0.14s" })}>Sua cozinha em</span></span>
-              <span className="mask">
-                <span className="inner" style={v({ "--d": "0.28s" })}>
-                  <span className="relative inline-block">
-                    <span className="hl" aria-hidden />
-                    <span className="relative" style={{ fontStyle: "italic", fontWeight: 400 }}>conformidade</span>
-                  </span>
-                </span>
-              </span>
-              <span className="mask"><span className="inner" style={v({ "--d": "0.42s" })}>do processo ao prato.</span></span>
-            </h1>
-
-            <p
-              className="anim up mt-6 sm:mt-8 max-w-xl font-light text-[15px] sm:text-lg leading-relaxed"
-              style={v({ "--d": "0.62s", color: GREY })}
-            >
-              Consultoria técnica, capacitação de equipes e adequação sanitária para
-              restaurantes, cozinhas industriais e indústrias que não abrem mão de
-              segurança dos alimentos.
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1540px] flex-col px-5 pb-8 pt-28 sm:px-8 sm:pb-10 sm:pt-32 lg:px-12 lg:pb-12 lg:pt-36">
+        <div
+          className="hero-enter flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+          style={styleWithVars({ "--delay": "0.05s" })}
+        >
+          <div className="flex items-center gap-3">
+            <span className="h-px w-8 bg-[#C98973] sm:w-12" />
+            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#666164] sm:text-[11px]">
+              Consultoria alimentar · Indaiatuba e região
             </p>
-
-            {/* CTAs */}
-            <div className="anim up mt-8 sm:mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4" style={v({ "--d": "0.76s" })}>
-              <a
-                ref={btnRef}
-                href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá! Gostaria de solicitar um diagnóstico.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseMove={magnetic}
-                onMouseLeave={resetMagnetic}
-                className="group relative inline-flex items-center justify-center px-7 sm:px-10 py-4 text-[11px] sm:text-[12px] font-semibold uppercase overflow-hidden rounded-full"
-                style={{
-                  background: INK,
-                  color: CREAM,
-                  letterSpacing: "0.18em",
-                  boxShadow: `0 20px 44px -16px ${INK}66`,
-                  transition: "transform 0.4s cubic-bezier(0.34,1.56,0.64,1)",
-                }}
-              >
-                <span
-                  aria-hidden
-                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-out"
-                  style={{ background: `linear-gradient(110deg, transparent 30%, ${SALMON}66 50%, transparent 70%)` }}
-                />
-                <span className="relative">Solicitar diagnóstico</span>
-              </a>
-
-              <button
-                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-                className="inline-flex items-center justify-center gap-2 px-7 sm:px-10 py-4 text-[11px] sm:text-[12px] font-semibold uppercase rounded-full transition-colors"
-                style={{ border: `1px solid ${SALMON}`, color: INK, letterSpacing: "0.18em", background: "transparent" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = `${SALMON}33`)}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                Conhecer soluções
-              </button>
-            </div>
-
-            {/* Stats */}
-            <div className="anim up mt-10 sm:mt-12 grid grid-cols-3 gap-4 sm:gap-8 max-w-lg" style={v({ "--d": "0.9s" })}>
-              {stats.map((s) => (
-                <div key={s.n} className="pt-4" style={{ borderTop: `1px solid ${SALMON}` }}>
-                  <p className="font-playfair leading-none" style={{ color: INK, fontSize: "clamp(1.4rem, 3.4vw, 2.1rem)" }}>
-                    {s.n}
-                  </p>
-                  <p className="mt-2 text-[10px] sm:text-[11px] uppercase leading-snug" style={{ color: GREY, letterSpacing: "0.1em" }}>
-                    {s.l}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Visual */}
-          <div className="lg:col-span-5 order-1 lg:order-2">
-            <div className="relative mx-auto w-full max-w-[420px] sm:max-w-[460px] lg:max-w-none">
-              <div className="relative aspect-[4/5]">
-                <div
-                  aria-hidden
-                  className="anim up absolute -inset-3 sm:-inset-5 rounded-[999px_999px_28px_28px]"
-                  style={v({ "--d": "0.45s", border: `1px solid ${SALMON}` })}
-                />
-                <div
-                  ref={imgRef}
-                  className="w-full h-full"
-                  style={{ transition: "transform 0.7s cubic-bezier(0.22,1,0.36,1)" }}
+          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#D8CFC8] bg-white/55 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#4E4A4B] backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-40" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
+            </span>
+            Diagnóstico técnico disponível
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col justify-center py-10 sm:py-12 lg:py-8">
+          <h1 id="hero-title" className="hero-heading font-semibold tracking-[-0.07em]">
+            <span className="hero-line block overflow-hidden">
+              <span
+                className="hero-line-inner block"
+                style={styleWithVars({ "--delay": "0.14s" })}
+              >
+                Segurança
+              </span>
+            </span>
+            <span className="hero-line block overflow-hidden lg:pl-[10vw]">
+              <span
+                className="hero-line-inner block font-playfair font-normal italic tracking-[-0.055em] text-[#9F5D48]"
+                style={styleWithVars({ "--delay": "0.27s" })}
+              >
+                que alimenta
+              </span>
+            </span>
+            <span className="hero-line block overflow-hidden lg:pl-[3vw]">
+              <span
+                className="hero-line-inner block"
+                style={styleWithVars({ "--delay": "0.4s" })}
+              >
+                o crescimento.
+              </span>
+            </span>
+          </h1>
+
+          <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-12 lg:items-end lg:gap-10">
+            <div
+              className="hero-enter lg:col-span-6 lg:pl-[10vw]"
+              style={styleWithVars({ "--delay": "0.62s" })}
+            >
+              <p className="max-w-2xl text-[15px] font-light leading-relaxed text-[#5F5B5D] sm:text-lg lg:text-xl">
+                Da cozinha ao rótulo, colocamos processos, pessoas e documentos em
+                ordem para o seu negócio operar com confiança, passar por
+                fiscalizações e crescer de forma sustentável.
+              </p>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-primary-cta group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#1F1F21] px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.17em] text-[#F6F1EC] shadow-[0_18px_50px_-20px_rgba(31,31,33,0.8)] transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9F5D48]"
                 >
-                  <div className="clip relative w-full h-full overflow-hidden rounded-[999px_999px_28px_28px] shadow-2xl">
-                    <img
-                      src={equipeNP}
-                      alt="Equipe da NP Consultoria Alimentação em atendimento técnico"
-                      loading="eager"
-                      decoding="async"
-                      fetchPriority="high"
-                      className="ph w-full h-full object-cover"
-                      style={{ objectPosition: "center 22%" }}
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0"
-                      style={{ background: `linear-gradient(180deg, transparent 45%, ${INK}66 100%)` }}
-                    />
+                  Solicitar diagnóstico
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+                <a
+                  href="#solucoes"
+                  className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-[#BFAFA6] bg-white/30 px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.17em] text-[#292729] transition-colors duration-300 hover:bg-white/75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9F5D48]"
+                >
+                  Explorar soluções
+                  <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
+                </a>
+              </div>
+
+              <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2" aria-label="Diferenciais do atendimento">
+                {proofPoints.map((point) => (
+                  <li key={point} className="inline-flex items-center gap-2 text-[11px] font-medium text-[#625D60] sm:text-xs">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-[#9F5D48]" strokeWidth={1.8} />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div
+              className="hero-enter lg:col-span-6"
+              style={styleWithVars({ "--delay": "0.76s" })}
+            >
+              <div className="hero-method-card relative overflow-hidden rounded-[1.75rem] border border-[#D8CFC8] bg-[#FAF7F4]/90 p-5 shadow-[0_24px_70px_-36px_rgba(31,31,33,0.45)] backdrop-blur-md sm:p-7">
+                <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full border border-[#E9B6A2]/50" aria-hidden />
+                <div className="pointer-events-none absolute -right-7 -top-7 h-24 w-24 rounded-full bg-[#E9B6A2]/20" aria-hidden />
+
+                <div className="relative flex items-start justify-between gap-4 border-b border-[#DDD4CE] pb-5">
+                  <div>
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#8A7770]">Método NP</span>
+                    <h2 className="mt-2 font-playfair text-xl font-semibold text-[#252326] sm:text-2xl">
+                      O cuidado percorre a operação inteira.
+                    </h2>
                   </div>
-                </div>
-
-                {/* Selo conformidade */}
-                <div
-                  className="anim up absolute -top-3 -left-2 sm:-left-6 flex items-center gap-2.5 px-3.5 py-2.5 rounded-full shadow-xl"
-                  style={v({ "--d": "0.95s", background: "#fff" })}
-                >
-                  <span className="grid place-items-center w-7 h-7 rounded-full" style={{ background: SALMON, color: INK }} aria-hidden>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#1F1F21] text-[#F6F1EC]">
+                    <ShieldCheck className="h-5 w-5" strokeWidth={1.6} />
                   </span>
-                  <p className="text-[9.5px] sm:text-[10px] uppercase font-bold" style={{ color: INK, letterSpacing: "0.16em" }}>
-                    Conformidade sanitária
-                  </p>
                 </div>
 
-                {/* Card editorial */}
-                <div
-                  className="anim up absolute -bottom-6 -right-2 sm:-right-6 bg-white px-5 py-4 sm:px-6 sm:py-5 shadow-2xl rounded-2xl max-w-[210px] sm:max-w-[230px]"
-                  style={v({ "--d": "1.05s", borderLeft: `3px solid ${SALMON}` })}
-                >
-                  <p className="font-playfair italic leading-tight" style={{ color: INK, fontSize: "clamp(1.05rem,2.6vw,1.3rem)" }}>
-                    Assessoria de alto nível
-                  </p>
-                  <p className="mt-3 text-[9.5px] uppercase font-semibold" style={{ color: GREY, letterSpacing: "0.24em" }}>
-                    Indaiatuba · SP
-                  </p>
-                </div>
+                <ol className="relative mt-5 grid grid-cols-2 gap-3">
+                  {method.map(({ icon: Icon, label, detail }, index) => (
+                    <li
+                      key={label}
+                      className="method-step rounded-2xl border border-[#E1D8D2] bg-white/65 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#D7A38F] hover:bg-white"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <Icon className="h-4 w-4 text-[#9F5D48]" strokeWidth={1.7} />
+                        <span className="font-playfair text-lg text-[#C5B6AE]">0{index + 1}</span>
+                      </div>
+                      <p className="mt-4 text-xs font-semibold text-[#272527] sm:text-sm">{label}</p>
+                      <p className="mt-1 text-[10px] leading-relaxed text-[#777174] sm:text-[11px]">{detail}</p>
+                    </li>
+                  ))}
+                </ol>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Marquee editorial */}
       <div
-        className="anim up relative z-10 overflow-hidden py-3.5 sm:py-4"
-        style={v({ "--d": "1.15s", borderTop: `1px solid ${SALMON}`, borderBottom: `1px solid ${SALMON}`, background: `${SALMON}1f` })}
+        className="hero-enter relative z-20 overflow-hidden border-y border-[#D9CDC5] bg-[#E9B6A2]/15 py-3.5"
+        style={styleWithVars({ "--delay": "0.96s" })}
         aria-hidden
       >
-        <div className="mq flex w-max gap-8 sm:gap-14">
-          {[...marquee, ...marquee, ...marquee].map((t, i) => (
+        <div className="hero-ticker flex w-max items-center">
+          {[...ticker, ...ticker, ...ticker].map((item, index) => (
             <span
-              key={i}
-              className="inline-flex items-center gap-8 sm:gap-14 text-[10px] sm:text-[11px] uppercase font-semibold whitespace-nowrap"
-              style={{ color: GREY, letterSpacing: "0.22em" }}
+              key={`${item}-${index}`}
+              className="flex shrink-0 items-center gap-6 whitespace-nowrap px-4 text-[10px] font-semibold uppercase tracking-[0.23em] text-[#686164] sm:px-6 sm:text-[11px]"
             >
-              {t}
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: SALMON }} />
+              {item}
+              <span className="h-1.5 w-1.5 rounded-full bg-[#A96852]" />
             </span>
           ))}
         </div>
       </div>
 
       <style>{`
-        .hero-np { --eo: cubic-bezier(0.22, 1, 0.36, 1); }
-        .hero-np .anim { opacity: 0; }
-        .hero-np .up { transform: translateY(22px); }
-        .hero-np.is-in .up { animation: npUp 0.9s var(--eo) var(--d, 0s) both; }
-        @keyframes npUp { to { opacity: 1; transform: translateY(0); } }
+        .np-kinetic-hero { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
 
-        .hero-np .mask { display: block; overflow: hidden; padding-bottom: 0.1em; }
-        .hero-np .inner { display: inline-block; transform: translateY(110%); will-change: transform; }
-        .hero-np.is-in .inner { animation: npLine 1s var(--eo) var(--d, 0s) both; }
-        @keyframes npLine { to { transform: translateY(0); } }
-
-        .hero-np .hl {
-          position: absolute; left: -0.06em; right: -0.06em; bottom: 0.06em; height: 0.34em;
-          background: ${SALMON}; border-radius: 999px; transform: scaleX(0); transform-origin: left;
-          z-index: 0;
+        .np-kinetic-hero .hero-grid {
+          opacity: .05;
+          background-image: linear-gradient(${INK} 1px, transparent 1px), linear-gradient(90deg, ${INK} 1px, transparent 1px);
+          background-size: 72px 72px;
+          mask-image: linear-gradient(to bottom, #000 0%, transparent 88%);
         }
-        .hero-np.is-in .hl { animation: npHl 0.9s var(--eo) 1s both; }
-        @keyframes npHl { to { transform: scaleX(1); } }
 
-        .hero-np .clip { clip-path: inset(0 0 100% 0); }
-        .hero-np.is-in .clip { animation: npWipe 1.1s var(--eo) 0.35s both; }
-        @keyframes npWipe { to { clip-path: inset(0 0 0% 0); } }
-        .hero-np .ph { transform: scale(1.12); filter: brightness(0.8) saturate(0.92); }
-        .hero-np.is-in .ph { animation: npBloom 1.6s var(--eo) 0.4s both, npZoom 22s ease-in-out 2.2s infinite alternate; }
-        @keyframes npBloom { to { transform: scale(1); filter: brightness(1) saturate(1); } }
-        @keyframes npZoom { to { transform: scale(1.06); } }
+        .np-kinetic-hero .hero-aura-one {
+          width: min(62vw, 900px); height: min(62vw, 900px);
+          right: -22vw; top: -30vw;
+          background: radial-gradient(circle, ${SALMON}88 0%, ${SALMON}22 46%, transparent 72%);
+          filter: blur(18px);
+          animation: npAura 12s ease-in-out infinite alternate;
+        }
 
-        .hero-np .mq { animation: npMq 34s linear infinite; }
-        @keyframes npMq { to { transform: translateX(-33.333%); } }
+        .np-kinetic-hero .hero-aura-two {
+          width: min(42vw, 620px); height: min(42vw, 620px);
+          left: -18vw; bottom: -24vw;
+          background: radial-gradient(circle, #ffffffaa 0%, transparent 68%);
+          filter: blur(14px);
+          animation: npAura 14s ease-in-out 1s infinite alternate-reverse;
+        }
+
+        .np-kinetic-hero .hero-ghost-word {
+          right: -0.07em; top: 18%; color: transparent;
+          -webkit-text-stroke: 1px rgba(159,93,72,.09);
+          font-size: clamp(7rem, 19vw, 20rem);
+          line-height: .8;
+          transform: rotate(-7deg);
+        }
+
+        .np-kinetic-hero .hero-heading {
+          font-size: clamp(3.2rem, 8.1vw, 8.1rem);
+          line-height: .83 !important;
+          padding: 0;
+        }
+
+        .np-kinetic-hero .hero-line { padding-block: .09em; margin-block: -.04em; }
+        .np-kinetic-hero .hero-line-inner {
+          padding-block: .08em;
+          transform: translateY(118%) rotate(1.2deg);
+          transform-origin: left bottom;
+          will-change: transform;
+        }
+        .np-kinetic-hero.is-ready .hero-line-inner {
+          animation: npHeroLine 1.05s var(--ease-out) var(--delay, 0s) both;
+        }
+
+        .np-kinetic-hero .hero-enter { opacity: 0; transform: translateY(22px); }
+        .np-kinetic-hero.is-ready .hero-enter {
+          animation: npHeroEnter .85s var(--ease-out) var(--delay, 0s) both;
+        }
+
+        .np-kinetic-hero .hero-method-card { transition: transform .5s var(--ease-out), box-shadow .5s ease; }
+        .np-kinetic-hero .hero-method-card:hover {
+          transform: translateY(-4px) rotate(.15deg);
+          box-shadow: 0 30px 90px -42px rgba(31,31,33,.55);
+        }
+
+        .np-kinetic-hero .hero-ticker { animation: npTicker 38s linear infinite; }
+
+        @keyframes npHeroLine { to { transform: translateY(0) rotate(0); } }
+        @keyframes npHeroEnter { to { opacity: 1; transform: translateY(0); } }
+        @keyframes npTicker { to { transform: translateX(-33.333%); } }
+        @keyframes npAura { to { transform: translate3d(-4%, 5%, 0) scale(1.08); } }
+
+        @media (max-width: 640px) {
+          .np-kinetic-hero .hero-heading { font-size: clamp(3rem, 15vw, 4.4rem); line-height: .88 !important; }
+          .np-kinetic-hero .hero-grid { background-size: 48px 48px; }
+          .np-kinetic-hero .hero-aura-one { width: 95vw; height: 95vw; right: -48vw; top: -15vw; }
+          .np-kinetic-hero .hero-aura-two { width: 88vw; height: 88vw; left: -48vw; bottom: 8vw; }
+          .np-kinetic-hero .hero-ghost-word { top: 27%; font-size: 38vw; }
+        }
 
         @media (prefers-reduced-motion: reduce) {
-          .hero-np.is-in .up,
-          .hero-np.is-in .inner,
-          .hero-np.is-in .hl { animation: none !important; opacity: 1 !important; transform: none !important; }
-          .hero-np.is-in .clip { animation: none !important; clip-path: none !important; }
-          .hero-np.is-in .ph { animation: none !important; transform: none !important; filter: none !important; }
-          .hero-np .mq { animation: none !important; }
+          .np-kinetic-hero .hero-line-inner,
+          .np-kinetic-hero .hero-enter {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+          .np-kinetic-hero .hero-aura-one,
+          .np-kinetic-hero .hero-aura-two,
+          .np-kinetic-hero .hero-ticker { animation: none !important; }
+          .np-kinetic-hero .hero-primary-cta,
+          .np-kinetic-hero .hero-method-card,
+          .np-kinetic-hero .method-step { transition: none !important; }
         }
       `}</style>
     </section>
