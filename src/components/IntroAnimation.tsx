@@ -1,35 +1,24 @@
-import { useState, useEffect } from "react";
-
-/* Paleta oficial NP */
-const CREAM = "#F6F1EC";
-const INK = "#1F1F21";
-const GREY = "#6E6E70";
-const SALMON = "#E9B6A2";
+import { useEffect, useState } from "react";
+import logoNP from "@/assets/logoNP.png";
 
 interface IntroAnimationProps {
   onComplete?: () => void;
 }
-
-/**
- * Assinatura curta de entrada: preserva a lembrança de marca sem atrasar
- * o acesso ao conteúdo principal.
- */
-const NAME = "NP";
-const SUB = "Segurança que alimenta crescimento";
 
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   const [exiting, setExiting] = useState(false);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setExiting(true), 1850);
-    const t2 = setTimeout(() => {
+    const exitTimer = window.setTimeout(() => setExiting(true), 1280);
+    const doneTimer = window.setTimeout(() => {
       setDone(true);
       onComplete?.();
-    }, 2350);
+    }, 1740);
+
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      window.clearTimeout(exitTimer);
+      window.clearTimeout(doneTimer);
     };
   }, [onComplete]);
 
@@ -37,122 +26,85 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
   return (
     <div
-      className="intro-root fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
-      style={{
-        background: CREAM,
-        opacity: exiting ? 0 : 1,
-        transition: "opacity 500ms cubic-bezier(0.22,1,0.36,1)",
-        pointerEvents: exiting ? "none" : "auto",
-      }}
+      className={`np-intro-v3 fixed inset-0 z-[9999] overflow-hidden bg-[#111214] ${exiting ? "is-exiting" : ""}`}
+      aria-label="NP Consultoria Alimentar"
     >
-      {/* Halo salmão sutil */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at 50% 50%, ${SALMON}33 0%, transparent 55%)`,
-          filter: "blur(20px)",
-        }}
-      />
+      <div className="intro-panel intro-panel-top absolute inset-x-0 top-0 h-1/2 bg-[#111214]" />
+      <div className="intro-panel intro-panel-bottom absolute inset-x-0 bottom-0 h-1/2 bg-[#111214]" />
 
-      <div className="relative flex flex-col items-center px-6 text-center">
-        {/* Nome principal — serif monumental, letra a letra */}
-        <h1
-          className="intro-name font-playfair"
-          style={{
-            fontSize: "clamp(6rem, 22vw, 14rem)",
-            color: INK,
-            lineHeight: 0.95,
-            letterSpacing: "-0.04em",
-            fontWeight: 700,
-            display: "flex",
-            gap: "0.02em",
-          }}
-          aria-label="NP Consultoria Alimentação"
-        >
-          {NAME.split("").map((ch, i) => (
-            <span
-              key={i}
-              className="intro-char"
-              style={{ animationDelay: `${0.15 + i * 0.09}s` }}
-            >
-              {ch}
-            </span>
-          ))}
-        </h1>
+      <div className="absolute inset-0 grid place-items-center px-6">
+        <div className="intro-signature flex flex-col items-center">
+          <div className="intro-emblem relative grid h-24 w-24 place-items-center rounded-full border border-white/15 bg-white/[0.04] p-2.5 shadow-[0_30px_80px_-24px_rgba(231,169,143,.45)] sm:h-28 sm:w-28">
+            <span className="intro-orbit absolute -inset-3 rounded-full border border-[#E7A98F]/35" />
+            <img src={logoNP} alt="" className="h-full w-full rounded-full object-cover" />
+          </div>
 
-        {/* Linha salmão que assina */}
-        <span
-          aria-hidden
-          className="intro-line block mt-6 h-[2px] rounded-full"
-          style={{
-            background: `linear-gradient(90deg, transparent, ${SALMON}, transparent)`,
-            width: "clamp(120px, 20vw, 240px)",
-          }}
-        />
-
-        {/* Subtítulo — reveal por mask, letra a letra */}
-        <p
-          className="intro-sub mt-6 uppercase font-semibold"
-          style={{
-            color: GREY,
-            fontSize: "clamp(0.72rem, 1.4vw, 0.95rem)",
-            letterSpacing: "0.42em",
-          }}
-          aria-hidden
-        >
-          {SUB.split("").map((ch, i) => (
-            <span
-              key={i}
-              className="intro-sub-char"
-              style={{ animationDelay: `${0.72 + i * 0.018}s` }}
-            >
-              {ch === " " ? "\u00A0" : ch}
-            </span>
-          ))}
-        </p>
+          <div className="mt-7 overflow-hidden">
+            <p className="intro-name text-center text-[10px] font-bold uppercase tracking-[0.34em] text-[#F7F1EB] sm:text-xs">
+              NP Consultoria Alimentar
+            </p>
+          </div>
+          <span className="intro-rule mt-4 h-px w-36 bg-gradient-to-r from-transparent via-[#E7A98F] to-transparent" />
+          <p className="intro-sub mt-4 text-[8px] font-semibold uppercase tracking-[0.28em] text-white/42 sm:text-[9px]">
+            Segurança que alimenta crescimento
+          </p>
+        </div>
       </div>
 
       <style>{`
-        .intro-root { --eo: cubic-bezier(0.22, 1, 0.36, 1); }
+        .np-intro-v3 { transition: visibility 0s linear .46s; }
+        .np-intro-v3 .intro-panel { z-index: 2; transition: transform .46s cubic-bezier(.76,0,.24,1); }
+        .np-intro-v3.is-exiting .intro-panel-top { transform: translateY(-102%); }
+        .np-intro-v3.is-exiting .intro-panel-bottom { transform: translateY(102%); }
 
-        .intro-char {
-          display: inline-block;
+        .np-intro-v3 .intro-signature { position: relative; z-index: 3; }
+        .np-intro-v3.is-exiting .intro-signature {
           opacity: 0;
-          transform: translateY(0.35em) rotate(4deg);
+          transform: scale(.93);
+          transition: opacity .18s ease, transform .3s ease;
+        }
+
+        .np-intro-v3 .intro-emblem {
+          opacity: 0;
+          transform: scale(.55) rotate(-14deg);
           filter: blur(10px);
-          animation: charIn 1s var(--eo) both;
-        }
-        @keyframes charIn {
-          to { opacity: 1; transform: translateY(0) rotate(0); filter: blur(0); }
+          animation: npIntroEmblem .72s cubic-bezier(.16,1,.3,1) .06s both;
         }
 
-        .intro-line {
-          transform: scaleX(0);
-          transform-origin: center;
-          animation: lineIn 0.9s var(--eo) 0.75s both;
+        .np-intro-v3 .intro-orbit { animation: npIntroOrbit 7s linear infinite; }
+        .np-intro-v3 .intro-orbit::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: -3px;
+          width: 6px;
+          height: 6px;
+          border-radius: 999px;
+          background: #e7a98f;
+          box-shadow: 0 0 18px rgba(231,169,143,.75);
         }
-        @keyframes lineIn { to { transform: scaleX(1); } }
 
-        .intro-sub-char {
-          display: inline-block;
-          opacity: 0;
-          transform: translateY(6px);
-          animation: subIn 0.5s var(--eo) both;
+        .np-intro-v3 .intro-name {
+          transform: translateY(110%);
+          animation: npIntroName .62s cubic-bezier(.16,1,.3,1) .4s both;
         }
-        @keyframes subIn {
-          to { opacity: 1; transform: translateY(0); }
-        }
+        .np-intro-v3 .intro-rule { transform: scaleX(0); animation: npIntroRule .6s cubic-bezier(.16,1,.3,1) .62s both; }
+        .np-intro-v3 .intro-sub { opacity: 0; filter: blur(8px); animation: npIntroSub .55s ease .72s both; }
+
+        @keyframes npIntroEmblem { to { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); } }
+        @keyframes npIntroOrbit { to { transform: rotate(360deg); } }
+        @keyframes npIntroName { to { transform: translateY(0); } }
+        @keyframes npIntroRule { to { transform: scaleX(1); } }
+        @keyframes npIntroSub { to { opacity: 1; filter: blur(0); } }
 
         @media (prefers-reduced-motion: reduce) {
-          .intro-root *,
-          .intro-root *::before,
-          .intro-root *::after {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
-            filter: none !important;
-          }
+          .np-intro-v3 *,
+          .np-intro-v3 *::before,
+          .np-intro-v3 *::after { animation: none !important; }
+          .np-intro-v3 .intro-emblem,
+          .np-intro-v3 .intro-name,
+          .np-intro-v3 .intro-rule,
+          .np-intro-v3 .intro-sub { opacity: 1; transform: none; filter: none; }
         }
       `}</style>
     </div>

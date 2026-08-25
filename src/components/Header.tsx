@@ -75,7 +75,7 @@ const Header = () => {
           "mx-auto flex w-full max-w-[1480px] items-center justify-between border px-3 py-2.5 backdrop-blur-xl transition-all duration-500 sm:px-4 " +
           (isScrolled
             ? "rounded-full border-[#D8CEC7]/90 bg-[#F8F4F0]/95 shadow-[0_16px_50px_-28px_rgba(31,31,33,0.65)]"
-            : "rounded-[1.35rem] border-[#D8CEC7]/65 bg-[#F8F4F0]/82")
+            : "rounded-full border-white/15 bg-[#111214]/32 shadow-[0_18px_60px_-34px_rgba(0,0,0,.8)]")
         }
       >
         <Link
@@ -87,10 +87,10 @@ const Header = () => {
             <img src={logoNP} alt="" className="h-10 w-10 object-cover" />
           </span>
           <span className="hidden min-w-0 sm:block">
-            <strong className="block truncate text-[12px] font-semibold tracking-[-0.01em] text-[#262326]">
+            <strong className={`block truncate text-[12px] font-semibold tracking-[-0.01em] transition-colors ${isScrolled ? "text-[#262326]" : "text-white"}`}>
               NP Consultoria
             </strong>
-            <span className="block truncate text-[9px] font-medium uppercase tracking-[0.18em] text-[#857C7A]">
+            <span className={`block truncate text-[9px] font-medium uppercase tracking-[0.18em] transition-colors ${isScrolled ? "text-[#857C7A]" : "text-white/45"}`}>
               Segurança dos alimentos
             </span>
           </span>
@@ -104,8 +104,12 @@ const Header = () => {
               className={({ isActive }) =>
                 "relative rounded-full px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.13em] transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9F5D48] xl:px-4 " +
                 (isActive
-                  ? "bg-[#E9B6A2]/28 text-[#7D4434]"
-                  : "text-[#5D5759] hover:bg-white/70 hover:text-[#201E20]")
+                  ? isScrolled
+                    ? "bg-[#E9B6A2]/28 text-[#7D4434]"
+                    : "bg-white/10 text-[#E7A98F]"
+                  : isScrolled
+                    ? "text-[#5D5759] hover:bg-white/70 hover:text-[#201E20]"
+                    : "text-white/58 hover:bg-white/10 hover:text-white")
               }
             >
               {label}
@@ -117,7 +121,7 @@ const Header = () => {
           <button
             type="button"
             onClick={scrollToContact}
-            className="group hidden min-h-10 items-center gap-2 rounded-full bg-[#1F1F21] px-5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#F8F4F0] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#353236] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9F5D48] sm:inline-flex"
+            className={`group hidden min-h-10 items-center gap-2 rounded-full px-5 text-[10px] font-semibold uppercase tracking-[0.15em] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9F5D48] sm:inline-flex ${isScrolled ? "bg-[#1F1F21] text-[#F8F4F0] hover:bg-[#353236]" : "bg-[#E7A98F] text-[#191617] hover:bg-[#F0BCA6]"}`}
           >
             Agendar diagnóstico
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -126,7 +130,7 @@ const Header = () => {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="grid h-10 w-10 place-items-center rounded-full border border-[#D8CEC7] bg-white/70 text-[#292629] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9F5D48] lg:hidden"
+            className={`grid h-10 w-10 place-items-center rounded-full border transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9F5D48] lg:hidden ${isScrolled ? "border-[#D8CEC7] bg-white/70 text-[#292629] hover:bg-white" : "border-white/20 bg-white/10 text-white hover:bg-white/15"}`}
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-navigation"

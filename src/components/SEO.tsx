@@ -20,7 +20,7 @@ const SEO = ({
   const siteUrl = window.location.origin;
   const currentUrl = `${siteUrl}${location.pathname}`;
   
-  const fullTitle = `${title} | NP Consultoria Alimentos`;
+  const fullTitle = `${title} | NP Consultoria Alimentar`;
 
   useEffect(() => {
     // Update document title
@@ -50,8 +50,8 @@ const SEO = ({
     updateMetaTag('og:type', type);
     updateMetaTag('og:url', currentUrl);
     updateMetaTag('og:image', `${siteUrl}${image}`);
-    updateMetaTag('og:site_name', 'NP Consultoria Alimentos');
-    updateMetaTag('og:locale', 'pt_PT');
+    updateMetaTag('og:site_name', 'NP Consultoria Alimentar');
+    updateMetaTag('og:locale', 'pt_BR');
     
     // Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image', true);
@@ -61,7 +61,7 @@ const SEO = ({
     
     // Additional SEO tags
     updateMetaTag('robots', 'index, follow', true);
-    updateMetaTag('author', 'NP Consultoria Alimentos', true);
+    updateMetaTag('author', 'NP Consultoria Alimentar', true);
   }, [title, description, keywords, image, type, fullTitle, currentUrl, siteUrl]);
 
   return null;

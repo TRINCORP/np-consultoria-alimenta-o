@@ -1,42 +1,24 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import {
-  ArrowDown,
-  ArrowUpRight,
-  CheckCircle2,
-  ClipboardCheck,
-  ScanSearch,
-  ShieldCheck,
-  UsersRound,
-} from "lucide-react";
+import { ArrowDown, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import TrincorpKineticHeadline from "@/components/effects/TrincorpKineticHeadline";
+import heroSculpture from "@/assets/np-hero-sculpture-v3.webp";
 
 const WHATSAPP_NUMBER = "5519989750741";
 
-const CREAM = "#F6F1EC";
-const SALMON = "#E9B6A2";
-const INK = "#1F1F21";
-
-const styleWithVars = (values: Record<string, string | number>) =>
-  values as CSSProperties;
-
-const method = [
-  { icon: ScanSearch, label: "Diagnosticar", detail: "riscos e oportunidades" },
-  { icon: ClipboardCheck, label: "Estruturar", detail: "processos e documentos" },
-  { icon: UsersRound, label: "Capacitar", detail: "lideranças e equipes" },
-  { icon: ShieldCheck, label: "Acompanhar", detail: "a evolução da operação" },
-];
+const withDelay = (delay: string) =>
+  ({ "--np-delay": delay }) as CSSProperties;
 
 const proofPoints = [
-  "Plano de ação claro",
-  "Atendimento técnico próximo",
-  "Indaiatuba e região",
+  "Diagnóstico que vira plano",
+  "Proximidade técnica",
+  "Decisões com segurança",
 ];
 
-const ticker = [
-  "Segurança dos alimentos",
-  "Rotulagem",
+const expertise = [
   "Vigilância sanitária",
-  "Treinamento",
-  "Padronização",
+  "Rotulagem",
+  "Boas práticas",
+  "Treinamentos",
   "Gestão da qualidade",
 ];
 
@@ -44,8 +26,8 @@ const Hero = () => {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setReady(true), 80);
-    return () => window.clearTimeout(timer);
+    const frame = window.requestAnimationFrame(() => setReady(true));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const whatsappMessage = encodeURIComponent(
@@ -54,257 +36,267 @@ const Hero = () => {
 
   return (
     <section
-      className={`np-kinetic-hero relative isolate min-h-[100svh] overflow-hidden ${ready ? "is-ready" : ""}`}
-      style={{ background: CREAM, color: INK }}
+      className={`np-cinematic-hero relative isolate min-h-[100svh] overflow-hidden bg-[#111214] text-[#F7F1EB] ${ready ? "is-ready" : ""}`}
       aria-labelledby="hero-title"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <img
+          src={heroSculpture}
+          alt=""
+          className="hero-sculpture absolute inset-0 h-full w-full object-cover object-[64%_center]"
+          fetchPriority="high"
+        />
+        <div className="hero-image-shade absolute inset-0" />
+        <div className="hero-vignette absolute inset-0" />
         <div className="hero-grid absolute inset-0" />
-        <div className="hero-aura hero-aura-one absolute rounded-full" />
-        <div className="hero-aura hero-aura-two absolute rounded-full" />
-        <span className="hero-ghost-word absolute select-none font-playfair italic">
-          cuidado
-        </span>
+        <div className="hero-light-sweep absolute -inset-y-1/2 left-[-35%] w-[28%] rotate-[13deg] bg-white/[0.055] blur-3xl" />
+        <div className="hero-grain absolute inset-0 opacity-[0.075] mix-blend-soft-light" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1540px] flex-col px-5 pb-8 pt-28 sm:px-8 sm:pb-10 sm:pt-32 lg:px-12 lg:pb-12 lg:pt-36">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1600px] flex-col px-5 pb-7 pt-28 sm:px-8 sm:pb-9 sm:pt-32 lg:px-12 lg:pb-10 lg:pt-36">
         <div
-          className="hero-enter flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
-          style={styleWithVars({ "--delay": "0.05s" })}
+          className="hero-reveal flex items-center justify-between gap-5"
+          style={withDelay("0.02s")}
         >
           <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-[#C98973] sm:w-12" />
-            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#666164] sm:text-[11px]">
-              Consultoria alimentar · Indaiatuba e região
+            <span className="h-px w-9 bg-[#E7A98F] sm:w-14" />
+            <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-white/58 sm:text-[10px]">
+              Consultoria alimentar · Indaiatuba
             </p>
           </div>
 
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#D8CFC8] bg-white/55 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#4E4A4B] backdrop-blur-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-40" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
+          <div className="flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.23em] text-white/46 sm:text-[10px]">
+            <span className="hidden sm:inline">Estratégia técnica para crescer</span>
+            <span className="font-playfair text-lg font-normal italic tracking-normal text-[#E7A98F]">
+              NP / 01
             </span>
-            Diagnóstico técnico disponível
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col justify-center py-10 sm:py-12 lg:py-8">
-          <h1 id="hero-title" className="hero-heading font-semibold tracking-[-0.07em]">
-            <span className="hero-line block overflow-hidden">
-              <span
-                className="hero-line-inner block"
-                style={styleWithVars({ "--delay": "0.14s" })}
-              >
-                Segurança
-              </span>
-            </span>
-            <span className="hero-line block overflow-hidden lg:pl-[10vw]">
-              <span
-                className="hero-line-inner block font-playfair font-normal italic tracking-[-0.055em] text-[#9F5D48]"
-                style={styleWithVars({ "--delay": "0.27s" })}
-              >
-                que alimenta
-              </span>
-            </span>
-            <span className="hero-line block overflow-hidden lg:pl-[3vw]">
-              <span
-                className="hero-line-inner block"
-                style={styleWithVars({ "--delay": "0.4s" })}
-              >
-                o crescimento.
-              </span>
-            </span>
-          </h1>
-
-          <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-12 lg:items-end lg:gap-10">
+        <div className="flex flex-1 flex-col justify-center py-12 sm:py-14 lg:py-8">
+          <div className="relative">
             <div
-              className="hero-enter lg:col-span-6 lg:pl-[10vw]"
-              style={styleWithVars({ "--delay": "0.62s" })}
+              className="hero-reveal mb-5 flex items-center gap-2 sm:mb-7"
+              style={withDelay("0.08s")}
             >
-              <p className="max-w-2xl text-[15px] font-light leading-relaxed text-[#5F5B5D] sm:text-lg lg:text-xl">
-                Da cozinha ao rótulo, colocamos processos, pessoas e documentos em
-                ordem para o seu negócio operar com confiança, passar por
-                fiscalizações e crescer de forma sustentável.
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E7A98F] opacity-40" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E7A98F]" />
+              </span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#E9C0AF] sm:text-[10px]">
+                Diagnóstico técnico disponível
+              </span>
+            </div>
+
+            <TrincorpKineticHeadline active={ready} />
+
+            <span
+              className="hero-orbit absolute right-[4%] top-[42%] hidden h-24 w-24 rounded-full border border-white/15 xl:block"
+              aria-hidden
+            >
+              <span className="absolute left-1/2 top-[-4px] h-2 w-2 -translate-x-1/2 rounded-full bg-[#E7A98F] shadow-[0_0_20px_4px_rgba(231,169,143,.45)]" />
+            </span>
+          </div>
+
+          <div className="mt-9 grid gap-8 lg:mt-11 lg:grid-cols-12 lg:items-end lg:gap-10">
+            <div
+              className="hero-reveal lg:col-span-5 lg:col-start-2"
+              style={withDelay("1.02s")}
+            >
+              <p className="max-w-xl text-[14px] font-light leading-relaxed text-white/65 sm:text-base lg:text-lg">
+                Da cozinha ao rótulo, transformamos exigências técnicas em uma
+                operação clara, preparada e capaz de crescer sem improviso.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hero-primary-cta group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#1F1F21] px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.17em] text-[#F6F1EC] shadow-[0_18px_50px_-20px_rgba(31,31,33,0.8)] transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9F5D48]"
+                  className="hero-primary-cta group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#E7A98F] px-7 py-3.5 text-[10px] font-bold uppercase tracking-[0.17em] text-[#191617] shadow-[0_20px_55px_-20px_rgba(231,169,143,.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
                   Solicitar diagnóstico
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <a
                   href="#solucoes"
-                  className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-[#BFAFA6] bg-white/30 px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.17em] text-[#292729] transition-colors duration-300 hover:bg-white/75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9F5D48]"
+                  className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/20 bg-white/[0.055] px-7 py-3.5 text-[10px] font-semibold uppercase tracking-[0.17em] text-white/82 backdrop-blur-sm transition-colors duration-300 hover:border-white/35 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E7A98F]"
                 >
                   Explorar soluções
                   <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
                 </a>
               </div>
+            </div>
 
-              <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2" aria-label="Diferenciais do atendimento">
-                {proofPoints.map((point) => (
-                  <li key={point} className="inline-flex items-center gap-2 text-[11px] font-medium text-[#625D60] sm:text-xs">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-[#9F5D48]" strokeWidth={1.8} />
-                    {point}
+            <div
+              className="hero-reveal lg:col-span-5 lg:col-start-8"
+              style={withDelay("1.14s")}
+            >
+              <ul
+                className="grid gap-px overflow-hidden rounded-[1.3rem] border border-white/12 bg-white/12 sm:grid-cols-3 lg:ml-auto lg:max-w-2xl"
+                aria-label="Diferenciais do atendimento"
+              >
+                {proofPoints.map((point, index) => (
+                  <li
+                    key={point}
+                    className="group bg-[#17181A]/88 p-4 backdrop-blur-md transition-colors hover:bg-[#242528]/92 sm:p-5"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-[#E7A98F]" strokeWidth={1.7} />
+                      <span className="font-playfair text-sm italic text-white/22">0{index + 1}</span>
+                    </div>
+                    <p className="mt-5 text-[10px] font-medium leading-relaxed text-white/66 sm:text-[11px]">
+                      {point}
+                    </p>
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div
-              className="hero-enter lg:col-span-6"
-              style={styleWithVars({ "--delay": "0.76s" })}
-            >
-              <div className="hero-method-card relative overflow-hidden rounded-[1.75rem] border border-[#D8CFC8] bg-[#FAF7F4]/90 p-5 shadow-[0_24px_70px_-36px_rgba(31,31,33,0.45)] backdrop-blur-md sm:p-7">
-                <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full border border-[#E9B6A2]/50" aria-hidden />
-                <div className="pointer-events-none absolute -right-7 -top-7 h-24 w-24 rounded-full bg-[#E9B6A2]/20" aria-hidden />
-
-                <div className="relative flex items-start justify-between gap-4 border-b border-[#DDD4CE] pb-5">
-                  <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-[#8A7770]">Método NP</span>
-                    <h2 className="mt-2 font-playfair text-xl font-semibold text-[#252326] sm:text-2xl">
-                      O cuidado percorre a operação inteira.
-                    </h2>
-                  </div>
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#1F1F21] text-[#F6F1EC]">
-                    <ShieldCheck className="h-5 w-5" strokeWidth={1.6} />
-                  </span>
-                </div>
-
-                <ol className="relative mt-5 grid grid-cols-2 gap-3">
-                  {method.map(({ icon: Icon, label, detail }, index) => (
-                    <li
-                      key={label}
-                      className="method-step rounded-2xl border border-[#E1D8D2] bg-white/65 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#D7A38F] hover:bg-white"
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <Icon className="h-4 w-4 text-[#9F5D48]" strokeWidth={1.7} />
-                        <span className="font-playfair text-lg text-[#C5B6AE]">0{index + 1}</span>
-                      </div>
-                      <p className="mt-4 text-xs font-semibold text-[#272527] sm:text-sm">{label}</p>
-                      <p className="mt-1 text-[10px] leading-relaxed text-[#777174] sm:text-[11px]">{detail}</p>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        className="hero-enter relative z-20 overflow-hidden border-y border-[#D9CDC5] bg-[#E9B6A2]/15 py-3.5"
-        style={styleWithVars({ "--delay": "0.96s" })}
-        aria-hidden
-      >
-        <div className="hero-ticker flex w-max items-center">
-          {[...ticker, ...ticker, ...ticker].map((item, index) => (
-            <span
-              key={`${item}-${index}`}
-              className="flex shrink-0 items-center gap-6 whitespace-nowrap px-4 text-[10px] font-semibold uppercase tracking-[0.23em] text-[#686164] sm:px-6 sm:text-[11px]"
-            >
-              {item}
-              <span className="h-1.5 w-1.5 rounded-full bg-[#A96852]" />
+        <div
+          className="hero-reveal flex items-end justify-between border-t border-white/12 pt-4"
+          style={withDelay("1.28s")}
+        >
+          <div className="overflow-hidden">
+            <div className="hero-expertise-ticker flex w-max items-center">
+              {[...expertise, ...expertise].map((item, index) => (
+                <span
+                  key={`${item}-${index}`}
+                  className="flex shrink-0 items-center gap-4 whitespace-nowrap pr-5 text-[8px] font-semibold uppercase tracking-[0.24em] text-white/35 sm:pr-8 sm:text-[9px]"
+                >
+                  {item}
+                  <span className="h-1 w-1 rounded-full bg-[#E7A98F]" />
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <a
+            href="#marca-segura"
+            className="ml-6 hidden shrink-0 items-center gap-3 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/38 transition-colors hover:text-white/75 sm:flex"
+          >
+            Continue
+            <span className="grid h-8 w-8 place-items-center rounded-full border border-white/15">
+              <ArrowDown className="h-3.5 w-3.5" />
             </span>
-          ))}
+          </a>
         </div>
       </div>
 
       <style>{`
-        .np-kinetic-hero { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
+        .np-cinematic-hero { --np-ease: cubic-bezier(.16, 1, .3, 1); }
 
-        .np-kinetic-hero .hero-grid {
-          opacity: .05;
-          background-image: linear-gradient(${INK} 1px, transparent 1px), linear-gradient(90deg, ${INK} 1px, transparent 1px);
-          background-size: 72px 72px;
-          mask-image: linear-gradient(to bottom, #000 0%, transparent 88%);
+        .np-cinematic-hero .hero-sculpture {
+          opacity: 0;
+          transform: scale(1.09);
+          filter: saturate(.88) contrast(1.04);
+          will-change: transform, opacity;
         }
 
-        .np-kinetic-hero .hero-aura-one {
-          width: min(62vw, 900px); height: min(62vw, 900px);
-          right: -22vw; top: -30vw;
-          background: radial-gradient(circle, ${SALMON}88 0%, ${SALMON}22 46%, transparent 72%);
-          filter: blur(18px);
-          animation: npAura 12s ease-in-out infinite alternate;
+        .np-cinematic-hero.is-ready .hero-sculpture {
+          animation: npSculptureIn 1.65s var(--np-ease) .12s both, npSculptureDrift 11s ease-in-out 2s infinite alternate;
         }
 
-        .np-kinetic-hero .hero-aura-two {
-          width: min(42vw, 620px); height: min(42vw, 620px);
-          left: -18vw; bottom: -24vw;
-          background: radial-gradient(circle, #ffffffaa 0%, transparent 68%);
-          filter: blur(14px);
-          animation: npAura 14s ease-in-out 1s infinite alternate-reverse;
+        .np-cinematic-hero .hero-image-shade {
+          background:
+            linear-gradient(90deg, #111214 0%, rgba(17,18,20,.93) 24%, rgba(17,18,20,.5) 56%, rgba(17,18,20,.08) 82%),
+            linear-gradient(0deg, rgba(17,18,20,.92) 0%, transparent 32%, rgba(17,18,20,.2) 100%);
         }
 
-        .np-kinetic-hero .hero-ghost-word {
-          right: -0.07em; top: 18%; color: transparent;
-          -webkit-text-stroke: 1px rgba(159,93,72,.09);
-          font-size: clamp(7rem, 19vw, 20rem);
-          line-height: .8;
-          transform: rotate(-7deg);
+        .np-cinematic-hero .hero-vignette {
+          box-shadow: inset 0 0 150px 30px rgba(0,0,0,.48);
         }
 
-        .np-kinetic-hero .hero-heading {
-          font-size: clamp(3.2rem, 8.1vw, 8.1rem);
-          line-height: .83 !important;
-          padding: 0;
+        .np-cinematic-hero .hero-grid {
+          opacity: .1;
+          background-image: linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px);
+          background-size: 80px 80px;
+          mask-image: linear-gradient(to right, #000, transparent 78%);
         }
 
-        .np-kinetic-hero .hero-line { padding-block: .09em; margin-block: -.04em; }
-        .np-kinetic-hero .hero-line-inner {
-          padding-block: .08em;
-          transform: translateY(118%) rotate(1.2deg);
-          transform-origin: left bottom;
-          will-change: transform;
-        }
-        .np-kinetic-hero.is-ready .hero-line-inner {
-          animation: npHeroLine 1.05s var(--ease-out) var(--delay, 0s) both;
+        .np-cinematic-hero .hero-light-sweep {
+          transform: translateX(-120%) rotate(13deg);
         }
 
-        .np-kinetic-hero .hero-enter { opacity: 0; transform: translateY(22px); }
-        .np-kinetic-hero.is-ready .hero-enter {
-          animation: npHeroEnter .85s var(--ease-out) var(--delay, 0s) both;
+        .np-cinematic-hero.is-ready .hero-light-sweep {
+          animation: npLightSweep 2.1s var(--np-ease) .48s both;
         }
 
-        .np-kinetic-hero .hero-method-card { transition: transform .5s var(--ease-out), box-shadow .5s ease; }
-        .np-kinetic-hero .hero-method-card:hover {
-          transform: translateY(-4px) rotate(.15deg);
-          box-shadow: 0 30px 90px -42px rgba(31,31,33,.55);
+        .np-cinematic-hero .hero-reveal {
+          opacity: 0;
+          transform: translateY(20px);
         }
 
-        .np-kinetic-hero .hero-ticker { animation: npTicker 38s linear infinite; }
+        .np-cinematic-hero.is-ready .hero-reveal {
+          animation: npHeroReveal .9s var(--np-ease) var(--np-delay, 0s) both;
+        }
 
-        @keyframes npHeroLine { to { transform: translateY(0) rotate(0); } }
-        @keyframes npHeroEnter { to { opacity: 1; transform: translateY(0); } }
-        @keyframes npTicker { to { transform: translateX(-33.333%); } }
-        @keyframes npAura { to { transform: translate3d(-4%, 5%, 0) scale(1.08); } }
+        .np-cinematic-hero .hero-primary-cta {
+          transition: transform .35s var(--np-ease), box-shadow .35s ease, background-color .35s ease;
+        }
 
-        @media (max-width: 640px) {
-          .np-kinetic-hero .hero-heading { font-size: clamp(3rem, 15vw, 4.4rem); line-height: .88 !important; }
-          .np-kinetic-hero .hero-grid { background-size: 48px 48px; }
-          .np-kinetic-hero .hero-aura-one { width: 95vw; height: 95vw; right: -48vw; top: -15vw; }
-          .np-kinetic-hero .hero-aura-two { width: 88vw; height: 88vw; left: -48vw; bottom: 8vw; }
-          .np-kinetic-hero .hero-ghost-word { top: 27%; font-size: 38vw; }
+        .np-cinematic-hero .hero-primary-cta:hover {
+          transform: translateY(-4px);
+          background: #f0bca6;
+          box-shadow: 0 26px 65px -20px rgba(231,169,143,.72);
+        }
+
+        .np-cinematic-hero .hero-orbit {
+          animation: npOrbit 9s linear infinite;
+        }
+
+        .np-cinematic-hero .hero-expertise-ticker {
+          animation: npExpertiseTicker 24s linear infinite;
+        }
+
+        @keyframes npSculptureIn {
+          from { opacity: 0; transform: scale(1.09); }
+          to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes npSculptureDrift {
+          from { transform: scale(1) translate3d(0,0,0); }
+          to { transform: scale(1.025) translate3d(-.4%, -.5%, 0); }
+        }
+
+        @keyframes npLightSweep {
+          to { transform: translateX(560%) rotate(13deg); }
+        }
+
+        @keyframes npHeroReveal {
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes npOrbit { to { transform: rotate(360deg); } }
+
+        @keyframes npExpertiseTicker {
+          to { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 900px) {
+          .np-cinematic-hero .hero-sculpture { object-position: 64% center; }
+          .np-cinematic-hero .hero-image-shade {
+            background:
+              linear-gradient(90deg, rgba(17,18,20,.98) 0%, rgba(17,18,20,.77) 58%, rgba(17,18,20,.36) 100%),
+              linear-gradient(0deg, rgba(17,18,20,.96) 0%, rgba(17,18,20,.12) 60%, rgba(17,18,20,.45) 100%);
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .np-kinetic-hero .hero-line-inner,
-          .np-kinetic-hero .hero-enter {
-            animation: none !important;
-            opacity: 1 !important;
-            transform: none !important;
+          .np-cinematic-hero *,
+          .np-cinematic-hero *::before,
+          .np-cinematic-hero *::after {
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
           }
-          .np-kinetic-hero .hero-aura-one,
-          .np-kinetic-hero .hero-aura-two,
-          .np-kinetic-hero .hero-ticker { animation: none !important; }
-          .np-kinetic-hero .hero-primary-cta,
-          .np-kinetic-hero .hero-method-card,
-          .np-kinetic-hero .method-step { transition: none !important; }
+          .np-cinematic-hero .hero-sculpture,
+          .np-cinematic-hero .hero-reveal {
+            opacity: 1;
+            transform: none;
+          }
         }
       `}</style>
     </section>
