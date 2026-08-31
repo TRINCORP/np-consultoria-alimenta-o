@@ -28,6 +28,7 @@ const TrincorpKineticHeadline = ({
       style={withDelay("0.08s")}
       aria-hidden
     >
+      <span className="tk-slice-base">SEGURANÇA</span>
       <span className="tk-slice tk-slice-top">SEGURANÇA</span>
       <span className="tk-slice tk-slice-bottom">SEGURANÇA</span>
     </span>
@@ -58,41 +59,62 @@ const TrincorpKineticHeadline = ({
         --tk-ease: cubic-bezier(.16, 1, .3, 1);
         color: var(--tk-cream);
         font-family: Poppins, Inter, system-ui, sans-serif;
-        font-size: clamp(3.65rem, 9.35vw, 10.6rem);
-        font-weight: 750;
-        letter-spacing: -.092em;
-        line-height: .755;
+        font-size: clamp(3.35rem, 8.25vw, 9.4rem);
+        font-weight: 720;
+        letter-spacing: -.05em;
+        line-height: .82;
+        inline-size: 100%;
+        max-inline-size: 100%;
+        margin: 0;
         text-transform: uppercase;
+        word-break: normal;
+        overflow-wrap: normal;
+        hyphens: none;
       }
 
       .tk-line {
         position: relative;
         display: block;
-        width: fit-content;
-        white-space: nowrap;
+        inline-size: fit-content;
+        max-inline-size: 100%;
+        white-space: normal;
+        text-wrap: balance;
         will-change: transform, filter, opacity;
       }
 
       .tk-vertical-slice {
-        height: .82em;
-        min-width: 6.9em;
+        min-inline-size: 0;
+      }
+
+      .tk-slice-base {
+        position: relative;
+        z-index: 1;
+        display: block;
+        opacity: .8;
+        transform: translate3d(0, .06em, 0);
+      }
+
+      .tk-headline.is-active .tk-slice-base {
+        animation: tkSliceBase .95s var(--tk-ease) var(--tk-delay) both;
       }
 
       .tk-slice {
         position: absolute;
-        inset: 0 auto auto 0;
+        inset: 0;
+        z-index: 2;
         display: block;
         opacity: 0;
+        pointer-events: none;
       }
 
       .tk-slice-top {
         clip-path: inset(0 0 50% 0);
-        transform: translate3d(0, -.58em, 0) skewX(-5deg);
+        transform: translate3d(0, -.18em, 0) skewX(-4deg);
       }
 
       .tk-slice-bottom {
         clip-path: inset(50% 0 0 0);
-        transform: translate3d(0, .58em, 0) skewX(5deg);
+        transform: translate3d(0, .18em, 0) skewX(4deg);
       }
 
       .tk-headline.is-active .tk-slice {
@@ -100,11 +122,11 @@ const TrincorpKineticHeadline = ({
       }
 
       .tk-focus-pull {
-        margin-left: clamp(1rem, 8.6vw, 9rem);
+        margin-left: clamp(.75rem, 7vw, 7rem);
         padding-block: .08em .11em;
-        opacity: 0;
-        filter: blur(22px);
-        transform: scaleX(.58) scale(1.08);
+        opacity: .68;
+        filter: blur(8px);
+        transform: translate3d(0, .12em, 0) scaleX(.92);
         transform-origin: left center;
       }
 
@@ -118,13 +140,9 @@ const TrincorpKineticHeadline = ({
       }
 
       .tk-outline-fill {
-        color: transparent;
-        -webkit-text-stroke: 1.4px rgba(247, 241, 235, .86);
-        background: linear-gradient(90deg, var(--tk-rose) 0 52%, var(--tk-cream) 52% 100%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        background-repeat: no-repeat;
-        background-size: 0% 100%;
+        color: var(--tk-rose);
+        -webkit-text-stroke: .35px rgba(247, 241, 235, .86);
+        text-shadow: 0 0 34px rgba(231, 169, 143, .18);
       }
 
       .tk-headline.is-active .tk-outline-fill {
@@ -133,9 +151,9 @@ const TrincorpKineticHeadline = ({
 
       .tk-hard-impact {
         z-index: 2;
-        margin-left: clamp(.2rem, 2.5vw, 2.8rem);
-        opacity: 0;
-        transform: scale(1.42) rotate(.7deg);
+        margin-left: clamp(.15rem, 1.7vw, 1.9rem);
+        opacity: .72;
+        transform: translate3d(0, .06em, 0) scale(.94);
         transform-origin: left center;
       }
 
@@ -166,28 +184,32 @@ const TrincorpKineticHeadline = ({
 
       @keyframes tkVerticalSlice {
         0% { opacity: 0; }
-        18% { opacity: 1; }
-        68% { transform: translate3d(0, .035em, 0) skewX(0); }
-        100% { opacity: 1; transform: translate3d(0, 0, 0) skewX(0); }
+        18% { opacity: .85; }
+        68% { opacity: .32; transform: translate3d(0, .02em, 0) skewX(0); }
+        100% { opacity: 0; transform: translate3d(0, 0, 0) skewX(0); }
+      }
+
+      @keyframes tkSliceBase {
+        0% { opacity: .8; transform: translate3d(0, .06em, 0); }
+        100% { opacity: 1; transform: translate3d(0, 0, 0); }
       }
 
       @keyframes tkFocusElastic {
-        0% { opacity: 0; filter: blur(22px); transform: scaleX(.58) scale(1.08); }
-        62% { opacity: 1; filter: blur(0); transform: scaleX(1.045) scale(1); }
-        100% { opacity: 1; filter: blur(0); transform: scaleX(1) scale(1); }
+        0% { opacity: .68; filter: blur(8px); transform: translate3d(0, .12em, 0) scaleX(.92); }
+        64% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scaleX(1.01); }
+        100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scaleX(1); }
       }
 
       @keyframes tkOutlineFill {
-        0% { background-size: 0% 100%; }
-        100% { background-size: 100% 100%; }
+        0% { color: var(--tk-cream); opacity: .72; -webkit-text-stroke-width: .8px; }
+        100% { color: var(--tk-rose); opacity: 1; -webkit-text-stroke-width: .35px; }
       }
 
       @keyframes tkHardImpact {
-        0% { opacity: 0; transform: scale(1.42) rotate(.7deg); filter: blur(4px); }
-        62% { opacity: 1; transform: scale(.975) rotate(0); filter: blur(0); }
-        78% { transform: translateX(.025em) scale(1.008); }
-        88% { transform: translateX(-.012em) scale(1); }
-        100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+        0% { opacity: .72; transform: translate3d(0, .06em, 0) scale(.94); filter: blur(2px); }
+        64% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+        82% { transform: translate3d(.012em, 0, 0) scale(.998); }
+        100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
       }
 
       @keyframes tkChromaticRose {
@@ -204,14 +226,21 @@ const TrincorpKineticHeadline = ({
         100% { opacity: 0; transform: translate(0); }
       }
 
+      @media (max-width: 1024px) {
+        .tk-headline {
+          font-size: clamp(3rem, 10vw, 7rem);
+          letter-spacing: -.042em;
+          line-height: .84;
+        }
+      }
+
       @media (max-width: 640px) {
         .tk-headline {
-          font-size: clamp(3.2rem, 17.2vw, 5.8rem);
-          letter-spacing: -.082em;
-          line-height: .78;
+          font-size: clamp(2.7rem, 11.8vw, 4.8rem);
+          letter-spacing: -.028em;
+          line-height: .88;
         }
-        .tk-vertical-slice { min-width: 0; }
-        .tk-focus-pull { margin-left: .5rem; }
+        .tk-focus-pull { margin-left: .35rem; }
         .tk-hard-impact { margin-left: 0; }
       }
 
@@ -221,10 +250,11 @@ const TrincorpKineticHeadline = ({
         .tk-headline *::after {
           animation: none !important;
         }
-        .tk-slice { opacity: 1; transform: none; }
+        .tk-slice-base { opacity: 1 !important; transform: none !important; }
+        .tk-slice { display: none !important; }
         .tk-focus-pull,
         .tk-hard-impact { opacity: 1; filter: none; transform: none; }
-        .tk-outline-fill { background-size: 100% 100%; }
+        .tk-outline-fill { color: var(--tk-rose) !important; opacity: 1 !important; }
         .tk-chromatic-split::before,
         .tk-chromatic-split::after { display: none; }
       }
