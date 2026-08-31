@@ -82,12 +82,13 @@ const FoodServicesSection = () => {
               tone="dark"
               lines={[
                 {
-                  content: <><span>COMO A</span><span className="trincorp-np-accent">NP</span></>,
+                  content: <>COMO A&nbsp;<span className="text-[#F0B49D]">NP</span></>,
                   effects: ["vertical-slice"],
                 },
                 {
-                  content: <span className="trincorp-persistent-accent">transforma</span>,
-                  className: "trincorp-persistent-line lg:pl-[8vw]",
+                  content: "transforma",
+                  effects: ["outline-fill", "elastic-width"],
+                  className: "lg:pl-[8vw] [&_.trincorp-line-main]:font-playfair [&_.trincorp-line-main]:font-medium [&_.trincorp-line-main]:italic [&_.trincorp-line-main]:normal-case [&_.trincorp-line-main]:tracking-[-0.055em]",
                 },
                 {
                   content: "SUA OPERAÇÃO",
