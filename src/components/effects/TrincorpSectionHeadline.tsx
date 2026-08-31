@@ -43,7 +43,7 @@ const TrincorpSectionHeadline = ({
       className={`trincorp-section-headline is-${tone} ${inView ? "is-visible" : ""} ${className}`}
     >
       <span className="sr-only">{label}</span>
-      <span className="trincorp-visible-lines" aria-hidden>
+      <span aria-hidden>
         {lines.map(({ content, effects = [], className: lineClass = "" }, index) => {
           const effectClasses = effects.map((effect) => `effect-${effect}`).join(" ");
           const isVerticalSlice = effects.includes("vertical-slice");
@@ -58,7 +58,6 @@ const TrincorpSectionHeadline = ({
               <span className={`trincorp-line ${effectClasses}`}>
                 {isVerticalSlice ? (
                   <span className="trincorp-sliced-line">
-                    <span className="trincorp-slice-base">{content}</span>
                     <span className="trincorp-slice trincorp-slice-top">{content}</span>
                     <span className="trincorp-slice trincorp-slice-bottom">{content}</span>
                   </span>
@@ -89,17 +88,11 @@ const TrincorpSectionHeadline = ({
           --section-ease: cubic-bezier(.16, 1, .3, 1);
           color: var(--section-ink);
           font-family: Poppins, Inter, system-ui, sans-serif;
-          font-size: clamp(2.65rem, 5.85vw, 6.9rem);
-          font-weight: 700;
-          letter-spacing: -.038em;
-          line-height: .91;
-          inline-size: 100%;
-          max-inline-size: 100%;
-          margin: 0;
+          font-size: clamp(2.75rem, 6.55vw, 7.6rem);
+          font-weight: 720;
+          letter-spacing: -.078em;
+          line-height: .84;
           text-transform: uppercase;
-          word-break: normal;
-          overflow-wrap: normal;
-          hyphens: none;
         }
 
         .trincorp-section-headline.is-dark {
@@ -110,71 +103,23 @@ const TrincorpSectionHeadline = ({
           color: var(--section-rose);
           font-family: 'Playfair Display', serif;
           font-weight: 500;
-          letter-spacing: -.025em;
+          letter-spacing: -.055em;
           text-transform: none;
         }
 
-        .trincorp-np-accent {
-          display: inline-block;
-          margin-inline-start: .16em;
-          color: #f0b49d !important;
-          -webkit-text-fill-color: #f0b49d !important;
-          letter-spacing: -.01em;
-        }
-
-        .trincorp-persistent-accent {
-          display: inline-block;
-          color: var(--section-rose) !important;
-          -webkit-text-fill-color: var(--section-rose) !important;
-          font-family: 'Playfair Display', serif;
-          font-style: italic;
-          font-weight: 500;
-          letter-spacing: -.025em;
-          text-transform: none;
-          opacity: 1 !important;
-          visibility: visible !important;
-        }
-
-        .trincorp-visible-lines,
-        .trincorp-line-mask {
-          display: block;
-          inline-size: 100%;
-          max-inline-size: 100%;
-        }
-        .trincorp-line-mask {
-          box-sizing: border-box;
-          padding-block: .12em;
-          margin-block: -.02em;
-          overflow: visible;
-        }
+        .trincorp-line-mask { padding-block: .09em; margin-block: -.04em; }
         .trincorp-line {
           position: relative;
           display: block;
-          inline-size: fit-content;
-          max-inline-size: 100%;
+          width: fit-content;
           transform-origin: left center;
-          text-wrap: balance;
-          white-space: normal;
           will-change: transform, opacity, filter;
         }
-        .trincorp-line-main {
-          position: relative;
-          z-index: 2;
-          display: block;
-          max-inline-size: 100%;
-        }
-
-        .trincorp-line-mask.trincorp-persistent-line .trincorp-line {
-          opacity: 1 !important;
-          visibility: visible !important;
-          transform: none !important;
-          filter: none !important;
-          animation: none !important;
-        }
+        .trincorp-line-main { position: relative; z-index: 2; display: block; }
 
         .trincorp-line:not(.effect-vertical-slice) {
-          opacity: .72;
-          transform: translate3d(0, .18em, 0);
+          opacity: 0;
+          transform: translateY(108%);
         }
         .trincorp-section-headline.is-visible .trincorp-line:not(.effect-vertical-slice) {
           animation: sectionMaskReveal 1.05s var(--section-ease) var(--section-line-delay) both;
@@ -183,61 +128,42 @@ const TrincorpSectionHeadline = ({
         .trincorp-sliced-line {
           position: relative;
           display: block;
-          inline-size: fit-content;
-          max-inline-size: 100%;
+          min-height: .9em;
+          min-width: 7em;
         }
-        .trincorp-slice-base {
-          position: relative;
-          z-index: 1;
-          display: block;
-          opacity: .76;
-          transform: translate3d(0, .08em, 0);
-        }
-        .trincorp-section-headline.is-visible .trincorp-slice-base {
-          animation: sectionSliceBase 1s var(--section-ease) var(--section-line-delay) both;
-        }
-        .trincorp-slice {
-          position: absolute;
-          inset: 0;
-          z-index: 2;
-          display: block;
-          max-inline-size: 100%;
-          white-space: normal;
-          opacity: 0;
-          pointer-events: none;
-        }
-        .trincorp-slice-top { clip-path: inset(0 0 50% 0); transform: translate3d(0, -.18em, 0) skewX(-3deg); }
-        .trincorp-slice-bottom { clip-path: inset(50% 0 0 0); transform: translate3d(0, .18em, 0) skewX(3deg); }
+        .trincorp-slice { position: absolute; inset: 0 auto auto 0; white-space: nowrap; opacity: 0; }
+        .trincorp-slice-top { clip-path: inset(0 0 50% 0); transform: translateY(-.55em) skewX(-4deg); }
+        .trincorp-slice-bottom { clip-path: inset(50% 0 0 0); transform: translateY(.55em) skewX(4deg); }
         .trincorp-section-headline.is-visible .trincorp-slice {
           animation: sectionVerticalSlice 1.1s var(--section-ease) var(--section-line-delay) both;
         }
 
-        .effect-focus-pull { filter: blur(8px); }
+        .effect-focus-pull { filter: blur(22px); }
         .trincorp-section-headline.is-visible .effect-focus-pull {
           animation-name: sectionFocusPull !important;
           animation-duration: 1.2s !important;
         }
 
-        .effect-elastic-width { transform: translate3d(0, .18em, 0) scaleX(.92) !important; }
+        .effect-elastic-width { transform: translateY(108%) scaleX(.58) !important; }
         .trincorp-section-headline.is-visible .effect-elastic-width {
           animation-name: sectionElasticWidth !important;
           animation-duration: 1.2s !important;
         }
-        .trincorp-section-headline.is-visible .effect-focus-pull.effect-elastic-width {
-          animation-name: sectionFocusElastic !important;
-        }
 
-        .effect-hard-impact { transform: translate3d(0, .08em, 0) scale(.94) !important; }
+        .effect-hard-impact { transform: translateY(0) scale(1.34) rotate(.6deg) !important; }
         .trincorp-section-headline.is-visible .effect-hard-impact {
           animation-name: sectionHardImpact !important;
           animation-duration: .95s !important;
         }
 
         .effect-outline-fill .trincorp-line-main {
-          color: var(--section-rose);
-          -webkit-text-fill-color: var(--section-rose);
-          -webkit-text-stroke: .35px var(--section-outline);
-          text-shadow: 0 0 32px color-mix(in srgb, var(--section-rose) 18%, transparent);
+          color: transparent;
+          -webkit-text-stroke: 1.35px var(--section-outline);
+          background: linear-gradient(90deg, var(--section-rose) 0 48%, var(--section-outline) 48% 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          background-repeat: no-repeat;
+          background-size: 0% 100%;
         }
         .effect-outline-fill .trincorp-line-main em {
           color: inherit;
@@ -252,7 +178,6 @@ const TrincorpSectionHeadline = ({
           inset: 0;
           z-index: 1;
           display: block;
-          max-inline-size: 100%;
           opacity: 0;
           pointer-events: none;
         }
@@ -266,44 +191,31 @@ const TrincorpSectionHeadline = ({
         }
 
         @keyframes sectionMaskReveal {
-          from { opacity: .72; transform: translate3d(0, .18em, 0); }
-          to { opacity: 1; transform: translate3d(0, 0, 0); filter: none; }
-        }
-        @keyframes sectionSliceBase {
-          from { opacity: .76; transform: translate3d(0, .08em, 0); }
-          to { opacity: 1; transform: translate3d(0, 0, 0); }
+          to { opacity: 1; transform: translateY(0); }
         }
         @keyframes sectionVerticalSlice {
           0% { opacity: 0; }
-          18% { opacity: .82; }
-          70% { opacity: .34; transform: translate3d(0, .015em, 0) skewX(0); }
-          100% { opacity: 0; transform: translate3d(0, 0, 0) skewX(0); }
+          20% { opacity: 1; }
+          72% { transform: translateY(.025em) skewX(0); }
+          100% { opacity: 1; transform: translateY(0) skewX(0); }
         }
         @keyframes sectionFocusPull {
-          0% { opacity: .62; filter: blur(8px); transform: translate3d(0, .16em, 0) scale(.985); }
-          66% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale(.995); }
-          100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale(1); }
+          0% { opacity: 0; filter: blur(22px); transform: translateY(48%) scale(1.06); }
+          64% { opacity: 1; filter: blur(0); transform: translateY(0) scale(.988); }
+          100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
         }
         @keyframes sectionElasticWidth {
-          0% { opacity: .68; transform: translate3d(0, .18em, 0) scaleX(.92); }
-          68% { opacity: 1; transform: translate3d(0, 0, 0) scaleX(1.01); }
-          100% { opacity: 1; transform: translate3d(0, 0, 0) scaleX(1); }
-        }
-        @keyframes sectionFocusElastic {
-          0% { opacity: .62; filter: blur(8px); transform: translate3d(0, .18em, 0) scaleX(.92); }
-          68% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scaleX(1.01); }
-          100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scaleX(1); }
+          0% { opacity: 0; transform: translateY(108%) scaleX(.58); }
+          68% { opacity: 1; transform: translateY(0) scaleX(1.04); }
+          100% { opacity: 1; transform: translateY(0) scaleX(1); }
         }
         @keyframes sectionHardImpact {
-          0% { opacity: .68; transform: translate3d(0, .08em, 0) scale(.94); filter: blur(2px); }
-          64% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
-          82% { transform: translate3d(.012em, 0, 0) scale(.998); }
-          100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+          0% { opacity: 0; transform: scale(1.34) rotate(.6deg); filter: blur(3px); }
+          62% { opacity: 1; transform: scale(.975) rotate(0); filter: blur(0); }
+          80% { transform: translateX(.018em) scale(1.006); }
+          100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
         }
-        @keyframes sectionOutlineFill {
-          0% { color: var(--section-outline); opacity: .72; -webkit-text-stroke-width: .75px; }
-          100% { color: var(--section-rose); opacity: 1; -webkit-text-stroke-width: .35px; }
-        }
+        @keyframes sectionOutlineFill { to { background-size: 100% 100%; } }
         @keyframes sectionChromaRose {
           0%, 20% { opacity: .7; transform: translate(-.055em, .015em); }
           55% { opacity: .42; transform: translate(.025em, -.01em); }
@@ -315,21 +227,13 @@ const TrincorpSectionHeadline = ({
           100% { opacity: 0; transform: translate(0); }
         }
 
-        @media (max-width: 1024px) {
-          .trincorp-section-headline {
-            font-size: clamp(2.5rem, 7.2vw, 5.35rem);
-            letter-spacing: -.032em;
-            line-height: .92;
-          }
-        }
-
         @media (max-width: 640px) {
           .trincorp-section-headline {
-            font-size: clamp(2.2rem, 10.6vw, 4.15rem);
-            letter-spacing: -.022em;
-            line-height: .95;
+            font-size: clamp(2.55rem, 13.2vw, 4.5rem);
+            letter-spacing: -.068em;
+            line-height: .87;
           }
-          .trincorp-line-mask { padding-block: .14em; }
+          .trincorp-sliced-line { min-width: 0; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -337,9 +241,8 @@ const TrincorpSectionHeadline = ({
           .trincorp-section-headline *::before,
           .trincorp-section-headline *::after { animation: none !important; }
           .trincorp-line,
-          .trincorp-slice-base { opacity: 1 !important; transform: none !important; filter: none !important; }
-          .trincorp-slice { display: none !important; }
-          .effect-outline-fill .trincorp-line-main { color: var(--section-rose) !important; opacity: 1 !important; }
+          .trincorp-slice { opacity: 1 !important; transform: none !important; filter: none !important; }
+          .effect-outline-fill .trincorp-line-main { background-size: 100% 100%; }
           .trincorp-chroma { display: none; }
         }
       `}</style>
