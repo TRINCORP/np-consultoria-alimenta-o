@@ -72,7 +72,7 @@ const FoodServicesSection = () => {
             <p className={`text-[9px] font-bold uppercase tracking-[0.3em] text-[#E2A58D] transition-opacity duration-700 sm:text-[10px] ${introVisible ? "opacity-100" : "opacity-0"}`}>
               O que fazemos
             </p>
-            <span className="font-playfair text-lg italic text-white/32">NP / 04</span>
+            <span className="font-playfair text-lg italic text-[#F0B49D]">NP / 04</span>
           </div>
 
           <div className="mt-10 sm:mt-14">
@@ -81,11 +81,13 @@ const FoodServicesSection = () => {
               label="Como a NP transforma sua operação"
               tone="dark"
               lines={[
-                { content: "COMO A NP", effects: ["vertical-slice"] },
                 {
-                  content: <><em>transforma</em></>,
-                  effects: ["outline-fill", "elastic-width"],
-                  className: "lg:pl-[8vw]",
+                  content: <><span>COMO A</span><span className="trincorp-np-accent">NP</span></>,
+                  effects: ["vertical-slice"],
+                },
+                {
+                  content: <span className="trincorp-persistent-accent">transforma</span>,
+                  className: "trincorp-persistent-line lg:pl-[8vw]",
                 },
                 {
                   content: "SUA OPERAÇÃO",
