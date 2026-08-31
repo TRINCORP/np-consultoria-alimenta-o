@@ -6,6 +6,10 @@ import graoParaLogo from "@/assets/grao_para.png";
 import stagioneLogo from "@/assets/stagione.png";
 import staldenLogo from "@/assets/stalden_np.png";
 import TrincorpSectionHeadline from "@/components/effects/TrincorpSectionHeadline";
+import euEVoceLogo from "@/assets/eu_e_vc_cliente_np.jpg";
+import harveysLogo from "@/assets/Harveys.jpg";
+import barnabeLogo from "@/assets/Restautante_barnabe.jpg";
+import tuiaArmazemLogo from "@/assets/restaurante_tuia_armazem.jpg";
 
 type Client = { id: number; name: string; image: string };
 
@@ -25,6 +29,10 @@ const clients: Client[] = [
   { id: 13, name: "Grão Pará Restaurante",   image: graoParaLogo },
   { id: 14, name: "Stagione",                image: stagioneLogo },
   { id: 15, name: "Stalden Café e Chocolate",image: staldenLogo },
+  { id: 16, name: "Eu e Você Fit Marmitinhas", image: euEVoceLogo },
+  { id: 17, name: "Harvey's",                  image: harveysLogo },
+  { id: 18, name: "Restaurante Barnabé",       image: barnabeLogo },
+  { id: 19, name: "Restaurante Tuia Armazém",  image: tuiaArmazemLogo },
 ];
 
 /* Divide clients into 2 non-overlapping groups for the rows */
