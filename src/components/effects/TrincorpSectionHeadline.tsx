@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { useInView } from "react-intersection-observer";
 
 type SectionHeadlineEffect =
@@ -31,16 +31,27 @@ const TrincorpSectionHeadline = ({
   className = "",
 }: TrincorpSectionHeadlineProps) => {
   const { ref, inView } = useInView({
-    threshold: 0.18,
+    threshold: 0.05,
     triggerOnce: true,
-    rootMargin: "0px 0px -6% 0px",
+    rootMargin: "0px 0px -10% 0px",
   });
+
+  // Failsafe: never leave the headline stuck in its hidden/clipped pre-animation
+  // state, even if the IntersectionObserver never fires (huge headline taller
+  // than the viewport, reduced-motion quirks, tab restored in background, etc.).
+  const [forceVisible, setForceVisible] = useState(false);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setForceVisible(true), 700);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const isVisible = inView || forceVisible;
 
   return (
     <h2
       ref={ref}
       id={id}
-      className={`trincorp-section-headline is-${tone} ${inView ? "is-visible" : ""} ${className}`}
+      className={`trincorp-section-headline is-${tone} ${isVisible ? "is-visible" : ""} ${className}`}
     >
       <span className="sr-only">{label}</span>
       <span aria-hidden>
@@ -88,11 +99,12 @@ const TrincorpSectionHeadline = ({
           --section-ease: cubic-bezier(.16, 1, .3, 1);
           color: var(--section-ink);
           font-family: Poppins, Inter, system-ui, sans-serif;
-          font-size: clamp(2.75rem, 6.55vw, 7.6rem);
+          font-size: clamp(2.35rem, 5.9vw, 6.6rem);
           font-weight: 720;
-          letter-spacing: -.078em;
-          line-height: .84;
+          letter-spacing: -.045em;
+          line-height: .9;
           text-transform: uppercase;
+          max-width: 100%;
         }
 
         .trincorp-section-headline.is-dark {
@@ -107,15 +119,23 @@ const TrincorpSectionHeadline = ({
           text-transform: none;
         }
 
-        .trincorp-line-mask { padding-block: .09em; margin-block: -.04em; }
+        /* Extra vertical breathing room so PT-BR accents (Ã, Ç, Ê, Á) are not
+           clipped by the reveal mask's overflow: hidden. */
+        .trincorp-line-mask { padding-block: .16em; margin-block: -.08em; }
         .trincorp-line {
           position: relative;
           display: block;
           width: fit-content;
+          max-width: 100%;
           transform-origin: left center;
           will-change: transform, opacity, filter;
         }
-        .trincorp-line-main { position: relative; z-index: 2; display: block; }
+        .trincorp-line-main {
+          position: relative;
+          z-index: 2;
+          display: block;
+          overflow-wrap: break-word;
+        }
 
         .trincorp-line:not(.effect-vertical-slice) {
           opacity: 0;
@@ -158,7 +178,7 @@ const TrincorpSectionHeadline = ({
 
         .effect-outline-fill .trincorp-line-main {
           color: transparent;
-          -webkit-text-stroke: 1.35px var(--section-outline);
+          -webkit-text-stroke: clamp(1px, 0.11em, 2.4px) var(--section-outline);
           background: linear-gradient(90deg, var(--section-rose) 0 48%, var(--section-outline) 48% 100%);
           background-clip: text;
           -webkit-background-clip: text;
@@ -229,9 +249,9 @@ const TrincorpSectionHeadline = ({
 
         @media (max-width: 640px) {
           .trincorp-section-headline {
-            font-size: clamp(2.55rem, 13.2vw, 4.5rem);
-            letter-spacing: -.068em;
-            line-height: .87;
+            font-size: clamp(2rem, 10vw, 3.6rem);
+            letter-spacing: -.038em;
+            line-height: .95;
           }
           .trincorp-sliced-line { min-width: 0; }
         }
