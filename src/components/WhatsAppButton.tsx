@@ -12,19 +12,54 @@ const CTA_MESSAGES = [
 const getRandomCTA = () => CTA_MESSAGES[Math.floor(Math.random() * CTA_MESSAGES.length)];
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(getRandomCTA())}`;
 
+/* The CTA bubble is shown automatically only ONCE per visit (browser session).
+   The flag lives in sessionStorage so it survives route changes / reloads but
+   resets when the visitor opens the site again in a new tab or session. */
+const AUTO_SHOWN_KEY = "np-wa-cta-shown";
+const AUTO_SHOW_DELAY_MS = 4000;
+const AUTO_HIDE_AFTER_MS = 10000;
+
+const wasAutoShownThisSession = () => {
+  try {
+    return sessionStorage.getItem(AUTO_SHOWN_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
+const markAutoShown = () => {
+  try {
+    sessionStorage.setItem(AUTO_SHOWN_KEY, "1");
+  } catch {
+    /* storage unavailable (private mode, etc.) — just show it this time */
+  }
+};
+
 const WhatsAppButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [hasAutoShown, setHasAutoShown] = useState(false);
 
-  // Auto-show on first visit after 4s
+  // Auto-show once per visit after 4s, then auto-hide after 10s if not closed
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (wasAutoShownThisSession()) return;
+
+    const showTimer = setTimeout(() => {
       setShowTooltip(true);
       setHasAutoShown(true);
-    }, 4000);
-    return () => clearTimeout(timer);
+      markAutoShown();
+    }, AUTO_SHOW_DELAY_MS);
+
+    const hideTimer = setTimeout(() => {
+      setShowTooltip(false);
+      setDismissed(true);
+    }, AUTO_SHOW_DELAY_MS + AUTO_HIDE_AFTER_MS);
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
   }, []);
 
   const tooltipVisible = (!dismissed && showTooltip) || isHovering;
