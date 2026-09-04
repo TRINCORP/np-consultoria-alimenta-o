@@ -164,13 +164,18 @@ const TrincorpSectionHeadline = ({
           animation-duration: 1.2s !important;
         }
 
-        .effect-elastic-width { transform: translateY(108%) scaleX(.58) !important; }
+        /* NOTE: the initial transform must NOT be !important. In CSS, !important
+           author declarations beat @keyframes, so the reveal animation could never
+           move the line and it stayed clipped inside the overflow:hidden mask
+           ("transforma" invisible, "SUA OPERAÇÃO" stuck at scale 1.34).
+           Specificity is raised with .trincorp-line instead. */
+        .trincorp-line.effect-elastic-width { transform: translateY(108%) scaleX(.58); }
         .trincorp-section-headline.is-visible .effect-elastic-width {
           animation-name: sectionElasticWidth !important;
           animation-duration: 1.2s !important;
         }
 
-        .effect-hard-impact { transform: translateY(0) scale(1.34) rotate(.6deg) !important; }
+        .trincorp-line.effect-hard-impact { transform: translateY(0) scale(1.34) rotate(.6deg); }
         .trincorp-section-headline.is-visible .effect-hard-impact {
           animation-name: sectionHardImpact !important;
           animation-duration: .95s !important;
