@@ -139,15 +139,17 @@ const Hero = () => {
                 {proofPoints.map((point, index) => (
                   <li
                     key={point}
-                    className="group bg-[#17181A]/88 p-4 backdrop-blur-md transition-colors hover:bg-[#242528]/92 sm:p-5"
+                    className="group flex items-center gap-3 bg-[#17181A]/88 px-4 py-3.5 backdrop-blur-md transition-colors hover:bg-[#242528]/92 sm:block sm:p-5"
                   >
-                    <div className="flex items-center justify-between gap-3">
+                    {/* Mobile: compact single row (icon · text · index). ≥sm: original stacked card. */}
+                    <div className="flex shrink-0 items-center gap-3 sm:justify-between">
                       <CheckCircle2 className="h-3.5 w-3.5 text-[#E7A98F]" strokeWidth={1.7} />
-                      <span className="font-playfair text-sm italic text-white/22">0{index + 1}</span>
+                      <span className="hidden font-playfair text-sm italic text-white/22 sm:inline">0{index + 1}</span>
                     </div>
-                    <p className="mt-5 text-[10px] font-medium leading-relaxed text-white/66 sm:text-[11px]">
+                    <p className="flex-1 text-[11px] font-medium leading-snug text-white/70 sm:mt-5 sm:leading-relaxed sm:text-[11px]">
                       {point}
                     </p>
+                    <span className="font-playfair text-sm italic text-white/22 sm:hidden">0{index + 1}</span>
                   </li>
                 ))}
               </ul>

@@ -1851,3 +1851,24 @@ All colors MUST be HSL. Maintaining brand identity with enhanced effects.
     transform: translate3d(-50%, -50%, 0) !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   Mobile legibility floor for micro-labels
+   The editorial layout uses 8–10px uppercase tracking labels that read
+   fine on desktop but fall below the legibility floor on phones. Below
+   the `sm` breakpoint we lift them to 10–11px. Tailwind's sm: variants
+   (min-width: 640px) take over above this range, so nothing else shifts.
+   ------------------------------------------------------------------ */
+@media (max-width: 639.98px) {
+  .text-\[8px\],
+  .text-\[9px\] {
+    font-size: 0.625rem !important;   /* 10px */
+    line-height: 1.5 !important;
+  }
+  .text-\[10px\] {
+    font-size: 0.6875rem !important;  /* 11px */
+  }
+  .text-\[11px\] {
+    font-size: 0.75rem !important;    /* 12px */
+  }
+}

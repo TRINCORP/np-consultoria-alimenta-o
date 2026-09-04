@@ -129,21 +129,8 @@ const About = () => {
                   Assista ao vídeo e descubra como nossa história pode inspirar a transformação do seu negócio.
                 </p>
               </div>
-
-              {/* Mini Stats */}
-              <div className="grid grid-cols-2 gap-4 mt-10">
-                {stats.slice(0, 2).map((stat, i) => (
-                  <div
-                    key={i}
-                    className={`about-mini-stat p-5 ${videoInView ? "is-revealed" : ""}`}
-                    style={{ transitionDelay: `${500 + i * 100}ms` }}
-                  >
-                    <stat.icon className="about-mini-stat-icon w-6 h-6 text-primary mb-3" />
-                    <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+              {/* Os números (Fundação, Unidades, etc.) aparecem uma única vez,
+                  no bloco de estatísticas logo abaixo — sem duplicar aqui. */}
             </div>
 
             {/* Vídeo */}

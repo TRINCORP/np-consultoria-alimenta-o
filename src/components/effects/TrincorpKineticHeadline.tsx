@@ -65,10 +65,13 @@ const TrincorpKineticHeadline = ({
         text-transform: uppercase;
       }
 
+      .tk-headline { max-width: 100%; }
+
       .tk-line {
         position: relative;
         display: block;
         width: fit-content;
+        max-width: 100%;
         white-space: nowrap;
         will-change: transform, filter, opacity;
       }
@@ -204,14 +207,23 @@ const TrincorpKineticHeadline = ({
         100% { opacity: 0; transform: translate(0); }
       }
 
+      /* Tablet: keep the indent proportional so the longest line never leaves the safe area */
+      @media (max-width: 900px) {
+        .tk-focus-pull { margin-left: clamp(.75rem, 4vw, 3rem); }
+        .tk-hard-impact { margin-left: clamp(.1rem, 1vw, 1rem); }
+      }
+
+      /* Mobile: the longest word is "CRESCIMENTO." (12 glyphs). At 12vw with
+         -.075em tracking it measures ~78% of the viewport, so it always fits
+         inside the 20px side padding — no more clipped H1 on phones. */
       @media (max-width: 640px) {
         .tk-headline {
-          font-size: clamp(3.2rem, 17.2vw, 5.8rem);
-          letter-spacing: -.082em;
-          line-height: .78;
+          font-size: clamp(2.4rem, 12vw, 5.2rem);
+          letter-spacing: -.075em;
+          line-height: .82;
         }
         .tk-vertical-slice { min-width: 0; }
-        .tk-focus-pull { margin-left: .5rem; }
+        .tk-focus-pull { margin-left: .35rem; padding-block: .1em .13em; }
         .tk-hard-impact { margin-left: 0; }
       }
 

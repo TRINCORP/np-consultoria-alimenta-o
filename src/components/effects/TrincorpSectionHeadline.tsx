@@ -175,6 +175,19 @@ const TrincorpSectionHeadline = ({
           animation-duration: 1.2s !important;
         }
 
+        /* focus-pull + elastic-width on the SAME line: each effect alone forces
+           its own animation-name, so the later rule (elastic) won and the blur
+           from focus-pull was never animated away — the line stayed a smudge
+           ("PRÁTICA E", "MERECE"). Use a merged keyframe when both are present. */
+        .trincorp-line.effect-focus-pull.effect-elastic-width {
+          filter: blur(22px);
+          transform: translateY(108%) scaleX(.58);
+        }
+        .trincorp-section-headline.is-visible .effect-focus-pull.effect-elastic-width {
+          animation-name: sectionFocusElastic !important;
+          animation-duration: 1.25s !important;
+        }
+
         .trincorp-line.effect-hard-impact { transform: translateY(0) scale(1.34) rotate(.6deg); }
         .trincorp-section-headline.is-visible .effect-hard-impact {
           animation-name: sectionHardImpact !important;
@@ -233,6 +246,11 @@ const TrincorpSectionHeadline = ({
           0% { opacity: 0; transform: translateY(108%) scaleX(.58); }
           68% { opacity: 1; transform: translateY(0) scaleX(1.04); }
           100% { opacity: 1; transform: translateY(0) scaleX(1); }
+        }
+        @keyframes sectionFocusElastic {
+          0% { opacity: 0; filter: blur(22px); transform: translateY(108%) scaleX(.58); }
+          66% { opacity: 1; filter: blur(0); transform: translateY(0) scaleX(1.04); }
+          100% { opacity: 1; filter: blur(0); transform: translateY(0) scaleX(1); }
         }
         @keyframes sectionHardImpact {
           0% { opacity: 0; transform: scale(1.34) rotate(.6deg); filter: blur(3px); }
